@@ -386,19 +386,19 @@
                 </div>
             </div>
 
-            <!-- การ์ด 3: Chicken Run -->
+            <!-- การ์ด 3: English Quest M.6 -->
             <div class="arcade-card-wrap animate-bounce-up delay-300"
-                 style="background: linear-gradient(145deg, #ff5722 0%, #ff9800 100%);">
-                <div class="arcade-deco" style="top:-14px;left:-10px;transform:rotate(-15deg);">🍗</div>
-                <div class="arcade-deco" style="bottom:-16px;right:-8px;transform:rotate(15deg);">🔥</div>
+                 style="background: linear-gradient(145deg, #1a237e 0%, #006064 100%);">
+                <div class="arcade-deco" style="top:-14px;left:-10px;transform:rotate(-15deg);">📜</div>
+                <div class="arcade-deco" style="bottom:-16px;right:-8px;transform:rotate(15deg);">⚔️</div>
                 <div style="position:relative;z-index:2;display:flex;flex-direction:column;align-items:center;width:100%;flex:1;justify-content:space-between;">
                     <div style="text-align:center;">
-                        <span class="arcade-badge">🏆 BONUS STAGE</span>
-                        <div class="arcade-title">CHICKEN<br>RUN</div>
-                        <span class="arcade-sub">🍗 Hungry Mode</span>
+                        <span class="arcade-badge">🎓 GRADE 12</span>
+                        <div class="arcade-title">ENGLISH<br>QUEST</div>
+                        <span class="arcade-sub">⚔️ M.6 Mission</span>
                     </div>
-                    <button class="arcade-btn" style="background:#fff;color:#000;" onclick="checkGamePassword3()">
-                        <span style="font-size:1.6rem;">🔐</span>ENTER
+                    <button class="arcade-btn" style="background:#ffd700;color:#000;" onclick="checkGamePassword3()">
+                        <span style="font-size:1.6rem;">📜</span>START QUEST
                     </button>
                 </div>
             </div>
@@ -543,7 +543,7 @@
             return Swal.fire(options);
         }
 
-        // ---- เกมส์ 1: Part of Speech (แก้ link แล้ว) ----
+        // ---- เกมส์ 1: Part of Speech ----
         window.checkGamePassword = async function() {
             const result = await fireSwal({
                 title: '🎮 รหัสผ่านเข้าเกม',
@@ -601,29 +601,29 @@
             }
         };
 
-        // ---- เกมส์ 3: Chicken Run ----
+        // ---- เกมส์ 3: English Quest M.6 ----
         window.checkGamePassword3 = async function() {
             const result = await fireSwal({
-                title: '🍗 รหัสผ่านภารกิจลับ',
+                title: '📜 English Quest M.6',
                 input: 'text',
                 inputPlaceholder: 'กรอกรหัสผ่าน',
                 showCancelButton: true,
-                confirmButtonText: 'ACCESS ⚡',
+                confirmButtonText: 'START QUEST ⚔️',
                 cancelButtonText: 'CANCEL',
                 buttonsStyling: false,
                 customClass: { 
                     popup: 'border-[6px] border-black rounded-[2rem] shadow-[12px_12px_0_0_rgba(0,0,0,1)]',
                     title: 'text-black font-black tracking-widest text-3xl mt-2',
-                    input: 'bg-white border-4 border-black text-black focus:ring-4 focus:ring-red-300 rounded-xl p-3 text-center tracking-widest font-black text-xl shadow-[4px_4px_0_0_rgba(0,0,0,1)] mt-4 uppercase',
-                    confirmButton: 'bg-red-400 hover:bg-red-300 text-black font-black py-3 px-6 rounded-xl mx-2 border-4 border-black shadow-[4px_4px_0_0_rgba(0,0,0,1)] active:translate-y-1 active:shadow-[0_0_0_0_rgba(0,0,0,1)] transition-all',
+                    input: 'bg-white border-4 border-black text-black focus:ring-4 focus:ring-teal-300 rounded-xl p-3 text-center tracking-widest font-black text-xl shadow-[4px_4px_0_0_rgba(0,0,0,1)] mt-4 uppercase',
+                    confirmButton: 'bg-teal-500 hover:bg-teal-400 text-white font-black py-3 px-6 rounded-xl mx-2 border-4 border-black shadow-[4px_4px_0_0_rgba(0,0,0,1)] active:translate-y-1 active:shadow-[0_0_0_0_rgba(0,0,0,1)] transition-all',
                     cancelButton: 'bg-gray-300 hover:bg-gray-200 text-black font-black py-3 px-6 rounded-xl mx-2 border-4 border-black shadow-[4px_4px_0_0_rgba(0,0,0,1)] active:translate-y-1 active:shadow-[0_0_0_0_rgba(0,0,0,1)] transition-all'
                 }
             });
             if (result.value) {
-                if (result.value.toUpperCase() === 'RUN') {
-                    window.open('https://script.google.com/macros/s/AKfycbzoaHPSfJDMz_99Yo6T1607YED4IVsj2pFjuCQpT67m1nElhW4l12jZk_b5KuTiLL74nQ/exec', '_blank');
+                if (result.value.toUpperCase() === 'QUEST') {
+                    window.open('https://jakrapongsuttiprapa.github.io/Questm6/', '_blank');
                 } else {
-                    fireSwal({ icon: 'error', title: 'ACCESS DENIED', text: 'รหัสผ่านผิดจ้า หิวไก่หรือเปล่า?', buttonsStyling: false,
+                    fireSwal({ icon: 'error', title: 'ACCESS DENIED', text: 'รหัสผ่านผิดนะ ลองใหม่อีกครั้ง!', buttonsStyling: false,
                         customClass: { popup: 'border-[6px] border-black rounded-[2rem] shadow-[12px_12px_0_0_rgba(0,0,0,1)]', title: 'text-red-500 font-black tracking-widest text-2xl',
                             confirmButton: 'bg-black text-white font-black py-3 px-8 rounded-xl border-4 border-black shadow-[4px_4px_0_0_rgba(200,200,200,1)] hover:-translate-y-1 transition-all mt-4' } });
                 }
