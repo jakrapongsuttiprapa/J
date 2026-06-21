@@ -349,55 +349,55 @@
         <!-- โซนเกมส์ 4 การ์ด -->
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-6">
 
-            <!-- การ์ด 1: Part of Speech -->
+            <!-- การ์ด 1: Quiz Grade 10 (เดิม Part of Speech) -->
             <div class="arcade-card-wrap animate-bounce-up delay-300" style="background: linear-gradient(145deg, #b06fff 0%, #e040fb 100%);">
                 <div class="arcade-deco" style="top:-14px;left:-10px;transform:rotate(-15deg);">👾</div>
                 <div class="arcade-deco" style="bottom:-16px;right:-8px;transform:rotate(15deg);">🎮</div>
                 <div style="position:relative;z-index:2;display:flex;flex-direction:column;align-items:center;width:100%;flex:1;justify-content:space-between;">
                     <div style="text-align:center;">
-                        <span class="arcade-badge">🕹️ A.I. ARCADE</span>
-                        <div class="arcade-title">PART OF<br>SPEECH</div>
-                        <span class="arcade-sub">🧠 Brain Training</span>
+                        <span class="arcade-badge">🎯 QUIZ HUB</span>
+                        <div class="arcade-title">QUIZ<br>GRADE 10</div>
+                        <span class="arcade-sub">📚 ม.4 Selection</span>
                     </div>
-                    <button class="arcade-btn" style="background:#39ff14;color:#000;" onclick="checkGamePassword()">
-                        <span style="font-size:1.6rem;">🕹️</span>INITIATE
+                    <button class="arcade-btn" style="background:#39ff14;color:#000;" onclick="openGradeQuizHub('10')">
+                        <span style="font-size:1.6rem;">🎲</span>ENTER
                     </button>
                 </div>
             </div>
 
-            <!-- การ์ด 2: Secret Stage -->
+            <!-- การ์ด 2: Quiz Grade 11 (เดิม Secret Stage) -->
             <div class="arcade-card-wrap animate-bounce-up delay-300" style="background: linear-gradient(145deg, #29b6f6 0%, #7c4dff 100%);">
                 <div class="arcade-deco" style="top:-14px;left:-10px;transform:rotate(-15deg);">🚀</div>
                 <div class="arcade-deco" style="bottom:-16px;right:-8px;transform:rotate(15deg);">🌟</div>
                 <div style="position:relative;z-index:2;display:flex;flex-direction:column;align-items:center;width:100%;flex:1;justify-content:space-between;">
                     <div style="text-align:center;">
-                        <span class="arcade-badge">✨ NEW MISSION</span>
-                        <div class="arcade-title">SECRET<br>STAGE</div>
-                        <span class="arcade-sub">⚡ Quick Challenge</span>
+                        <span class="arcade-badge">🎯 QUIZ HUB</span>
+                        <div class="arcade-title">QUIZ<br>GRADE 11</div>
+                        <span class="arcade-sub">📚 ม.5 Selection</span>
                     </div>
-                    <button class="arcade-btn" style="background:#ffe600;color:#000;" onclick="checkGamePassword2()">
-                        <span style="font-size:1.6rem;">🔓</span>UNLOCK
+                    <button class="arcade-btn" style="background:#ffe600;color:#000;" onclick="openGradeQuizHub('11')">
+                        <span style="font-size:1.6rem;">🎲</span>ENTER
                     </button>
                 </div>
             </div>
 
-            <!-- การ์ด 3: English Quest M.6 -->
+            <!-- การ์ด 3: Quiz Grade 12 (เดิม English Quest M.6) -->
             <div class="arcade-card-wrap animate-bounce-up delay-300" style="background: linear-gradient(145deg, #1a237e 0%, #006064 100%);">
                 <div class="arcade-deco" style="top:-14px;left:-10px;transform:rotate(-15deg);">📜</div>
                 <div class="arcade-deco" style="bottom:-16px;right:-8px;transform:rotate(15deg);">⚔️</div>
                 <div style="position:relative;z-index:2;display:flex;flex-direction:column;align-items:center;width:100%;flex:1;justify-content:space-between;">
                     <div style="text-align:center;">
-                        <span class="arcade-badge">🎓 GRADE 12</span>
-                        <div class="arcade-title">ENGLISH<br>QUEST</div>
-                        <span class="arcade-sub">⚔️ M.6 Mission</span>
+                        <span class="arcade-badge">🎯 QUIZ HUB</span>
+                        <div class="arcade-title">QUIZ<br>GRADE 12</div>
+                        <span class="arcade-sub">📚 ม.6 Selection</span>
                     </div>
-                    <button class="arcade-btn" style="background:#ffd700;color:#000;" onclick="checkGamePassword3()">
-                        <span style="font-size:1.6rem;">📜</span>START QUEST
+                    <button class="arcade-btn" style="background:#ffd700;color:#000;" onclick="openGradeQuizHub('12')">
+                        <span style="font-size:1.6rem;">🎲</span>ENTER
                     </button>
                 </div>
             </div>
 
-            <!-- การ์ด 4: Game Quizz -->
+            <!-- การ์ด 4: Game Quizz (ไม่แก้ไข ไม่ปรับ) -->
             <div class="arcade-card-wrap animate-bounce-up delay-300" style="background: linear-gradient(145deg, #ff6f00 0%, #f50057 100%);">
                 <div class="arcade-deco" style="top:-14px;left:-10px;transform:rotate(-15deg);">❓</div>
                 <div class="arcade-deco" style="bottom:-16px;right:-8px;transform:rotate(15deg);">🧩</div>
@@ -549,57 +549,6 @@
             options.backdrop = 'rgba(0,0,0,0.6)';
             return Swal.fire(options);
         }
-
-        // ---- เกมส์ 1: Part of Speech ----
-        window.checkGamePassword = async function() {
-            const result = await fireSwal({
-                title: '🎮 รหัสผ่านเข้าเกม', input: 'text', inputPlaceholder: 'กรอกรหัสผ่าน',
-                showCancelButton: true, confirmButtonText: 'INITIATE 🚀', cancelButtonText: 'CANCEL', buttonsStyling: false,
-                customClass: { popup: 'border-[6px] border-black rounded-[2rem] shadow-[12px_12px_0_0_rgba(0,0,0,1)]', title: 'text-black font-black tracking-widest text-3xl mt-2',
-                    input: 'bg-white border-4 border-black text-black focus:ring-4 focus:ring-pink-300 rounded-xl p-3 text-center tracking-widest font-black text-xl shadow-[4px_4px_0_0_rgba(0,0,0,1)] mt-4',
-                    confirmButton: 'bg-pink-400 hover:bg-pink-300 text-black font-black py-3 px-6 rounded-xl mx-2 border-4 border-black shadow-[4px_4px_0_0_rgba(0,0,0,1)] active:translate-y-1 active:shadow-[0_0_0_0_rgba(0,0,0,1)] transition-all',
-                    cancelButton: 'bg-gray-300 hover:bg-gray-200 text-black font-black py-3 px-6 rounded-xl mx-2 border-4 border-black shadow-[4px_4px_0_0_rgba(0,0,0,1)] active:translate-y-1 active:shadow-[0_0_0_0_rgba(0,0,0,1)] transition-all' }
-            });
-            if (result.value) {
-                if (result.value === '1112') { window.open('https://jakrapongsuttiprapa.github.io/Eng-quest-m4/', '_blank'); }
-                else { fireSwal({ icon: 'error', title: 'ACCESS DENIED', text: 'รหัสผ่านไม่ถูกต้อง ลองถาม A.I. ดูนะ!', buttonsStyling: false,
-                    customClass: { popup: 'border-[6px] border-black rounded-[2rem] shadow-[12px_12px_0_0_rgba(0,0,0,1)]', title: 'text-red-500 font-black tracking-widest text-2xl', confirmButton: 'bg-black text-white font-black py-3 px-8 rounded-xl border-4 border-black shadow-[4px_4px_0_0_rgba(200,200,200,1)] hover:-translate-y-1 transition-all mt-4' } }); }
-            }
-        };
-
-        // ---- เกมส์ 2: Secret Stage ----
-        window.checkGamePassword2 = async function() {
-            const result = await fireSwal({
-                title: '🔒 รหัสผ่านด่านลับ', input: 'text', inputPlaceholder: 'กรอกรหัสผ่าน',
-                showCancelButton: true, confirmButtonText: 'UNLOCK ⚡', cancelButtonText: 'CANCEL', buttonsStyling: false,
-                customClass: { popup: 'border-[6px] border-black rounded-[2rem] shadow-[12px_12px_0_0_rgba(0,0,0,1)]', title: 'text-black font-black tracking-widest text-3xl mt-2',
-                    input: 'bg-white border-4 border-black text-black focus:ring-4 focus:ring-blue-300 rounded-xl p-3 text-center tracking-widest font-black text-xl shadow-[4px_4px_0_0_rgba(0,0,0,1)] mt-4',
-                    confirmButton: 'bg-blue-400 hover:bg-blue-300 text-black font-black py-3 px-6 rounded-xl mx-2 border-4 border-black shadow-[4px_4px_0_0_rgba(0,0,0,1)] active:translate-y-1 active:shadow-[0_0_0_0_rgba(0,0,0,1)] transition-all',
-                    cancelButton: 'bg-gray-300 hover:bg-gray-200 text-black font-black py-3 px-6 rounded-xl mx-2 border-4 border-black shadow-[4px_4px_0_0_rgba(0,0,0,1)] active:translate-y-1 active:shadow-[0_0_0_0_rgba(0,0,0,1)] transition-all' }
-            });
-            if (result.value) {
-                if (result.value === '7846') { window.open('https://jakrapongsuttiprapa.github.io/thewaytosayyesno/', '_blank'); }
-                else { fireSwal({ icon: 'error', title: 'ACCESS DENIED', text: 'รหัสผ่านผิดนะจ๊ะ!', buttonsStyling: false,
-                    customClass: { popup: 'border-[6px] border-black rounded-[2rem] shadow-[12px_12px_0_0_rgba(0,0,0,1)]', title: 'text-red-500 font-black tracking-widest text-2xl', confirmButton: 'bg-black text-white font-black py-3 px-8 rounded-xl border-4 border-black shadow-[4px_4px_0_0_rgba(200,200,200,1)] hover:-translate-y-1 transition-all mt-4' } }); }
-            }
-        };
-
-        // ---- เกมส์ 3: English Quest M.6 ----
-        window.checkGamePassword3 = async function() {
-            const result = await fireSwal({
-                title: '📜 English Quest M.6', input: 'text', inputPlaceholder: 'กรอกรหัสผ่าน',
-                showCancelButton: true, confirmButtonText: 'START QUEST ⚔️', cancelButtonText: 'CANCEL', buttonsStyling: false,
-                customClass: { popup: 'border-[6px] border-black rounded-[2rem] shadow-[12px_12px_0_0_rgba(0,0,0,1)]', title: 'text-black font-black tracking-widest text-3xl mt-2',
-                    input: 'bg-white border-4 border-black text-black focus:ring-4 focus:ring-teal-300 rounded-xl p-3 text-center tracking-widest font-black text-xl shadow-[4px_4px_0_0_rgba(0,0,0,1)] mt-4 uppercase',
-                    confirmButton: 'bg-teal-500 hover:bg-teal-400 text-white font-black py-3 px-6 rounded-xl mx-2 border-4 border-black shadow-[4px_4px_0_0_rgba(0,0,0,1)] active:translate-y-1 active:shadow-[0_0_0_0_rgba(0,0,0,1)] transition-all',
-                    cancelButton: 'bg-gray-300 hover:bg-gray-200 text-black font-black py-3 px-6 rounded-xl mx-2 border-4 border-black shadow-[4px_4px_0_0_rgba(0,0,0,1)] active:translate-y-1 active:shadow-[0_0_0_0_rgba(0,0,0,1)] transition-all' }
-            });
-            if (result.value) {
-                if (result.value.toUpperCase() === 'QUEST') { window.open('https://jakrapongsuttiprapa.github.io/Questm6/', '_blank'); }
-                else { fireSwal({ icon: 'error', title: 'ACCESS DENIED', text: 'รหัสผ่านผิดนะ ลองใหม่อีกครั้ง!', buttonsStyling: false,
-                    customClass: { popup: 'border-[6px] border-black rounded-[2rem] shadow-[12px_12px_0_0_rgba(0,0,0,1)]', title: 'text-red-500 font-black tracking-widest text-2xl', confirmButton: 'bg-black text-white font-black py-3 px-8 rounded-xl border-4 border-black shadow-[4px_4px_0_0_rgba(200,200,200,1)] hover:-translate-y-1 transition-all mt-4' } }); }
-            }
-        };
 
         // ---- Download Folders ----
         window.showDownloadFolders = function() {
@@ -931,7 +880,7 @@
         });
 
         // ============================================
-        // GAME QUIZZ — หน้านักเรียน
+        // GAME QUIZZ — หน้านักเรียน (ไม่แก้ไข ไม่ปรับ — การ์ดสีส้มเดิม)
         // ============================================
         window.openQuizHub = function() {
             fireSwal({ title: 'LOADING QUIZ HUB ⏳', allowOutsideClick: false, didOpen: function() { if(typeof Swal !== 'undefined') Swal.showLoading(); } });
@@ -992,7 +941,7 @@
         };
 
         // ============================================
-        // GAME QUIZZ — ADMIN
+        // GAME QUIZZ — ADMIN (ไม่แก้ไข ไม่ปรับ — การ์ดสีส้มเดิม)
         // ============================================
         window.openQuizAdmin = async function() {
             const result = await fireSwal({
@@ -1130,6 +1079,216 @@
             callAPI('duplicateQuizCard', { data: { id: id } })
                 .then(function(res) {
                     if (res.success) { loadQuizAdminList(); }
+                    else { fireSwal({ icon:'error', title:'FAILED', text: res.message }); }
+                })
+                .catch(function(e){ fireSwal({ icon:'error', title:'ERROR', text: e.message }); });
+        };
+
+        // ============================================
+        // GRADE QUIZZ — Quiz Grade 10 / 11 / 12 (การ์ดที่ 1-3, รื้อใหม่: เพิ่ม/แก้ link เองได้)
+        // ใช้ฟังก์ชันร่วมกันทั้ง 3 การ์ด โดยส่ง grade ('10' / '11' / '12') เป็นตัวกำหนด
+        // ============================================
+        const GRADE_LABELS = { '10': 'GRADE 10 (ม.4)', '11': 'GRADE 11 (ม.5)', '12': 'GRADE 12 (ม.6)' };
+
+        window.openGradeQuizHub = function(grade) {
+            fireSwal({ title: 'LOADING QUIZ HUB ⏳', allowOutsideClick: false, didOpen: function() { if(typeof Swal !== 'undefined') Swal.showLoading(); } });
+            callAPI('getGradeQuizCards', { grade: grade })
+                .then(function(cards) { renderGradeQuizHub(grade, cards); })
+                .catch(function(err) { fireSwal({ icon: 'error', title: 'ERROR', text: err.message }); });
+        };
+
+        function renderGradeQuizHub(grade, cards) {
+            window.gradeQuizCardData = cards || [];
+            let label = GRADE_LABELS[grade] || ('GRADE ' + grade);
+            let html = '<div class="flex justify-end mb-3">';
+            html += '<button onclick="openGradeQuizAdmin(\'' + grade + '\')" class="bg-white border-2 border-black text-xs font-black px-3 py-1.5 rounded-full shadow-[2px_2px_0_0_rgba(0,0,0,1)] hover:-translate-y-0.5 active:translate-y-0 transition-all">⚙️ จัดการ (ครู)</button>';
+            html += '</div>';
+            if (!cards || cards.length === 0) {
+                html += '<p class="text-center text-gray-500 font-bold py-10">ยังไม่มี Quiz ในระดับชั้นนี้<br>กดปุ่ม ⚙️ จัดการ (ครู) ด้านบนเพื่อเพิ่มได้เลย</p>';
+            } else {
+                html += '<div class="grid grid-cols-1 sm:grid-cols-2 gap-4 p-1 max-h-[55vh] overflow-y-auto scrollbar-hide">';
+                cards.forEach(function(c, i) {
+                    let img = c.imageUrl || 'https://via.placeholder.com/600x400?text=QUIZ';
+                    let lock = c.hasPassword ? '<span class="absolute top-2 right-2 bg-black text-white text-xs font-black px-2 py-1 rounded-full border-2 border-white">🔒 LOCK</span>' : '';
+                    html += '<div onclick="openGradeQuizCard(\'' + grade + '\',' + i + ')" class="bg-white border-4 border-black rounded-2xl overflow-hidden shadow-[6px_6px_0_0_rgba(0,0,0,1)] hover:-translate-y-1 active:translate-y-1 active:shadow-[0_0_0_0_rgba(0,0,0,1)] transition-all cursor-pointer group">';
+                    html += '<div class="relative w-full bg-gray-200 border-b-4 border-black overflow-hidden" style="padding-top:66.66%;">';
+                    html += '<img src="' + img + '" onerror="this.src=\'https://via.placeholder.com/600x400?text=QUIZ\'" class="absolute inset-0 w-full h-full object-cover group-hover:scale-110 transition-transform duration-300">' + lock + '</div>';
+                    html += '<div class="p-3 text-center">';
+                    html += '<p class="font-black text-black text-base md:text-lg tracking-wide leading-tight">' + (c.emoji || '🎮') + ' ' + c.name + '</p>';
+                    if (c.subtitle) html += '<p class="text-xs font-bold text-gray-500 mt-1">' + c.subtitle + '</p>';
+                    html += '<div class="mt-2 bg-[#39ff14] border-[3px] border-black text-black font-black text-sm py-2 rounded-xl tracking-widest uppercase">PLAY ▶</div>';
+                    html += '</div></div>';
+                });
+                html += '</div>';
+            }
+            fireSwal({ title: '🎯 QUIZ HUB // ' + label, html: html, showConfirmButton: false, showCloseButton: true, width: '42rem',
+                customClass: { popup: 'border-[6px] border-black rounded-[2.5rem] shadow-[12px_12px_0_0_rgba(0,0,0,1)] bg-[#f5f3ff]', title: 'font-black text-2xl md:text-3xl mt-4 text-black tracking-widest' } });
+        }
+
+        window.openGradeQuizCard = async function(grade, index) {
+            const c = window.gradeQuizCardData[index];
+            if (!c) return;
+            if (!c.hasPassword) {
+                callAPI('verifyGradeQuizPassword', { data: { id: c.id, password: "" } })
+                    .then(function(res) { if (res.success) window.open(res.link, '_blank'); });
+                return;
+            }
+            const result = await fireSwal({
+                title: '🔐 ' + c.name, input: 'text', inputPlaceholder: 'กรอกรหัสผ่าน',
+                showCancelButton: true, confirmButtonText: 'ENTER 🚀', cancelButtonText: 'CANCEL', buttonsStyling: false,
+                customClass: { popup: 'border-[6px] border-black rounded-[2.5rem] shadow-[12px_12px_0_0_rgba(0,0,0,1)]', title: 'text-black font-black tracking-widest text-2xl mt-2',
+                    input: 'bg-white border-4 border-black text-black focus:ring-4 focus:ring-purple-300 rounded-xl p-3 text-center tracking-widest font-black text-lg shadow-[4px_4px_0_0_rgba(0,0,0,1)] mt-4',
+                    confirmButton: 'bg-purple-400 hover:bg-purple-300 text-black font-black py-3 px-6 rounded-xl mx-2 border-4 border-black shadow-[4px_4px_0_0_rgba(0,0,0,1)] active:translate-y-1 active:shadow-[0_0_0_0_rgba(0,0,0,1)] transition-all',
+                    cancelButton: 'bg-gray-300 hover:bg-gray-200 text-black font-black py-3 px-6 rounded-xl mx-2 border-4 border-black shadow-[4px_4px_0_0_rgba(0,0,0,1)] active:translate-y-1 active:shadow-[0_0_0_0_rgba(0,0,0,1)] transition-all' }
+            });
+            if (result.value) {
+                callAPI('verifyGradeQuizPassword', { data: { id: c.id, password: result.value } })
+                    .then(function(res) {
+                        if (res.success) { window.open(res.link, '_blank'); }
+                        else { fireSwal({ icon: 'error', title: 'ACCESS DENIED', text: res.message, buttonsStyling: false,
+                            customClass: { popup: 'border-[6px] border-black rounded-[2rem] shadow-[12px_12px_0_0_rgba(0,0,0,1)]', confirmButton: 'bg-black text-white font-black py-2 px-6 rounded-xl border-4 border-black mt-4' } }); }
+                    });
+            }
+        };
+
+        window.openGradeQuizAdmin = async function(grade) {
+            const result = await fireSwal({
+                title: '🛠️ จัดการ Quiz', input: 'password', inputPlaceholder: 'รหัสผ่าน Admin',
+                showCancelButton: true, confirmButtonText: 'VERIFY', cancelButtonText: 'CANCEL', buttonsStyling: false,
+                customClass: { popup: 'border-[6px] border-black rounded-[2.5rem] shadow-[12px_12px_0_0_rgba(0,0,0,1)]', title: 'text-black font-black tracking-widest text-2xl mt-2',
+                    input: 'bg-white border-4 border-black text-black focus:ring-4 focus:ring-purple-300 rounded-xl p-3 text-center tracking-widest font-black text-lg shadow-[4px_4px_0_0_rgba(0,0,0,1)] mt-4',
+                    confirmButton: 'bg-purple-400 hover:bg-purple-300 text-black font-black py-3 px-6 rounded-xl mx-2 border-4 border-black shadow-[4px_4px_0_0_rgba(0,0,0,1)] active:translate-y-1 active:shadow-[0_0_0_0_rgba(0,0,0,1)] transition-all',
+                    cancelButton: 'bg-gray-300 hover:bg-gray-200 text-black font-black py-3 px-6 rounded-xl mx-2 border-4 border-black shadow-[4px_4px_0_0_rgba(0,0,0,1)] active:translate-y-1 active:shadow-[0_0_0_0_rgba(0,0,0,1)] transition-all' }
+            });
+            if (result.value === '7846') { loadGradeQuizAdminList(grade); }
+            else if (result.value) {
+                fireSwal({ icon: 'error', title: 'DENIED!', text: 'รหัสผ่านผิด', buttonsStyling: false,
+                    customClass: { popup: 'border-[6px] border-black rounded-[2.5rem] shadow-[12px_12px_0_0_rgba(0,0,0,1)]', confirmButton: 'bg-black text-white font-black py-2 px-6 rounded-xl border-4 border-black mt-4' } });
+            }
+        };
+
+        function loadGradeQuizAdminList(grade) {
+            fireSwal({ title: 'LOADING... ⏳', allowOutsideClick: false, didOpen: function() { if(typeof Swal !== 'undefined') Swal.showLoading(); } });
+            callAPI('getGradeQuizCardsAdmin', { grade: grade })
+                .then(function(cards) { renderGradeQuizAdminList(grade, cards); })
+                .catch(function(err) { fireSwal({ icon: 'error', title: 'ERROR', text: err.message }); });
+        }
+
+        function renderGradeQuizAdminList(grade, cards) {
+            window.gradeQuizAdminData = cards || [];
+            let label = GRADE_LABELS[grade] || ('GRADE ' + grade);
+            let html = '<div class="text-left p-1">';
+            html += '<button onclick="openGradeQuizCardForm(\'' + grade + '\',-1)" class="w-full bg-green-400 border-4 border-black text-black font-black py-3 rounded-2xl shadow-[4px_4px_0_0_rgba(0,0,0,1)] hover:-translate-y-1 active:translate-y-1 active:shadow-[0_0_0_0_rgba(0,0,0,1)] transition-all mb-4 tracking-widest uppercase">➕ เพิ่ม Quiz ใหม่</button>';
+            if (!cards || cards.length === 0) {
+                html += '<p class="text-center text-gray-500 font-bold py-6">ยังไม่มี Quiz กดปุ่มด้านบนเพื่อเพิ่ม</p>';
+            } else {
+                html += '<div class="flex flex-col gap-3 max-h-[50vh] overflow-y-auto scrollbar-hide">';
+                cards.forEach(function(c, i) {
+                    let hideTag = c.visible ? '' : '<span class="bg-gray-400 text-white text-xs font-black px-2 py-0.5 rounded-full border-2 border-black ml-1">ซ่อน</span>';
+                    let lockTag = (c.password && c.password.trim() !== '') ? '<span class="bg-black text-white text-xs font-black px-2 py-0.5 rounded-full ml-1">🔒</span>' : '';
+                    let upBtn = (i > 0) ? '<button onclick="moveGradeQuizCard(\'' + grade + '\',' + i + ',-1)" class="bg-purple-300 border-2 border-black text-black text-xs font-black w-7 h-6 rounded-lg shadow-[2px_2px_0_0_rgba(0,0,0,1)]">▲</button>' : '<div class="w-7 h-6"></div>';
+                    let downBtn = (i < cards.length - 1) ? '<button onclick="moveGradeQuizCard(\'' + grade + '\',' + i + ',1)" class="bg-purple-300 border-2 border-black text-black text-xs font-black w-7 h-6 rounded-lg shadow-[2px_2px_0_0_rgba(0,0,0,1)]">▼</button>' : '<div class="w-7 h-6"></div>';
+                    html += '<div class="bg-white border-4 border-black rounded-2xl p-3 shadow-[4px_4px_0_0_rgba(0,0,0,1)] flex items-center gap-2">';
+                    html += '<div class="flex flex-col gap-1 flex-shrink-0">' + upBtn + downBtn + '</div>';
+                    html += '<img src="' + (c.imageUrl || 'https://via.placeholder.com/100') + '" onerror="this.src=\'https://via.placeholder.com/100\'" class="w-14 h-14 rounded-xl border-2 border-black object-cover flex-shrink-0">';
+                    html += '<div class="flex-grow min-w-0"><p class="font-black text-black truncate">' + (c.emoji||'🎮') + ' ' + c.name + hideTag + lockTag + '</p>';
+                    html += '<p class="text-xs text-gray-500 font-bold">ลำดับ: ' + c.sortOrder + ' • คลิก: ' + c.clicks + '</p></div>';
+                    html += '<div class="flex flex-col gap-1 flex-shrink-0">';
+                    html += '<button onclick="openGradeQuizCardForm(\'' + grade + '\',' + i + ')" class="bg-yellow-300 border-2 border-black text-black text-xs font-black px-2 py-1 rounded-lg shadow-[2px_2px_0_0_rgba(0,0,0,1)]">✏️ แก้</button>';
+                    html += '<button onclick="duplicateGradeQuiz(\'' + grade + '\',\'' + c.id + '\')" class="bg-cyan-300 border-2 border-black text-black text-xs font-black px-2 py-1 rounded-lg shadow-[2px_2px_0_0_rgba(0,0,0,1)]">📋 ก๊อป</button>';
+                    html += '<button onclick="confirmDeleteGradeQuiz(\'' + grade + '\',\'' + c.id + '\',\'' + c.name.replace(/'/g,'') + '\')" class="bg-red-400 border-2 border-black text-black text-xs font-black px-2 py-1 rounded-lg shadow-[2px_2px_0_0_rgba(0,0,0,1)]">🗑️ ลบ</button>';
+                    html += '</div></div>';
+                });
+                html += '</div>';
+            }
+            html += '</div>';
+            fireSwal({ title: '🛠️ จัดการ Quiz // ' + label, html: html, showConfirmButton: false, showCloseButton: true, width: '40rem',
+                customClass: { popup: 'border-[6px] border-black rounded-[2.5rem] shadow-[12px_12px_0_0_rgba(0,0,0,1)] bg-[#f5f3ff]', title: 'font-black text-xl md:text-2xl mt-4 text-black tracking-widest' } });
+        }
+
+        window.openGradeQuizCardForm = function(grade, index) {
+            const c = (index >= 0) ? window.gradeQuizAdminData[index] : { id:'', name:'', subtitle:'', emoji:'🎮', imageUrl:'', link:'', password:'', sortOrder: (window.gradeQuizAdminData ? window.gradeQuizAdminData.length+1 : 1), visible:true };
+            let html = '<form id="gradeQuizForm" class="text-left space-y-3 mt-2">';
+            html += '<div><label class="block font-black text-xs text-black mb-1 uppercase tracking-wider">ชื่อ Quiz *</label><input id="gqName" value="' + (c.name||'') + '" class="w-full bg-white border-4 border-black rounded-xl p-2.5 font-bold focus:ring-4 focus:ring-purple-300 focus:outline-none"></div>';
+            html += '<div><label class="block font-black text-xs text-black mb-1 uppercase tracking-wider">คำอธิบายสั้นๆ</label><input id="gqSub" value="' + (c.subtitle||'') + '" class="w-full bg-white border-4 border-black rounded-xl p-2.5 font-bold focus:ring-4 focus:ring-purple-300 focus:outline-none" placeholder="เช่น เรื่อง Pronoun"></div>';
+            html += '<div class="grid grid-cols-3 gap-2"><div class="col-span-1"><label class="block font-black text-xs text-black mb-1 uppercase">Emoji</label><input id="gqEmoji" value="' + (c.emoji||'🎮') + '" class="w-full bg-white border-4 border-black rounded-xl p-2.5 font-bold text-center focus:outline-none"></div>';
+            html += '<div class="col-span-2"><label class="block font-black text-xs text-black mb-1 uppercase">ลำดับ (น้อย=ก่อน)</label><input id="gqSort" type="number" value="' + (c.sortOrder||0) + '" class="w-full bg-white border-4 border-black rounded-xl p-2.5 font-bold focus:outline-none"></div></div>';
+            html += '<div><label class="block font-black text-xs text-black mb-1 uppercase tracking-wider">URL รูปหน้าปก (แนะนำ 600×400px)</label><input id="gqImg" value="' + (c.imageUrl||'') + '" class="w-full bg-white border-4 border-black rounded-xl p-2.5 font-bold text-xs focus:ring-4 focus:ring-purple-300 focus:outline-none" placeholder="https://i.postimg.cc/..."></div>';
+            html += '<div><label class="block font-black text-xs text-black mb-1 uppercase tracking-wider">Link เกม/Quiz *</label><input id="gqLink" value="' + (c.link||'') + '" class="w-full bg-white border-4 border-black rounded-xl p-2.5 font-bold text-xs focus:ring-4 focus:ring-purple-300 focus:outline-none" placeholder="https://jakrapongsuttiprapa.github.io/..."></div>';
+            html += '<div><label class="block font-black text-xs text-black mb-1 uppercase tracking-wider">รหัสผ่าน (เว้นว่าง=เข้าได้เลย)</label><input id="gqPass" value="' + (c.password||'') + '" class="w-full bg-white border-4 border-black rounded-xl p-2.5 font-bold focus:ring-4 focus:ring-purple-300 focus:outline-none" placeholder="ปล่อยว่างถ้าไม่ล็อก"></div>';
+            html += '<label class="flex items-center gap-2 font-black text-sm text-black cursor-pointer bg-white border-4 border-black rounded-xl p-2.5"><input type="checkbox" id="gqVisible" ' + (c.visible?'checked':'') + ' class="w-5 h-5"> แสดงให้นักเรียนเห็น 👁️</label>';
+            html += '<input type="hidden" id="gqId" value="' + (c.id||'') + '">';
+            html += '</form>';
+            fireSwal({
+                title: (index>=0?'✏️ แก้ไข Quiz':'➕ เพิ่ม Quiz') + ' (' + (GRADE_LABELS[grade]||grade) + ')', html: html, showCancelButton: true,
+                confirmButtonText: '💾 บันทึก', cancelButtonText: 'ยกเลิก', buttonsStyling: false, width: '34rem',
+                customClass: { popup: 'border-[6px] border-black rounded-[2.5rem] p-4 shadow-[12px_12px_0_0_rgba(0,0,0,1)] bg-[#f8fafc]', title: 'font-black text-xl md:text-2xl mt-2 text-black tracking-widest',
+                    confirmButton: 'bg-green-400 hover:bg-green-300 text-black font-black py-3 px-6 rounded-xl mx-2 border-4 border-black shadow-[4px_4px_0_0_rgba(0,0,0,1)] active:translate-y-1 active:shadow-[0_0_0_0_rgba(0,0,0,1)] transition-all',
+                    cancelButton: 'bg-red-400 hover:bg-red-300 text-black font-black py-3 px-6 rounded-xl mx-2 border-4 border-black shadow-[4px_4px_0_0_rgba(0,0,0,1)] active:translate-y-1 active:shadow-[0_0_0_0_rgba(0,0,0,1)] transition-all' },
+                preConfirm: function() {
+                    const name = document.getElementById('gqName').value.trim();
+                    const link = document.getElementById('gqLink').value.trim();
+                    if (!name || !link) { if(typeof Swal!=='undefined') Swal.showValidationMessage('กรุณากรอก ชื่อ Quiz และ Link ❌'); return false; }
+                    return {
+                        id: document.getElementById('gqId').value,
+                        grade: grade,
+                        name: name, subtitle: document.getElementById('gqSub').value.trim(),
+                        emoji: document.getElementById('gqEmoji').value.trim(),
+                        imageUrl: document.getElementById('gqImg').value.trim(),
+                        link: link, password: document.getElementById('gqPass').value.trim(),
+                        sortOrder: document.getElementById('gqSort').value,
+                        visible: document.getElementById('gqVisible').checked
+                    };
+                }
+            }).then(function(result) {
+                if (result.isConfirmed) {
+                    fireSwal({ title: 'SAVING... ⏳', allowOutsideClick: false, didOpen: function(){ if(typeof Swal!=='undefined') Swal.showLoading(); } });
+                    callAPI('saveGradeQuizCard', { data: result.value })
+                        .then(function(res) {
+                            if (res.success) { loadGradeQuizAdminList(grade); }
+                            else { fireSwal({ icon:'error', title:'FAILED', text: res.message }); }
+                        })
+                        .catch(function(e){ fireSwal({ icon:'error', title:'ERROR', text: e.message }); });
+                }
+            });
+        };
+
+        window.confirmDeleteGradeQuiz = async function(grade, id, name) {
+            const result = await fireSwal({
+                icon: 'warning', title: 'ลบ Quiz?', text: 'ต้องการลบ "' + name + '" ใช่ไหม?',
+                showCancelButton: true, confirmButtonText: 'ลบเลย 🗑️', cancelButtonText: 'ยกเลิก', buttonsStyling: false,
+                customClass: { popup: 'border-[6px] border-black rounded-[2rem] shadow-[12px_12px_0_0_rgba(0,0,0,1)]', title:'font-black',
+                    confirmButton: 'bg-red-500 text-white font-black py-2 px-6 rounded-xl border-4 border-black mx-2 mt-4',
+                    cancelButton: 'bg-gray-300 text-black font-black py-2 px-6 rounded-xl border-4 border-black mx-2 mt-4' }
+            });
+            if (result.isConfirmed) {
+                callAPI('deleteGradeQuizCard', { data: { id: id } })
+                    .then(function(res) { if (res.success) loadGradeQuizAdminList(grade); else fireSwal({ icon:'error', title:'FAILED', text: res.message }); });
+            }
+        };
+
+        // เลื่อนลำดับ Quiz ขึ้น/ลง (direction: -1=ขึ้น, 1=ลง)
+        window.moveGradeQuizCard = function(grade, index, direction) {
+            const cards = window.gradeQuizAdminData;
+            const target = index + direction;
+            if (target < 0 || target >= cards.length) return;
+            const cardA = cards[index];
+            const cardB = cards[target];
+            fireSwal({ title: 'กำลังเรียง... ⏳', allowOutsideClick: false, didOpen: function(){ if(typeof Swal!=='undefined') Swal.showLoading(); } });
+            callAPI('swapGradeQuizOrder', { data: { idA: cardA.id, idB: cardB.id } })
+                .then(function(res) {
+                    if (res.success) { loadGradeQuizAdminList(grade); }
+                    else { fireSwal({ icon:'error', title:'FAILED', text: res.message }); }
+                })
+                .catch(function(e){ fireSwal({ icon:'error', title:'ERROR', text: e.message }); });
+        };
+
+        // ก๊อปปี้ Quiz (อยู่ Grade เดิม)
+        window.duplicateGradeQuiz = function(grade, id) {
+            fireSwal({ title: 'กำลังก๊อปปี้... ⏳', allowOutsideClick: false, didOpen: function(){ if(typeof Swal!=='undefined') Swal.showLoading(); } });
+            callAPI('duplicateGradeQuizCard', { data: { id: id } })
+                .then(function(res) {
+                    if (res.success) { loadGradeQuizAdminList(grade); }
                     else { fireSwal({ icon:'error', title:'FAILED', text: res.message }); }
                 })
                 .catch(function(e){ fireSwal({ icon:'error', title:'ERROR', text: e.message }); });
