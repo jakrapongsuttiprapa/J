@@ -29,6 +29,17 @@
             color: #1e293b;
         }
 
+        .bg-fixed-layer {
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            z-index: -1;
+            background-image: url('https://i.postimg.cc/FH235kYZ/Chat-GPT-Image-May-23-2026-at-07-34-21-PM.png');
+            background-size: cover;
+            background-position: center top;
+            background-repeat: no-repeat;
+        }
+
         .scrollbar-hide::-webkit-scrollbar { display: none; }
         .scrollbar-hide { -ms-overflow-style: none; scrollbar-width: none; }
 
@@ -174,6 +185,7 @@
     </style>
 </head>
 <body class="min-h-screen pb-10 overflow-x-hidden relative">
+    <div class="bg-fixed-layer"></div>
 
     <!-- NAVBAR -->
     <nav class="p-4 flex justify-between items-center bg-white border-b-[6px] border-black sticky top-0 z-50 shadow-[0_8px_0_0_rgba(0,0,0,1)] animate-bounce-up">
@@ -994,7 +1006,7 @@
             if (result.value === '7846') { loadQuizAdminList(); }
             else if (result.value) {
                 fireSwal({ icon: 'error', title: 'DENIED!', text: 'รหัสผ่านผิด', buttonsStyling: false,
-                    customClass: { popup: 'border-[6px] border-black rounded-[2rem] shadow-[12px_12px_0_0_rgba(0,0,0,1)]', confirmButton: 'bg-black text-white font-black py-2 px-6 rounded-xl border-4 border-black mt-4' } });
+                    customClass: { popup: 'border-[6px] border-black rounded-[2.5rem] shadow-[12px_12px_0_0_rgba(0,0,0,1)]', confirmButton: 'bg-black text-white font-black py-2 px-6 rounded-xl border-4 border-black mt-4' } });
             }
         };
 
