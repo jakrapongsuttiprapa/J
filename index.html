@@ -9,7 +9,6 @@
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <meta name="apple-mobile-web-app-title" content="KRU OAT A.I.">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;600;800;900&display=swap" rel="stylesheet">
     <script src="https://cdn.tailwindcss.com"></script>
@@ -1019,7 +1018,7 @@ window.openMoodCheckin = function() {
     h += '<div><label class="block font-black text-xs text-black mb-3 uppercase tracking-widest">วันนี้รู้สึกยังไง?</label>';
     h += '<div class="grid grid-cols-5 gap-2" id="mc-mood-grid">';
     moods.forEach(function(m) {
-        h += '<button onclick="selectMoodBtn(this,'' + m.emoji + '','' + m.label + '')" class="flex flex-col items-center gap-1 py-3 bg-white border-4 border-black rounded-2xl shadow-[4px_4px_0_0_rgba(0,0,0,1)] hover:-translate-y-1 active:translate-y-1 active:shadow-[0_0_0_0_rgba(0,0,0,1)] transition-all"><span class="text-3xl">' + m.emoji + '</span><span class="text-xs font-black">' + m.label + '</span></button>';
+        h += '<button onclick="selectMoodBtn(this,\'' + m.emoji + '\',\'' + m.label + '\')" class="flex flex-col items-center gap-1 py-3 bg-white border-4 border-black rounded-2xl shadow-[4px_4px_0_0_rgba(0,0,0,1)] hover:-translate-y-1 active:translate-y-1 active:shadow-[0_0_0_0_rgba(0,0,0,1)] transition-all"><span class="text-3xl">' + m.emoji + '</span><span class="text-xs font-black">' + m.label + '</span></button>';
     });
     h += '</div></div>';
     h += '<input type="hidden" id="mc-sel-emoji" value=""><input type="hidden" id="mc-sel-label" value="">';
