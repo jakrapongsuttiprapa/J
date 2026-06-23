@@ -41,7 +41,7 @@
         /* ══ NEW FEATURES ══ */
 
         /* Broadcast banner */
-        #broadcast-banner{background:linear-gradient(135deg,#fbbf24,#f59e0b);border-bottom:4px solid #000;padding:12px 20px;display:flex;align-items:center;justify-content:space-between;gap:12px;position:sticky;top:72px;z-index:48;animation:slideDown .4s ease;}
+        #broadcast-banner{background:linear-gradient(135deg,#fbbf24,#f59e0b);border-bottom:4px solid #000;padding:12px 20px;align-items:center;justify-content:space-between;gap:12px;position:sticky;top:72px;z-index:48;}
         @keyframes slideDown{from{transform:translateY(-100%);opacity:0;}to{transform:translateY(0);opacity:1;}}
 
         /* Mood buttons */
@@ -141,6 +141,8 @@
             <button onclick="triggerHOF()" class="bg-yellow-300 border-4 border-black text-black font-black px-8 py-2 rounded-xl shadow-[4px_4px_0_0_rgba(0,0,0,1)] hover:-translate-y-1 active:translate-y-1 active:shadow-[0_0_0_0_rgba(0,0,0,1)] transition-all tracking-widest uppercase">LOAD 🏆</button>
         </div>
     </div>
+    <!-- HOF Results -->
+    <div id="hof-results" class="relative z-10 mt-4"></div>
 </div>
 
 <!-- ════ 2. สื่อการสอน + Mission Track (original) ════ -->
@@ -743,7 +745,10 @@ async function checkBroadcastOnLoad() {
         if (data && data.message && data.message.trim() !== '') {
             const banner = document.getElementById('broadcast-banner');
             const textEl = document.getElementById('broadcast-text');
-            if (banner && textEl) { textEl.textContent = data.message; banner.style.display = 'flex'; }
+            if (banner && textEl) {
+                textEl.textContent = data.message;
+                banner.style.cssText = 'display:flex;animation:slideDown .4s ease;';
+            }
         }
     } catch(e) { /* ไม่มีฟังก์ชัน getBroadcast ใน GAS ยังไม่แสดง banner */ }
 }
@@ -956,7 +961,10 @@ window.spinPicker = function() {
     const maxCount = 18 + Math.floor(Math.random()*8);
     window.pickerSpinIv = setInterval(function() {
         const nameEl = document.getElementById('picker-name');
-        if (!nameEl) { clearInterval(window.pickerSpinIv); return; }
+        if (!nameEl || (typeof Swal !== 'undefined' && !Swal.isVisible())) {
+            clearInterval(window.pickerSpinIv);
+            return;
+        }
         nameEl.textContent = available[Math.floor(Math.random()*available.length)];
         nameEl.style.color = '#374151';
         count++;
@@ -965,7 +973,7 @@ window.spinPicker = function() {
             window.pickerExcluded.add(chosen);
             nameEl.innerHTML = '<span style="color:#16a34a;font-size:1.5rem;">'+chosen+'</span><br><span style="font-size:1.5rem;">🎉</span>';
             if (spinBtn) { spinBtn.disabled=false; spinBtn.textContent='🎲 SPIN'; }
-            setTimeout(renderPickerUI, 2000);
+            setTimeout(function(){ if(typeof Swal!=='undefined'&&Swal.isVisible()) renderPickerUI(); else window.pickerExcluded.delete(chosen); }, 2000);
         }
     }, 80);
 };
@@ -995,7 +1003,53 @@ window.submitQuickMood = async function(emoji, label, room) {
 };
 
 window.openMoodCheckin = function() {
-    window.quickMood('😊','ดี');
+    const moods = [
+        {emoji:'🤩',label:'สุดยอด!'},
+        {emoji:'😊',label:'ดี'},
+        {emoji:'😐',label:'เฉยๆ'},
+        {emoji:'😴',label:'ง่วง'},
+        {emoji:'😕',label:'เครียด'}
+    ];
+    const rooms = ['4/1','4/2','4/3','4/4','5/1','5/2','5/3','5/4','6/1','6/2','6/3','6/4'];
+    let h = '<div class="text-left space-y-4">';
+    h += '<div><label class="block font-black text-xs text-black mb-2 uppercase tracking-widest">ห้องเรียน</label>';
+    h += '<select id="mc-room" class="w-full bg-white border-4 border-black rounded-xl p-3 font-bold focus:outline-none cursor-pointer">';
+    rooms.forEach(function(r){ h += '<option value="'+r+'">ม.'+r+'</option>'; });
+    h += '</select></div>';
+    h += '<div><label class="block font-black text-xs text-black mb-3 uppercase tracking-widest">วันนี้รู้สึกยังไง?</label>';
+    h += '<div class="grid grid-cols-5 gap-2" id="mc-mood-grid">';
+    moods.forEach(function(m) {
+        h += '<button onclick="selectMoodBtn(this,'' + m.emoji + '','' + m.label + '')" class="flex flex-col items-center gap-1 py-3 bg-white border-4 border-black rounded-2xl shadow-[4px_4px_0_0_rgba(0,0,0,1)] hover:-translate-y-1 active:translate-y-1 active:shadow-[0_0_0_0_rgba(0,0,0,1)] transition-all"><span class="text-3xl">' + m.emoji + '</span><span class="text-xs font-black">' + m.label + '</span></button>';
+    });
+    h += '</div></div>';
+    h += '<input type="hidden" id="mc-sel-emoji" value=""><input type="hidden" id="mc-sel-label" value="">';
+    h += '<button onclick="submitMoodFull()" class="w-full bg-green-400 border-4 border-black text-black font-black py-3 rounded-2xl shadow-[4px_4px_0_0_rgba(0,0,0,1)] hover:-translate-y-1 active:translate-y-1 active:shadow-[0_0_0_0_rgba(0,0,0,1)] transition-all tracking-widest uppercase">CHECK-IN ✅</button></div>';
+    fireSwal({ title:'😊 MOOD CHECK-IN', html:h, showConfirmButton:false, showCloseButton:true, width:'26rem',
+        customClass:{popup:'border-[6px] border-black rounded-[2.5rem] shadow-[12px_12px_0_0_rgba(0,0,0,1)] bg-[#f0fdf4]',title:'font-black text-2xl mt-4 text-black tracking-widest'} });
+};
+
+window.selectMoodBtn = function(btn, emoji, label) {
+    var grid = document.getElementById('mc-mood-grid');
+    if (grid) grid.querySelectorAll('button').forEach(function(b){ b.style.background='#fff'; b.style.transform=''; b.style.boxShadow='4px 4px 0 #000'; });
+    btn.style.background = '#fde047';
+    btn.style.transform = 'translateY(-4px) scale(1.1)';
+    btn.style.boxShadow = '8px 8px 0 #000';
+    var e = document.getElementById('mc-sel-emoji');
+    var l = document.getElementById('mc-sel-label');
+    if (e) e.value = emoji;
+    if (l) l.value = label;
+};
+
+window.submitMoodFull = async function() {
+    var room  = document.getElementById('mc-room') ? document.getElementById('mc-room').value : '';
+    var emoji = document.getElementById('mc-sel-emoji') ? document.getElementById('mc-sel-emoji').value : '';
+    var label = document.getElementById('mc-sel-label') ? document.getElementById('mc-sel-label').value : '';
+    if (!emoji) { fireSwal({icon:'warning',title:'กรุณาเลือก Mood ก่อน',buttonsStyling:false,customClass:{popup:'border-[6px] border-black rounded-[2rem]',confirmButton:'bg-black text-white font-black py-2 px-6 rounded-xl border-4 border-black mt-4'}}); return; }
+    fireSwal({title:'กำลังส่ง... ⏳',allowOutsideClick:false,didOpen:function(){if(typeof Swal!=='undefined')Swal.showLoading();}});
+    try {
+        await callAPI('saveMood', {data:{emoji:emoji,label:label,room:room}});
+        fireSwal({icon:'success',title:emoji+' ส่ง Mood แล้ว!',text:'ห้อง '+room,buttonsStyling:false,customClass:{popup:'border-[6px] border-black rounded-[2rem] shadow-[12px_12px_0_0_rgba(0,0,0,1)]',confirmButton:'bg-black text-white font-black py-2 px-6 rounded-xl border-4 border-black mt-4'}});
+    } catch(e) { fireSwal({icon:'error',title:'ERROR',text:e.message}); }
 };
 
 window.openMoodSummary = async function() {
@@ -1142,16 +1196,20 @@ window.generateQR = function() {
     try {
         new QRCode(document.getElementById('qr-canvas'), {text:url,width:200,height:200,colorDark:'#000000',colorLight:'#ffffff',correctLevel:QRCode.CorrectLevel.H});
         setTimeout(function() {
+            const a = document.createElement('a');
+            a.download = 'qrcode.png';
+            a.className = 'bg-green-400 border-4 border-black text-black font-black px-6 py-2 rounded-2xl shadow-[4px_4px_0_0_rgba(0,0,0,1)] hover:-translate-y-1 active:translate-y-1 active:shadow-[0_0_0_0_rgba(0,0,0,1)] transition-all text-sm tracking-widest uppercase text-center block';
+            a.textContent = '⬇️ DOWNLOAD';
             const canvas = document.querySelector('#qr-canvas canvas');
+            const img    = document.querySelector('#qr-canvas img');
             if (canvas) {
-                const a = document.createElement('a');
                 a.href = canvas.toDataURL('image/png');
-                a.download = 'qrcode.png';
-                a.className = 'bg-green-400 border-4 border-black text-black font-black px-6 py-2 rounded-2xl shadow-[4px_4px_0_0_rgba(0,0,0,1)] hover:-translate-y-1 active:translate-y-1 active:shadow-[0_0_0_0_rgba(0,0,0,1)] transition-all text-sm tracking-widest uppercase text-center block';
-                a.textContent = '⬇️ DOWNLOAD';
+                output.appendChild(a);
+            } else if (img && img.src && !img.src.endsWith('undefined')) {
+                a.href = img.src;
                 output.appendChild(a);
             }
-        }, 300);
+        }, 400);
     } catch(err) { output.innerHTML='<p class="text-red-500 font-bold text-sm">Error: '+err.message+'</p>'; }
 };
 
