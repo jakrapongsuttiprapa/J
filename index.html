@@ -497,6 +497,7 @@ window.renderHallOfFame=function(room,students){
   });
   h+='</tbody></table></div></div>';
   el.innerHTML=h;
+  };
 window.openHallOfFameSelect=function(){
   const rooms=['4/1','4/2','4/3','4/4','5/1','5/2','5/3','5/4','6/1','6/2','6/3','6/4'];let h='<div class="grid grid-cols-3 gap-3 p-2">';rooms.forEach(function(r){h+='<button onclick="selectHOFRoom(\''+r+'\')" class="bg-white border-4 border-black text-black font-black py-3 rounded-2xl shadow-[4px_4px_0_0_rgba(0,0,0,1)] hover:bg-yellow-50 hover:-translate-y-1 active:translate-y-1 active:shadow-none transition-all">'+r+'</button>';});h+='</div>';fireSwal({title:'🏆 HALL OF FAME',html:h,showConfirmButton:false,showCloseButton:true,customClass:{popup:'border-[6px] border-black rounded-[2.5rem] shadow-[12px_12px_0_0_rgba(0,0,0,1)] bg-[#fefce8]',title:'font-black text-2xl mt-4 text-black tracking-widest'}});};
 window.selectHOFRoom=function(room){const sel=document.getElementById('hof-room');if(sel)sel.value=room;if(typeof Swal!=='undefined')Swal.close();setTimeout(triggerHOF,300);};
