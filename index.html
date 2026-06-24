@@ -497,30 +497,8 @@ window.renderHallOfFame=function(room,students){
   });
   h+='</tbody></table></div></div>';
   el.innerHTML=h;
-};'<p class="text-gray-400 font-bold text-center py-4">ไม่พบข้อมูลห้อง '+room+'</p>';return;}const ranked=students.map(function(s){
-  // ─ ใช้ rawTotal จาก GAS ถ้ามี (แม่นยำกว่า) ─
-  let total, maxPossible;
-  if(s.rawTotal!==undefined&&s.rawMax!==undefined&&s.rawMax>0){
-    total=Math.round(s.rawTotal*100)/100;
-    maxPossible=s.rawMax;
-  } else {
-    // fallback: คำนวณจาก scores array
-    let rTG=0,rTM=0;
-    (s.scores||[]).forEach(function(sc){
-      rTG+=parseFloat(sc.score)||0;
-      rTM+=parseFloat(sc.maxScore)||0;
-    });
-    const mGt=parseFloat((s.midterm&&s.midterm.score)?s.midterm.score:0)||0;
-    const mMx=parseFloat((s.midterm&&s.midterm.maxScore)?s.midterm.maxScore:0)||0;
-    const fGt=parseFloat((s.final&&s.final.score)?s.final.score:0)||0;
-    const fMx=parseFloat((s.final&&s.final.maxScore)?s.final.maxScore:0)||0;
-    total=Math.round((rTG+mGt+fGt)*100)/100;
-    maxPossible=rTM+mMx+fMx;
-  }
-  const pct=maxPossible>0?Math.round(total/maxPossible*100):0;
-  return{name:s.name,no:s.no,total:total,maxPossible:maxPossible,pct:pct};
-}).sort(function(a,b){return b.total-a.total;});const top=[{bg:'#ffd700',lbl:'🥇 1ST'},{bg:'#e2e8f0',lbl:'🥈 2ND'},{bg:'#fbbf80',lbl:'🥉 3RD'}];let h='<div class="mt-4">';const podOrd=ranked.length>=3?[ranked[1],ranked[0],ranked[2]]:ranked;const podRk=ranked.length>=3?[1,0,2]:[0,1,2];h+='<div class="flex gap-3 justify-center items-end mb-4">';podOrd.forEach(function(s,i){if(!s)return;const rk=podRk[i],c=top[rk],mt=rk===0?'':'mt-'+(rk===1?'6':'8');h+='<div class="flex flex-col items-center flex-1 '+mt+' text-center"><p class="text-2xl mb-1">'+(rk===0?'🥇':rk===1?'🥈':'🥉')+'</p><div class="w-full border-4 border-black rounded-2xl p-2 shadow-[4px_4px_0_0_rgba(0,0,0,1)]" style="background:'+c.bg+'"><p class="font-black text-black text-xs leading-tight">'+s.name+'</p><p class="font-black text-2xl text-black">'+s.total+'</p>'+(s.pct?'<p class="text-xs font-black text-gray-600">'+s.pct+'%</p>':'')+'<p class="text-xs font-black opacity-60">'+c.lbl+'</p></div></div>';});h+='</div>';h+='<div class="bg-white border-4 border-black rounded-2xl overflow-hidden shadow-[4px_4px_0_0_rgba(0,0,0,1)] max-h-[200px] overflow-y-auto scrollbar-hide"><table class="w-full text-sm"><thead class="bg-black text-white sticky top-0"><tr><th class="py-2 px-3 font-black text-center w-10">#</th><th class="py-2 px-3 font-black text-left">ชื่อ</th><th class="py-2 px-1 font-black text-center">คะแนน</th><th class="py-2 px-2 font-black text-center">%</th></tr></thead><tbody>';ranked.forEach(function(s,i){const medal=i===0?'🥇':i===1?'🥈':i===2?'🥉':(i+1);const bg=i===0?'bg-yellow-50':i===1?'bg-gray-50':i===2?'bg-orange-50':(i%2===0?'bg-white':'bg-gray-50');h+='<tr class="'+bg+' border-b border-gray-200"><td class="py-2 px-3 text-center font-black">'+medal+'</td><td class="py-2 px-3 font-bold text-black">'+s.name+'</td><td class="py-2 px-1 text-center font-black text-black">'+s.total+'</td><td class="py-2 px-2 text-center font-black" style="color:#6b7280;font-size:12px;">'+(s.pct?s.pct+'%':'-')+'</td></tr>';});h+='</tbody></table></div></div>';el.innerHTML=h;};
-window.openHallOfFameSelect=function(){const rooms=['4/1','4/2','4/3','4/4','5/1','5/2','5/3','5/4','6/1','6/2','6/3','6/4'];let h='<div class="grid grid-cols-3 gap-3 p-2">';rooms.forEach(function(r){h+='<button onclick="selectHOFRoom(\''+r+'\')" class="bg-white border-4 border-black text-black font-black py-3 rounded-2xl shadow-[4px_4px_0_0_rgba(0,0,0,1)] hover:bg-yellow-50 hover:-translate-y-1 active:translate-y-1 active:shadow-none transition-all">'+r+'</button>';});h+='</div>';fireSwal({title:'🏆 HALL OF FAME',html:h,showConfirmButton:false,showCloseButton:true,customClass:{popup:'border-[6px] border-black rounded-[2.5rem] shadow-[12px_12px_0_0_rgba(0,0,0,1)] bg-[#fefce8]',title:'font-black text-2xl mt-4 text-black tracking-widest'}});};
+window.openHallOfFameSelect=function(){
+  const rooms=['4/1','4/2','4/3','4/4','5/1','5/2','5/3','5/4','6/1','6/2','6/3','6/4'];let h='<div class="grid grid-cols-3 gap-3 p-2">';rooms.forEach(function(r){h+='<button onclick="selectHOFRoom(\''+r+'\')" class="bg-white border-4 border-black text-black font-black py-3 rounded-2xl shadow-[4px_4px_0_0_rgba(0,0,0,1)] hover:bg-yellow-50 hover:-translate-y-1 active:translate-y-1 active:shadow-none transition-all">'+r+'</button>';});h+='</div>';fireSwal({title:'🏆 HALL OF FAME',html:h,showConfirmButton:false,showCloseButton:true,customClass:{popup:'border-[6px] border-black rounded-[2.5rem] shadow-[12px_12px_0_0_rgba(0,0,0,1)] bg-[#fefce8]',title:'font-black text-2xl mt-4 text-black tracking-widest'}});};
 window.selectHOFRoom=function(room){const sel=document.getElementById('hof-room');if(sel)sel.value=room;if(typeof Swal!=='undefined')Swal.close();setTimeout(triggerHOF,300);};
 
 /* ════ ENHANCED RANDOM PICKER (3 โหมด) ════ */
