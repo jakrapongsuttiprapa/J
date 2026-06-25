@@ -414,6 +414,20 @@
             </div>
 
         </div>
+        <!-- DEADLINE TRACKER -->
+<div class="w-full bg-[#fef3c7] border-[6px] border-black rounded-[3rem] p-6 md:p-10 shadow-[12px_12px_0_0_rgba(0,0,0,1)] mb-6 flex flex-col md:flex-row items-center justify-between gap-6 hover:-translate-y-1 transition-transform relative overflow-hidden animate-bounce-up delay-400 ai-border ai-nodes">
+    <div class="absolute -right-6 -bottom-4 text-[9rem] opacity-25 transform rotate-12 pointer-events-none z-0">⏰</div>
+    <div class="flex items-center gap-6 relative z-10 text-center md:text-left flex-col md:flex-row w-full md:w-auto">
+        <div class="bg-white p-5 rounded-3xl border-4 border-black shadow-[6px_6px_0_0_rgba(0,0,0,1)] text-4xl transform -rotate-3">📅</div>
+        <div>
+            <h2 class="text-3xl md:text-5xl font-black text-black mb-2 uppercase tracking-widest drop-shadow-[2px_2px_0_rgba(255,255,255,1)]">DEADLINE</h2>
+            <p class="text-black font-black text-sm tracking-widest uppercase bg-amber-400 px-4 py-1.5 rounded-full border-2 border-black inline-block shadow-[2px_2px_0_0_rgba(0,0,0,1)]">กำหนดส่งงานประจำห้อง</p>
+        </div>
+    </div>
+    <button type="button" onclick="showDeadlines()" class="w-full md:w-auto flex-shrink-0 bg-amber-400 border-4 border-black text-black font-black text-xl py-4 px-10 rounded-2xl hover:bg-amber-300 active:translate-y-1 active:shadow-[0_0_0_0_rgba(0,0,0,1)] shadow-[6px_6px_0_0_rgba(0,0,0,1)] transition-all flex items-center justify-center gap-3 relative z-10 uppercase tracking-widest">
+        <span>ดูกำหนดส่ง</span> <span class="text-2xl animate-bounce">⏳</span>
+    </button>
+</div>
 
         <!-- ตารางเรียน ม.ปลาย 1/2569 -->
         <div class="w-full bg-[#fbcfe8] border-[6px] border-black rounded-[3rem] p-6 md:p-10 mb-6 flex flex-col items-center justify-center hover:-translate-y-1 transition-transform relative overflow-hidden animate-bounce-up delay-400 shadow-[12px_12px_0_0_rgba(0,0,0,1)] ai-border ai-nodes">
@@ -520,6 +534,9 @@
             <button type="button" onclick="openQuizAdmin()" class="bg-orange-600 border-[6px] border-black text-white text-xl md:text-2xl font-black px-8 md:px-12 py-5 rounded-[2rem] shadow-[10px_10px_0_0_rgba(0,0,0,1)] hover:-translate-y-1 active:translate-y-2 active:shadow-[0_0_0_0_rgba(0,0,0,1)] transition-all flex items-center justify-center gap-4 cursor-pointer uppercase tracking-widest">
                 <span class="text-3xl">🎲</span> จัดการ QUIZ (ครู)
             </button>
+            <button type="button" onclick="openDeadlineAdmin()" class="bg-amber-500 border-[6px] border-black text-white text-xl md:text-2xl font-black px-8 md:px-12 py-5 rounded-[2rem] shadow-[10px_10px_0_0_rgba(0,0,0,1)] hover:-translate-y-1 active:translate-y-2 active:shadow-[0_0_0_0_rgba(0,0,0,1)] transition-all flex items-center justify-center gap-4 cursor-pointer uppercase tracking-widest">
+    <span class="text-3xl">📅</span> DEADLINE (ครู)
+</button>
         </div>
 
     </div>
@@ -1292,6 +1309,268 @@
                     else { fireSwal({ icon:'error', title:'FAILED', text: res.message }); }
                 })
                 .catch(function(e){ fireSwal({ icon:'error', title:'ERROR', text: e.message }); });
+        };
+        // ============================================
+        // DEADLINE TRACKER — นักเรียน
+        // ============================================
+
+        // helper: แปลง YYYY-MM-DD → Date object โดยไม่ผิด timezone
+        function parseDateLocal(str) {
+            if (!str) return null;
+            const p = str.split('-');
+            if (p.length !== 3) return null;
+            return new Date(parseInt(p[0]), parseInt(p[1]) - 1, parseInt(p[2]));
+        }
+
+        // popup เลือกห้อง
+        window.showDeadlines = function() {
+            const roomColors = { '4': '#f97316', '5': '#22c55e', '6': '#ec4899' };
+            let html = '<div class="p-1">';
+            html += '<p class="text-sm font-bold text-gray-500 mb-3 text-center tracking-widest uppercase">เลือกห้องเพื่อดูกำหนดส่ง</p>';
+            html += '<button onclick="loadDeadlinesByRoom(\'ทุกห้อง\')" class="w-full bg-amber-400 border-4 border-black text-black font-black py-3 rounded-2xl shadow-[4px_4px_0_0_rgba(0,0,0,1)] hover:-translate-y-1 active:translate-y-1 active:shadow-[0_0_0_0_rgba(0,0,0,1)] transition-all mb-3 tracking-widest uppercase text-lg">🌐 ดูทั้งหมด (ทุกห้อง)</button>';
+            html += '<div class="grid grid-cols-4 gap-2">';
+            ['4/1','4/2','4/3','4/4','5/1','5/2','5/3','5/4','6/1','6/2','6/3','6/4'].forEach(function(room) {
+                const color = roomColors[room.split('/')[0]] || '#6366f1';
+                html += '<button onclick="loadDeadlinesByRoom(\'' + room + '\')" class="bg-white border-4 border-black p-2 rounded-xl hover:-translate-y-1 active:translate-y-1 shadow-[3px_3px_0_0_rgba(0,0,0,1)] transition-all flex items-center justify-center">';
+                html += '<span class="text-white w-full py-2 rounded-lg border-2 border-black flex items-center justify-center font-black text-sm" style="background:' + color + '">' + room + '</span></button>';
+            });
+            html += '</div></div>';
+            fireSwal({ title: '📅 DEADLINE TRACKER', html: html, showConfirmButton: false, showCloseButton: true,
+                customClass: { popup: 'border-[6px] border-black rounded-[2.5rem] shadow-[12px_12px_0_0_rgba(0,0,0,1)] bg-[#fffbeb]', title: 'font-black text-2xl mt-4 text-black tracking-widest' } });
+        };
+
+        window.loadDeadlinesByRoom = function(room) {
+            fireSwal({ title: 'LOADING ⏳', allowOutsideClick: false, didOpen: function() { if(typeof Swal!=='undefined') Swal.showLoading(); } });
+            callAPI('getDeadlines', { room: room })
+                .then(function(deadlines) { renderDeadlinePopup(room, deadlines); })
+                .catch(function(err) { fireSwal({ icon: 'error', title: 'ERROR', text: err.message }); });
+        };
+
+        function renderDeadlinePopup(room, deadlines) {
+            const today = new Date(); today.setHours(0, 0, 0, 0);
+            const titleLabel = room === 'ทุกห้อง' ? '📅 กำหนดส่งงาน (ทุกห้อง)' : ('📅 กำหนดส่งงาน ม.' + room);
+
+            if (!deadlines || deadlines.length === 0) {
+                fireSwal({ icon: 'info', title: 'ยังไม่มีกำหนดส่งงาน', text: 'ครูยังไม่ได้บันทึกกำหนดส่งงานในขณะนี้', buttonsStyling: false,
+                    customClass: { popup: 'border-[6px] border-black rounded-[2rem] shadow-[12px_12px_0_0_rgba(0,0,0,1)]', confirmButton: 'bg-black text-white font-black py-2 px-6 rounded-xl border-4 border-black mt-4' } });
+                return;
+            }
+
+            let html = '<div class="flex flex-col gap-3 max-h-[60vh] overflow-y-auto p-2 scrollbar-hide">';
+            deadlines.forEach(function(d) {
+                const dueDate = parseDateLocal(d.dueDate);
+                const days    = dueDate ? Math.floor((dueDate - today) / 86400000) : null;
+
+                let urgencyClass, urgencyText, borderLeft;
+                if (days === null) {
+                    urgencyClass = 'bg-gray-400 text-white'; urgencyText = 'ไม่ระบุวัน'; borderLeft = 'border-l-[10px] border-gray-400';
+                } else if (days < 0) {
+                    urgencyClass = 'bg-red-600 text-white'; urgencyText = 'เกิน ' + Math.abs(days) + ' วัน ❌'; borderLeft = 'border-l-[10px] border-red-600';
+                } else if (days === 0) {
+                    urgencyClass = 'bg-red-400 text-white'; urgencyText = 'ส่งวันนี้! 🔥'; borderLeft = 'border-l-[10px] border-red-400';
+                } else if (days <= 3) {
+                    urgencyClass = 'bg-orange-400 text-black'; urgencyText = 'อีก ' + days + ' วัน ⚠️'; borderLeft = 'border-l-[10px] border-orange-400';
+                } else if (days <= 7) {
+                    urgencyClass = 'bg-yellow-400 text-black'; urgencyText = 'อีก ' + days + ' วัน'; borderLeft = 'border-l-[10px] border-yellow-400';
+                } else {
+                    urgencyClass = 'bg-green-400 text-black'; urgencyText = 'อีก ' + days + ' วัน'; borderLeft = 'border-l-[10px] border-green-400';
+                }
+
+                const displayDate = dueDate ? dueDate.toLocaleDateString('th-TH', { year: 'numeric', month: 'long', day: 'numeric' }) : '-';
+                const roomDisplay = d.rooms === 'ทุกห้อง' ? 'ทุกห้อง' : 'ม.' + d.rooms;
+
+                html += '<div class="bg-white border-4 border-black ' + borderLeft + ' rounded-2xl p-4 shadow-[4px_4px_0_0_rgba(0,0,0,1)]">';
+                html += '<div class="flex justify-between items-start gap-2 mb-2">';
+                html += '<p class="font-black text-black text-base leading-tight flex-1">' + d.title + '</p>';
+                html += '<span class="' + urgencyClass + ' border-2 border-black text-xs font-black px-2 py-1 rounded-full whitespace-nowrap shadow-[2px_2px_0_0_rgba(0,0,0,1)] flex-shrink-0">' + urgencyText + '</span>';
+                html += '</div>';
+                if (d.description && d.description.trim()) {
+                    html += '<p class="text-sm font-bold text-gray-600 mb-2">' + d.description + '</p>';
+                }
+                html += '<div class="flex flex-wrap gap-2 items-center mt-1">';
+                html += '<span class="bg-gray-100 border-2 border-black text-black text-xs font-black px-3 py-1 rounded-full">📅 ' + displayDate + '</span>';
+                html += '<span class="bg-blue-100 border-2 border-black text-blue-700 text-xs font-black px-3 py-1 rounded-full">🏫 ' + roomDisplay + '</span>';
+                html += '</div></div>';
+            });
+            html += '</div>';
+            html += '<button onclick="showDeadlines()" class="w-full mt-4 bg-amber-300 border-[4px] border-black text-black font-black py-2.5 rounded-2xl hover:-translate-y-0.5 shadow-[4px_4px_0_0_rgba(0,0,0,1)] active:translate-y-1 active:shadow-[0_0_0_0_rgba(0,0,0,1)] transition-all text-sm tracking-widest uppercase">← เลือกห้องอื่น</button>';
+
+            fireSwal({ title: titleLabel, html: html, showConfirmButton: false, showCloseButton: true,
+                customClass: { popup: 'border-[6px] border-black rounded-[2.5rem] shadow-[12px_12px_0_0_rgba(0,0,0,1)] bg-[#fffbeb]', title: 'font-black text-xl md:text-2xl mt-4 text-black tracking-widest' } });
+        }
+
+        // ============================================
+        // DEADLINE — ADMIN (ครู เพิ่ม/แก้/ลบ)
+        // ============================================
+        window.openDeadlineAdmin = async function() {
+            const result = await fireSwal({
+                title: '📅 จัดการ DEADLINE', input: 'password', inputPlaceholder: 'รหัสผ่าน Admin',
+                showCancelButton: true, confirmButtonText: 'VERIFY', cancelButtonText: 'CANCEL', buttonsStyling: false,
+                customClass: { popup: 'border-[6px] border-black rounded-[2.5rem] shadow-[12px_12px_0_0_rgba(0,0,0,1)]', title: 'text-black font-black tracking-widest text-2xl mt-2',
+                    input: 'bg-white border-4 border-black text-black focus:ring-4 focus:ring-amber-300 rounded-xl p-3 text-center tracking-widest font-black text-lg shadow-[4px_4px_0_0_rgba(0,0,0,1)] mt-4',
+                    confirmButton: 'bg-amber-400 hover:bg-amber-300 text-black font-black py-3 px-6 rounded-xl mx-2 border-4 border-black shadow-[4px_4px_0_0_rgba(0,0,0,1)] active:translate-y-1 active:shadow-[0_0_0_0_rgba(0,0,0,1)] transition-all',
+                    cancelButton: 'bg-gray-300 hover:bg-gray-200 text-black font-black py-3 px-6 rounded-xl mx-2 border-4 border-black shadow-[4px_4px_0_0_rgba(0,0,0,1)] active:translate-y-1 active:shadow-[0_0_0_0_rgba(0,0,0,1)] transition-all' }
+            });
+            if (result.value === '7846') { loadDeadlineAdminList(); }
+            else if (result.value) {
+                fireSwal({ icon: 'error', title: 'DENIED!', text: 'รหัสผ่านผิด', buttonsStyling: false,
+                    customClass: { popup: 'border-[6px] border-black rounded-[2.5rem] shadow-[12px_12px_0_0_rgba(0,0,0,1)]', confirmButton: 'bg-black text-white font-black py-2 px-6 rounded-xl border-4 border-black mt-4' } });
+            }
+        };
+
+        function loadDeadlineAdminList() {
+            fireSwal({ title: 'LOADING... ⏳', allowOutsideClick: false, didOpen: function() { if(typeof Swal!=='undefined') Swal.showLoading(); } });
+            callAPI('getAllDeadlines', {})
+                .then(function(deadlines) { renderDeadlineAdminList(deadlines); })
+                .catch(function(err) { fireSwal({ icon: 'error', title: 'ERROR', text: err.message }); });
+        }
+
+        function renderDeadlineAdminList(deadlines) {
+            window.deadlineAdminData = deadlines || [];
+            const today = new Date(); today.setHours(0, 0, 0, 0);
+
+            let html = '<div class="text-left p-1">';
+            html += '<button onclick="openDeadlineForm(-1)" class="w-full bg-amber-400 border-4 border-black text-black font-black py-3 rounded-2xl shadow-[4px_4px_0_0_rgba(0,0,0,1)] hover:-translate-y-1 active:translate-y-1 active:shadow-[0_0_0_0_rgba(0,0,0,1)] transition-all mb-4 tracking-widest uppercase text-lg">➕ เพิ่มกำหนดส่งใหม่</button>';
+
+            if (!deadlines || deadlines.length === 0) {
+                html += '<p class="text-center text-gray-500 font-bold py-8">ยังไม่มีกำหนดส่งงาน<br>กดปุ่มด้านบนเพื่อเพิ่มได้เลย</p>';
+            } else {
+                html += '<div class="flex flex-col gap-3 max-h-[55vh] overflow-y-auto scrollbar-hide">';
+                deadlines.forEach(function(d, i) {
+                    const dueDate   = parseDateLocal(d.dueDate);
+                    const days      = dueDate ? Math.floor((dueDate - today) / 86400000) : null;
+                    const hideTag   = d.visible ? '' : '<span class="bg-gray-400 text-white text-xs font-black px-2 py-0.5 rounded-full border-2 border-black ml-1">ซ่อน</span>';
+                    const displayDate = dueDate ? dueDate.toLocaleDateString('th-TH', { year: 'numeric', month: 'short', day: 'numeric' }) : '-';
+                    let dayBadge, badgeStyle;
+                    if (days === null)  { dayBadge = 'ไม่ระบุวัน';             badgeStyle = 'bg-gray-300 text-black border-gray-400'; }
+                    else if (days < 0) { dayBadge = 'เกินกำหนด';              badgeStyle = 'bg-red-500 text-white border-red-600'; }
+                    else if (days === 0){ dayBadge = 'วันนี้! 🔥';            badgeStyle = 'bg-red-400 text-white border-red-500'; }
+                    else if (days <= 3) { dayBadge = 'อีก ' + days + ' วัน'; badgeStyle = 'bg-orange-400 text-black border-orange-500'; }
+                    else               { dayBadge = 'อีก ' + days + ' วัน'; badgeStyle = 'bg-green-400 text-black border-green-500'; }
+
+                    html += '<div class="bg-white border-4 border-black rounded-2xl p-3 shadow-[4px_4px_0_0_rgba(0,0,0,1)] flex items-start gap-3">';
+                    html += '<div class="flex-1 min-w-0">';
+                    html += '<p class="font-black text-black text-sm leading-tight">' + d.title + hideTag + '</p>';
+                    html += '<p class="text-xs font-bold text-gray-500 mt-1">📅 ' + displayDate + ' • 🏫 ' + (d.rooms === 'ทุกห้อง' ? 'ทุกห้อง' : 'ม.' + d.rooms) + '</p>';
+                    if (d.description) html += '<p class="text-xs text-gray-400 mt-0.5 truncate">' + d.description + '</p>';
+                    html += '</div>';
+                    html += '<div class="flex flex-col gap-1 flex-shrink-0 items-end">';
+                    html += '<span class="' + badgeStyle + ' border-2 text-xs font-black px-2 py-0.5 rounded-full whitespace-nowrap">' + dayBadge + '</span>';
+                    html += '<button onclick="openDeadlineForm(' + i + ')" class="bg-yellow-300 border-2 border-black text-black text-xs font-black px-2 py-1 rounded-lg shadow-[2px_2px_0_0_rgba(0,0,0,1)]">✏️ แก้ไข</button>';
+                    html += '<button onclick="confirmDeleteDeadline(\'' + d.id + '\',\'' + d.title.replace(/['"]/g, '') + '\')" class="bg-red-400 border-2 border-black text-black text-xs font-black px-2 py-1 rounded-lg shadow-[2px_2px_0_0_rgba(0,0,0,1)]">🗑️ ลบ</button>';
+                    html += '</div></div>';
+                });
+                html += '</div>';
+            }
+            html += '</div>';
+
+            fireSwal({ title: '📅 จัดการกำหนดส่งงาน', html: html, showConfirmButton: false, showCloseButton: true, width: '38rem',
+                customClass: { popup: 'border-[6px] border-black rounded-[2.5rem] shadow-[12px_12px_0_0_rgba(0,0,0,1)] bg-[#fffbeb]', title: 'font-black text-2xl mt-4 text-black tracking-widest' } });
+        }
+
+        window.openDeadlineForm = function(index) {
+            const isNew = index < 0;
+            const d = isNew
+                ? { id: '', title: '', description: '', dueDate: '', rooms: 'ทุกห้อง', visible: true }
+                : window.deadlineAdminData[index];
+
+            const selectedRooms = (d.rooms || '').split(',').map(function(r) { return r.trim(); });
+            const isAllRooms    = selectedRooms.indexOf('ทุกห้อง') !== -1;
+            const roomColors    = { '4': 'bg-orange-100', '5': 'bg-green-100', '6': 'bg-pink-100' };
+
+            let roomChecks = '<div id="dlRoomChecks" class="' + (isAllRooms ? 'opacity-40 pointer-events-none' : '') + '">';
+            roomChecks += '<div class="grid grid-cols-4 gap-1.5">';
+            ['4/1','4/2','4/3','4/4','5/1','5/2','5/3','5/4','6/1','6/2','6/3','6/4'].forEach(function(r) {
+                const checked = selectedRooms.indexOf(r) !== -1 ? 'checked' : '';
+                const bg = roomColors[r.split('/')[0]] || 'bg-gray-100';
+                roomChecks += '<label class="' + bg + ' border-2 border-black rounded-lg p-1.5 flex items-center gap-1 cursor-pointer font-black text-xs">';
+                roomChecks += '<input type="checkbox" class="room-cb w-4 h-4" value="' + r + '" ' + checked + '> ม.' + r + '</label>';
+            });
+            roomChecks += '</div></div>';
+
+            let html = '<form id="deadlineForm" class="text-left space-y-3 mt-2">';
+            html += '<div><label class="block font-black text-xs text-black mb-1 uppercase tracking-wider">ชื่องาน/กำหนดการ *</label>';
+            html += '<input id="dlTitle" value="' + (d.title||'') + '" placeholder="เช่น ส่งแบบฝึกหัด Unit 5 หน้า 80-85" class="w-full bg-white border-4 border-black rounded-xl p-2.5 font-bold focus:ring-4 focus:ring-amber-300 focus:outline-none shadow-[2px_2px_0_0_rgba(0,0,0,0.1)]"></div>';
+            html += '<div><label class="block font-black text-xs text-black mb-1 uppercase tracking-wider">รายละเอียดเพิ่มเติม</label>';
+            html += '<textarea id="dlDesc" rows="2" placeholder="เช่น แบบฝึกหัดประกอบบทเรียน Unit 5 ทำลงกระดาษ A4" class="w-full bg-white border-4 border-black rounded-xl p-2.5 font-bold focus:ring-4 focus:ring-amber-300 focus:outline-none resize-none shadow-[2px_2px_0_0_rgba(0,0,0,0.1)]">' + (d.description||'') + '</textarea></div>';
+            html += '<div><label class="block font-black text-xs text-black mb-1 uppercase tracking-wider">วันกำหนดส่ง * <span class="text-gray-400 font-normal normal-case">(ปี ค.ศ. เช่น 2026)</span></label>';
+            html += '<input id="dlDate" type="date" value="' + (d.dueDate||'') + '" class="w-full bg-white border-4 border-black rounded-xl p-2.5 font-bold focus:ring-4 focus:ring-amber-300 focus:outline-none cursor-pointer shadow-[2px_2px_0_0_rgba(0,0,0,0.1)]"></div>';
+            html += '<div>';
+            html += '<label class="flex items-center gap-2 font-black text-sm text-black cursor-pointer bg-amber-100 border-4 border-black rounded-xl p-2.5 mb-2 hover:bg-amber-200 transition-colors">';
+            html += '<input type="checkbox" id="dlAllRooms" ' + (isAllRooms?'checked':'') + ' class="w-5 h-5" onchange="toggleDlRoomChecks(this)"> 🌐 ทุกห้อง (ม.4 – ม.6/4)</label>';
+            html += '<label class="block font-black text-xs text-black mb-1 uppercase tracking-wider">หรือเลือกเฉพาะห้อง:</label>';
+            html += roomChecks + '</div>';
+            html += '<label class="flex items-center gap-2 font-black text-sm text-black cursor-pointer bg-white border-4 border-black rounded-xl p-2.5 hover:bg-gray-50 transition-colors">';
+            html += '<input type="checkbox" id="dlVisible" ' + (d.visible?'checked':'') + ' class="w-5 h-5"> แสดงให้นักเรียนเห็น 👁️</label>';
+            html += '<input type="hidden" id="dlId" value="' + (d.id||'') + '">';
+            html += '</form>';
+
+            fireSwal({
+                title: (isNew ? '➕ เพิ่ม' : '✏️ แก้ไข') + ' Deadline', html: html,
+                showCancelButton: true, confirmButtonText: '💾 บันทึก', cancelButtonText: 'ยกเลิก',
+                buttonsStyling: false, width: '34rem',
+                customClass: { popup: 'border-[6px] border-black rounded-[2.5rem] p-4 shadow-[12px_12px_0_0_rgba(0,0,0,1)] bg-[#fffbeb]',
+                    title: 'font-black text-2xl mt-2 text-black tracking-widest',
+                    confirmButton: 'bg-green-400 hover:bg-green-300 text-black font-black py-3 px-6 rounded-xl mx-2 border-4 border-black shadow-[4px_4px_0_0_rgba(0,0,0,1)] active:translate-y-1 active:shadow-[0_0_0_0_rgba(0,0,0,1)] transition-all',
+                    cancelButton:  'bg-red-400 hover:bg-red-300 text-black font-black py-3 px-6 rounded-xl mx-2 border-4 border-black shadow-[4px_4px_0_0_rgba(0,0,0,1)] active:translate-y-1 active:shadow-[0_0_0_0_rgba(0,0,0,1)] transition-all' },
+                preConfirm: function() {
+                    const title   = document.getElementById('dlTitle').value.trim();
+                    const dueDate = document.getElementById('dlDate').value;
+                    if (!title || !dueDate) {
+                        if(typeof Swal!=='undefined') Swal.showValidationMessage('กรุณากรอก ชื่องาน และ วันกำหนดส่ง ❌');
+                        return false;
+                    }
+                    let rooms;
+                    if (document.getElementById('dlAllRooms').checked) {
+                        rooms = 'ทุกห้อง';
+                    } else {
+                        const checked = Array.from(document.querySelectorAll('.room-cb:checked')).map(function(cb) { return cb.value; });
+                        if (checked.length === 0) {
+                            if(typeof Swal!=='undefined') Swal.showValidationMessage('กรุณาเลือกอย่างน้อย 1 ห้อง หรือติ๊ก ทุกห้อง ❌');
+                            return false;
+                        }
+                        rooms = checked.join(',');
+                    }
+                    return { id: document.getElementById('dlId').value, title: title,
+                             description: document.getElementById('dlDesc').value.trim(),
+                             dueDate: dueDate, rooms: rooms,
+                             visible: document.getElementById('dlVisible').checked };
+                }
+            }).then(function(result) {
+                if (result.isConfirmed) {
+                    fireSwal({ title: 'SAVING... ⏳', allowOutsideClick: false, didOpen: function(){ if(typeof Swal!=='undefined') Swal.showLoading(); } });
+                    callAPI('saveDeadline', { data: result.value })
+                        .then(function(res) {
+                            if (res.success) { loadDeadlineAdminList(); }
+                            else { fireSwal({ icon: 'error', title: 'FAILED', text: res.message }); }
+                        })
+                        .catch(function(e) { fireSwal({ icon: 'error', title: 'ERROR', text: e.message }); });
+                }
+            });
+        };
+
+        // toggle checkbox ห้องเรียน
+        window.toggleDlRoomChecks = function(checkbox) {
+            const div = document.getElementById('dlRoomChecks');
+            if (checkbox.checked) { div.classList.add('opacity-40','pointer-events-none'); }
+            else                  { div.classList.remove('opacity-40','pointer-events-none'); }
+        };
+
+        window.confirmDeleteDeadline = async function(id, title) {
+            const result = await fireSwal({
+                icon: 'warning', title: 'ลบ Deadline?', text: 'ต้องการลบ "' + title + '" ใช่ไหม?',
+                showCancelButton: true, confirmButtonText: 'ลบเลย 🗑️', cancelButtonText: 'ยกเลิก', buttonsStyling: false,
+                customClass: { popup: 'border-[6px] border-black rounded-[2rem] shadow-[12px_12px_0_0_rgba(0,0,0,1)]', title: 'font-black',
+                    confirmButton: 'bg-red-500 text-white font-black py-2 px-6 rounded-xl border-4 border-black mx-2 mt-4',
+                    cancelButton:  'bg-gray-300 text-black font-black py-2 px-6 rounded-xl border-4 border-black mx-2 mt-4' }
+            });
+            if (result.isConfirmed) {
+                callAPI('deleteDeadline', { data: { id: id } })
+                    .then(function(res) {
+                        if (res.success) { loadDeadlineAdminList(); }
+                        else { fireSwal({ icon: 'error', title: 'FAILED', text: res.message }); }
+                    });
+            }
         };
     </script>
 </body>
