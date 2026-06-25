@@ -414,39 +414,31 @@
             </div>
 
         </div>
-        <!-- DEADLINE TRACKER -->
-<div class="w-full bg-[#fef3c7] border-[6px] border-black rounded-[3rem] p-6 md:p-10 shadow-[12px_12px_0_0_rgba(0,0,0,1)] mb-6 flex flex-col md:flex-row items-center justify-between gap-6 hover:-translate-y-1 transition-transform relative overflow-hidden animate-bounce-up delay-400 ai-border ai-nodes">
+       <!-- DEADLINE TRACKER -->
+<div class="w-full bg-[#fef3c7] border-[6px] border-black rounded-[3rem] p-6 md:p-8 shadow-[12px_12px_0_0_rgba(0,0,0,1)] mb-6 hover:-translate-y-1 transition-transform relative overflow-hidden animate-bounce-up delay-400 ai-border ai-nodes">
     <div class="absolute -right-6 -bottom-4 text-[9rem] opacity-25 transform rotate-12 pointer-events-none z-0">⏰</div>
-    <div class="flex items-center gap-6 relative z-10 text-center md:text-left flex-col md:flex-row w-full md:w-auto">
-        <div class="bg-white p-5 rounded-3xl border-4 border-black shadow-[6px_6px_0_0_rgba(0,0,0,1)] text-4xl transform -rotate-3">📅</div>
-        <div>
-            <h2 class="text-3xl md:text-5xl font-black text-black mb-2 uppercase tracking-widest drop-shadow-[2px_2px_0_rgba(255,255,255,1)]">DEADLINE</h2>
-            <p class="text-black font-black text-sm tracking-widest uppercase bg-amber-400 px-4 py-1.5 rounded-full border-2 border-black inline-block shadow-[2px_2px_0_0_rgba(0,0,0,1)]">กำหนดส่งงานประจำห้อง</p>
+    <div class="relative z-10">
+        <!-- หัวการ์ด -->
+        <div class="flex items-center justify-between mb-5 flex-wrap gap-3">
+            <div class="flex items-center gap-4">
+                <div class="bg-white p-4 rounded-3xl border-4 border-black shadow-[4px_4px_0_0_rgba(0,0,0,1)] text-3xl transform -rotate-3">📅</div>
+                <div>
+                    <h2 class="text-3xl md:text-4xl font-black text-black uppercase tracking-widest drop-shadow-[2px_2px_0_rgba(255,255,255,1)]">DEADLINE</h2>
+                    <p class="text-black font-black text-xs tracking-widest uppercase bg-amber-400 px-3 py-1 rounded-full border-2 border-black inline-block mt-1 shadow-[2px_2px_0_0_rgba(0,0,0,1)]">กำหนดส่งงานประจำห้อง</p>
+                </div>
+            </div>
+            <button type="button" onclick="openDeadlineAdmin()" class="bg-amber-500 border-4 border-black text-white font-black text-sm py-2.5 px-6 rounded-2xl hover:bg-amber-400 active:translate-y-1 active:shadow-[0_0_0_0_rgba(0,0,0,1)] shadow-[4px_4px_0_0_rgba(0,0,0,1)] transition-all flex items-center gap-2 uppercase tracking-widest flex-shrink-0">
+                <span>📅</span> DEADLINE (ครู)
+            </button>
+        </div>
+        <!-- รายการ deadline แสดงตรงนี้เลย -->
+        <div id="deadlineBoard" class="flex flex-col gap-3">
+            <div class="flex items-center justify-center py-6 text-gray-400 font-bold text-sm">
+                <span class="animate-pulse">⏳ กำลังโหลด...</span>
+            </div>
         </div>
     </div>
-    <button type="button" onclick="showDeadlines()" class="w-full md:w-auto flex-shrink-0 bg-amber-400 border-4 border-black text-black font-black text-xl py-4 px-10 rounded-2xl hover:bg-amber-300 active:translate-y-1 active:shadow-[0_0_0_0_rgba(0,0,0,1)] shadow-[6px_6px_0_0_rgba(0,0,0,1)] transition-all flex items-center justify-center gap-3 relative z-10 uppercase tracking-widest">
-        <span>ดูกำหนดส่ง</span> <span class="text-2xl animate-bounce">⏳</span>
-    </button>
 </div>
-
-        <!-- ตารางเรียน ม.ปลาย 1/2569 -->
-        <div class="w-full bg-[#fbcfe8] border-[6px] border-black rounded-[3rem] p-6 md:p-10 mb-6 flex flex-col items-center justify-center hover:-translate-y-1 transition-transform relative overflow-hidden animate-bounce-up delay-400 shadow-[12px_12px_0_0_rgba(0,0,0,1)] ai-border ai-nodes">
-            <div class="absolute -right-4 -bottom-4 text-[10rem] opacity-30 transform -rotate-12 pointer-events-none z-0">🗓️</div>
-            <div class="flex justify-center mb-6 relative z-10 w-full">
-                <h2 class="bg-white border-4 border-black px-8 py-3 rounded-full font-black text-xl md:text-3xl text-black shadow-[6px_6px_0_0_rgba(0,0,0,1)] tracking-widest uppercase transform -rotate-1">
-                    TIMETABLE // ม.ปลาย 1/2569
-                </h2>
-            </div>
-            <div class="w-full max-w-4xl bg-white border-4 border-black rounded-3xl overflow-hidden shadow-[8px_8px_0_0_rgba(0,0,0,1)] relative z-10 p-2" style="position: relative; width: 100%; height: 0; padding-top: 56.25%;">
-                <iframe loading="lazy" style="position: absolute; width: 100%; height: 100%; top: 0; left: 0; border: none; padding: 0; margin: 0; border-radius: 1rem;"
-                    src="https://www.canva.com/design/DAHJFA0j0jo/Rx3I3VaBZwmLEIEdDGU1_Q/view?embed" allowfullscreen="allowfullscreen" allow="fullscreen">
-                </iframe>
-            </div>
-            <a href="https://www.canva.com/design/DAHJFA0j0jo/Rx3I3VaBZwmLEIEdDGU1_Q/view" target="_blank" class="mt-8 bg-blue-500 text-white font-black text-lg md:text-xl px-10 py-4 border-4 border-black rounded-2xl hover:bg-blue-400 active:translate-y-1 active:shadow-[0_0_0_0_rgba(0,0,0,1)] shadow-[6px_6px_0_0_rgba(0,0,0,1)] transition-all relative z-10 tracking-widest uppercase flex items-center gap-3">
-                <span>EXPAND DISPLAY</span> <span class="text-2xl">⛶</span>
-            </a>
-        </div>
-
         <!-- เอกสาร/ใบงาน -->
         <div class="w-full bg-[#93c5fd] border-[6px] border-black rounded-[3rem] p-6 md:p-10 shadow-[12px_12px_0_0_rgba(0,0,0,1)] mb-6 flex flex-col md:flex-row items-center justify-between gap-6 hover:-translate-y-1 transition-transform relative overflow-hidden animate-bounce-up delay-400 ai-border ai-nodes">
             <div class="absolute -left-6 -top-6 text-[8rem] opacity-30 transform rotate-12 pointer-events-none z-0">📁</div>
@@ -1311,10 +1303,9 @@
                 .catch(function(e){ fireSwal({ icon:'error', title:'ERROR', text: e.message }); });
         };
         // ============================================
-        // DEADLINE TRACKER — นักเรียน
+        // DEADLINE TRACKER — โหลดตรงการ์ดเลย
         // ============================================
 
-        // helper: แปลง YYYY-MM-DD → Date object โดยไม่ผิด timezone
         function parseDateLocal(str) {
             if (!str) return null;
             const p = str.split('-');
@@ -1322,82 +1313,97 @@
             return new Date(parseInt(p[0]), parseInt(p[1]) - 1, parseInt(p[2]));
         }
 
-        // popup เลือกห้อง
-        window.showDeadlines = function() {
-            const roomColors = { '4': '#f97316', '5': '#22c55e', '6': '#ec4899' };
-            let html = '<div class="p-1">';
-            html += '<p class="text-sm font-bold text-gray-500 mb-3 text-center tracking-widest uppercase">เลือกห้องเพื่อดูกำหนดส่ง</p>';
-            html += '<button onclick="loadDeadlinesByRoom(\'ทุกห้อง\')" class="w-full bg-amber-400 border-4 border-black text-black font-black py-3 rounded-2xl shadow-[4px_4px_0_0_rgba(0,0,0,1)] hover:-translate-y-1 active:translate-y-1 active:shadow-[0_0_0_0_rgba(0,0,0,1)] transition-all mb-3 tracking-widest uppercase text-lg">🌐 ดูทั้งหมด (ทุกห้อง)</button>';
-            html += '<div class="grid grid-cols-4 gap-2">';
-            ['4/1','4/2','4/3','4/4','5/1','5/2','5/3','5/4','6/1','6/2','6/3','6/4'].forEach(function(room) {
-                const color = roomColors[room.split('/')[0]] || '#6366f1';
-                html += '<button onclick="loadDeadlinesByRoom(\'' + room + '\')" class="bg-white border-4 border-black p-2 rounded-xl hover:-translate-y-1 active:translate-y-1 shadow-[3px_3px_0_0_rgba(0,0,0,1)] transition-all flex items-center justify-center">';
-                html += '<span class="text-white w-full py-2 rounded-lg border-2 border-black flex items-center justify-center font-black text-sm" style="background:' + color + '">' + room + '</span></button>';
-            });
-            html += '</div></div>';
-            fireSwal({ title: '📅 DEADLINE TRACKER', html: html, showConfirmButton: false, showCloseButton: true,
-                customClass: { popup: 'border-[6px] border-black rounded-[2.5rem] shadow-[12px_12px_0_0_rgba(0,0,0,1)] bg-[#fffbeb]', title: 'font-black text-2xl mt-4 text-black tracking-widest' } });
-        };
+        // โหลดและแสดงผลที่การ์ดตรงๆ
+        function loadDeadlineBoard() {
+            callAPI('getDeadlines', { room: 'ทุกห้อง' })
+                .then(function(deadlines) { renderDeadlineBoard(deadlines); })
+                .catch(function() {
+                    document.getElementById('deadlineBoard').innerHTML =
+                        '<p class="text-center text-gray-400 font-bold text-sm py-4">ไม่สามารถโหลดข้อมูลได้</p>';
+                });
+        }
 
-        window.loadDeadlinesByRoom = function(room) {
-            fireSwal({ title: 'LOADING ⏳', allowOutsideClick: false, didOpen: function() { if(typeof Swal!=='undefined') Swal.showLoading(); } });
-            callAPI('getDeadlines', { room: room })
-                .then(function(deadlines) { renderDeadlinePopup(room, deadlines); })
-                .catch(function(err) { fireSwal({ icon: 'error', title: 'ERROR', text: err.message }); });
-        };
-
-        function renderDeadlinePopup(room, deadlines) {
+        function renderDeadlineBoard(deadlines) {
+            const board = document.getElementById('deadlineBoard');
+            if (!board) return;
             const today = new Date(); today.setHours(0, 0, 0, 0);
-            const titleLabel = room === 'ทุกห้อง' ? '📅 กำหนดส่งงาน (ทุกห้อง)' : ('📅 กำหนดส่งงาน ม.' + room);
 
             if (!deadlines || deadlines.length === 0) {
-                fireSwal({ icon: 'info', title: 'ยังไม่มีกำหนดส่งงาน', text: 'ครูยังไม่ได้บันทึกกำหนดส่งงานในขณะนี้', buttonsStyling: false,
-                    customClass: { popup: 'border-[6px] border-black rounded-[2rem] shadow-[12px_12px_0_0_rgba(0,0,0,1)]', confirmButton: 'bg-black text-white font-black py-2 px-6 rounded-xl border-4 border-black mt-4' } });
+                board.innerHTML = '<div class="bg-white border-4 border-black rounded-2xl p-5 text-center shadow-[4px_4px_0_0_rgba(0,0,0,1)]">' +
+                    '<p class="text-2xl mb-1">🎉</p>' +
+                    '<p class="font-black text-gray-500 text-sm">ยังไม่มีกำหนดส่งงานในขณะนี้</p></div>';
                 return;
             }
 
-            let html = '<div class="flex flex-col gap-3 max-h-[60vh] overflow-y-auto p-2 scrollbar-hide">';
+            let html = '';
             deadlines.forEach(function(d) {
                 const dueDate = parseDateLocal(d.dueDate);
                 const days    = dueDate ? Math.floor((dueDate - today) / 86400000) : null;
 
-                let urgencyClass, urgencyText, borderLeft;
+                let urgencyClass, urgencyText, borderLeft, rowBg;
                 if (days === null) {
-                    urgencyClass = 'bg-gray-400 text-white'; urgencyText = 'ไม่ระบุวัน'; borderLeft = 'border-l-[10px] border-gray-400';
+                    urgencyClass = 'bg-gray-400 text-white';
+                    urgencyText  = 'ไม่ระบุวัน';
+                    borderLeft   = 'border-l-[10px] border-gray-400';
+                    rowBg        = 'bg-white';
                 } else if (days < 0) {
-                    urgencyClass = 'bg-red-600 text-white'; urgencyText = 'เกิน ' + Math.abs(days) + ' วัน ❌'; borderLeft = 'border-l-[10px] border-red-600';
+                    urgencyClass = 'bg-red-600 text-white';
+                    urgencyText  = 'เกิน ' + Math.abs(days) + ' วัน ❌';
+                    borderLeft   = 'border-l-[10px] border-red-600';
+                    rowBg        = 'bg-red-50';
                 } else if (days === 0) {
-                    urgencyClass = 'bg-red-400 text-white'; urgencyText = 'ส่งวันนี้! 🔥'; borderLeft = 'border-l-[10px] border-red-400';
+                    urgencyClass = 'bg-red-500 text-white';
+                    urgencyText  = 'ส่งวันนี้! 🔥';
+                    borderLeft   = 'border-l-[10px] border-red-500';
+                    rowBg        = 'bg-red-50';
                 } else if (days <= 3) {
-                    urgencyClass = 'bg-orange-400 text-black'; urgencyText = 'อีก ' + days + ' วัน ⚠️'; borderLeft = 'border-l-[10px] border-orange-400';
+                    urgencyClass = 'bg-orange-400 text-black';
+                    urgencyText  = 'อีก ' + days + ' วัน ⚠️';
+                    borderLeft   = 'border-l-[10px] border-orange-400';
+                    rowBg        = 'bg-orange-50';
                 } else if (days <= 7) {
-                    urgencyClass = 'bg-yellow-400 text-black'; urgencyText = 'อีก ' + days + ' วัน'; borderLeft = 'border-l-[10px] border-yellow-400';
+                    urgencyClass = 'bg-yellow-400 text-black';
+                    urgencyText  = 'อีก ' + days + ' วัน';
+                    borderLeft   = 'border-l-[10px] border-yellow-400';
+                    rowBg        = 'bg-yellow-50';
                 } else {
-                    urgencyClass = 'bg-green-400 text-black'; urgencyText = 'อีก ' + days + ' วัน'; borderLeft = 'border-l-[10px] border-green-400';
+                    urgencyClass = 'bg-green-400 text-black';
+                    urgencyText  = 'อีก ' + days + ' วัน';
+                    borderLeft   = 'border-l-[10px] border-green-400';
+                    rowBg        = 'bg-white';
                 }
 
-                const displayDate = dueDate ? dueDate.toLocaleDateString('th-TH', { year: 'numeric', month: 'long', day: 'numeric' }) : '-';
-                const roomDisplay = d.rooms === 'ทุกห้อง' ? 'ทุกห้อง' : 'ม.' + d.rooms;
+                const displayDate = dueDate
+                    ? dueDate.toLocaleDateString('th-TH', { year: 'numeric', month: 'long', day: 'numeric' })
+                    : '-';
+                const roomDisplay = d.rooms === 'ทุกห้อง' ? '🌐 ทุกห้อง' : '🏫 ม.' + d.rooms;
 
-                html += '<div class="bg-white border-4 border-black ' + borderLeft + ' rounded-2xl p-4 shadow-[4px_4px_0_0_rgba(0,0,0,1)]">';
-                html += '<div class="flex justify-between items-start gap-2 mb-2">';
-                html += '<p class="font-black text-black text-base leading-tight flex-1">' + d.title + '</p>';
-                html += '<span class="' + urgencyClass + ' border-2 border-black text-xs font-black px-2 py-1 rounded-full whitespace-nowrap shadow-[2px_2px_0_0_rgba(0,0,0,1)] flex-shrink-0">' + urgencyText + '</span>';
+                html += '<div class="' + rowBg + ' border-4 border-black ' + borderLeft + ' rounded-2xl px-4 py-3 shadow-[4px_4px_0_0_rgba(0,0,0,1)] flex items-center gap-3 flex-wrap md:flex-nowrap">';
+                // วันที่ — แสดงซ้าย
+                html += '<div class="bg-white border-3 border-black rounded-xl px-3 py-2 text-center flex-shrink-0 border-2 shadow-[2px_2px_0_0_rgba(0,0,0,1)] min-w-[64px]">';
+                html += '<p class="text-xs font-black text-gray-500 leading-none">' + (dueDate ? dueDate.toLocaleDateString('th-TH', { month: 'short' }) : '-') + '</p>';
+                html += '<p class="text-2xl font-black text-black leading-tight">' + (dueDate ? dueDate.getDate() : '-') + '</p>';
                 html += '</div>';
+                // ชื่องาน + รายละเอียด
+                html += '<div class="flex-1 min-w-0">';
+                html += '<p class="font-black text-black text-base leading-tight">' + d.title + '</p>';
                 if (d.description && d.description.trim()) {
-                    html += '<p class="text-sm font-bold text-gray-600 mb-2">' + d.description + '</p>';
+                    html += '<p class="text-xs font-bold text-gray-500 mt-0.5 truncate">' + d.description + '</p>';
                 }
-                html += '<div class="flex flex-wrap gap-2 items-center mt-1">';
-                html += '<span class="bg-gray-100 border-2 border-black text-black text-xs font-black px-3 py-1 rounded-full">📅 ' + displayDate + '</span>';
-                html += '<span class="bg-blue-100 border-2 border-black text-blue-700 text-xs font-black px-3 py-1 rounded-full">🏫 ' + roomDisplay + '</span>';
-                html += '</div></div>';
+                html += '<p class="text-xs font-bold text-gray-400 mt-1">' + displayDate + ' • ' + roomDisplay + '</p>';
+                html += '</div>';
+                // badge วันที่เหลือ
+                html += '<span class="' + urgencyClass + ' border-2 border-black text-xs font-black px-3 py-1.5 rounded-full whitespace-nowrap shadow-[2px_2px_0_0_rgba(0,0,0,1)] flex-shrink-0">' + urgencyText + '</span>';
+                html += '</div>';
             });
-            html += '</div>';
-            html += '<button onclick="showDeadlines()" class="w-full mt-4 bg-amber-300 border-[4px] border-black text-black font-black py-2.5 rounded-2xl hover:-translate-y-0.5 shadow-[4px_4px_0_0_rgba(0,0,0,1)] active:translate-y-1 active:shadow-[0_0_0_0_rgba(0,0,0,1)] transition-all text-sm tracking-widest uppercase">← เลือกห้องอื่น</button>';
 
-            fireSwal({ title: titleLabel, html: html, showConfirmButton: false, showCloseButton: true,
-                customClass: { popup: 'border-[6px] border-black rounded-[2.5rem] shadow-[12px_12px_0_0_rgba(0,0,0,1)] bg-[#fffbeb]', title: 'font-black text-xl md:text-2xl mt-4 text-black tracking-widest' } });
+            board.innerHTML = html;
         }
+
+        // เรียกโหลดตอนหน้าเปิด
+        document.addEventListener('DOMContentLoaded', function() {
+            loadDeadlineBoard();
+        });
 
         // ============================================
         // DEADLINE — ADMIN (ครู เพิ่ม/แก้/ลบ)
@@ -1421,11 +1427,14 @@
         function loadDeadlineAdminList() {
             fireSwal({ title: 'LOADING... ⏳', allowOutsideClick: false, didOpen: function() { if(typeof Swal!=='undefined') Swal.showLoading(); } });
             callAPI('getAllDeadlines', {})
-                .then(function(deadlines) { renderDeadlineAdminList(deadlines); })
+                .then(function(deadlines) {
+                    renderDeadlineAdminList(deadlines);
+                    loadDeadlineBoard();
+                })
                 .catch(function(err) { fireSwal({ icon: 'error', title: 'ERROR', text: err.message }); });
-        }
+        }   // ← เพิ่ม } ตรงนี้เพื่อปิด loadDeadlineAdminList
 
-        function renderDeadlineAdminList(deadlines) {
+        function renderDeadlineAdminList(deadlines) {   // ← แล้วค่อยเปิดฟังก์ชันใหม่
             window.deadlineAdminData = deadlines || [];
             const today = new Date(); today.setHours(0, 0, 0, 0);
 
