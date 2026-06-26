@@ -235,30 +235,49 @@
         </div>
 
               <!-- DEADLINE TRACKER -->
-<div class="w-full bg-[#fef3c7] border-[6px] border-black rounded-[3rem] p-6 md:p-8 shadow-[12px_12px_0_0_rgba(0,0,0,1)] mb-6 hover:-translate-y-1 transition-transform relative overflow-hidden animate-bounce-up delay-400 ai-border ai-nodes">
-    <div class="absolute -right-6 -bottom-4 text-[9rem] opacity-25 transform rotate-12 pointer-events-none z-0">⏰</div>
-    <div class="relative z-10">
-        <!-- หัวการ์ด -->
-        <div class="flex items-center justify-between mb-5 flex-wrap gap-3">
-            <div class="flex items-center gap-4">
-                <div class="bg-white p-4 rounded-3xl border-4 border-black shadow-[4px_4px_0_0_rgba(0,0,0,1)] text-3xl transform -rotate-3">📅</div>
-                <div>
-                    <h2 class="text-3xl md:text-4xl font-black text-black uppercase tracking-widest drop-shadow-[2px_2px_0_rgba(255,255,255,1)]">DEADLINE</h2>
-                    <p class="text-black font-black text-xs tracking-widest uppercase bg-amber-400 px-3 py-1 rounded-full border-2 border-black inline-block mt-1 shadow-[2px_2px_0_0_rgba(0,0,0,1)]">กำหนดส่งงานประจำห้อง</p>
+<div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-6">
+            
+            <div class="bg-[#fef3c7] border-[6px] border-black rounded-[3rem] p-6 shadow-[12px_12px_0_0_rgba(0,0,0,1)] hover:-translate-y-1 transition-transform relative overflow-hidden animate-bounce-up delay-400 ai-border ai-nodes flex flex-col h-full">
+                <div class="absolute -right-6 -bottom-4 text-[9rem] opacity-25 transform rotate-12 pointer-events-none z-0">⏰</div>
+                <div class="relative z-10 flex flex-col h-full">
+                    <div class="flex items-center justify-between mb-5 flex-wrap gap-3">
+                        <div class="flex items-center gap-3">
+                            <div class="bg-white p-3 rounded-2xl border-4 border-black shadow-[4px_4px_0_0_rgba(0,0,0,1)] text-2xl transform -rotate-3">📅</div>
+                            <div>
+                                <h2 class="text-2xl md:text-3xl font-black text-black uppercase tracking-widest drop-shadow-[2px_2px_0_rgba(255,255,255,1)]">DEADLINE</h2>
+                                <p class="text-black font-black text-[10px] tracking-widest uppercase bg-amber-400 px-3 py-1 rounded-full border-2 border-black inline-block mt-1 shadow-[2px_2px_0_0_rgba(0,0,0,1)]">กำหนดส่งงาน</p>
+                            </div>
+                        </div>
+                        <button type="button" onclick="openDeadlineAdmin()" class="bg-amber-500 border-4 border-black text-white font-black text-xs py-2 px-4 rounded-xl hover:bg-amber-400 active:translate-y-1 active:shadow-[0_0_0_0_rgba(0,0,0,1)] shadow-[4px_4px_0_0_rgba(0,0,0,1)] transition-all flex items-center gap-2 uppercase tracking-widest flex-shrink-0">
+                            ⚙️ จัดการ
+                        </button>
+                    </div>
+                    <div id="deadlineBoard" class="flex flex-col gap-3 flex-grow max-h-[350px] overflow-y-auto scrollbar-hide pr-1">
+                        <div class="flex items-center justify-center py-6 text-gray-400 font-bold text-sm">
+                            <span class="animate-pulse">⏳ กำลังโหลด...</span>
+                        </div>
+                    </div>
                 </div>
             </div>
-            <button type="button" onclick="openDeadlineAdmin()" class="bg-amber-500 border-4 border-black text-white font-black text-sm py-2.5 px-6 rounded-2xl hover:bg-amber-400 active:translate-y-1 active:shadow-[0_0_0_0_rgba(0,0,0,1)] shadow-[4px_4px_0_0_rgba(0,0,0,1)] transition-all flex items-center gap-2 uppercase tracking-widest flex-shrink-0">
-                <span>📅</span> DEADLINE (ครู)
-            </button>
-        </div>
-        <!-- รายการ deadline แสดงตรงนี้เลย -->
-        <div id="deadlineBoard" class="flex flex-col gap-3">
-            <div class="flex items-center justify-center py-6 text-gray-400 font-bold text-sm">
-                <span class="animate-pulse">⏳ กำลังโหลด...</span>
+
+            <div class="bg-[#cffafe] border-[6px] border-black rounded-[3rem] p-6 shadow-[12px_12px_0_0_rgba(0,0,0,1)] hover:-translate-y-1 transition-transform relative overflow-hidden animate-bounce-up delay-400 ai-border ai-nodes flex flex-col justify-center items-center text-center h-full group">
+                <div class="absolute -left-6 -top-6 text-[8rem] opacity-30 transform -rotate-12 pointer-events-none z-0 group-hover:rotate-12 transition-transform duration-500">🎲</div>
+                <div class="absolute -right-10 -bottom-10 text-[10rem] opacity-20 transform rotate-12 pointer-events-none z-0 group-hover:-rotate-12 transition-transform duration-500">🎡</div>
+                
+                <div class="relative z-10 flex flex-col items-center mb-6 mt-4">
+                    <div class="bg-white p-5 rounded-3xl border-4 border-black shadow-[6px_6px_0_0_rgba(0,0,0,1)] text-5xl transform rotate-6 mb-5">
+                        🎯
+                    </div>
+                    <h2 class="text-3xl md:text-4xl font-black text-black uppercase tracking-widest drop-shadow-[2px_2px_0_rgba(255,255,255,1)]">RANDOMIZER</h2>
+                    <p class="text-black font-black text-xs tracking-widest uppercase bg-[#22d3ee] px-4 py-1.5 rounded-full border-2 border-black inline-block mt-2 shadow-[2px_2px_0_0_rgba(0,0,0,1)]">ระบบสุ่มชื่อนักเรียน</p>
+                </div>
+                
+                <a href="https://jakrapongsuttiprapa.github.io/randomname/" target="_blank" class="w-full bg-[#fde047] border-4 border-black text-black font-black text-xl py-4 px-6 rounded-2xl hover:bg-yellow-300 active:translate-y-1 active:shadow-[0_0_0_0_rgba(0,0,0,1)] shadow-[6px_6px_0_0_rgba(0,0,0,1)] transition-all flex items-center justify-center gap-2 relative z-10 uppercase tracking-widest mt-auto">
+                    <span>START SYSTEM</span> <span class="group-hover:translate-x-1 transition-transform text-2xl">🚀</span>
+                </a>
             </div>
+
         </div>
-    </div>
-</div>
         <div class="w-full bg-[#cffafe] border-[6px] border-black rounded-[3rem] p-6 md:p-10 shadow-[12px_12px_0_0_rgba(0,0,0,1)] mb-6 flex flex-col md:flex-row items-center justify-between gap-6 hover:-translate-y-1 transition-transform relative overflow-hidden animate-bounce-up delay-400 ai-border ai-nodes">
             <div class="absolute left-1/3 -top-6 text-[8rem] opacity-30 transform -rotate-12 pointer-events-none z-0">🎲</div>
             <div class="absolute right-1/4 -bottom-10 text-[6rem] opacity-30 transform rotate-12 pointer-events-none z-0">🎡</div>
