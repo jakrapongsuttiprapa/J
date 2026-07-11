@@ -327,7 +327,7 @@
                 </div>
         </div>
 
-        <!-- 3. ตารางสอน + ฟอร์มคุยกับครู -->
+        <!-- 3. ตารางสอน (ครู) + ตารางเรียนนักเรียน (เดิมเป็นฟอร์มคุยกับครู เปลี่ยนเป็นตารางเรียนตามที่ครูสั่ง) -->
         <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-6">
             <div class="bg-[#bae6fd] border-[6px] border-black rounded-[2.5rem] p-5 shadow-[10px_10px_0_0_rgba(0,0,0,1)] flex flex-col animate-bounce-up delay-300 hover:-translate-y-1 transition-transform overflow-hidden ai-border ai-nodes">
                 <div class="flex justify-center mb-4 relative z-10">
@@ -344,19 +344,26 @@
             <div class="bg-[#fef08a] border-[6px] border-black rounded-[2.5rem] p-5 shadow-[10px_10px_0_0_rgba(0,0,0,1)] flex flex-col animate-bounce-up delay-300 hover:-translate-y-1 transition-transform overflow-hidden ai-border ai-nodes">
                 <div class="flex justify-center mb-4 relative z-10">
                     <h2 class="bg-white border-4 border-black px-6 py-2 rounded-full font-black text-xl text-black shadow-[4px_4px_0_0_rgba(0,0,0,1)] transform -rotate-2">
-                        💬 อยากบอกอะไร พิมพ์มาเลย
+                        🗓️ ตารางเรียนนักเรียน
                     </h2>
                 </div>
-                <form id="chatForm" class="flex flex-col gap-3 flex-grow justify-center relative z-10">
-                    <input type="text" id="studentName" placeholder="ชื่อ-นามสกุล..." required class="w-full p-4 bg-white border-4 border-black rounded-2xl text-black font-bold focus:outline-none focus:ring-4 focus:ring-yellow-400 transition-all shadow-[4px_4px_0_0_rgba(0,0,0,0.2)]">
-                    <input type="text" id="studentClass" placeholder="ชั้น (เช่น ม.6/1)..." required class="w-full p-4 bg-white border-4 border-black rounded-2xl text-black font-bold focus:outline-none focus:ring-4 focus:ring-yellow-400 transition-all shadow-[4px_4px_0_0_rgba(0,0,0,0.2)]">
-                    <textarea id="studentMsg" rows="2" placeholder="พิมพ์ข้อความ..." required class="w-full p-4 bg-white border-4 border-black rounded-2xl text-black font-bold focus:outline-none focus:ring-4 focus:ring-yellow-400 transition-all shadow-[4px_4px_0_0_rgba(0,0,0,0.2)]"></textarea>
-                    <button type="submit" class="bg-blue-500 border-4 border-black text-white font-black text-lg p-3 rounded-2xl hover:bg-blue-400 active:translate-y-1 active:shadow-[0_0_0_0_rgba(0,0,0,1)] shadow-[4px_4px_0_0_rgba(0,0,0,1)] transition-all mt-2 tracking-widest uppercase">
-                        TRANSMIT 🚀
-                    </button>
-                </form>
+                <div class="bg-white border-4 border-black rounded-2xl overflow-hidden shadow-inner flex-grow relative z-10">
+                    <div style="position: relative; width: 100%; height: 0; padding-top: 56.2500%; padding-bottom: 0; overflow: hidden;">
+                        <iframe loading="eager" style="position: absolute; width: 100%; height: 100%; top: 0; left: 0; border: none; padding: 0; margin: 0;"
+                            src="https://www.canva.com/design/DAHJFA0j0jo/Rx3I3VaBZwmLEIEdDGU1_Q/view?embed"
+                            allowfullscreen="allowfullscreen" allow="fullscreen">
+                        </iframe>
+                    </div>
+                </div>
+                <a href="https://canva.link/e200w8u9hhp1rko" target="_blank" rel="noopener" class="mt-3 w-full bg-blue-500 border-4 border-black text-white font-black text-sm md:text-base py-3 px-4 rounded-2xl hover:bg-blue-400 active:translate-y-1 active:shadow-[0_0_0_0_rgba(0,0,0,1)] shadow-[4px_4px_0_0_rgba(0,0,0,1)] transition-all flex items-center justify-center gap-2 relative z-10 uppercase tracking-widest">
+                    <span>ตารางไม่ขึ้น? เปิดดูแบบเต็มจอที่นี่</span> <span class="text-lg">🔗</span>
+                </a>
+                <p class="text-center text-[10px] text-gray-500 font-bold mt-2 relative z-10">
+                    <a href="https://canva.link/e200w8u9hhp1rko" target="_blank" rel="noopener" class="underline">ตารางเรียน 1 2569</a> โดย Khawoatz Suttiprapa
+                </p>
             </div>
         </div>
+
 
         <!-- โซนเกมส์ 4 การ์ด -->
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-6">
@@ -893,23 +900,6 @@
                     .catch(function(e) { fireSwal({ icon: 'error', title: 'SYSTEM ERROR ❌', text: e.message }); });
             } catch (e) { fireSwal({ icon: 'error', title: 'SYSTEM ERROR ❌', text: e.message }); }
         }
-
-        // ---- ส่งข้อความหาครู ----
-        document.getElementById('chatForm').addEventListener('submit', function(e) {
-            e.preventDefault();
-            const name = document.getElementById('studentName').value;
-            const cls = document.getElementById('studentClass').value;
-            const msg = document.getElementById('studentMsg').value;
-            fireSwal({ title: 'ENCRYPTING... 🚀', allowOutsideClick: false, didOpen: function() { if(typeof Swal !== 'undefined') Swal.showLoading(); } });
-            callAPI('saveStudentMessage', { data: { name: name, studentClass: cls, message: msg } })
-                .then(function(res) {
-                    if (res && res.success === false) { fireSwal({ icon: 'error', title: 'FAILED ❌', text: res.message }); return; }
-                    fireSwal({ icon: 'success', title: 'SENT! 💌', buttonsStyling: false,
-                        customClass: { popup: 'border-[6px] border-black rounded-[2.5rem] shadow-[12px_12px_0_0_rgba(0,0,0,1)]', confirmButton: 'bg-black text-white font-black py-3 px-8 rounded-xl border-4 border-black mt-4' } });
-                    document.getElementById('chatForm').reset();
-                })
-                .catch(function(e) { fireSwal({ icon: 'error', title: 'FAILED ❌', text: e.message }); });
-        });
 
         // ============================================
         // GAME QUIZZ — หน้านักเรียน (ไม่แก้ไข ไม่ปรับ — การ์ดสีส้มเดิม)
@@ -1639,15 +1629,11 @@
         };
 
         function renderDashboard(s) {
-            let html = '<div class="grid grid-cols-2 md:grid-cols-4 gap-3 mb-5">';
+            let html = '<div class="grid grid-cols-3 gap-3 mb-5">';
             html += '<div class="bg-blue-50 border-[3px] border-black rounded-2xl p-3 text-center shadow-[4px_4px_0_0_rgba(0,0,0,1)]">' +
                 '<p class="text-[10px] font-black text-gray-500 tracking-widest">งานส่งวันนี้</p>' +
                 '<p class="text-3xl font-black text-blue-600">' + s.submissionsToday + '</p>' +
                 '<p class="text-[10px] font-bold text-gray-400">ทั้งหมด ' + s.submissionsTotal + ' ชิ้น</p></div>';
-            html += '<div class="bg-yellow-50 border-[3px] border-black rounded-2xl p-3 text-center shadow-[4px_4px_0_0_rgba(0,0,0,1)]">' +
-                '<p class="text-[10px] font-black text-gray-500 tracking-widest">ข้อความวันนี้</p>' +
-                '<p class="text-3xl font-black text-yellow-600">' + s.messagesToday + '</p>' +
-                '<p class="text-[10px] font-bold text-gray-400">ทั้งหมด ' + s.messagesTotal + ' ข้อความ</p></div>';
             html += '<div class="bg-red-50 border-[3px] border-black rounded-2xl p-3 text-center shadow-[4px_4px_0_0_rgba(0,0,0,1)]">' +
                 '<p class="text-[10px] font-black text-gray-500 tracking-widest">ติด ร/มส</p>' +
                 '<p class="text-3xl font-black text-red-600">' + s.statusFlagCount + '</p>' +
