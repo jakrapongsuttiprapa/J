@@ -596,6 +596,18 @@
                 .replace(/'/g, '&#39;');
         }
 
+        // ★ ตารางคะแนนใช้คอลัมน์ความกว้างตายตัว ข้อความยาวเลยถูกตัดด้วย ... — ฟังก์ชันนี้ให้กดที่ข้อความ
+        // เพื่อดูเนื้อหาเต็มๆ แบบเด้งเตือนสั้นๆ (toast) ไม่ต้องเปิด popup ซ้อน popup
+        window.showFullText = function(el) {
+            const text = el.getAttribute('data-full') || el.textContent || '';
+            if (typeof Swal === 'undefined') { alert(text); return; }
+            Swal.fire({
+                toast: true, position: 'top', icon: 'info', title: text,
+                showConfirmButton: false, timer: 3500, timerProgressBar: true,
+                background: '#000000', color: '#ffffff'
+            });
+        };
+
         function fireSwal(options) {
             if (typeof Swal === 'undefined') {
                 alert("ระบบขัดข้องเนื่องจากอินเทอร์เน็ตของโรงเรียนบล็อกการดึงข้อมูลครับ กรุณาใช้เน็ตมือถือหรือรีเฟรชใหม่");
@@ -789,11 +801,11 @@
                     else if(statusDisplay.includes("ผ่าน") || statusDisplay.includes("ดี")) { statusColor = "text-green-600 bg-green-100 rounded-md px-2 py-0.5 border border-green-300"; }
                     if (!isNaN(parseFloat(s.score))) rawTaskGot += parseFloat(s.score);
                     if (!isNaN(parseFloat(s.maxScore))) rawTaskMax += parseFloat(s.maxScore);
-                    tableRows += '<tr class="border-b-2 border-gray-200 hover:bg-gray-50"><td class="py-2 px-2 font-bold text-[11px] md:text-sm text-left text-black border-r-2 border-gray-200 truncate">' + escapeHtml(s.task) + '</td>';
+                    tableRows += '<tr class="border-b-2 border-gray-200 hover:bg-gray-50"><td onclick="showFullText(this)" data-full="' + escapeHtml(s.task) + '" class="py-2 px-2 font-bold text-[11px] md:text-sm text-left text-black border-r-2 border-gray-200 truncate cursor-pointer">' + escapeHtml(s.task) + '</td>';
                     tableRows += '<td class="py-2 px-0.5 font-black text-gray-400 text-center border-r-2 border-gray-200 text-[10px]">' + escapeHtml(s.maxScore) + '</td>';
                     tableRows += '<td class="py-2 px-0.5 font-black text-amber-600 text-center border-r-2 border-gray-200 text-[10px]">' + escapeHtml(s.passScore) + '</td>';
                     tableRows += '<td class="py-2 px-0.5 font-black text-blue-600 text-center border-r-2 border-gray-200 text-xs">' + escapeHtml(scoreDisplay) + '</td>';
-                    tableRows += '<td class="py-2 px-1 font-black ' + statusColor + ' text-center text-[10px] truncate">' + escapeHtml(statusDisplay) + '</td></tr>';
+                    tableRows += '<td onclick="showFullText(this)" data-full="' + escapeHtml(statusDisplay) + '" class="py-2 px-1 font-black ' + statusColor + ' text-center text-[10px] truncate cursor-pointer">' + escapeHtml(statusDisplay) + '</td></tr>';
                 }
             });
             let midMaxData = (std.midterm && std.midterm.maxScore) ? std.midterm.maxScore : 20;
@@ -833,8 +845,8 @@
             html += '<div class="overflow-x-auto rounded-2xl border-4 border-black shadow-[4px_4px_0_0_rgba(0,0,0,1)] mb-4 max-h-[200px] overflow-y-auto scrollbar-hide">';
             html += '<table class="w-full table-fixed bg-white"><colgroup><col style="width:30%"><col style="width:14%"><col style="width:16%"><col style="width:14%"><col style="width:26%"></colgroup><thead class="bg-gray-100 border-b-4 border-black text-[10px] md:text-sm text-black sticky top-0 z-10"><tr>';
             html += '<th class="py-2 px-2 font-black text-left border-r-2 border-black">MODULE</th><th class="py-2 px-0.5 font-black text-center border-r-2 border-black">MAX</th><th class="py-2 px-0.5 font-black text-center border-r-2 border-black">PASS</th><th class="py-2 px-0.5 font-black text-center border-r-2 border-black">VAL</th><th class="py-2 px-1 font-black text-center">STAT</th></tr></thead><tbody>';
-            html += '<tr class="border-b-2 border-gray-200 bg-orange-50"><td class="py-2 px-2 font-bold text-[11px] md:text-sm text-left text-black border-r-2 border-gray-200 truncate">MIDTERM</td><td class="py-2 px-0.5 font-black text-gray-400 text-center border-r-2 border-gray-200 text-[10px]">' + midMax + '</td><td class="py-2 px-0.5 font-black text-amber-600 text-center border-r-2 border-gray-200 text-[10px]">' + escapeHtml(midPassData) + '</td><td class="py-2 px-0.5 font-black text-orange-600 text-center border-r-2 border-gray-200 text-xs">' + midGot + '</td><td class="py-2 px-1 font-bold text-gray-500 text-center text-[10px] truncate">' + midStatusData + '</td></tr>';
-            html += '<tr class="border-b-4 border-black bg-purple-50"><td class="py-2 px-2 font-bold text-[11px] md:text-sm text-left text-black border-r-2 border-gray-200 truncate">FINAL</td><td class="py-2 px-0.5 font-black text-gray-400 text-center border-r-2 border-gray-200 text-[10px]">' + finMax + '</td><td class="py-2 px-0.5 font-black text-amber-600 text-center border-r-2 border-gray-200 text-[10px]">' + escapeHtml(finPassData) + '</td><td class="py-2 px-0.5 font-black text-purple-600 text-center border-r-2 border-gray-200 text-xs">' + finGot + '</td><td class="py-2 px-1 font-bold text-gray-500 text-center text-[10px] truncate">' + finStatusData + '</td></tr>';
+            html += '<tr class="border-b-2 border-gray-200 bg-orange-50"><td class="py-2 px-2 font-bold text-[11px] md:text-sm text-left text-black border-r-2 border-gray-200 truncate">MIDTERM</td><td class="py-2 px-0.5 font-black text-gray-400 text-center border-r-2 border-gray-200 text-[10px]">' + midMax + '</td><td class="py-2 px-0.5 font-black text-amber-600 text-center border-r-2 border-gray-200 text-[10px]">' + escapeHtml(midPassData) + '</td><td class="py-2 px-0.5 font-black text-orange-600 text-center border-r-2 border-gray-200 text-xs">' + midGot + '</td><td onclick="showFullText(this)" data-full="' + escapeHtml(midStatusData) + '" class="py-2 px-1 font-bold text-gray-500 text-center text-[10px] truncate cursor-pointer">' + midStatusData + '</td></tr>';
+            html += '<tr class="border-b-4 border-black bg-purple-50"><td class="py-2 px-2 font-bold text-[11px] md:text-sm text-left text-black border-r-2 border-gray-200 truncate">FINAL</td><td class="py-2 px-0.5 font-black text-gray-400 text-center border-r-2 border-gray-200 text-[10px]">' + finMax + '</td><td class="py-2 px-0.5 font-black text-amber-600 text-center border-r-2 border-gray-200 text-[10px]">' + escapeHtml(finPassData) + '</td><td class="py-2 px-0.5 font-black text-purple-600 text-center border-r-2 border-gray-200 text-xs">' + finGot + '</td><td onclick="showFullText(this)" data-full="' + escapeHtml(finStatusData) + '" class="py-2 px-1 font-bold text-gray-500 text-center text-[10px] truncate cursor-pointer">' + finStatusData + '</td></tr>';
             html += tableRows || '<tr><td colspan="5" class="py-4 text-center font-bold text-gray-400 text-xs">NO LOGS FOUND</td></tr>';
             html += '</tbody></table></div>';
             html += '<button onclick="if(typeof Swal !== \'undefined\') Swal.close()" class="w-full bg-black border-[4px] border-black text-white font-black py-3 rounded-2xl hover:-translate-y-1 shadow-[4px_4px_0_0_rgba(100,100,100,1)] active:translate-y-1 active:shadow-[0_0_0_0_rgba(100,100,100,1)] transition-all text-base tracking-widest uppercase mt-2">CLOSE REPORT</button>';
