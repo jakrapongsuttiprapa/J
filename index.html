@@ -672,28 +672,29 @@
         window.applyPageTheme = function(themeName) {
             const cfg = THEME_CONFIGS_[themeName];
             if (!cfg) return;
-            document.querySelectorAll('[class*="bg-["]').forEach(function(el) {
-                var m = el.className.match(/bg-\[#([0-9a-fA-F]{6})\]/);
-                if (m) { el.style.setProperty('background-color', cfg.bgTransform('#' + m[1])); }
-            });
-            document.querySelectorAll('.bg-white').forEach(function(el) {
-                el.style.setProperty('background-color', cfg.whiteBg);
-            });
-            document.querySelectorAll('[class*="border-black"]').forEach(function(el) {
-                el.style.setProperty('border-color', cfg.borderColor);
-                if (cfg.borderWidth) { el.style.setProperty('border-width', cfg.borderWidth); }
-            });
-            document.querySelectorAll('[class*="text-black"]').forEach(function(el) {
-                el.style.setProperty('color', cfg.textColor);
-            });
-            document.querySelectorAll('[class*="shadow-["]').forEach(function(el) {
-                el.style.setProperty('box-shadow', cfg.shadow);
-            });
-            if (cfg.radius) {
-                document.querySelectorAll('[class*="rounded-["]').forEach(function(el) {
+            document.querySelectorAll('[class]').forEach(function(el) {
+                var cls = el.className;
+                if (typeof cls !== 'string') return;
+                if (cls.indexOf('bg-white') !== -1) {
+                    el.style.setProperty('background-color', cfg.whiteBg);
+                } else if (cls.indexOf('bg-[') !== -1) {
+                    var m = cls.match(/bg-\[#([0-9a-fA-F]{6})\]/);
+                    if (m) { el.style.setProperty('background-color', cfg.bgTransform('#' + m[1])); }
+                }
+                if (cls.indexOf('border-black') !== -1) {
+                    el.style.setProperty('border-color', cfg.borderColor);
+                    if (cfg.borderWidth) { el.style.setProperty('border-width', cfg.borderWidth); }
+                }
+                if (cls.indexOf('text-black') !== -1) {
+                    el.style.setProperty('color', cfg.textColor);
+                }
+                if (cls.indexOf('shadow-[') !== -1) {
+                    el.style.setProperty('box-shadow', cfg.shadow);
+                }
+                if (cfg.radius && cls.indexOf('rounded-[') !== -1) {
                     el.style.setProperty('border-radius', cfg.radius);
-                });
-            }
+                }
+            });
         };
 
         // ★ ป้องกันข้อความ (ชื่อนักเรียน/หัวข้อ Deadline/ชื่อ Quiz ฯลฯ) ที่มีอักขระพิเศษ เช่น < > & " '
