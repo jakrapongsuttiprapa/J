@@ -182,9 +182,33 @@
             opacity: 0.18;
             pointer-events: none;
         }
+
+        /* ========== ธีมทางเลือก: ครูเลือกจากเมนู ⚙️ → ธีม แล้วนักเรียนทุกคนจะเห็นแบบเดียวกัน ========== */
+        /* สีพื้นการ์ด/ขอบ/เงา/ตัวอักษรของแต่ละใบถูกคำนวณสดด้วย JS ตอนโหลดหน้า (ดู applyPageTheme ในสคริปต์) */
+        /* เพราะการ์ดแต่ละใบใช้สีพาสเทลคนละเฉด การไล่สีทีละเส้นด้วยมือจะดูแลยากในระยะยาว */
+        body.theme-neon {
+            background-color: #05060f;
+        }
+        body.theme-neon .bg-fixed-layer {
+            filter: brightness(0.28) saturate(1.4) hue-rotate(200deg);
+            opacity: 0.65;
+        }
+        body.theme-pastel {
+            background-color: #fdfaff;
+        }
+        body.theme-pastel .bg-fixed-layer {
+            filter: saturate(0.55) brightness(1.15);
+            opacity: 0.45;
+        }
+        body.theme-clean {
+            background-color: #ffffff;
+        }
+        body.theme-clean .bg-fixed-layer {
+            opacity: 0.06;
+        }
     </style>
 </head>
-<body class="min-h-screen pb-24 md:pb-10 overflow-x-hidden relative">
+<body class="min-h-screen pb-24 md:pb-10 overflow-x-hidden relative <?= getActiveThemeClass() ?>">
     <div class="bg-fixed-layer"></div>
 
     <!-- NAVBAR -->
@@ -586,6 +610,89 @@
             return !!(data && typeof data === 'object' && !Array.isArray(data) && data.__error);
         }
 
+        // ==========================================
+        // ★ เครื่องยนต์ธีม — ใช้ร่วมกันทุกธีมทางเลือก (ครูเลือกจากเมนู ⚙️ → ธีม)
+        // แทนที่จะไล่กำหนดสีทีละการ์ดด้วยมือ (การ์ดในเว็บนี้ใช้สี pastel คนละเฉดกว่า 20 สี)
+        // ฟังก์ชันนี้จะ "อ่าน" สีเดิมของแต่ละการ์ดจาก class แล้วคำนวณเวอร์ชันของแต่ละธีมให้อัตโนมัติ
+        // ข้อดี: ถ้าครูเพิ่มการ์ดสีใหม่ในอนาคต ทุกธีมจะรองรับได้เองทันทีโดยไม่ต้องแก้โค้ดเพิ่ม
+        // ขอบเขต: ทำเฉพาะหน้าเว็บหลัก ไม่รวม popup ต่างๆ (SweetAlert) ซึ่งยังคงเป็นธีมสว่างเหมือนเดิม
+        // ==========================================
+        function hexToHsl_(hex) {
+            hex = hex.replace('#', '');
+            var r = parseInt(hex.substr(0, 2), 16) / 255;
+            var g = parseInt(hex.substr(2, 2), 16) / 255;
+            var b = parseInt(hex.substr(4, 2), 16) / 255;
+            var max = Math.max(r, g, b), min = Math.min(r, g, b);
+            var h, s, l = (max + min) / 2;
+            if (max === min) { h = s = 0; }
+            else {
+                var d = max - min;
+                s = l > 0.5 ? d / (2 - max - min) : d / (max + min);
+                if (max === r) h = (g - b) / d + (g < b ? 6 : 0);
+                else if (max === g) h = (b - r) / d + 2;
+                else h = (r - g) / d + 4;
+                h /= 6;
+            }
+            return [h * 360, s * 100, l * 100];
+        }
+
+        // NEON NIGHT: คงเฉดสี (hue) เดิม แต่กดความสว่างลงมาก + เพิ่มความสดเล็กน้อยให้ดูเรืองแสง
+        function darkenForNeon_(hex) {
+            var hsl = hexToHsl_(hex);
+            var s = Math.min(hsl[1] * 1.25, 90);
+            var l = Math.max(6, Math.min(hsl[2] * 0.16, 16));
+            return 'hsl(' + hsl[0].toFixed(0) + ',' + s.toFixed(0) + '%,' + l.toFixed(0) + '%)';
+        }
+        // SOFT PASTEL: คงเฉดสีเดิม แต่ลดความสด + ดันความสว่างขึ้นให้ดูซีดอ่อนโยนลง
+        function softenForPastel_(hex) {
+            var hsl = hexToHsl_(hex);
+            var s = Math.max(hsl[1] * 0.65, 18);
+            var l = Math.min(Math.max(hsl[2], 90), 96);
+            return 'hsl(' + hsl[0].toFixed(0) + ',' + s.toFixed(0) + '%,' + l.toFixed(0) + '%)';
+        }
+
+        const THEME_CONFIGS_ = {
+            neon: {
+                bgTransform: darkenForNeon_, whiteBg: '#10162b', borderColor: '#22d3ee', borderWidth: null,
+                textColor: '#e6faff', shadow: '0 0 14px rgba(34,211,238,0.55), 0 0 4px rgba(217,70,239,0.4)', radius: null
+            },
+            pastel: {
+                bgTransform: softenForPastel_, whiteBg: '#ffffff', borderColor: '#e7ddf5', borderWidth: '2px',
+                textColor: '#4b4453', shadow: '0 10px 28px rgba(120,110,160,0.16)', radius: null
+            },
+            clean: {
+                bgTransform: function() { return '#f7f7f8'; }, whiteBg: '#ffffff', borderColor: '#e2e5eb', borderWidth: '1px',
+                textColor: '#26282e', shadow: '0 1px 4px rgba(0,0,0,0.07)', radius: '14px'
+            }
+        };
+
+        window.applyPageTheme = function(themeName) {
+            const cfg = THEME_CONFIGS_[themeName];
+            if (!cfg) return;
+            document.querySelectorAll('[class*="bg-["]').forEach(function(el) {
+                var m = el.className.match(/bg-\[#([0-9a-fA-F]{6})\]/);
+                if (m) { el.style.setProperty('background-color', cfg.bgTransform('#' + m[1])); }
+            });
+            document.querySelectorAll('.bg-white').forEach(function(el) {
+                el.style.setProperty('background-color', cfg.whiteBg);
+            });
+            document.querySelectorAll('[class*="border-black"]').forEach(function(el) {
+                el.style.setProperty('border-color', cfg.borderColor);
+                if (cfg.borderWidth) { el.style.setProperty('border-width', cfg.borderWidth); }
+            });
+            document.querySelectorAll('[class*="text-black"]').forEach(function(el) {
+                el.style.setProperty('color', cfg.textColor);
+            });
+            document.querySelectorAll('[class*="shadow-["]').forEach(function(el) {
+                el.style.setProperty('box-shadow', cfg.shadow);
+            });
+            if (cfg.radius) {
+                document.querySelectorAll('[class*="rounded-["]').forEach(function(el) {
+                    el.style.setProperty('border-radius', cfg.radius);
+                });
+            }
+        };
+
         // ★ ป้องกันข้อความ (ชื่อนักเรียน/หัวข้อ Deadline/ชื่อ Quiz ฯลฯ) ที่มีอักขระพิเศษ เช่น < > & " '
         // ไม่ให้ไปทำโครงหน้าเว็บพัง หรือกลายเป็นโค้ด HTML แทรกเข้ามาโดยไม่ตั้งใจ
         // ใช้ก่อนแทรกข้อความจากชีต/ฟอร์มเข้าไปใน innerHTML หรือ SweetAlert html ทุกจุด
@@ -598,18 +705,6 @@
                 .replace(/"/g, '&quot;')
                 .replace(/'/g, '&#39;');
         }
-
-        // ★ ตารางคะแนนใช้คอลัมน์ความกว้างตายตัว ข้อความยาวเลยถูกตัดด้วย ... — ฟังก์ชันนี้ให้กดที่ข้อความ
-        // เพื่อดูเนื้อหาเต็มๆ แบบเด้งเตือนสั้นๆ (toast) ไม่ต้องเปิด popup ซ้อน popup
-        window.showFullText = function(el) {
-            const text = el.getAttribute('data-full') || el.textContent || '';
-            if (typeof Swal === 'undefined') { alert(text); return; }
-            Swal.fire({
-                toast: true, position: 'top', icon: 'info', title: text,
-                showConfirmButton: false, timer: 3500, timerProgressBar: true,
-                background: '#000000', color: '#ffffff'
-            });
-        };
 
         function fireSwal(options) {
             if (typeof Swal === 'undefined') {
@@ -638,10 +733,59 @@
             html += '<button onclick="if(typeof Swal!==\'undefined\') Swal.close(); checkAdminScores();" class="bg-slate-800 border-4 border-black text-white font-black py-4 rounded-2xl shadow-[4px_4px_0_0_rgba(0,0,0,1)] active:translate-y-1 active:shadow-none transition-all flex flex-col items-center gap-1"><span class="text-2xl">🤖</span><span class="text-xs uppercase tracking-wide">Override</span></button>';
             html += '<button onclick="if(typeof Swal!==\'undefined\') Swal.close(); openQuizAdmin();" class="bg-orange-600 border-4 border-black text-white font-black py-4 rounded-2xl shadow-[4px_4px_0_0_rgba(0,0,0,1)] active:translate-y-1 active:shadow-none transition-all flex flex-col items-center gap-1"><span class="text-2xl">🎲</span><span class="text-xs uppercase tracking-wide">Quiz</span></button>';
             html += '<button onclick="if(typeof Swal!==\'undefined\') Swal.close(); openDeadlineAdmin();" class="bg-amber-500 border-4 border-black text-white font-black py-4 rounded-2xl shadow-[4px_4px_0_0_rgba(0,0,0,1)] active:translate-y-1 active:shadow-none transition-all flex flex-col items-center gap-1"><span class="text-2xl">📅</span><span class="text-xs uppercase tracking-wide">Deadline</span></button>';
-            html += '<button onclick="if(typeof Swal!==\'undefined\') Swal.close(); openDashboard();" class="bg-emerald-600 border-4 border-black text-white font-black py-4 rounded-2xl shadow-[4px_4px_0_0_rgba(0,0,0,1)] active:translate-y-1 active:shadow-none transition-all flex flex-col items-center gap-1 col-span-2"><span class="text-2xl">📊</span><span class="text-xs uppercase tracking-wide">Dashboard</span></button>';
+            html += '<button onclick="if(typeof Swal!==\'undefined\') Swal.close(); openDashboard();" class="bg-emerald-600 border-4 border-black text-white font-black py-4 rounded-2xl shadow-[4px_4px_0_0_rgba(0,0,0,1)] active:translate-y-1 active:shadow-none transition-all flex flex-col items-center gap-1"><span class="text-2xl">📊</span><span class="text-xs uppercase tracking-wide">Dashboard</span></button>';
+            html += '<button onclick="if(typeof Swal!==\'undefined\') Swal.close(); openThemePicker();" class="bg-fuchsia-600 border-4 border-black text-white font-black py-4 rounded-2xl shadow-[4px_4px_0_0_rgba(0,0,0,1)] active:translate-y-1 active:shadow-none transition-all flex flex-col items-center gap-1"><span class="text-2xl">🎨</span><span class="text-xs uppercase tracking-wide">Theme</span></button>';
             html += '</div>';
             fireSwal({ title: '🛠️ เมนูครู', html: html, showConfirmButton: false, showCloseButton: true,
                 customClass: { popup: 'border-[6px] border-black rounded-[2.5rem] shadow-[12px_12px_0_0_rgba(0,0,0,1)] bg-[#f8fafc]', title: 'font-black text-2xl mt-4 text-black tracking-widest' } });
+        };
+
+        // ---- เลือกธีมเว็บไซต์ (ครูเปลี่ยน / นักเรียนเห็นตามที่ครูเปลี่ยน — เก็บฝั่งเซิร์ฟเวอร์) ----
+        window.openThemePicker = function() {
+            fireSwal({ title: 'LOADING... ⏳', allowOutsideClick: false, didOpen: function() { if (typeof Swal !== 'undefined') Swal.showLoading(); } });
+            callAPI('getCurrentTheme', {}).then(function(res) {
+                const current = (res && res.theme) || 'arcade';
+                const themes = [
+                    { id: 'arcade', emoji: '🎮', name: 'ARCADE (ค่าเริ่มต้น)', desc: 'สีสันสดใส ขอบดำหนา แบบที่ใช้อยู่ตอนนี้' },
+                    { id: 'neon', emoji: '🌌', name: 'NEON NIGHT', desc: 'พื้นมืด ขอบเรืองแสง บรรยากาศกลางคืน' },
+                    { id: 'pastel', emoji: '🌸', name: 'SOFT PASTEL', desc: 'โค้งมนนุ่มนวล เงาบางเบา บรรยากาศอ่อนโยน' },
+                    { id: 'clean', emoji: '📚', name: 'CLEAN STUDY', desc: 'ขาว-เทาอ่อน เรียบสุภาพ เน้นความจริงจัง' }
+                ];
+                let html = '<div class="grid grid-cols-1 gap-3 p-1">';
+                themes.forEach(function(t) {
+                    const active = current === t.id;
+                    html += '<button onclick="pickTheme(\'' + t.id + '\')" class="' + (active ? 'ring-4 ring-emerald-400 ' : '') + 'bg-white border-4 border-black rounded-2xl p-4 shadow-[4px_4px_0_0_rgba(0,0,0,1)] active:translate-y-1 active:shadow-none transition-all flex items-center gap-3 text-left w-full">';
+                    html += '<span class="text-3xl flex-shrink-0">' + t.emoji + '</span><div class="flex-1 min-w-0"><p class="font-black text-black">' + t.name + '</p><p class="text-xs text-gray-500 font-bold">' + t.desc + '</p></div>';
+                    html += (active ? '<span class="text-emerald-500 font-black text-[10px] flex-shrink-0">ใช้อยู่ ✓</span>' : '') + '</button>';
+                });
+                html += '</div>';
+                fireSwal({ title: '🎨 เลือกธีมเว็บไซต์', html: html, showConfirmButton: false, showCloseButton: true, width: '26rem',
+                    customClass: { popup: 'border-[6px] border-black rounded-[2.5rem] shadow-[12px_12px_0_0_rgba(0,0,0,1)] bg-[#f8fafc]', title: 'font-black text-2xl mt-4 text-black tracking-widest' } });
+            }).catch(function(err) { fireSwal({ icon: 'error', title: 'ERROR', text: err.message }); });
+        };
+
+        window.pickTheme = async function(themeName) {
+            const result = await fireSwal({
+                title: '🔐 ยืนยันรหัสครู', input: 'password', inputPlaceholder: 'รหัสผ่าน Admin',
+                showCancelButton: true, confirmButtonText: 'เปลี่ยนธีม', cancelButtonText: 'ยกเลิก', buttonsStyling: false,
+                customClass: { popup: 'border-[6px] border-black rounded-[2.5rem] shadow-[12px_12px_0_0_rgba(0,0,0,1)]', title: 'text-black font-black tracking-widest text-2xl mt-2',
+                    input: 'bg-white border-4 border-black text-black focus:ring-4 focus:ring-fuchsia-300 rounded-xl p-3 text-center tracking-widest font-black text-lg shadow-[4px_4px_0_0_rgba(0,0,0,1)] mt-4',
+                    confirmButton: 'bg-fuchsia-400 hover:bg-fuchsia-300 text-black font-black py-3 px-6 rounded-xl mx-2 border-4 border-black shadow-[4px_4px_0_0_rgba(0,0,0,1)] active:translate-y-1 active:shadow-[0_0_0_0_rgba(0,0,0,1)] transition-all',
+                    cancelButton: 'bg-gray-300 hover:bg-gray-200 text-black font-black py-3 px-6 rounded-xl mx-2 border-4 border-black shadow-[4px_4px_0_0_rgba(0,0,0,1)] active:translate-y-1 active:shadow-[0_0_0_0_rgba(0,0,0,1)] transition-all' }
+            });
+            if (!result.value) return;
+            fireSwal({ title: 'SAVING... ⏳', allowOutsideClick: false, didOpen: function() { if (typeof Swal !== 'undefined') Swal.showLoading(); } });
+            callAPI('setTheme', { data: { theme: themeName }, password: result.value })
+                .then(function(res) {
+                    if (isAuthError(res) || res.success === false) {
+                        fireSwal({ icon: 'error', title: 'DENIED!', text: (res && res.message) || 'รหัสผ่านผิด', buttonsStyling: false,
+                            customClass: { popup: 'border-[6px] border-black rounded-[2.5rem] shadow-[12px_12px_0_0_rgba(0,0,0,1)]', confirmButton: 'bg-black text-white font-black py-2 px-6 rounded-xl border-4 border-black mt-4' } });
+                        return;
+                    }
+                    fireSwal({ icon: 'success', title: 'เปลี่ยนธีมแล้ว! 🎉', text: 'กำลังโหลดหน้าเว็บใหม่...', timer: 1500, showConfirmButton: false })
+                        .then(function() { location.reload(); });
+                })
+                .catch(function(err) { fireSwal({ icon: 'error', title: 'ERROR', text: err.message }); });
         };
 
         // ---- ตารางเรียนนักเรียน (รูปนิ่งจาก postimg.cc ต่อห้อง — ไม่ต้องใช้รหัสผ่าน ไม่ผ่าน API เลย) ----
@@ -819,11 +963,11 @@
                     else if(statusDisplay.includes("ผ่าน") || statusDisplay.includes("ดี")) { statusColor = "text-green-600 bg-green-100 rounded-md px-2 py-0.5 border border-green-300"; }
                     if (!isNaN(parseFloat(s.score))) rawTaskGot += parseFloat(s.score);
                     if (!isNaN(parseFloat(s.maxScore))) rawTaskMax += parseFloat(s.maxScore);
-                    tableRows += '<tr class="border-b-2 border-gray-200 hover:bg-gray-50"><td onclick="showFullText(this)" data-full="' + escapeHtml(s.task) + '" class="py-2 px-2 font-bold text-[11px] md:text-sm text-left text-black border-r-2 border-gray-200 truncate cursor-pointer">' + escapeHtml(s.task) + '</td>';
+                    tableRows += '<tr class="border-b-2 border-gray-200 hover:bg-gray-50"><td class="py-2 px-2 font-bold text-[11px] md:text-sm text-left text-black border-r-2 border-gray-200 break-words">' + escapeHtml(s.task) + '</td>';
                     tableRows += '<td class="py-2 px-0.5 font-black text-gray-400 text-center border-r-2 border-gray-200 text-[10px]">' + escapeHtml(s.maxScore) + '</td>';
                     tableRows += '<td class="py-2 px-0.5 font-black text-amber-600 text-center border-r-2 border-gray-200 text-[10px]">' + escapeHtml(s.passScore) + '</td>';
                     tableRows += '<td class="py-2 px-0.5 font-black text-blue-600 text-center border-r-2 border-gray-200 text-xs">' + escapeHtml(scoreDisplay) + '</td>';
-                    tableRows += '<td onclick="showFullText(this)" data-full="' + escapeHtml(statusDisplay) + '" class="py-2 px-1 font-black ' + statusColor + ' text-center text-[10px] truncate cursor-pointer">' + escapeHtml(statusDisplay) + '</td></tr>';
+                    tableRows += '<td class="py-2 px-1 font-black ' + statusColor + ' text-center text-[10px] break-words">' + escapeHtml(statusDisplay) + '</td></tr>';
                 }
             });
             let midMaxData = (std.midterm && std.midterm.maxScore) ? std.midterm.maxScore : 20;
@@ -861,10 +1005,10 @@
             html += '<div class="bg-gray-100 rounded-xl px-5 py-2 border-[3px] border-black shadow-inner"><span class="text-5xl font-black ' + gradeColor + ' drop-shadow-[2px_2px_0_rgba(0,0,0,1)]">' + grade + '</span></div></div>';
             html += '<div class="text-left mb-2"><p class="font-black text-sm text-black tracking-widest">📝 DATA LOGS</p></div>';
             html += '<div class="overflow-x-auto rounded-2xl border-4 border-black shadow-[4px_4px_0_0_rgba(0,0,0,1)] mb-4 max-h-[200px] overflow-y-auto scrollbar-hide">';
-            html += '<table class="w-full table-fixed bg-white"><colgroup><col style="width:30%"><col style="width:14%"><col style="width:16%"><col style="width:14%"><col style="width:26%"></colgroup><thead class="bg-gray-100 border-b-4 border-black text-[10px] md:text-sm text-black sticky top-0 z-10"><tr>';
+            html += '<table class="w-full table-fixed bg-white"><colgroup><col style="width:44%"><col style="width:12%"><col style="width:14%"><col style="width:12%"><col style="width:18%"></colgroup><thead class="bg-gray-100 border-b-4 border-black text-[10px] md:text-sm text-black sticky top-0 z-10"><tr>';
             html += '<th class="py-2 px-2 font-black text-left border-r-2 border-black">MODULE</th><th class="py-2 px-0.5 font-black text-center border-r-2 border-black">MAX</th><th class="py-2 px-0.5 font-black text-center border-r-2 border-black">PASS</th><th class="py-2 px-0.5 font-black text-center border-r-2 border-black">VAL</th><th class="py-2 px-1 font-black text-center">STAT</th></tr></thead><tbody>';
-            html += '<tr class="border-b-2 border-gray-200 bg-orange-50"><td class="py-2 px-2 font-bold text-[11px] md:text-sm text-left text-black border-r-2 border-gray-200 truncate">MIDTERM</td><td class="py-2 px-0.5 font-black text-gray-400 text-center border-r-2 border-gray-200 text-[10px]">' + midMax + '</td><td class="py-2 px-0.5 font-black text-amber-600 text-center border-r-2 border-gray-200 text-[10px]">' + escapeHtml(midPassData) + '</td><td class="py-2 px-0.5 font-black text-orange-600 text-center border-r-2 border-gray-200 text-xs">' + midGot + '</td><td onclick="showFullText(this)" data-full="' + escapeHtml(midStatusData) + '" class="py-2 px-1 font-bold text-gray-500 text-center text-[10px] truncate cursor-pointer">' + midStatusData + '</td></tr>';
-            html += '<tr class="border-b-4 border-black bg-purple-50"><td class="py-2 px-2 font-bold text-[11px] md:text-sm text-left text-black border-r-2 border-gray-200 truncate">FINAL</td><td class="py-2 px-0.5 font-black text-gray-400 text-center border-r-2 border-gray-200 text-[10px]">' + finMax + '</td><td class="py-2 px-0.5 font-black text-amber-600 text-center border-r-2 border-gray-200 text-[10px]">' + escapeHtml(finPassData) + '</td><td class="py-2 px-0.5 font-black text-purple-600 text-center border-r-2 border-gray-200 text-xs">' + finGot + '</td><td onclick="showFullText(this)" data-full="' + escapeHtml(finStatusData) + '" class="py-2 px-1 font-bold text-gray-500 text-center text-[10px] truncate cursor-pointer">' + finStatusData + '</td></tr>';
+            html += '<tr class="border-b-2 border-gray-200 bg-orange-50"><td class="py-2 px-2 font-bold text-[11px] md:text-sm text-left text-black border-r-2 border-gray-200">MIDTERM</td><td class="py-2 px-0.5 font-black text-gray-400 text-center border-r-2 border-gray-200 text-[10px]">' + midMax + '</td><td class="py-2 px-0.5 font-black text-amber-600 text-center border-r-2 border-gray-200 text-[10px]">' + escapeHtml(midPassData) + '</td><td class="py-2 px-0.5 font-black text-orange-600 text-center border-r-2 border-gray-200 text-xs">' + midGot + '</td><td class="py-2 px-1 font-bold text-gray-500 text-center text-[10px] break-words">' + midStatusData + '</td></tr>';
+            html += '<tr class="border-b-4 border-black bg-purple-50"><td class="py-2 px-2 font-bold text-[11px] md:text-sm text-left text-black border-r-2 border-gray-200">FINAL</td><td class="py-2 px-0.5 font-black text-gray-400 text-center border-r-2 border-gray-200 text-[10px]">' + finMax + '</td><td class="py-2 px-0.5 font-black text-amber-600 text-center border-r-2 border-gray-200 text-[10px]">' + escapeHtml(finPassData) + '</td><td class="py-2 px-0.5 font-black text-purple-600 text-center border-r-2 border-gray-200 text-xs">' + finGot + '</td><td class="py-2 px-1 font-bold text-gray-500 text-center text-[10px] break-words">' + finStatusData + '</td></tr>';
             html += tableRows || '<tr><td colspan="5" class="py-4 text-center font-bold text-gray-400 text-xs">NO LOGS FOUND</td></tr>';
             html += '</tbody></table></div>';
             html += '<button onclick="if(typeof Swal !== \'undefined\') Swal.close()" class="w-full bg-black border-[4px] border-black text-white font-black py-3 rounded-2xl hover:-translate-y-1 shadow-[4px_4px_0_0_rgba(100,100,100,1)] active:translate-y-1 active:shadow-[0_0_0_0_rgba(100,100,100,1)] transition-all text-base tracking-widest uppercase mt-2">CLOSE REPORT</button>';
@@ -1537,6 +1681,9 @@
         document.addEventListener('DOMContentLoaded', function() {
             loadDeadlineBoard();
             showRoomSchedule('4/1');
+            ['neon', 'pastel', 'clean'].forEach(function(t) {
+                if (document.body.classList.contains('theme-' + t)) { applyPageTheme(t); }
+            });
         });
 
         // ============================================
