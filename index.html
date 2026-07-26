@@ -182,33 +182,9 @@
             opacity: 0.18;
             pointer-events: none;
         }
-
-        /* ========== ธีมทางเลือก: ครูเลือกจากเมนู ⚙️ → ธีม แล้วนักเรียนทุกคนจะเห็นแบบเดียวกัน ========== */
-        /* สีพื้นการ์ด/ขอบ/เงา/ตัวอักษรของแต่ละใบถูกคำนวณสดด้วย JS ตอนโหลดหน้า (ดู applyPageTheme ในสคริปต์) */
-        /* เพราะการ์ดแต่ละใบใช้สีพาสเทลคนละเฉด การไล่สีทีละเส้นด้วยมือจะดูแลยากในระยะยาว */
-        body.theme-neon {
-            background-color: #05060f;
-        }
-        body.theme-neon .bg-fixed-layer {
-            filter: brightness(0.28) saturate(1.4) hue-rotate(200deg);
-            opacity: 0.65;
-        }
-        body.theme-pastel {
-            background-color: #fdfaff;
-        }
-        body.theme-pastel .bg-fixed-layer {
-            filter: saturate(0.55) brightness(1.15);
-            opacity: 0.45;
-        }
-        body.theme-clean {
-            background-color: #ffffff;
-        }
-        body.theme-clean .bg-fixed-layer {
-            opacity: 0.06;
-        }
     </style>
 </head>
-<body class="min-h-screen pb-24 md:pb-10 overflow-x-hidden relative <?= getActiveThemeClass() ?>">
+<body class="min-h-screen pb-24 md:pb-10 overflow-x-hidden relative">
     <div class="bg-fixed-layer"></div>
 
     <!-- NAVBAR -->
@@ -315,41 +291,41 @@
                     <p class="text-xs md:text-sm font-bold text-gray-600 mt-2">กดเลือกห้องเพื่อดูคะแนนตนเอง!</p>
                 </div>
                 <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 gap-3 md:gap-4 z-10 relative">
-                    <button onclick="checkMissionPassword('4/1')" class="bg-white border-4 border-black p-3 rounded-xl hover:bg-[#fed7aa] active:translate-y-1 active:shadow-[0_0_0_0_rgba(0,0,0,1)] shadow-[4px_4px_0_0_rgba(0,0,0,1)] transition-all flex items-center justify-between group">
-                        <span class="bg-[#f97316] text-white w-10 h-10 rounded-lg border-2 border-black flex items-center justify-center font-black">4/1</span><span class="text-black font-black group-hover:translate-x-1 transition-transform">GO!</span>
+                    <button onclick="checkMissionPassword('4/1')" style="background: radial-gradient(circle, rgba(255,255,255,0.35) 1.5px, transparent 1.5px) 0 0/14px 14px, linear-gradient(145deg, #fdba74 0%, #f97316 100%);" class="border-4 border-black p-3 rounded-xl hover:-translate-y-1 hover:rotate-1 active:translate-y-1 active:shadow-[0_0_0_0_rgba(0,0,0,1)] shadow-[4px_4px_0_0_rgba(0,0,0,1)] transition-all flex items-center justify-between group">
+                        <span class="bg-white text-[#f97316] w-10 h-10 rounded-lg border-2 border-black flex items-center justify-center font-black">4/1</span><span class="text-white font-black drop-shadow-[1px_1px_0_rgba(0,0,0,0.4)] group-hover:translate-x-1 transition-transform">GO!</span>
                     </button>
-                    <button onclick="checkMissionPassword('4/2')" class="bg-white border-4 border-black p-3 rounded-xl hover:bg-[#fed7aa] active:translate-y-1 active:shadow-[0_0_0_0_rgba(0,0,0,1)] shadow-[4px_4px_0_0_rgba(0,0,0,1)] transition-all flex items-center justify-between group">
-                        <span class="bg-[#f97316] text-white w-10 h-10 rounded-lg border-2 border-black flex items-center justify-center font-black">4/2</span><span class="text-black font-black group-hover:translate-x-1 transition-transform">GO!</span>
+                    <button onclick="checkMissionPassword('4/2')" style="background: radial-gradient(circle, rgba(255,255,255,0.35) 1.5px, transparent 1.5px) 0 0/14px 14px, linear-gradient(145deg, #fdba74 0%, #f97316 100%);" class="border-4 border-black p-3 rounded-xl hover:-translate-y-1 hover:rotate-1 active:translate-y-1 active:shadow-[0_0_0_0_rgba(0,0,0,1)] shadow-[4px_4px_0_0_rgba(0,0,0,1)] transition-all flex items-center justify-between group">
+                        <span class="bg-white text-[#f97316] w-10 h-10 rounded-lg border-2 border-black flex items-center justify-center font-black">4/2</span><span class="text-white font-black drop-shadow-[1px_1px_0_rgba(0,0,0,0.4)] group-hover:translate-x-1 transition-transform">GO!</span>
                     </button>
-                    <button onclick="checkMissionPassword('4/3')" class="bg-white border-4 border-black p-3 rounded-xl hover:bg-[#fed7aa] active:translate-y-1 active:shadow-[0_0_0_0_rgba(0,0,0,1)] shadow-[4px_4px_0_0_rgba(0,0,0,1)] transition-all flex items-center justify-between group">
-                        <span class="bg-[#f97316] text-white w-10 h-10 rounded-lg border-2 border-black flex items-center justify-center font-black">4/3</span><span class="text-black font-black group-hover:translate-x-1 transition-transform">GO!</span>
+                    <button onclick="checkMissionPassword('4/3')" style="background: radial-gradient(circle, rgba(255,255,255,0.35) 1.5px, transparent 1.5px) 0 0/14px 14px, linear-gradient(145deg, #fdba74 0%, #f97316 100%);" class="border-4 border-black p-3 rounded-xl hover:-translate-y-1 hover:rotate-1 active:translate-y-1 active:shadow-[0_0_0_0_rgba(0,0,0,1)] shadow-[4px_4px_0_0_rgba(0,0,0,1)] transition-all flex items-center justify-between group">
+                        <span class="bg-white text-[#f97316] w-10 h-10 rounded-lg border-2 border-black flex items-center justify-center font-black">4/3</span><span class="text-white font-black drop-shadow-[1px_1px_0_rgba(0,0,0,0.4)] group-hover:translate-x-1 transition-transform">GO!</span>
                     </button>
-                    <button onclick="checkMissionPassword('4/4')" class="bg-white border-4 border-black p-3 rounded-xl hover:bg-[#fed7aa] active:translate-y-1 active:shadow-[0_0_0_0_rgba(0,0,0,1)] shadow-[4px_4px_0_0_rgba(0,0,0,1)] transition-all flex items-center justify-between group">
-                        <span class="bg-[#f97316] text-white w-10 h-10 rounded-lg border-2 border-black flex items-center justify-center font-black">4/4</span><span class="text-black font-black group-hover:translate-x-1 transition-transform">GO!</span>
+                    <button onclick="checkMissionPassword('4/4')" style="background: radial-gradient(circle, rgba(255,255,255,0.35) 1.5px, transparent 1.5px) 0 0/14px 14px, linear-gradient(145deg, #fdba74 0%, #f97316 100%);" class="border-4 border-black p-3 rounded-xl hover:-translate-y-1 hover:rotate-1 active:translate-y-1 active:shadow-[0_0_0_0_rgba(0,0,0,1)] shadow-[4px_4px_0_0_rgba(0,0,0,1)] transition-all flex items-center justify-between group">
+                        <span class="bg-white text-[#f97316] w-10 h-10 rounded-lg border-2 border-black flex items-center justify-center font-black">4/4</span><span class="text-white font-black drop-shadow-[1px_1px_0_rgba(0,0,0,0.4)] group-hover:translate-x-1 transition-transform">GO!</span>
                     </button>
-                    <button onclick="checkMissionPassword('5/1')" class="bg-white border-4 border-black p-3 rounded-xl hover:bg-[#bbf7d0] active:translate-y-1 active:shadow-[0_0_0_0_rgba(0,0,0,1)] shadow-[4px_4px_0_0_rgba(0,0,0,1)] transition-all flex items-center justify-between group">
-                        <span class="bg-[#22c55e] text-white w-10 h-10 rounded-lg border-2 border-black flex items-center justify-center font-black">5/1</span><span class="text-black font-black group-hover:translate-x-1 transition-transform">GO!</span>
+                    <button onclick="checkMissionPassword('5/1')" style="background: radial-gradient(circle, rgba(255,255,255,0.35) 1.5px, transparent 1.5px) 0 0/14px 14px, linear-gradient(145deg, #86efac 0%, #22c55e 100%);" class="border-4 border-black p-3 rounded-xl hover:-translate-y-1 hover:rotate-1 active:translate-y-1 active:shadow-[0_0_0_0_rgba(0,0,0,1)] shadow-[4px_4px_0_0_rgba(0,0,0,1)] transition-all flex items-center justify-between group">
+                        <span class="bg-white text-[#22c55e] w-10 h-10 rounded-lg border-2 border-black flex items-center justify-center font-black">5/1</span><span class="text-white font-black drop-shadow-[1px_1px_0_rgba(0,0,0,0.4)] group-hover:translate-x-1 transition-transform">GO!</span>
                     </button>
-                    <button onclick="checkMissionPassword('5/2')" class="bg-white border-4 border-black p-3 rounded-xl hover:bg-[#bbf7d0] active:translate-y-1 active:shadow-[0_0_0_0_rgba(0,0,0,1)] shadow-[4px_4px_0_0_rgba(0,0,0,1)] transition-all flex items-center justify-between group">
-                        <span class="bg-[#22c55e] text-white w-10 h-10 rounded-lg border-2 border-black flex items-center justify-center font-black">5/2</span><span class="text-black font-black group-hover:translate-x-1 transition-transform">GO!</span>
+                    <button onclick="checkMissionPassword('5/2')" style="background: radial-gradient(circle, rgba(255,255,255,0.35) 1.5px, transparent 1.5px) 0 0/14px 14px, linear-gradient(145deg, #86efac 0%, #22c55e 100%);" class="border-4 border-black p-3 rounded-xl hover:-translate-y-1 hover:rotate-1 active:translate-y-1 active:shadow-[0_0_0_0_rgba(0,0,0,1)] shadow-[4px_4px_0_0_rgba(0,0,0,1)] transition-all flex items-center justify-between group">
+                        <span class="bg-white text-[#22c55e] w-10 h-10 rounded-lg border-2 border-black flex items-center justify-center font-black">5/2</span><span class="text-white font-black drop-shadow-[1px_1px_0_rgba(0,0,0,0.4)] group-hover:translate-x-1 transition-transform">GO!</span>
                     </button>
-                    <button onclick="checkMissionPassword('5/3')" class="bg-white border-4 border-black p-3 rounded-xl hover:bg-[#bbf7d0] active:translate-y-1 active:shadow-[0_0_0_0_rgba(0,0,0,1)] shadow-[4px_4px_0_0_rgba(0,0,0,1)] transition-all flex items-center justify-between group">
-                        <span class="bg-[#22c55e] text-white w-10 h-10 rounded-lg border-2 border-black flex items-center justify-center font-black">5/3</span><span class="text-black font-black group-hover:translate-x-1 transition-transform">GO!</span>
+                    <button onclick="checkMissionPassword('5/3')" style="background: radial-gradient(circle, rgba(255,255,255,0.35) 1.5px, transparent 1.5px) 0 0/14px 14px, linear-gradient(145deg, #86efac 0%, #22c55e 100%);" class="border-4 border-black p-3 rounded-xl hover:-translate-y-1 hover:rotate-1 active:translate-y-1 active:shadow-[0_0_0_0_rgba(0,0,0,1)] shadow-[4px_4px_0_0_rgba(0,0,0,1)] transition-all flex items-center justify-between group">
+                        <span class="bg-white text-[#22c55e] w-10 h-10 rounded-lg border-2 border-black flex items-center justify-center font-black">5/3</span><span class="text-white font-black drop-shadow-[1px_1px_0_rgba(0,0,0,0.4)] group-hover:translate-x-1 transition-transform">GO!</span>
                     </button>
-                    <button onclick="checkMissionPassword('5/4')" class="bg-white border-4 border-black p-3 rounded-xl hover:bg-[#bbf7d0] active:translate-y-1 active:shadow-[0_0_0_0_rgba(0,0,0,1)] shadow-[4px_4px_0_0_rgba(0,0,0,1)] transition-all flex items-center justify-between group">
-                        <span class="bg-[#22c55e] text-white w-10 h-10 rounded-lg border-2 border-black flex items-center justify-center font-black">5/4</span><span class="text-black font-black group-hover:translate-x-1 transition-transform">GO!</span>
+                    <button onclick="checkMissionPassword('5/4')" style="background: radial-gradient(circle, rgba(255,255,255,0.35) 1.5px, transparent 1.5px) 0 0/14px 14px, linear-gradient(145deg, #86efac 0%, #22c55e 100%);" class="border-4 border-black p-3 rounded-xl hover:-translate-y-1 hover:rotate-1 active:translate-y-1 active:shadow-[0_0_0_0_rgba(0,0,0,1)] shadow-[4px_4px_0_0_rgba(0,0,0,1)] transition-all flex items-center justify-between group">
+                        <span class="bg-white text-[#22c55e] w-10 h-10 rounded-lg border-2 border-black flex items-center justify-center font-black">5/4</span><span class="text-white font-black drop-shadow-[1px_1px_0_rgba(0,0,0,0.4)] group-hover:translate-x-1 transition-transform">GO!</span>
                     </button>
-                    <button onclick="checkMissionPassword('6/1')" class="bg-white border-4 border-black p-3 rounded-xl hover:bg-[#fbcfe8] active:translate-y-1 active:shadow-[0_0_0_0_rgba(0,0,0,1)] shadow-[4px_4px_0_0_rgba(0,0,0,1)] transition-all flex items-center justify-between group">
-                        <span class="bg-[#ec4899] text-white w-10 h-10 rounded-lg border-2 border-black flex items-center justify-center font-black">6/1</span><span class="text-black font-black group-hover:translate-x-1 transition-transform">GO!</span>
+                    <button onclick="checkMissionPassword('6/1')" style="background: radial-gradient(circle, rgba(255,255,255,0.35) 1.5px, transparent 1.5px) 0 0/14px 14px, linear-gradient(145deg, #f9a8d4 0%, #ec4899 100%);" class="border-4 border-black p-3 rounded-xl hover:-translate-y-1 hover:rotate-1 active:translate-y-1 active:shadow-[0_0_0_0_rgba(0,0,0,1)] shadow-[4px_4px_0_0_rgba(0,0,0,1)] transition-all flex items-center justify-between group">
+                        <span class="bg-white text-[#ec4899] w-10 h-10 rounded-lg border-2 border-black flex items-center justify-center font-black">6/1</span><span class="text-white font-black drop-shadow-[1px_1px_0_rgba(0,0,0,0.4)] group-hover:translate-x-1 transition-transform">GO!</span>
                     </button>
-                    <button onclick="checkMissionPassword('6/2')" class="bg-white border-4 border-black p-3 rounded-xl hover:bg-[#fbcfe8] active:translate-y-1 active:shadow-[0_0_0_0_rgba(0,0,0,1)] shadow-[4px_4px_0_0_rgba(0,0,0,1)] transition-all flex items-center justify-between group">
-                        <span class="bg-[#ec4899] text-white w-10 h-10 rounded-lg border-2 border-black flex items-center justify-center font-black">6/2</span><span class="text-black font-black group-hover:translate-x-1 transition-transform">GO!</span>
+                    <button onclick="checkMissionPassword('6/2')" style="background: radial-gradient(circle, rgba(255,255,255,0.35) 1.5px, transparent 1.5px) 0 0/14px 14px, linear-gradient(145deg, #f9a8d4 0%, #ec4899 100%);" class="border-4 border-black p-3 rounded-xl hover:-translate-y-1 hover:rotate-1 active:translate-y-1 active:shadow-[0_0_0_0_rgba(0,0,0,1)] shadow-[4px_4px_0_0_rgba(0,0,0,1)] transition-all flex items-center justify-between group">
+                        <span class="bg-white text-[#ec4899] w-10 h-10 rounded-lg border-2 border-black flex items-center justify-center font-black">6/2</span><span class="text-white font-black drop-shadow-[1px_1px_0_rgba(0,0,0,0.4)] group-hover:translate-x-1 transition-transform">GO!</span>
                     </button>
-                    <button onclick="checkMissionPassword('6/3')" class="bg-white border-4 border-black p-3 rounded-xl hover:bg-[#fbcfe8] active:translate-y-1 active:shadow-[0_0_0_0_rgba(0,0,0,1)] shadow-[4px_4px_0_0_rgba(0,0,0,1)] transition-all flex items-center justify-between group">
-                        <span class="bg-[#ec4899] text-white w-10 h-10 rounded-lg border-2 border-black flex items-center justify-center font-black">6/3</span><span class="text-black font-black group-hover:translate-x-1 transition-transform">GO!</span>
+                    <button onclick="checkMissionPassword('6/3')" style="background: radial-gradient(circle, rgba(255,255,255,0.35) 1.5px, transparent 1.5px) 0 0/14px 14px, linear-gradient(145deg, #f9a8d4 0%, #ec4899 100%);" class="border-4 border-black p-3 rounded-xl hover:-translate-y-1 hover:rotate-1 active:translate-y-1 active:shadow-[0_0_0_0_rgba(0,0,0,1)] shadow-[4px_4px_0_0_rgba(0,0,0,1)] transition-all flex items-center justify-between group">
+                        <span class="bg-white text-[#ec4899] w-10 h-10 rounded-lg border-2 border-black flex items-center justify-center font-black">6/3</span><span class="text-white font-black drop-shadow-[1px_1px_0_rgba(0,0,0,0.4)] group-hover:translate-x-1 transition-transform">GO!</span>
                     </button>
-                    <button onclick="checkMissionPassword('6/4')" class="bg-white border-4 border-black p-3 rounded-xl hover:bg-[#fbcfe8] active:translate-y-1 active:shadow-[0_0_0_0_rgba(0,0,0,1)] shadow-[4px_4px_0_0_rgba(0,0,0,1)] transition-all flex items-center justify-between group">
-                        <span class="bg-[#ec4899] text-white w-10 h-10 rounded-lg border-2 border-black flex items-center justify-center font-black">6/4</span><span class="text-black font-black group-hover:translate-x-1 transition-transform">GO!</span>
+                    <button onclick="checkMissionPassword('6/4')" style="background: radial-gradient(circle, rgba(255,255,255,0.35) 1.5px, transparent 1.5px) 0 0/14px 14px, linear-gradient(145deg, #f9a8d4 0%, #ec4899 100%);" class="border-4 border-black p-3 rounded-xl hover:-translate-y-1 hover:rotate-1 active:translate-y-1 active:shadow-[0_0_0_0_rgba(0,0,0,1)] shadow-[4px_4px_0_0_rgba(0,0,0,1)] transition-all flex items-center justify-between group">
+                        <span class="bg-white text-[#ec4899] w-10 h-10 rounded-lg border-2 border-black flex items-center justify-center font-black">6/4</span><span class="text-white font-black drop-shadow-[1px_1px_0_rgba(0,0,0,0.4)] group-hover:translate-x-1 transition-transform">GO!</span>
                     </button>
                 </div>
         </div>
@@ -562,9 +538,6 @@
             <button type="button" onclick="openDashboard()" class="bg-emerald-600 border-[6px] border-black text-white text-xl md:text-2xl font-black px-8 md:px-12 py-5 rounded-[2rem] shadow-[10px_10px_0_0_rgba(0,0,0,1)] hover:-translate-y-1 active:translate-y-2 active:shadow-[0_0_0_0_rgba(0,0,0,1)] transition-all flex items-center justify-center gap-4 cursor-pointer uppercase tracking-widest">
     <span class="text-3xl">📊</span> DASHBOARD (ครู)
 </button>
-            <button type="button" onclick="openThemePicker()" class="bg-fuchsia-600 border-[6px] border-black text-white text-xl md:text-2xl font-black px-8 md:px-12 py-5 rounded-[2rem] shadow-[10px_10px_0_0_rgba(0,0,0,1)] hover:-translate-y-1 active:translate-y-2 active:shadow-[0_0_0_0_rgba(0,0,0,1)] transition-all flex items-center justify-center gap-4 cursor-pointer uppercase tracking-widest">
-    <span class="text-3xl">🎨</span> THEME (ครู)
-</button>
         </div>
 
     </div>
@@ -613,90 +586,6 @@
             return !!(data && typeof data === 'object' && !Array.isArray(data) && data.__error);
         }
 
-        // ==========================================
-        // ★ เครื่องยนต์ธีม — ใช้ร่วมกันทุกธีมทางเลือก (ครูเลือกจากเมนู ⚙️ → ธีม)
-        // แทนที่จะไล่กำหนดสีทีละการ์ดด้วยมือ (การ์ดในเว็บนี้ใช้สี pastel คนละเฉดกว่า 20 สี)
-        // ฟังก์ชันนี้จะ "อ่าน" สีเดิมของแต่ละการ์ดจาก class แล้วคำนวณเวอร์ชันของแต่ละธีมให้อัตโนมัติ
-        // ข้อดี: ถ้าครูเพิ่มการ์ดสีใหม่ในอนาคต ทุกธีมจะรองรับได้เองทันทีโดยไม่ต้องแก้โค้ดเพิ่ม
-        // ขอบเขต: ทำเฉพาะหน้าเว็บหลัก ไม่รวม popup ต่างๆ (SweetAlert) ซึ่งยังคงเป็นธีมสว่างเหมือนเดิม
-        // ==========================================
-        function hexToHsl_(hex) {
-            hex = hex.replace('#', '');
-            var r = parseInt(hex.substr(0, 2), 16) / 255;
-            var g = parseInt(hex.substr(2, 2), 16) / 255;
-            var b = parseInt(hex.substr(4, 2), 16) / 255;
-            var max = Math.max(r, g, b), min = Math.min(r, g, b);
-            var h, s, l = (max + min) / 2;
-            if (max === min) { h = s = 0; }
-            else {
-                var d = max - min;
-                s = l > 0.5 ? d / (2 - max - min) : d / (max + min);
-                if (max === r) h = (g - b) / d + (g < b ? 6 : 0);
-                else if (max === g) h = (b - r) / d + 2;
-                else h = (r - g) / d + 4;
-                h /= 6;
-            }
-            return [h * 360, s * 100, l * 100];
-        }
-
-        // NEON NIGHT: คงเฉดสี (hue) เดิม แต่กดความสว่างลงมาก + เพิ่มความสดเล็กน้อยให้ดูเรืองแสง
-        function darkenForNeon_(hex) {
-            var hsl = hexToHsl_(hex);
-            var s = Math.min(hsl[1] * 1.25, 90);
-            var l = Math.max(6, Math.min(hsl[2] * 0.16, 16));
-            return 'hsl(' + hsl[0].toFixed(0) + ',' + s.toFixed(0) + '%,' + l.toFixed(0) + '%)';
-        }
-        // SOFT PASTEL: คงเฉดสีเดิม แต่ลดความสด + ดันความสว่างขึ้นให้ดูซีดอ่อนโยนลง
-        function softenForPastel_(hex) {
-            var hsl = hexToHsl_(hex);
-            var s = Math.max(hsl[1] * 0.65, 18);
-            var l = Math.min(Math.max(hsl[2], 90), 96);
-            return 'hsl(' + hsl[0].toFixed(0) + ',' + s.toFixed(0) + '%,' + l.toFixed(0) + '%)';
-        }
-
-        const THEME_CONFIGS_ = {
-            neon: {
-                bgTransform: darkenForNeon_, whiteBg: '#10162b', borderColor: '#22d3ee', borderWidth: null,
-                textColor: '#e6faff', shadow: '0 0 14px rgba(34,211,238,0.55), 0 0 4px rgba(217,70,239,0.4)', radius: null
-            },
-            pastel: {
-                bgTransform: softenForPastel_, whiteBg: '#ffffff', borderColor: '#e7ddf5', borderWidth: '2px',
-                textColor: '#4b4453', shadow: '0 10px 28px rgba(120,110,160,0.16)', radius: null
-            },
-            clean: {
-                bgTransform: function() { return '#f7f7f8'; }, whiteBg: '#ffffff', borderColor: '#e2e5eb', borderWidth: '1px',
-                textColor: '#26282e', shadow: '0 1px 4px rgba(0,0,0,0.07)', radius: '14px'
-            }
-        };
-
-        window.applyPageTheme = function(themeName) {
-            const cfg = THEME_CONFIGS_[themeName];
-            if (!cfg) return;
-            document.querySelectorAll('[class]').forEach(function(el) {
-                var cls = el.className;
-                if (typeof cls !== 'string') return;
-                if (cls.indexOf('bg-white') !== -1) {
-                    el.style.setProperty('background-color', cfg.whiteBg);
-                } else if (cls.indexOf('bg-[') !== -1) {
-                    var m = cls.match(/bg-\[#([0-9a-fA-F]{6})\]/);
-                    if (m) { el.style.setProperty('background-color', cfg.bgTransform('#' + m[1])); }
-                }
-                if (cls.indexOf('border-black') !== -1) {
-                    el.style.setProperty('border-color', cfg.borderColor);
-                    if (cfg.borderWidth) { el.style.setProperty('border-width', cfg.borderWidth); }
-                }
-                if (cls.indexOf('text-black') !== -1) {
-                    el.style.setProperty('color', cfg.textColor);
-                }
-                if (cls.indexOf('shadow-[') !== -1) {
-                    el.style.setProperty('box-shadow', cfg.shadow);
-                }
-                if (cfg.radius && cls.indexOf('rounded-[') !== -1) {
-                    el.style.setProperty('border-radius', cfg.radius);
-                }
-            });
-        };
-
         // ★ ป้องกันข้อความ (ชื่อนักเรียน/หัวข้อ Deadline/ชื่อ Quiz ฯลฯ) ที่มีอักขระพิเศษ เช่น < > & " '
         // ไม่ให้ไปทำโครงหน้าเว็บพัง หรือกลายเป็นโค้ด HTML แทรกเข้ามาโดยไม่ตั้งใจ
         // ใช้ก่อนแทรกข้อความจากชีต/ฟอร์มเข้าไปใน innerHTML หรือ SweetAlert html ทุกจุด
@@ -737,59 +626,10 @@
             html += '<button onclick="if(typeof Swal!==\'undefined\') Swal.close(); checkAdminScores();" class="bg-slate-800 border-4 border-black text-white font-black py-4 rounded-2xl shadow-[4px_4px_0_0_rgba(0,0,0,1)] active:translate-y-1 active:shadow-none transition-all flex flex-col items-center gap-1"><span class="text-2xl">🤖</span><span class="text-xs uppercase tracking-wide">Override</span></button>';
             html += '<button onclick="if(typeof Swal!==\'undefined\') Swal.close(); openQuizAdmin();" class="bg-orange-600 border-4 border-black text-white font-black py-4 rounded-2xl shadow-[4px_4px_0_0_rgba(0,0,0,1)] active:translate-y-1 active:shadow-none transition-all flex flex-col items-center gap-1"><span class="text-2xl">🎲</span><span class="text-xs uppercase tracking-wide">Quiz</span></button>';
             html += '<button onclick="if(typeof Swal!==\'undefined\') Swal.close(); openDeadlineAdmin();" class="bg-amber-500 border-4 border-black text-white font-black py-4 rounded-2xl shadow-[4px_4px_0_0_rgba(0,0,0,1)] active:translate-y-1 active:shadow-none transition-all flex flex-col items-center gap-1"><span class="text-2xl">📅</span><span class="text-xs uppercase tracking-wide">Deadline</span></button>';
-            html += '<button onclick="if(typeof Swal!==\'undefined\') Swal.close(); openDashboard();" class="bg-emerald-600 border-4 border-black text-white font-black py-4 rounded-2xl shadow-[4px_4px_0_0_rgba(0,0,0,1)] active:translate-y-1 active:shadow-none transition-all flex flex-col items-center gap-1"><span class="text-2xl">📊</span><span class="text-xs uppercase tracking-wide">Dashboard</span></button>';
-            html += '<button onclick="if(typeof Swal!==\'undefined\') Swal.close(); openThemePicker();" class="bg-fuchsia-600 border-4 border-black text-white font-black py-4 rounded-2xl shadow-[4px_4px_0_0_rgba(0,0,0,1)] active:translate-y-1 active:shadow-none transition-all flex flex-col items-center gap-1"><span class="text-2xl">🎨</span><span class="text-xs uppercase tracking-wide">Theme</span></button>';
+            html += '<button onclick="if(typeof Swal!==\'undefined\') Swal.close(); openDashboard();" class="bg-emerald-600 border-4 border-black text-white font-black py-4 rounded-2xl shadow-[4px_4px_0_0_rgba(0,0,0,1)] active:translate-y-1 active:shadow-none transition-all flex flex-col items-center gap-1 col-span-2"><span class="text-2xl">📊</span><span class="text-xs uppercase tracking-wide">Dashboard</span></button>';
             html += '</div>';
             fireSwal({ title: '🛠️ เมนูครู', html: html, showConfirmButton: false, showCloseButton: true,
                 customClass: { popup: 'border-[6px] border-black rounded-[2.5rem] shadow-[12px_12px_0_0_rgba(0,0,0,1)] bg-[#f8fafc]', title: 'font-black text-2xl mt-4 text-black tracking-widest' } });
-        };
-
-        // ---- เลือกธีมเว็บไซต์ (ครูเปลี่ยน / นักเรียนเห็นตามที่ครูเปลี่ยน — เก็บฝั่งเซิร์ฟเวอร์) ----
-        window.openThemePicker = function() {
-            fireSwal({ title: 'LOADING... ⏳', allowOutsideClick: false, didOpen: function() { if (typeof Swal !== 'undefined') Swal.showLoading(); } });
-            callAPI('getCurrentTheme', {}).then(function(res) {
-                const current = (res && res.theme) || 'arcade';
-                const themes = [
-                    { id: 'arcade', emoji: '🎮', name: 'ARCADE (ค่าเริ่มต้น)', desc: 'สีสันสดใส ขอบดำหนา แบบที่ใช้อยู่ตอนนี้' },
-                    { id: 'neon', emoji: '🌌', name: 'NEON NIGHT', desc: 'พื้นมืด ขอบเรืองแสง บรรยากาศกลางคืน' },
-                    { id: 'pastel', emoji: '🌸', name: 'SOFT PASTEL', desc: 'โค้งมนนุ่มนวล เงาบางเบา บรรยากาศอ่อนโยน' },
-                    { id: 'clean', emoji: '📚', name: 'CLEAN STUDY', desc: 'ขาว-เทาอ่อน เรียบสุภาพ เน้นความจริงจัง' }
-                ];
-                let html = '<div class="grid grid-cols-1 gap-3 p-1">';
-                themes.forEach(function(t) {
-                    const active = current === t.id;
-                    html += '<button onclick="pickTheme(\'' + t.id + '\')" class="' + (active ? 'ring-4 ring-emerald-400 ' : '') + 'bg-white border-4 border-black rounded-2xl p-4 shadow-[4px_4px_0_0_rgba(0,0,0,1)] active:translate-y-1 active:shadow-none transition-all flex items-center gap-3 text-left w-full">';
-                    html += '<span class="text-3xl flex-shrink-0">' + t.emoji + '</span><div class="flex-1 min-w-0"><p class="font-black text-black">' + t.name + '</p><p class="text-xs text-gray-500 font-bold">' + t.desc + '</p></div>';
-                    html += (active ? '<span class="text-emerald-500 font-black text-[10px] flex-shrink-0">ใช้อยู่ ✓</span>' : '') + '</button>';
-                });
-                html += '</div>';
-                fireSwal({ title: '🎨 เลือกธีมเว็บไซต์', html: html, showConfirmButton: false, showCloseButton: true, width: '26rem',
-                    customClass: { popup: 'border-[6px] border-black rounded-[2.5rem] shadow-[12px_12px_0_0_rgba(0,0,0,1)] bg-[#f8fafc]', title: 'font-black text-2xl mt-4 text-black tracking-widest' } });
-            }).catch(function(err) { fireSwal({ icon: 'error', title: 'ERROR', text: err.message }); });
-        };
-
-        window.pickTheme = async function(themeName) {
-            const result = await fireSwal({
-                title: '🔐 ยืนยันรหัสครู', input: 'password', inputPlaceholder: 'รหัสผ่าน Admin',
-                showCancelButton: true, confirmButtonText: 'เปลี่ยนธีม', cancelButtonText: 'ยกเลิก', buttonsStyling: false,
-                customClass: { popup: 'border-[6px] border-black rounded-[2.5rem] shadow-[12px_12px_0_0_rgba(0,0,0,1)]', title: 'text-black font-black tracking-widest text-2xl mt-2',
-                    input: 'bg-white border-4 border-black text-black focus:ring-4 focus:ring-fuchsia-300 rounded-xl p-3 text-center tracking-widest font-black text-lg shadow-[4px_4px_0_0_rgba(0,0,0,1)] mt-4',
-                    confirmButton: 'bg-fuchsia-400 hover:bg-fuchsia-300 text-black font-black py-3 px-6 rounded-xl mx-2 border-4 border-black shadow-[4px_4px_0_0_rgba(0,0,0,1)] active:translate-y-1 active:shadow-[0_0_0_0_rgba(0,0,0,1)] transition-all',
-                    cancelButton: 'bg-gray-300 hover:bg-gray-200 text-black font-black py-3 px-6 rounded-xl mx-2 border-4 border-black shadow-[4px_4px_0_0_rgba(0,0,0,1)] active:translate-y-1 active:shadow-[0_0_0_0_rgba(0,0,0,1)] transition-all' }
-            });
-            if (!result.value) return;
-            fireSwal({ title: 'SAVING... ⏳', allowOutsideClick: false, didOpen: function() { if (typeof Swal !== 'undefined') Swal.showLoading(); } });
-            callAPI('setTheme', { data: { theme: themeName }, password: result.value })
-                .then(function(res) {
-                    if (isAuthError(res) || res.success === false) {
-                        fireSwal({ icon: 'error', title: 'DENIED!', text: (res && res.message) || 'รหัสผ่านผิด', buttonsStyling: false,
-                            customClass: { popup: 'border-[6px] border-black rounded-[2.5rem] shadow-[12px_12px_0_0_rgba(0,0,0,1)]', confirmButton: 'bg-black text-white font-black py-2 px-6 rounded-xl border-4 border-black mt-4' } });
-                        return;
-                    }
-                    fireSwal({ icon: 'success', title: 'เปลี่ยนธีมแล้ว! 🎉', text: 'กำลังโหลดหน้าเว็บใหม่...', timer: 1500, showConfirmButton: false })
-                        .then(function() { location.reload(); });
-                })
-                .catch(function(err) { fireSwal({ icon: 'error', title: 'ERROR', text: err.message }); });
         };
 
         // ---- ตารางเรียนนักเรียน (รูปนิ่งจาก postimg.cc ต่อห้อง — ไม่ต้องใช้รหัสผ่าน ไม่ผ่าน API เลย) ----
@@ -1685,9 +1525,6 @@
         document.addEventListener('DOMContentLoaded', function() {
             loadDeadlineBoard();
             showRoomSchedule('4/1');
-            ['neon', 'pastel', 'clean'].forEach(function(t) {
-                if (document.body.classList.contains('theme-' + t)) { applyPageTheme(t); }
-            });
         });
 
         // ============================================
