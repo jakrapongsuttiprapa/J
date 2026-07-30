@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>KRU-OAT</title>
+    <title>KRU OAT</title>
     <link rel="icon" type="image/png" sizes="32x32" href="https://i.postimg.cc/rwtMK5zs/5884a6e1-a4e2-4ce7-bf96-9270c6a64cb4.png">
 <link rel="icon" type="image/png" sizes="16x16" href="https://i.postimg.cc/rwtMK5zs/5884a6e1-a4e2-4ce7-bf96-9270c6a64cb4.png">
 <link rel="apple-touch-icon" sizes="180x180" href="https://i.postimg.cc/rwtMK5zs/5884a6e1-a4e2-4ce7-bf96-9270c6a64cb4.png">
@@ -12,6 +12,11 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="apple-mobile-web-app-title" content="KRU OAT">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="theme-color" content="#ffffff">
+<!-- ★ ใหม่: PWA manifest — ฝังเป็น data URI ตรงนี้เลย เพราะ Apps Script เสิร์ฟไฟล์แยกที่ path ของตัวเองไม่ได้ง่ายๆ แบบเว็บโฮสต์ทั่วไป -->
+<!-- ผลคือ Android/Chrome จะรู้จักแอปนี้ถูกต้องขึ้น (ไอคอน, ชื่อ, โหมด standalone) เหมือนที่ iOS รู้จักผ่าน apple-mobile-web-app อยู่แล้ว -->
+<link rel="manifest" href="data:application/manifest+json;base64,eyAKICAibmFtZSI6ICJLUlUgT0FUIC0gQ2xhc3Nyb29tIEh1YiIsCiAgInNob3J0X25hbWUiOiAiS1JVIE9BVCIsCiAgInN0YXJ0X3VybCI6ICIuIiwKICAiZGlzcGxheSI6ICJzdGFuZGFsb25lIiwKICAiYmFja2dyb3VuZF9jb2xvciI6ICIjZjhmYWZjIiwKICAidGhlbWVfY29sb3IiOiAiI2ZmZmZmZiIsCiAgImljb25zIjogWwogICAgewogICAgICAic3JjIjogImh0dHBzOi8vaS5wb3N0aW1nLmNjL3J3dE1LNXpzLzU4ODRhNmUxLWE0ZTItNGNlNy1iZjk2LTkyNzBjNmE2NGNiNC5wbmciLAogICAgICAic2l6ZXMiOiAiMTkyeDE5MiIsCiAgICAgICJ0eXBlIjogImltYWdlL3BuZyIKICAgIH0sCiAgICB7CiAgICAgICJzcmMiOiAiaHR0cHM6Ly9pLnBvc3RpbWcuY2Mvcnd0TUs1enMvNTg4NGE2ZTEtYTRlMi00Y2U3LWJmOTYtOTI3MGM2YTY0Y2I0LnBuZyIsCiAgICAgICJzaXplcyI6ICI1MTJ4NTEyIiwKICAgICAgInR5cGUiOiAiaW1hZ2UvcG5nIgogICAgfQogIF0KfQo=">
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -182,6 +187,11 @@
             opacity: 0.18;
             pointer-events: none;
         }
+        /* ★ กันไม่ให้หัวข้อ SCORE STUDENTS โผล่มาแล้วโดนแถบเมนูบน (sticky) บังตอนกด "Scores" ในเมนู ☰ */
+        /* แถบเมนูบนสุดสูงประมาณ 82px (ปุ่ม 44px + padding 32px + เส้นขอบ 6px) เผื่อพื้นที่ไว้เกินเล็กน้อยให้หายใจ */
+        #scoreStudentsSection {
+            scroll-margin-top: 100px;
+        }
     </style>
 </head>
 <body class="min-h-screen pb-10 overflow-x-hidden relative">
@@ -190,8 +200,8 @@
     <!-- NAVBAR -->
     <nav class="p-4 flex justify-between items-center bg-white border-b-[6px] border-black sticky top-0 z-50 shadow-[0_8px_0_0_rgba(0,0,0,1)] animate-bounce-up">
         <div class="flex items-center gap-3">
-            <span class="text-4xl animate-bounce">🇬🇧</span>
-            <h1 class="text-xl md:text-3xl font-black tracking-widest uppercase text-black">KRU<span class="text-[#8B4513]"> OAT</span></h1>
+            <span class="text-4xl animate-bounce">🤖</span>
+            <h1 class="text-xl md:text-3xl font-black tracking-widest uppercase text-black">KRU<span class="text-[#8B4513]">OAT</span></h1>
         </div>
         <div class="md:hidden flex items-center gap-2">
             <button type="button" onclick="openStudentMenu()" class="w-11 h-11 flex items-center justify-center bg-white rounded-xl border-[3px] border-black text-xl shadow-[3px_3px_0_0_rgba(0,0,0,1)] active:shadow-none active:translate-x-[3px] active:translate-y-[3px] transition-all">
@@ -221,7 +231,7 @@
                         HELLO <span class="text-[#8B4513] animate-pulse drop-shadow-[2px_2px_0_rgba(255,255,255,1)]">HUMAN!</span> 👋
                     </h1>
                     <div class="inline-block bg-white border-[4px] border-black px-3 py-2 sm:px-6 sm:py-3 rounded-2xl mb-6 shadow-[6px_6px_0_0_rgba(0,0,0,1)] transform -rotate-1 max-w-full">
-                        <h2 class="text-sm sm:text-2xl md:text-3xl font-bold text-black whitespace-nowrap">JAKRAPONG SUTTIPRAPA 🧑‍🏫</h2>
+                        <h2 class="text-sm sm:text-2xl md:text-3xl font-bold text-black whitespace-nowrap">T.JAKRAPONG SUTTIPRAPA 🧑‍🏫</h2>
                     </div>
                     <div class="flex flex-wrap justify-center md:justify-start gap-3">
                         <span class="bg-pink-300 border-4 border-black text-black font-black px-4 py-2 rounded-xl text-sm md:text-base hover:-translate-y-1 transition-transform shadow-[4px_4px_0_0_rgba(0,0,0,1)]">📡 ภาษาต่างประเทศ</span>
@@ -346,7 +356,7 @@
                     </h2>
                 </div>
                 <div class="bg-white border-4 border-black rounded-2xl overflow-hidden shadow-inner flex-grow flex items-start justify-center p-2 cursor-pointer group relative z-10" onclick="window.open('https://i.postimg.cc/JnmbbvN8/Gemini-Generated-Image-5blqtq5blqtq5blq.png', '_blank')">
-                    <img src="https://i.postimg.cc/JnmbbvN8/Gemini-Generated-Image-5blqtq5blqtq5blq.png" onerror="this.src='https://via.placeholder.com/600x800?text=Schedule'" alt="ตารางสอน" class="w-full h-auto object-contain transform group-hover:scale-[1.02] transition-transform duration-300">
+                    <img src="https://i.postimg.cc/JnmbbvN8/Gemini-Generated-Image-5blqtq5blqtq5blq.png" onerror="this.src='https://via.placeholder.com/600x800?text=Schedule'" alt="ตารางสอน" loading="lazy" class="w-full h-auto object-contain transform group-hover:scale-[1.02] transition-transform duration-300">
                 </div>
                 <p class="text-center text-sm font-bold text-gray-700 mt-3 relative z-10">TAP TO ENLARGE 🔍</p>
             </div>
@@ -567,6 +577,27 @@
             return !!(data && typeof data === 'object' && !Array.isArray(data) && data.__error);
         }
 
+        // ★ แก้ปัญหา iPad/Safari รุ่นเก่าไม่ยอมเปิดแท็บใหม่ (หน้าจอค้าง ไม่ไปไหน) เวลากดเข้า Quiz ที่มีรหัสผ่าน
+        // สาเหตุ: window.open() ที่เรียกหลังรอผลจาก API (fetch) เสร็จ จะไม่ถูกนับเป็น "การกระทำของผู้ใช้" อีกต่อไป
+        // ในสายตาของ Safari รุ่นเก่า ทำให้ถูกบล็อกเงียบๆ (ไม่มี error ให้เห็นเลย)
+        // วิธีแก้: เปิดแท็บเปล่าทันทีตอนกด (ยังนับเป็นการกระทำของผู้ใช้อยู่) พร้อมข้อความ "กำลังโหลด..."
+        // แล้วค่อยเปลี่ยนปลายทางของแท็บนั้นทีหลังเมื่อรู้ลิงก์จริงจาก API — ไม่ต้องเปิดแท็บใหม่ซ้ำ จึงไม่โดนบล็อก
+        function openTabPending_() {
+            var tab = null;
+            try { tab = window.open('', '_blank'); } catch (e) {}
+            try {
+                if (tab) { tab.document.write('<html><head><title>กำลังโหลด...</title></head><body style="margin:0;height:100vh;display:flex;align-items:center;justify-content:center;font-family:sans-serif;background:#000;color:#fff;font-size:1.2rem;"><p>⏳ กำลังโหลด...</p></body></html>'); }
+            } catch (e) {}
+            return tab;
+        }
+        function goToTab_(tab, url) {
+            if (tab && !tab.closed) { try { tab.location = url; } catch (e) { window.open(url, '_blank'); } }
+            else { window.open(url, '_blank'); }
+        }
+        function closeTab_(tab) {
+            if (tab && !tab.closed) { try { tab.close(); } catch (e) {} }
+        }
+
         // ★ ป้องกันข้อความ (ชื่อนักเรียน/หัวข้อ Deadline/ชื่อ Quiz ฯลฯ) ที่มีอักขระพิเศษ เช่น < > & " '
         // ไม่ให้ไปทำโครงหน้าเว็บพัง หรือกลายเป็นโค้ด HTML แทรกเข้ามาโดยไม่ตั้งใจ
         // ใช้ก่อนแทรกข้อความจากชีต/ฟอร์มเข้าไปใน innerHTML หรือ SweetAlert html ทุกจุด
@@ -578,6 +609,15 @@
                 .replace(/>/g, '&gt;')
                 .replace(/"/g, '&quot;')
                 .replace(/'/g, '&#39;');
+        }
+
+        // ★ สไตล์ popup มาตรฐาน (ขอบ+เงา+มุมโค้ง) ที่ซ้ำกัน 46 จุดทั่วเว็บ รวมมาไว้จุดเดียวตรงนี้
+        // อยากเปลี่ยนหน้าตา popup ทั้งเว็บในอนาคต (เช่น ปรับความหนาขอบ/สีเงา) แก้ที่นี่ที่เดียวพอ ไม่ต้องไล่หา 46 จุด
+        // extra: class เสริมเฉพาะจุด เช่น สีพื้นหลัง, padding, ความกว้าง (ไม่ใส่ก็ได้)
+        // radius: ขนาดมุมโค้ง ค่าเริ่มต้น 2.5rem — popup เล็กบางจุดใช้ 2rem แทน ระบุพารามิเตอร์ที่ 2 ได้
+        function popupClass_(extra, radius) {
+            var base = 'border-[6px] border-black rounded-[' + (radius || '2.5rem') + '] shadow-[12px_12px_0_0_rgba(0,0,0,1)]';
+            return extra ? (base + ' ' + extra) : base;
         }
 
         function fireSwal(options) {
@@ -608,7 +648,7 @@
             html += '<button onclick="if(typeof Swal!==\'undefined\') Swal.close(); scrollToScoreStudents();" style="background: linear-gradient(145deg, #fde047 0%, #f59e0b 100%);" class="border-4 border-black text-white font-black py-4 rounded-2xl shadow-[4px_4px_0_0_rgba(0,0,0,1)] active:translate-y-1 active:shadow-none transition-all flex flex-col items-center gap-1 col-span-2"><span class="text-2xl">🎯</span><span class="text-xs uppercase tracking-wide">Scores</span></button>';
             html += '</div>';
             fireSwal({ title: '📚 เมนูนักเรียน', html: html, showConfirmButton: false, showCloseButton: true,
-                customClass: { popup: 'border-[6px] border-black rounded-[2.5rem] shadow-[12px_12px_0_0_rgba(0,0,0,1)] bg-[#f8fafc]', title: 'font-black text-2xl mt-4 text-black tracking-widest' } });
+                customClass: { popup: popupClass_('bg-[#f8fafc]'), title: 'font-black text-2xl mt-4 text-black tracking-widest' } });
         };
 
         // ---- ปุ่ม ⚙️ มุมขวาบน (มือถือ): รวมทางลัดเข้าเครื่องมือครูทั้งหมด ----
@@ -623,7 +663,7 @@
             html += '<button onclick="if(typeof Swal!==\'undefined\') Swal.close(); openDashboard();" class="bg-emerald-600 border-4 border-black text-white font-black py-4 rounded-2xl shadow-[4px_4px_0_0_rgba(0,0,0,1)] active:translate-y-1 active:shadow-none transition-all flex flex-col items-center gap-1 col-span-2"><span class="text-2xl">📊</span><span class="text-xs uppercase tracking-wide">Dashboard</span></button>';
             html += '</div>';
             fireSwal({ title: '🛠️ เมนูครู', html: html, showConfirmButton: false, showCloseButton: true,
-                customClass: { popup: 'border-[6px] border-black rounded-[2.5rem] shadow-[12px_12px_0_0_rgba(0,0,0,1)] bg-[#f8fafc]', title: 'font-black text-2xl mt-4 text-black tracking-widest' } });
+                customClass: { popup: popupClass_('bg-[#f8fafc]'), title: 'font-black text-2xl mt-4 text-black tracking-widest' } });
         };
 
         // ---- ตารางเรียนนักเรียน (รูปนิ่งจาก postimg.cc ต่อห้อง — ไม่ต้องใช้รหัสผ่าน ไม่ผ่าน API เลย) ----
@@ -654,6 +694,7 @@
             const img = document.createElement('img');
             img.src = url;
             img.alt = 'ตารางเรียน ม.' + room;
+            img.loading = 'lazy';
             img.className = 'w-full h-auto object-contain transform group-hover:scale-[1.02] transition-transform duration-300';
             img.onerror = function() { img.src = 'https://via.placeholder.com/600x800?text=Schedule'; };
             box.appendChild(img);
@@ -678,7 +719,7 @@
             htmlContent += '<a href="https://drive.google.com/drive/folders/1Bwfk5e1YZN29UfxXfOhnhr-WClAqHWJ9?usp=sharing" target="_blank" class="bg-purple-300 border-4 border-black text-black font-black text-xl py-4 px-6 rounded-2xl hover:-translate-y-1 shadow-[6px_6px_0_0_rgba(0,0,0,1)] active:translate-y-1 active:shadow-[0_0_0_0_rgba(0,0,0,1)] transition-all flex justify-between items-center tracking-widest" style="text-decoration: none;"><span>GRADE 12</span> <span class="bg-white p-2 rounded-full border-2 border-black text-xl">📥</span></a>';
             htmlContent += '</div>';
             fireSwal({ title: '📂 SELECT MODULE', html: htmlContent, showConfirmButton: false, showCloseButton: true,
-                customClass: { popup: 'border-[6px] border-black rounded-[2.5rem] shadow-[12px_12px_0_0_rgba(0,0,0,1)] bg-[#f8fafc]', title: 'font-black text-3xl mt-4 text-black tracking-widest' } });
+                customClass: { popup: popupClass_('bg-[#f8fafc]'), title: 'font-black text-3xl mt-4 text-black tracking-widest' } });
         };
 
         // ---- ตรวจ ร/มส ----
@@ -701,7 +742,7 @@
             const result = await fireSwal({
                 title: '🔐 SECURE LOGIN ' + room, input: 'text', inputPlaceholder: 'กรอกรหัสผ่านห้อง',
                 showCancelButton: true, confirmButtonText: 'VERIFY', cancelButtonText: 'CANCEL', buttonsStyling: false,
-                customClass: { popup: 'border-[6px] border-black rounded-[2.5rem] shadow-[12px_12px_0_0_rgba(0,0,0,1)]', title: 'text-black font-black tracking-widest text-2xl mt-2',
+                customClass: { popup: popupClass_(), title: 'text-black font-black tracking-widest text-2xl mt-2',
                     input: 'bg-white border-4 border-black text-black focus:ring-4 focus:ring-red-300 rounded-xl p-3 text-center tracking-widest font-black text-lg shadow-[4px_4px_0_0_rgba(0,0,0,1)] mt-4',
                     confirmButton: 'bg-red-400 hover:bg-red-300 text-black font-black py-3 px-6 rounded-xl mx-2 border-4 border-black shadow-[4px_4px_0_0_rgba(0,0,0,1)] active:translate-y-1 active:shadow-[0_0_0_0_rgba(0,0,0,1)] transition-all',
                     cancelButton: 'bg-gray-300 hover:bg-gray-200 text-black font-black py-3 px-6 rounded-xl mx-2 border-4 border-black shadow-[4px_4px_0_0_rgba(0,0,0,1)] active:translate-y-1 active:shadow-[0_0_0_0_rgba(0,0,0,1)] transition-all' }
@@ -714,7 +755,7 @@
             callAPI('getStudentStatus', { room: room, password: password })
                 .then(function(data) {
                     if (isAuthError(data)) { fireSwal({ icon: 'error', title: 'ACCESS DENIED', text: data.message, buttonsStyling: false,
-                        customClass: { popup: 'border-[6px] border-black rounded-[2rem] shadow-[12px_12px_0_0_rgba(0,0,0,1)]', confirmButton: 'bg-black text-white font-black py-2 px-6 rounded-xl border-4 border-black mt-4' } }); return; }
+                        customClass: { popup: popupClass_(null, '2rem'), confirmButton: 'bg-black text-white font-black py-2 px-6 rounded-xl border-4 border-black mt-4' } }); return; }
                     renderStudentStatusPopup(data, room);
                 })
                 .catch(function(err) { fireSwal({ title: 'ERROR', text: 'ดึงข้อมูลไม่สำเร็จ', icon: 'error' }); });
@@ -723,7 +764,7 @@
         window.renderStudentStatusPopup = function(students, room) {
             if (students.length === 0) {
                 fireSwal({ icon: 'success', title: 'SYSTEM CLEAR! 🎉', text: 'ไม่พบผู้ติดสถานะใน SECTOR ' + room, buttonsStyling: false,
-                    customClass: { popup: 'border-[6px] border-black rounded-[2rem] shadow-[12px_12px_0_0_rgba(0,0,0,1)]', title: 'font-black text-green-500', confirmButton: 'bg-black text-white font-black py-2 px-6 rounded-xl border-4 border-black mt-4' }});
+                    customClass: { popup: popupClass_(null, '2rem'), title: 'font-black text-green-500', confirmButton: 'bg-black text-white font-black py-2 px-6 rounded-xl border-4 border-black mt-4' }});
                 return;
             }
             let html = '<div class="flex flex-col gap-3 max-h-[400px] overflow-y-auto p-2 scrollbar-hide">';
@@ -739,18 +780,19 @@
             });
             html += '</div>';
             fireSwal({ title: 'LOG // S-' + room, html: html, showConfirmButton: false, showCloseButton: true,
-                customClass: { popup: 'border-[6px] border-black rounded-[2.5rem] shadow-[12px_12px_0_0_rgba(0,0,0,1)] bg-[#fef2f2]', title: 'font-black text-3xl mt-2 mb-4 text-red-600 tracking-widest' } });
+                customClass: { popup: popupClass_('bg-[#fef2f2]'), title: 'font-black text-3xl mt-2 mb-4 text-red-600 tracking-widest' } });
         };
 
         // ---- Mission Tracker ----
         window.currentRoomData = [];
+        window.currentRoomName = '';
 
         // ★ แก้ความปลอดภัย: เดิมเช็ครหัสในเบราว์เซอร์เอง ตอนนี้ส่งไปให้เซิร์ฟเวอร์ตรวจจริง
         window.checkMissionPassword = async function(room) {
             const result = await fireSwal({
                 title: '🔐 SECURE LOGIN ' + room, input: 'text', inputPlaceholder: 'กรอกรหัสผ่านห้อง',
                 showCancelButton: true, confirmButtonText: 'CONNECT 🚀', cancelButtonText: 'CANCEL', buttonsStyling: false,
-                customClass: { popup: 'border-[6px] border-black rounded-[2.5rem] shadow-[12px_12px_0_0_rgba(0,0,0,1)]', title: 'text-black font-black tracking-widest text-2xl mt-2',
+                customClass: { popup: popupClass_(), title: 'text-black font-black tracking-widest text-2xl mt-2',
                     input: 'bg-white border-4 border-black text-black focus:ring-4 focus:ring-blue-300 rounded-xl p-3 text-center tracking-widest font-black text-lg shadow-[4px_4px_0_0_rgba(0,0,0,1)] mt-4',
                     confirmButton: 'bg-blue-400 hover:bg-blue-300 text-black font-black py-3 px-6 rounded-xl mx-2 border-4 border-black shadow-[4px_4px_0_0_rgba(0,0,0,1)] active:translate-y-1 active:shadow-[0_0_0_0_rgba(0,0,0,1)] transition-all',
                     cancelButton: 'bg-gray-300 hover:bg-gray-200 text-black font-black py-3 px-6 rounded-xl mx-2 border-4 border-black shadow-[4px_4px_0_0_rgba(0,0,0,1)] active:translate-y-1 active:shadow-[0_0_0_0_rgba(0,0,0,1)] transition-all' }
@@ -763,19 +805,26 @@
             callAPI('getStudentScores', { room: room, password: password })
                 .then(function(data) {
                     if (isAuthError(data)) { fireSwal({ icon: 'error', title: 'ACCESS DENIED', text: data.message, buttonsStyling: false,
-                        customClass: { popup: 'border-[6px] border-black rounded-[2rem] shadow-[12px_12px_0_0_rgba(0,0,0,1)]', confirmButton: 'bg-black text-white font-black py-2 px-6 rounded-xl border-4 border-black mt-4' } }); return; }
-                    window.currentRoomData = data; renderStudentListPopup(room, data);
+                        customClass: { popup: popupClass_(null, '2rem'), confirmButton: 'bg-black text-white font-black py-2 px-6 rounded-xl border-4 border-black mt-4' } }); return; }
+                    window.currentRoomData = data; window.currentRoomName = room; renderStudentListPopup(room, data);
                 })
                 .catch(function(err) { fireSwal({ title: 'ERROR', text: err.message, icon: 'error'}); });
         }
 
+        // ★ ปุ่มย้อนกลับในหน้ารายละเอียดคะแนน: กลับไปหน้ารายชื่อห้องเดิม โดยใช้ข้อมูลที่แคชไว้แล้ว
+        // ไม่ต้องขอรหัสผ่านซ้ำหรือดึงข้อมูลจากเซิร์ฟเวอร์ใหม่ เพราะข้อมูลห้องเดิมยังอยู่ใน currentRoomData
+        window.backToStudentList = function() {
+            renderStudentListPopup(window.currentRoomName, window.currentRoomData);
+        };
+
         function renderStudentListPopup(room, students) {
             if (students.length === 0) {
                 fireSwal({ icon: 'info', title: 'NO DATA', text: 'Database initialized. Awaiting data input.', buttonsStyling: false,
-                    customClass: { popup: 'border-[6px] border-black rounded-[2rem] shadow-[12px_12px_0_0_rgba(0,0,0,1)]', confirmButton: 'bg-black text-white font-black py-2 px-6 rounded-xl border-4 border-black mt-4' }});
+                    customClass: { popup: popupClass_(null, '2rem'), confirmButton: 'bg-black text-white font-black py-2 px-6 rounded-xl border-4 border-black mt-4' }});
                 return;
             }
-            let html = '<div class="flex flex-col gap-3 max-h-[400px] overflow-y-auto p-2 scrollbar-hide">';
+            let html = '<button onclick="showRoomOverview()" class="w-full bg-purple-500 border-4 border-black text-white font-black py-3 rounded-2xl shadow-[4px_4px_0_0_rgba(0,0,0,1)] hover:-translate-y-1 active:translate-y-1 active:shadow-[0_0_0_0_rgba(0,0,0,1)] transition-all mb-3 tracking-widest uppercase flex items-center justify-center gap-2">📊 ดูภาพรวมทั้งห้อง</button>';
+            html += '<div class="flex flex-col gap-3 max-h-[400px] overflow-y-auto p-2 scrollbar-hide">';
             students.forEach(function(std, index) {
                 html += '<button onclick="showScoreDetail(' + index + ')" class="bg-white border-4 border-black hover:bg-[#e0f2fe] p-4 rounded-2xl shadow-[4px_4px_0_0_rgba(0,0,0,1)] hover:-translate-y-1 active:translate-y-1 active:shadow-[0_0_0_0_rgba(0,0,0,1)] transition-all flex items-center justify-between group w-full text-left">';
                 html += '<div class="flex items-center gap-4 w-full"><span class="bg-blue-500 border-2 border-black text-white text-lg font-black w-10 h-10 flex items-center justify-center rounded-xl shadow-[2px_2px_0_0_rgba(0,0,0,1)]">' + escapeHtml(std.no) + '</span>';
@@ -784,8 +833,66 @@
             });
             html += '</div>';
             fireSwal({ title: 'USER DB // S-' + room, html: html, showConfirmButton: false, showCloseButton: true,
-                customClass: { popup: 'border-[6px] border-black rounded-[2.5rem] shadow-[12px_12px_0_0_rgba(0,0,0,1)] bg-[#f0f9ff]', title: 'font-black text-3xl mt-2 mb-4 text-black tracking-widest' } });
+                customClass: { popup: popupClass_('bg-[#f0f9ff]'), title: 'font-black text-3xl mt-2 mb-4 text-black tracking-widest' } });
         }
+
+        // ★ ใหม่: ภาพรวมคะแนนทั้งห้อง (ใช้ข้อมูลที่แคชไว้แล้ว ไม่ต้องขอรหัสซ้ำ/ดึงข้อมูลใหม่)
+        // ใครในห้องเดียวกันที่รู้รหัสห้อง (เหมือนดูของตัวเองได้) ก็เห็นภาพรวมนี้ได้เหมือนกัน — ตามที่ครูตัดสินใจไว้
+        window.showRoomOverview = function() {
+            const students = window.currentRoomData || [];
+            const room = window.currentRoomName || '';
+            let html = '<button onclick="backToStudentList()" class="w-full bg-blue-500 border-4 border-black text-white font-black py-2.5 rounded-2xl shadow-[4px_4px_0_0_rgba(0,0,0,1)] hover:-translate-y-1 active:translate-y-1 active:shadow-[0_0_0_0_rgba(0,0,0,1)] transition-all mb-3 tracking-widest uppercase text-sm">⬅ กลับไปเลือกรายชื่อ</button>';
+            html += '<div class="overflow-x-auto rounded-2xl border-[4px] border-black shadow-[4px_4px_0_0_rgba(0,0,0,1)] max-h-[55vh] scrollbar-hide bg-white">';
+            html += '<table class="w-full min-w-[520px] text-xs md:text-sm"><thead class="bg-black text-white sticky top-0 z-10">';
+            html += '<tr><th class="py-3 px-3 border-r-2 border-gray-700 text-left font-black">NAME</th><th class="py-3 px-1 border-r-2 border-gray-700 text-center font-black">TASKS</th><th class="py-3 px-1 border-r-2 border-gray-700 text-center font-black">MID</th><th class="py-3 px-1 border-r-2 border-gray-700 text-center font-black">FINAL</th><th class="py-3 px-1 border-r-2 border-gray-700 text-center font-black text-yellow-300">TOTAL</th><th class="py-3 px-2 text-center font-black text-green-400">GRD</th></tr>';
+            html += '</thead><tbody>';
+            students.forEach(function(std, idx) {
+                let rawTaskGot = 0, rawTaskMax = 0, tasksPassed = 0, tasksTotal = 0;
+                std.scores.forEach(function(s) {
+                    if (!s.task || s.task.trim() === '') return;
+                    tasksTotal++;
+                    const st = s.status || '';
+                    if (st.indexOf('ไม่ผ่าน') === -1 && st.indexOf('ตก') === -1 && (st.indexOf('ผ่าน') !== -1 || st.indexOf('ดี') !== -1)) { tasksPassed++; }
+                    if (!isNaN(parseFloat(s.score))) rawTaskGot += parseFloat(s.score);
+                    if (!isNaN(parseFloat(s.maxScore))) rawTaskMax += parseFloat(s.maxScore);
+                });
+                const midMaxData = (std.midterm && std.midterm.maxScore) ? std.midterm.maxScore : 20;
+                const midGotData = (std.midterm && std.midterm.score) ? std.midterm.score : 0;
+                const midStatus = (std.midterm && std.midterm.status) ? std.midterm.status : '-';
+                const finMaxData = (std.final && std.final.maxScore) ? std.final.maxScore : 30;
+                const finGotData = (std.final && std.final.score) ? std.final.score : 0;
+                const finStatus = (std.final && std.final.status) ? std.final.status : '-';
+                const scaledTask = rawTaskMax > 0 ? (rawTaskGot / rawTaskMax) * 50 : 0;
+                const midMax = parseFloat(midMaxData) || 20, midGot = parseFloat(midGotData) || 0;
+                const scaledMid = midMax > 0 ? (midGot / midMax) * 20 : 0;
+                const finMax = parseFloat(finMaxData) || 30, finGot = parseFloat(finGotData) || 0;
+                const scaledFin = finMax > 0 ? (finGot / finMax) * 30 : 0;
+                const totalScore100 = Math.round(scaledTask + scaledMid + scaledFin);
+                let grade = '0', gradeColor = 'text-red-500 bg-red-100 rounded-lg px-2 border-2 border-red-300';
+                if (totalScore100 >= 80) { grade = '4'; gradeColor = 'text-green-600 bg-green-100 rounded-lg px-2 border-2 border-green-300'; }
+                else if (totalScore100 >= 75) { grade = '3.5'; gradeColor = 'text-green-500 bg-green-50 rounded-lg px-2 border-2 border-green-200'; }
+                else if (totalScore100 >= 70) { grade = '3'; gradeColor = 'text-blue-600 bg-blue-100 rounded-lg px-2 border-2 border-blue-300'; }
+                else if (totalScore100 >= 65) { grade = '2.5'; gradeColor = 'text-blue-500 bg-blue-50 rounded-lg px-2 border-2 border-blue-200'; }
+                else if (totalScore100 >= 60) { grade = '2'; gradeColor = 'text-purple-600 bg-purple-100 rounded-lg px-2 border-2 border-purple-300'; }
+                else if (totalScore100 >= 55) { grade = '1.5'; gradeColor = 'text-pink-600 bg-pink-100 rounded-lg px-2 border-2 border-pink-300'; }
+                else if (totalScore100 >= 50) { grade = '1'; gradeColor = 'text-orange-600 bg-orange-100 rounded-lg px-2 border-2 border-orange-300'; }
+                const midColor = midStatus.indexOf('ไม่ผ่าน') !== -1 ? 'text-red-500' : (midStatus.indexOf('ผ่าน') !== -1 ? 'text-green-600' : 'text-gray-400');
+                const finColor = finStatus.indexOf('ไม่ผ่าน') !== -1 ? 'text-red-500' : (finStatus.indexOf('ผ่าน') !== -1 ? 'text-green-600' : 'text-gray-400');
+                const tasksColor = (tasksTotal > 0 && tasksPassed === tasksTotal) ? 'text-green-600' : (tasksPassed < tasksTotal ? 'text-orange-500' : 'text-gray-400');
+                const bgClass = idx % 2 === 0 ? 'bg-white' : 'bg-gray-50';
+                html += '<tr class="' + bgClass + ' border-b-2 border-gray-200 hover:bg-yellow-100 transition-colors">';
+                html += '<td class="py-2 px-3 text-left font-black text-black border-r-2 border-gray-200 truncate">' + escapeHtml(std.name) + '</td>';
+                html += '<td class="py-2 px-1 text-center font-black ' + tasksColor + ' border-r-2 border-gray-200">' + tasksPassed + '/' + tasksTotal + '</td>';
+                html += '<td class="py-2 px-1 text-center font-bold ' + midColor + ' border-r-2 border-gray-200">' + escapeHtml(midStatus) + '</td>';
+                html += '<td class="py-2 px-1 text-center font-bold ' + finColor + ' border-r-2 border-gray-200">' + escapeHtml(finStatus) + '</td>';
+                html += '<td class="py-2 px-1 text-center font-black text-black border-r-2 border-gray-200 text-base">' + totalScore100 + '</td>';
+                html += '<td class="py-2 px-2 text-center font-black"><span class="' + gradeColor + ' inline-block shadow-sm">' + grade + '</span></td></tr>';
+            });
+            html += '</tbody></table></div>';
+            html += '<p class="text-center text-[10px] text-gray-400 font-bold mt-2">TASKS = จำนวนงานที่ผ่าน / จำนวนงานที่มีคะแนนแล้ว</p>';
+            fireSwal({ title: '📊 ภาพรวม // S-' + room, html: html, showConfirmButton: false, showCloseButton: true, width: '34rem',
+                customClass: { popup: popupClass_('bg-[#faf5ff]'), title: 'font-black text-2xl mt-4 text-black tracking-widest' } });
+        };
 
         window.showScoreDetail = function(index) {
             const std = window.currentRoomData[index];
@@ -849,9 +956,12 @@
             html += '<tr class="border-b-4 border-black bg-purple-50"><td class="py-2 px-2 font-bold text-[11px] md:text-sm text-left text-black border-r-2 border-gray-200">FINAL</td><td class="py-2 px-0.5 font-black text-gray-400 text-center border-r-2 border-gray-200 text-[10px]">' + finMax + '</td><td class="py-2 px-0.5 font-black text-amber-600 text-center border-r-2 border-gray-200 text-[10px]">' + escapeHtml(finPassData) + '</td><td class="py-2 px-0.5 font-black text-purple-600 text-center border-r-2 border-gray-200 text-xs">' + finGot + '</td><td class="py-2 px-1 font-bold text-gray-500 text-center text-[10px] break-words">' + finStatusData + '</td></tr>';
             html += tableRows || '<tr><td colspan="5" class="py-4 text-center font-bold text-gray-400 text-xs">NO LOGS FOUND</td></tr>';
             html += '</tbody></table></div>';
-            html += '<button onclick="if(typeof Swal !== \'undefined\') Swal.close()" class="w-full bg-black border-[4px] border-black text-white font-black py-3 rounded-2xl hover:-translate-y-1 shadow-[4px_4px_0_0_rgba(100,100,100,1)] active:translate-y-1 active:shadow-[0_0_0_0_rgba(100,100,100,1)] transition-all text-base tracking-widest uppercase mt-2">CLOSE REPORT</button>';
+            html += '<div class="grid grid-cols-2 gap-2 mt-2">';
+            html += '<button onclick="backToStudentList()" class="w-full bg-blue-500 border-[4px] border-black text-white font-black py-3 rounded-2xl hover:-translate-y-1 shadow-[4px_4px_0_0_rgba(0,0,0,1)] active:translate-y-1 active:shadow-[0_0_0_0_rgba(0,0,0,1)] transition-all text-sm md:text-base tracking-widest uppercase">⬅ BACK</button>';
+            html += '<button onclick="if(typeof Swal !== \'undefined\') Swal.close()" class="w-full bg-black border-[4px] border-black text-white font-black py-3 rounded-2xl hover:-translate-y-1 shadow-[4px_4px_0_0_rgba(100,100,100,1)] active:translate-y-1 active:shadow-[0_0_0_0_rgba(100,100,100,1)] transition-all text-sm md:text-base tracking-widest uppercase">CLOSE</button>';
+            html += '</div>';
             fireSwal({ html: html, showConfirmButton: false, showCloseButton: true,
-                customClass: { popup: 'border-[6px] border-black rounded-[2.5rem] p-4 md:p-6 max-w-md w-full shadow-[12px_12px_0_0_rgba(0,0,0,1)] bg-[#f8fafc]' } });
+                customClass: { popup: popupClass_('p-4 md:p-6 max-w-md w-full bg-[#f8fafc]') } });
         };
 
         // ---- Admin Scores ----
@@ -860,7 +970,7 @@
             const result = await fireSwal({
                 title: '🤖 MASTER OVERRIDE', input: 'password', inputPlaceholder: 'กรอกรหัสผ่าน',
                 showCancelButton: true, confirmButtonText: 'VERIFY', cancelButtonText: 'CANCEL', buttonsStyling: false,
-                customClass: { popup: 'border-[6px] border-black rounded-[2.5rem] shadow-[12px_12px_0_0_rgba(0,0,0,1)]', title: 'text-black font-black tracking-widest text-2xl mt-2',
+                customClass: { popup: popupClass_(), title: 'text-black font-black tracking-widest text-2xl mt-2',
                     input: 'bg-white border-4 border-black text-black focus:ring-4 focus:ring-purple-300 rounded-xl p-3 text-center tracking-widest font-black text-lg shadow-[4px_4px_0_0_rgba(0,0,0,1)] mt-4',
                     confirmButton: 'bg-purple-400 hover:bg-purple-300 text-black font-black py-3 px-6 rounded-xl mx-2 border-4 border-black shadow-[4px_4px_0_0_rgba(0,0,0,1)] active:translate-y-1 active:shadow-[0_0_0_0_rgba(0,0,0,1)] transition-all',
                     cancelButton: 'bg-gray-300 hover:bg-gray-200 text-black font-black py-3 px-6 rounded-xl mx-2 border-4 border-black shadow-[4px_4px_0_0_rgba(0,0,0,1)] active:translate-y-1 active:shadow-[0_0_0_0_rgba(0,0,0,1)] transition-all' }
@@ -876,10 +986,10 @@
                     });
                     html += '</div>';
                     fireSwal({ title: '📂 SELECT SECTOR', html: html, showConfirmButton: false, showCloseButton: true,
-                        customClass: { popup: 'border-[6px] border-black rounded-[2.5rem] shadow-[12px_12px_0_0_rgba(0,0,0,1)] bg-[#f8fafc]', title: 'font-black text-2xl mt-4 text-black tracking-widest' } });
+                        customClass: { popup: popupClass_('bg-[#f8fafc]'), title: 'font-black text-2xl mt-4 text-black tracking-widest' } });
                 } else {
                     fireSwal({ icon: 'error', title: 'DENIED!', text: 'รหัสผ่านผิดจ้า', buttonsStyling: false,
-                        customClass: { popup: 'border-[6px] border-black rounded-[2.5rem] shadow-[12px_12px_0_0_rgba(0,0,0,1)]', confirmButton: 'bg-black text-white font-black py-2 px-6 rounded-xl border-4 border-black mt-4' } });
+                        customClass: { popup: popupClass_(), confirmButton: 'bg-black text-white font-black py-2 px-6 rounded-xl border-4 border-black mt-4' } });
                 }
             });
         };
@@ -897,7 +1007,7 @@
         window.renderAdminScoreTable = function(room, students) {
             if (!students || students.length === 0) {
                 fireSwal({ icon: 'info', title: 'NO DATA', buttonsStyling: false,
-                    customClass: { popup: 'border-[6px] border-black rounded-[2.5rem] shadow-[12px_12px_0_0_rgba(0,0,0,1)]', confirmButton: 'bg-black text-white font-black py-2 px-6 rounded-xl border-4 border-black mt-4' } });
+                    customClass: { popup: popupClass_(), confirmButton: 'bg-black text-white font-black py-2 px-6 rounded-xl border-4 border-black mt-4' } });
                 return;
             }
             let html = '<div class="overflow-x-auto rounded-2xl border-[4px] border-black shadow-[6px_6px_0_0_rgba(0,0,0,1)] max-h-[60vh] scrollbar-hide bg-white">';
@@ -941,7 +1051,7 @@
             html += '</tbody></table></div>';
             html += '<button onclick="if(typeof Swal !== \'undefined\') Swal.close()" class="w-full mt-4 bg-black border-[4px] border-black text-white font-black py-3 rounded-2xl hover:-translate-y-1 shadow-[4px_4px_0_0_rgba(100,100,100,1)] active:translate-y-1 active:shadow-[0_0_0_0_rgba(100,100,100,1)] transition-all text-base tracking-widest uppercase">DISCONNECT</button>';
             fireSwal({ title: '📊 OVERVIEW // S-' + room, html: html, showConfirmButton: false, showCloseButton: true,
-                customClass: { popup: 'border-[6px] border-black rounded-[2.5rem] w-full max-w-4xl shadow-[12px_12px_0_0_rgba(0,0,0,1)] bg-[#f8fafc]', title: 'font-black text-3xl mt-4 text-black tracking-widest' } });
+                customClass: { popup: popupClass_('w-full max-w-4xl bg-[#f8fafc]'), title: 'font-black text-3xl mt-4 text-black tracking-widest' } });
         };
 
         // ---- Upload งานนักเรียน ----
@@ -965,7 +1075,7 @@
             fireSwal({
                 title: '📤 DATA UPLOAD', html: html, showCancelButton: true,
                 confirmButtonText: 'TRANSMIT 🚀', cancelButtonText: 'ABORT', buttonsStyling: false,
-                customClass: { popup: 'border-[6px] border-black rounded-[2.5rem] p-4 md:p-6 w-full max-w-md shadow-[12px_12px_0_0_rgba(0,0,0,1)] bg-[#f8fafc]',
+                customClass: { popup: popupClass_('p-4 md:p-6 w-full max-w-md bg-[#f8fafc]'),
                     title: 'font-black text-3xl mt-2 text-black tracking-widest',
                     confirmButton: 'bg-green-400 hover:bg-green-300 text-black font-black py-3 px-6 rounded-xl mx-2 border-4 border-black shadow-[4px_4px_0_0_rgba(0,0,0,1)] active:translate-y-1 active:shadow-[0_0_0_0_rgba(0,0,0,1)] transition-all',
                     cancelButton: 'bg-red-400 hover:bg-red-300 text-black font-black py-3 px-6 rounded-xl mx-2 border-4 border-black shadow-[4px_4px_0_0_rgba(0,0,0,1)] active:translate-y-1 active:shadow-[0_0_0_0_rgba(0,0,0,1)] transition-all mt-4 md:mt-0' },
@@ -992,7 +1102,7 @@
                 callAPI('uploadStudentWork', { data: formData })
                     .then(function(res) {
                         if(res.success) fireSwal({ icon: 'success', title: 'TRANSMISSION COMPLETE 🎉', buttonsStyling: false,
-                            customClass: { popup: 'border-[6px] border-black rounded-[2.5rem] shadow-[12px_12px_0_0_rgba(0,0,0,1)]', confirmButton: 'bg-black text-white font-black py-3 px-8 rounded-xl border-4 border-black mt-4' }});
+                            customClass: { popup: popupClass_(), confirmButton: 'bg-black text-white font-black py-3 px-8 rounded-xl border-4 border-black mt-4' }});
                         else fireSwal({ icon: 'error', title: 'FAILED ❌', text: res.message });
                     })
                     .catch(function(e) { fireSwal({ icon: 'error', title: 'SYSTEM ERROR ❌', text: e.message }); });
@@ -1012,7 +1122,7 @@
         function renderQuizHub(cards) {
             if (!cards || cards.length === 0) {
                 fireSwal({ icon: 'info', title: 'ยังไม่มี Quiz', text: 'ครูยังไม่ได้เพิ่มเกม กลับมาใหม่นะ!', buttonsStyling: false,
-                    customClass: { popup: 'border-[6px] border-black rounded-[2rem] shadow-[12px_12px_0_0_rgba(0,0,0,1)]', confirmButton: 'bg-black text-white font-black py-2 px-6 rounded-xl border-4 border-black mt-4' } });
+                    customClass: { popup: popupClass_(null, '2rem'), confirmButton: 'bg-black text-white font-black py-2 px-6 rounded-xl border-4 border-black mt-4' } });
                 return;
             }
             window.quizCardData = cards;
@@ -1022,7 +1132,7 @@
                 let lock = c.hasPassword ? '<span class="absolute top-2 right-2 bg-black text-white text-xs font-black px-2 py-1 rounded-full border-2 border-white">🔒 LOCK</span>' : '';
                 html += '<div onclick="openQuizCard(' + i + ')" class="bg-white border-4 border-black rounded-2xl overflow-hidden shadow-[6px_6px_0_0_rgba(0,0,0,1)] hover:-translate-y-1 active:translate-y-1 active:shadow-[0_0_0_0_rgba(0,0,0,1)] transition-all cursor-pointer group">';
                 html += '<div class="relative w-full bg-gray-200 border-b-4 border-black overflow-hidden" style="padding-top:66.66%;">';
-                html += '<img src="' + img + '" onerror="this.src=\'https://via.placeholder.com/600x400?text=QUIZ\'" class="absolute inset-0 w-full h-full object-cover group-hover:scale-110 transition-transform duration-300">' + lock + '</div>';
+                html += '<img src="' + img + '" onerror="this.src=\'https://via.placeholder.com/600x400?text=QUIZ\'" loading="lazy" class="absolute inset-0 w-full h-full object-cover group-hover:scale-110 transition-transform duration-300">' + lock + '</div>';
                 html += '<div class="p-3 text-center">';
                 html += '<p class="font-black text-black text-base md:text-lg tracking-wide leading-tight">' + escapeHtml(c.emoji || '🎮') + ' ' + escapeHtml(c.name) + '</p>';
                 if (c.subtitle) html += '<p class="text-xs font-bold text-gray-500 mt-1">' + escapeHtml(c.subtitle) + '</p>';
@@ -1031,31 +1141,33 @@
             });
             html += '</div>';
             fireSwal({ title: '🎲 GAME QUIZZ HUB', html: html, showConfirmButton: false, showCloseButton: true, width: '42rem',
-                customClass: { popup: 'border-[6px] border-black rounded-[2.5rem] shadow-[12px_12px_0_0_rgba(0,0,0,1)] bg-[#fff7ed]', title: 'font-black text-3xl mt-4 text-black tracking-widest' } });
+                customClass: { popup: popupClass_('bg-[#fff7ed]'), title: 'font-black text-3xl mt-4 text-black tracking-widest' } });
         }
 
         window.openQuizCard = async function(index) {
             const c = window.quizCardData[index];
             if (!c) return;
             if (!c.hasPassword) {
+                const newTab = openTabPending_();
                 callAPI('verifyQuizPassword', { data: { id: c.id, password: "" } })
-                    .then(function(res) { if (res.success) window.open(res.link, '_blank'); });
+                    .then(function(res) { if (res.success) { goToTab_(newTab, res.link); } else { closeTab_(newTab); } });
                 return;
             }
             const result = await fireSwal({
                 title: '🔐 ' + c.name, input: 'text', inputPlaceholder: 'กรอกรหัสผ่าน',
                 showCancelButton: true, confirmButtonText: 'ENTER 🚀', cancelButtonText: 'CANCEL', buttonsStyling: false,
-                customClass: { popup: 'border-[6px] border-black rounded-[2.5rem] shadow-[12px_12px_0_0_rgba(0,0,0,1)]', title: 'text-black font-black tracking-widest text-2xl mt-2',
+                customClass: { popup: popupClass_(), title: 'text-black font-black tracking-widest text-2xl mt-2',
                     input: 'bg-white border-4 border-black text-black focus:ring-4 focus:ring-orange-300 rounded-xl p-3 text-center tracking-widest font-black text-lg shadow-[4px_4px_0_0_rgba(0,0,0,1)] mt-4',
                     confirmButton: 'bg-orange-400 hover:bg-orange-300 text-black font-black py-3 px-6 rounded-xl mx-2 border-4 border-black shadow-[4px_4px_0_0_rgba(0,0,0,1)] active:translate-y-1 active:shadow-[0_0_0_0_rgba(0,0,0,1)] transition-all',
                     cancelButton: 'bg-gray-300 hover:bg-gray-200 text-black font-black py-3 px-6 rounded-xl mx-2 border-4 border-black shadow-[4px_4px_0_0_rgba(0,0,0,1)] active:translate-y-1 active:shadow-[0_0_0_0_rgba(0,0,0,1)] transition-all' }
             });
             if (result.value) {
+                const newTab = openTabPending_();
                 callAPI('verifyQuizPassword', { data: { id: c.id, password: result.value } })
                     .then(function(res) {
-                        if (res.success) { window.open(res.link, '_blank'); }
-                        else { fireSwal({ icon: 'error', title: 'ACCESS DENIED', text: res.message, buttonsStyling: false,
-                            customClass: { popup: 'border-[6px] border-black rounded-[2rem] shadow-[12px_12px_0_0_rgba(0,0,0,1)]', confirmButton: 'bg-black text-white font-black py-2 px-6 rounded-xl border-4 border-black mt-4' } }); }
+                        if (res.success) { goToTab_(newTab, res.link); }
+                        else { closeTab_(newTab); fireSwal({ icon: 'error', title: 'ACCESS DENIED', text: res.message, buttonsStyling: false,
+                            customClass: { popup: popupClass_(null, '2rem'), confirmButton: 'bg-black text-white font-black py-2 px-6 rounded-xl border-4 border-black mt-4' } }); }
                     });
             }
         };
@@ -1067,7 +1179,7 @@
             const result = await fireSwal({
                 title: '🛠️ จัดการ Game Quizz', input: 'password', inputPlaceholder: 'รหัสผ่าน Admin',
                 showCancelButton: true, confirmButtonText: 'VERIFY', cancelButtonText: 'CANCEL', buttonsStyling: false,
-                customClass: { popup: 'border-[6px] border-black rounded-[2.5rem] shadow-[12px_12px_0_0_rgba(0,0,0,1)]', title: 'text-black font-black tracking-widest text-2xl mt-2',
+                customClass: { popup: popupClass_(), title: 'text-black font-black tracking-widest text-2xl mt-2',
                     input: 'bg-white border-4 border-black text-black focus:ring-4 focus:ring-orange-300 rounded-xl p-3 text-center tracking-widest font-black text-lg shadow-[4px_4px_0_0_rgba(0,0,0,1)] mt-4',
                     confirmButton: 'bg-orange-400 hover:bg-orange-300 text-black font-black py-3 px-6 rounded-xl mx-2 border-4 border-black shadow-[4px_4px_0_0_rgba(0,0,0,1)] active:translate-y-1 active:shadow-[0_0_0_0_rgba(0,0,0,1)] transition-all',
                     cancelButton: 'bg-gray-300 hover:bg-gray-200 text-black font-black py-3 px-6 rounded-xl mx-2 border-4 border-black shadow-[4px_4px_0_0_rgba(0,0,0,1)] active:translate-y-1 active:shadow-[0_0_0_0_rgba(0,0,0,1)] transition-all' }
@@ -1077,7 +1189,7 @@
                 if (res.success) { window.quizAdminPw = result.value; loadQuizAdminList(); }
                 else {
                     fireSwal({ icon: 'error', title: 'DENIED!', text: 'รหัสผ่านผิด', buttonsStyling: false,
-                        customClass: { popup: 'border-[6px] border-black rounded-[2.5rem] shadow-[12px_12px_0_0_rgba(0,0,0,1)]', confirmButton: 'bg-black text-white font-black py-2 px-6 rounded-xl border-4 border-black mt-4' } });
+                        customClass: { popup: popupClass_(), confirmButton: 'bg-black text-white font-black py-2 px-6 rounded-xl border-4 border-black mt-4' } });
                 }
             });
         };
@@ -1107,7 +1219,7 @@
                     let downBtn = (i < cards.length - 1) ? '<button onclick="moveQuizCard(' + i + ',1)" class="bg-blue-300 border-2 border-black text-black text-xs font-black w-7 h-6 rounded-lg shadow-[2px_2px_0_0_rgba(0,0,0,1)]">▼</button>' : '<div class="w-7 h-6"></div>';
                     html += '<div class="bg-white border-4 border-black rounded-2xl p-3 shadow-[4px_4px_0_0_rgba(0,0,0,1)] flex items-center gap-2">';
                     html += '<div class="flex flex-col gap-1 flex-shrink-0">' + upBtn + downBtn + '</div>';
-                    html += '<img src="' + escapeHtml(c.imageUrl || 'https://via.placeholder.com/100') + '" onerror="this.src=\'https://via.placeholder.com/100\'" class="w-14 h-14 rounded-xl border-2 border-black object-cover flex-shrink-0">';
+                    html += '<img src="' + escapeHtml(c.imageUrl || 'https://via.placeholder.com/100') + '" onerror="this.src=\'https://via.placeholder.com/100\'" loading="lazy" class="w-14 h-14 rounded-xl border-2 border-black object-cover flex-shrink-0">';
                     html += '<div class="flex-grow min-w-0"><p class="font-black text-black truncate">' + escapeHtml(c.emoji||'🎮') + ' ' + escapeHtml(c.name) + hideTag + lockTag + '</p>';
                     html += '<p class="text-xs text-gray-500 font-bold">ลำดับ: ' + c.sortOrder + ' • คลิก: ' + c.clicks + '</p></div>';
                     html += '<div class="flex flex-col gap-1 flex-shrink-0">';
@@ -1120,7 +1232,7 @@
             }
             html += '</div>';
             fireSwal({ title: '🛠️ จัดการ Game Quizz', html: html, showConfirmButton: false, showCloseButton: true, width: '40rem',
-                customClass: { popup: 'border-[6px] border-black rounded-[2.5rem] shadow-[12px_12px_0_0_rgba(0,0,0,1)] bg-[#fff7ed]', title: 'font-black text-2xl mt-4 text-black tracking-widest' } });
+                customClass: { popup: popupClass_('bg-[#fff7ed]'), title: 'font-black text-2xl mt-4 text-black tracking-widest' } });
         }
 
         window.openQuizCardForm = function(index) {
@@ -1139,7 +1251,7 @@
             fireSwal({
                 title: (index>=0?'✏️ แก้ไขการ์ด':'➕ เพิ่มการ์ด'), html: html, showCancelButton: true,
                 confirmButtonText: '💾 บันทึก', cancelButtonText: 'ยกเลิก', buttonsStyling: false, width: '34rem',
-                customClass: { popup: 'border-[6px] border-black rounded-[2.5rem] p-4 shadow-[12px_12px_0_0_rgba(0,0,0,1)] bg-[#f8fafc]', title: 'font-black text-2xl mt-2 text-black tracking-widest',
+                customClass: { popup: popupClass_('p-4 bg-[#f8fafc]'), title: 'font-black text-2xl mt-2 text-black tracking-widest',
                     confirmButton: 'bg-green-400 hover:bg-green-300 text-black font-black py-3 px-6 rounded-xl mx-2 border-4 border-black shadow-[4px_4px_0_0_rgba(0,0,0,1)] active:translate-y-1 active:shadow-[0_0_0_0_rgba(0,0,0,1)] transition-all',
                     cancelButton: 'bg-red-400 hover:bg-red-300 text-black font-black py-3 px-6 rounded-xl mx-2 border-4 border-black shadow-[4px_4px_0_0_rgba(0,0,0,1)] active:translate-y-1 active:shadow-[0_0_0_0_rgba(0,0,0,1)] transition-all' },
                 preConfirm: function() {
@@ -1173,7 +1285,7 @@
             const result = await fireSwal({
                 icon: 'warning', title: 'ลบการ์ด?', text: 'ต้องการลบ "' + name + '" ใช่ไหม?',
                 showCancelButton: true, confirmButtonText: 'ลบเลย 🗑️', cancelButtonText: 'ยกเลิก', buttonsStyling: false,
-                customClass: { popup: 'border-[6px] border-black rounded-[2rem] shadow-[12px_12px_0_0_rgba(0,0,0,1)]', title:'font-black',
+                customClass: { popup: popupClass_(null, '2rem'), title:'font-black',
                     confirmButton: 'bg-red-500 text-white font-black py-2 px-6 rounded-xl border-4 border-black mx-2 mt-4',
                     cancelButton: 'bg-gray-300 text-black font-black py-2 px-6 rounded-xl border-4 border-black mx-2 mt-4' }
             });
@@ -1237,7 +1349,7 @@
                     let lock = c.hasPassword ? '<span class="absolute top-2 right-2 bg-black text-white text-xs font-black px-2 py-1 rounded-full border-2 border-white">🔒 LOCK</span>' : '';
                     html += '<div onclick="openGradeQuizCard(\'' + grade + '\',' + i + ')" class="bg-white border-4 border-black rounded-2xl overflow-hidden shadow-[6px_6px_0_0_rgba(0,0,0,1)] hover:-translate-y-1 active:translate-y-1 active:shadow-[0_0_0_0_rgba(0,0,0,1)] transition-all cursor-pointer group">';
                     html += '<div class="relative w-full bg-gray-200 border-b-4 border-black overflow-hidden" style="padding-top:66.66%;">';
-                    html += '<img src="' + img + '" onerror="this.src=\'https://via.placeholder.com/600x400?text=QUIZ\'" class="absolute inset-0 w-full h-full object-cover group-hover:scale-110 transition-transform duration-300">' + lock + '</div>';
+                    html += '<img src="' + img + '" onerror="this.src=\'https://via.placeholder.com/600x400?text=QUIZ\'" loading="lazy" class="absolute inset-0 w-full h-full object-cover group-hover:scale-110 transition-transform duration-300">' + lock + '</div>';
                     html += '<div class="p-3 text-center">';
                     html += '<p class="font-black text-black text-base md:text-lg tracking-wide leading-tight">' + escapeHtml(c.emoji || '🎮') + ' ' + escapeHtml(c.name) + '</p>';
                     if (c.subtitle) html += '<p class="text-xs font-bold text-gray-500 mt-1">' + escapeHtml(c.subtitle) + '</p>';
@@ -1247,31 +1359,33 @@
                 html += '</div>';
             }
             fireSwal({ title: '🎯 QUIZ HUB // ' + label, html: html, showConfirmButton: false, showCloseButton: true, width: '42rem',
-                customClass: { popup: 'border-[6px] border-black rounded-[2.5rem] shadow-[12px_12px_0_0_rgba(0,0,0,1)] bg-[#f5f3ff]', title: 'font-black text-2xl md:text-3xl mt-4 text-black tracking-widest' } });
+                customClass: { popup: popupClass_('bg-[#f5f3ff]'), title: 'font-black text-2xl md:text-3xl mt-4 text-black tracking-widest' } });
         }
 
         window.openGradeQuizCard = async function(grade, index) {
             const c = window.gradeQuizCardData[index];
             if (!c) return;
             if (!c.hasPassword) {
+                const newTab = openTabPending_();
                 callAPI('verifyGradeQuizPassword', { data: { id: c.id, password: "" } })
-                    .then(function(res) { if (res.success) window.open(res.link, '_blank'); });
+                    .then(function(res) { if (res.success) { goToTab_(newTab, res.link); } else { closeTab_(newTab); } });
                 return;
             }
             const result = await fireSwal({
                 title: '🔐 ' + c.name, input: 'text', inputPlaceholder: 'กรอกรหัสผ่าน',
                 showCancelButton: true, confirmButtonText: 'ENTER 🚀', cancelButtonText: 'CANCEL', buttonsStyling: false,
-                customClass: { popup: 'border-[6px] border-black rounded-[2.5rem] shadow-[12px_12px_0_0_rgba(0,0,0,1)]', title: 'text-black font-black tracking-widest text-2xl mt-2',
+                customClass: { popup: popupClass_(), title: 'text-black font-black tracking-widest text-2xl mt-2',
                     input: 'bg-white border-4 border-black text-black focus:ring-4 focus:ring-purple-300 rounded-xl p-3 text-center tracking-widest font-black text-lg shadow-[4px_4px_0_0_rgba(0,0,0,1)] mt-4',
                     confirmButton: 'bg-purple-400 hover:bg-purple-300 text-black font-black py-3 px-6 rounded-xl mx-2 border-4 border-black shadow-[4px_4px_0_0_rgba(0,0,0,1)] active:translate-y-1 active:shadow-[0_0_0_0_rgba(0,0,0,1)] transition-all',
                     cancelButton: 'bg-gray-300 hover:bg-gray-200 text-black font-black py-3 px-6 rounded-xl mx-2 border-4 border-black shadow-[4px_4px_0_0_rgba(0,0,0,1)] active:translate-y-1 active:shadow-[0_0_0_0_rgba(0,0,0,1)] transition-all' }
             });
             if (result.value) {
+                const newTab = openTabPending_();
                 callAPI('verifyGradeQuizPassword', { data: { id: c.id, password: result.value } })
                     .then(function(res) {
-                        if (res.success) { window.open(res.link, '_blank'); }
-                        else { fireSwal({ icon: 'error', title: 'ACCESS DENIED', text: res.message, buttonsStyling: false,
-                            customClass: { popup: 'border-[6px] border-black rounded-[2rem] shadow-[12px_12px_0_0_rgba(0,0,0,1)]', confirmButton: 'bg-black text-white font-black py-2 px-6 rounded-xl border-4 border-black mt-4' } }); }
+                        if (res.success) { goToTab_(newTab, res.link); }
+                        else { closeTab_(newTab); fireSwal({ icon: 'error', title: 'ACCESS DENIED', text: res.message, buttonsStyling: false,
+                            customClass: { popup: popupClass_(null, '2rem'), confirmButton: 'bg-black text-white font-black py-2 px-6 rounded-xl border-4 border-black mt-4' } }); }
                     });
             }
         };
@@ -1280,7 +1394,7 @@
             const result = await fireSwal({
                 title: '🛠️ จัดการ Quiz', input: 'password', inputPlaceholder: 'รหัสผ่าน Admin',
                 showCancelButton: true, confirmButtonText: 'VERIFY', cancelButtonText: 'CANCEL', buttonsStyling: false,
-                customClass: { popup: 'border-[6px] border-black rounded-[2.5rem] shadow-[12px_12px_0_0_rgba(0,0,0,1)]', title: 'text-black font-black tracking-widest text-2xl mt-2',
+                customClass: { popup: popupClass_(), title: 'text-black font-black tracking-widest text-2xl mt-2',
                     input: 'bg-white border-4 border-black text-black focus:ring-4 focus:ring-purple-300 rounded-xl p-3 text-center tracking-widest font-black text-lg shadow-[4px_4px_0_0_rgba(0,0,0,1)] mt-4',
                     confirmButton: 'bg-purple-400 hover:bg-purple-300 text-black font-black py-3 px-6 rounded-xl mx-2 border-4 border-black shadow-[4px_4px_0_0_rgba(0,0,0,1)] active:translate-y-1 active:shadow-[0_0_0_0_rgba(0,0,0,1)] transition-all',
                     cancelButton: 'bg-gray-300 hover:bg-gray-200 text-black font-black py-3 px-6 rounded-xl mx-2 border-4 border-black shadow-[4px_4px_0_0_rgba(0,0,0,1)] active:translate-y-1 active:shadow-[0_0_0_0_rgba(0,0,0,1)] transition-all' }
@@ -1290,7 +1404,7 @@
                 if (res.success) { window.gradeQuizAdminPw = result.value; loadGradeQuizAdminList(grade); }
                 else {
                     fireSwal({ icon: 'error', title: 'DENIED!', text: 'รหัสผ่านผิด', buttonsStyling: false,
-                        customClass: { popup: 'border-[6px] border-black rounded-[2.5rem] shadow-[12px_12px_0_0_rgba(0,0,0,1)]', confirmButton: 'bg-black text-white font-black py-2 px-6 rounded-xl border-4 border-black mt-4' } });
+                        customClass: { popup: popupClass_(), confirmButton: 'bg-black text-white font-black py-2 px-6 rounded-xl border-4 border-black mt-4' } });
                 }
             });
         };
@@ -1321,7 +1435,7 @@
                     let downBtn = (i < cards.length - 1) ? '<button onclick="moveGradeQuizCard(\'' + grade + '\',' + i + ',1)" class="bg-purple-300 border-2 border-black text-black text-xs font-black w-7 h-6 rounded-lg shadow-[2px_2px_0_0_rgba(0,0,0,1)]">▼</button>' : '<div class="w-7 h-6"></div>';
                     html += '<div class="bg-white border-4 border-black rounded-2xl p-3 shadow-[4px_4px_0_0_rgba(0,0,0,1)] flex items-center gap-2">';
                     html += '<div class="flex flex-col gap-1 flex-shrink-0">' + upBtn + downBtn + '</div>';
-                    html += '<img src="' + escapeHtml(c.imageUrl || 'https://via.placeholder.com/100') + '" onerror="this.src=\'https://via.placeholder.com/100\'" class="w-14 h-14 rounded-xl border-2 border-black object-cover flex-shrink-0">';
+                    html += '<img src="' + escapeHtml(c.imageUrl || 'https://via.placeholder.com/100') + '" onerror="this.src=\'https://via.placeholder.com/100\'" loading="lazy" class="w-14 h-14 rounded-xl border-2 border-black object-cover flex-shrink-0">';
                     html += '<div class="flex-grow min-w-0"><p class="font-black text-black truncate">' + escapeHtml(c.emoji||'🎮') + ' ' + escapeHtml(c.name) + hideTag + lockTag + '</p>';
                     html += '<p class="text-xs text-gray-500 font-bold">ลำดับ: ' + c.sortOrder + ' • คลิก: ' + c.clicks + '</p></div>';
                     html += '<div class="flex flex-col gap-1 flex-shrink-0">';
@@ -1334,7 +1448,7 @@
             }
             html += '</div>';
             fireSwal({ title: '🛠️ จัดการ Quiz // ' + label, html: html, showConfirmButton: false, showCloseButton: true, width: '40rem',
-                customClass: { popup: 'border-[6px] border-black rounded-[2.5rem] shadow-[12px_12px_0_0_rgba(0,0,0,1)] bg-[#f5f3ff]', title: 'font-black text-xl md:text-2xl mt-4 text-black tracking-widest' } });
+                customClass: { popup: popupClass_('bg-[#f5f3ff]'), title: 'font-black text-xl md:text-2xl mt-4 text-black tracking-widest' } });
         }
 
         window.openGradeQuizCardForm = function(grade, index) {
@@ -1353,7 +1467,7 @@
             fireSwal({
                 title: (index>=0?'✏️ แก้ไข Quiz':'➕ เพิ่ม Quiz') + ' (' + (GRADE_LABELS[grade]||grade) + ')', html: html, showCancelButton: true,
                 confirmButtonText: '💾 บันทึก', cancelButtonText: 'ยกเลิก', buttonsStyling: false, width: '34rem',
-                customClass: { popup: 'border-[6px] border-black rounded-[2.5rem] p-4 shadow-[12px_12px_0_0_rgba(0,0,0,1)] bg-[#f8fafc]', title: 'font-black text-xl md:text-2xl mt-2 text-black tracking-widest',
+                customClass: { popup: popupClass_('p-4 bg-[#f8fafc]'), title: 'font-black text-xl md:text-2xl mt-2 text-black tracking-widest',
                     confirmButton: 'bg-green-400 hover:bg-green-300 text-black font-black py-3 px-6 rounded-xl mx-2 border-4 border-black shadow-[4px_4px_0_0_rgba(0,0,0,1)] active:translate-y-1 active:shadow-[0_0_0_0_rgba(0,0,0,1)] transition-all',
                     cancelButton: 'bg-red-400 hover:bg-red-300 text-black font-black py-3 px-6 rounded-xl mx-2 border-4 border-black shadow-[4px_4px_0_0_rgba(0,0,0,1)] active:translate-y-1 active:shadow-[0_0_0_0_rgba(0,0,0,1)] transition-all' },
                 preConfirm: function() {
@@ -1388,7 +1502,7 @@
             const result = await fireSwal({
                 icon: 'warning', title: 'ลบ Quiz?', text: 'ต้องการลบ "' + name + '" ใช่ไหม?',
                 showCancelButton: true, confirmButtonText: 'ลบเลย 🗑️', cancelButtonText: 'ยกเลิก', buttonsStyling: false,
-                customClass: { popup: 'border-[6px] border-black rounded-[2rem] shadow-[12px_12px_0_0_rgba(0,0,0,1)]', title:'font-black',
+                customClass: { popup: popupClass_(null, '2rem'), title:'font-black',
                     confirmButton: 'bg-red-500 text-white font-black py-2 px-6 rounded-xl border-4 border-black mx-2 mt-4',
                     cancelButton: 'bg-gray-300 text-black font-black py-2 px-6 rounded-xl border-4 border-black mx-2 mt-4' }
             });
@@ -1528,7 +1642,7 @@
             const result = await fireSwal({
                 title: '📅 จัดการ DEADLINE', input: 'password', inputPlaceholder: 'รหัสผ่าน Admin',
                 showCancelButton: true, confirmButtonText: 'VERIFY', cancelButtonText: 'CANCEL', buttonsStyling: false,
-                customClass: { popup: 'border-[6px] border-black rounded-[2.5rem] shadow-[12px_12px_0_0_rgba(0,0,0,1)]', title: 'text-black font-black tracking-widest text-2xl mt-2',
+                customClass: { popup: popupClass_(), title: 'text-black font-black tracking-widest text-2xl mt-2',
                     input: 'bg-white border-4 border-black text-black focus:ring-4 focus:ring-amber-300 rounded-xl p-3 text-center tracking-widest font-black text-lg shadow-[4px_4px_0_0_rgba(0,0,0,1)] mt-4',
                     confirmButton: 'bg-amber-400 hover:bg-amber-300 text-black font-black py-3 px-6 rounded-xl mx-2 border-4 border-black shadow-[4px_4px_0_0_rgba(0,0,0,1)] active:translate-y-1 active:shadow-[0_0_0_0_rgba(0,0,0,1)] transition-all',
                     cancelButton: 'bg-gray-300 hover:bg-gray-200 text-black font-black py-3 px-6 rounded-xl mx-2 border-4 border-black shadow-[4px_4px_0_0_rgba(0,0,0,1)] active:translate-y-1 active:shadow-[0_0_0_0_rgba(0,0,0,1)] transition-all' }
@@ -1538,7 +1652,7 @@
                 if (res.success) { window.deadlineAdminPw = result.value; loadDeadlineAdminList(); }
                 else {
                     fireSwal({ icon: 'error', title: 'DENIED!', text: 'รหัสผ่านผิด', buttonsStyling: false,
-                        customClass: { popup: 'border-[6px] border-black rounded-[2.5rem] shadow-[12px_12px_0_0_rgba(0,0,0,1)]', confirmButton: 'bg-black text-white font-black py-2 px-6 rounded-xl border-4 border-black mt-4' } });
+                        customClass: { popup: popupClass_(), confirmButton: 'bg-black text-white font-black py-2 px-6 rounded-xl border-4 border-black mt-4' } });
                 }
             });
         };
@@ -1594,7 +1708,7 @@
             html += '</div>';
 
             fireSwal({ title: '📅 จัดการกำหนดส่งงาน', html: html, showConfirmButton: false, showCloseButton: true, width: '38rem',
-                customClass: { popup: 'border-[6px] border-black rounded-[2.5rem] shadow-[12px_12px_0_0_rgba(0,0,0,1)] bg-[#fffbeb]', title: 'font-black text-2xl mt-4 text-black tracking-widest' } });
+                customClass: { popup: popupClass_('bg-[#fffbeb]'), title: 'font-black text-2xl mt-4 text-black tracking-widest' } });
         }
 
         window.openDeadlineForm = function(index) {
@@ -1638,7 +1752,7 @@
                 title: (isNew ? '➕ เพิ่ม' : '✏️ แก้ไข') + ' Deadline', html: html,
                 showCancelButton: true, confirmButtonText: '💾 บันทึก', cancelButtonText: 'ยกเลิก',
                 buttonsStyling: false, width: '34rem',
-                customClass: { popup: 'border-[6px] border-black rounded-[2.5rem] p-4 shadow-[12px_12px_0_0_rgba(0,0,0,1)] bg-[#fffbeb]',
+                customClass: { popup: popupClass_('p-4 bg-[#fffbeb]'),
                     title: 'font-black text-2xl mt-2 text-black tracking-widest',
                     confirmButton: 'bg-green-400 hover:bg-green-300 text-black font-black py-3 px-6 rounded-xl mx-2 border-4 border-black shadow-[4px_4px_0_0_rgba(0,0,0,1)] active:translate-y-1 active:shadow-[0_0_0_0_rgba(0,0,0,1)] transition-all',
                     cancelButton:  'bg-red-400 hover:bg-red-300 text-black font-black py-3 px-6 rounded-xl mx-2 border-4 border-black shadow-[4px_4px_0_0_rgba(0,0,0,1)] active:translate-y-1 active:shadow-[0_0_0_0_rgba(0,0,0,1)] transition-all' },
@@ -1688,7 +1802,7 @@
             const result = await fireSwal({
                 icon: 'warning', title: 'ลบ Deadline?', text: 'ต้องการลบ "' + title + '" ใช่ไหม?',
                 showCancelButton: true, confirmButtonText: 'ลบเลย 🗑️', cancelButtonText: 'ยกเลิก', buttonsStyling: false,
-                customClass: { popup: 'border-[6px] border-black rounded-[2rem] shadow-[12px_12px_0_0_rgba(0,0,0,1)]', title: 'font-black',
+                customClass: { popup: popupClass_(null, '2rem'), title: 'font-black',
                     confirmButton: 'bg-red-500 text-white font-black py-2 px-6 rounded-xl border-4 border-black mx-2 mt-4',
                     cancelButton:  'bg-gray-300 text-black font-black py-2 px-6 rounded-xl border-4 border-black mx-2 mt-4' }
             });
@@ -1708,7 +1822,7 @@
             const result = await fireSwal({
                 title: '📊 TEACHER DASHBOARD', input: 'password', inputPlaceholder: 'รหัสผ่าน Admin',
                 showCancelButton: true, confirmButtonText: 'VERIFY', cancelButtonText: 'CANCEL', buttonsStyling: false,
-                customClass: { popup: 'border-[6px] border-black rounded-[2.5rem] shadow-[12px_12px_0_0_rgba(0,0,0,1)]', title: 'text-black font-black tracking-widest text-xl md:text-2xl mt-2',
+                customClass: { popup: popupClass_(), title: 'text-black font-black tracking-widest text-xl md:text-2xl mt-2',
                     input: 'bg-white border-4 border-black text-black focus:ring-4 focus:ring-emerald-300 rounded-xl p-3 text-center tracking-widest font-black text-lg shadow-[4px_4px_0_0_rgba(0,0,0,1)] mt-4',
                     confirmButton: 'bg-emerald-400 hover:bg-emerald-300 text-black font-black py-3 px-6 rounded-xl mx-2 border-4 border-black shadow-[4px_4px_0_0_rgba(0,0,0,1)] active:translate-y-1 active:shadow-[0_0_0_0_rgba(0,0,0,1)] transition-all',
                     cancelButton: 'bg-gray-300 hover:bg-gray-200 text-black font-black py-3 px-6 rounded-xl mx-2 border-4 border-black shadow-[4px_4px_0_0_rgba(0,0,0,1)] active:translate-y-1 active:shadow-[0_0_0_0_rgba(0,0,0,1)] transition-all' }
@@ -1719,7 +1833,7 @@
                 .then(function(stats) {
                     if (isAuthError(stats)) {
                         fireSwal({ icon: 'error', title: 'DENIED!', text: stats.message, buttonsStyling: false,
-                            customClass: { popup: 'border-[6px] border-black rounded-[2.5rem] shadow-[12px_12px_0_0_rgba(0,0,0,1)]', confirmButton: 'bg-black text-white font-black py-2 px-6 rounded-xl border-4 border-black mt-4' } });
+                            customClass: { popup: popupClass_(), confirmButton: 'bg-black text-white font-black py-2 px-6 rounded-xl border-4 border-black mt-4' } });
                         return;
                     }
                     renderDashboard(stats);
@@ -1762,7 +1876,7 @@
             html += '<p class="text-center text-[10px] text-gray-400 font-bold mt-3">ตัวเลข Quiz อาจดีเลย์ได้ถึง 5 นาที (ระบบแคชเพื่อความเร็ว)</p>';
 
             fireSwal({ title: '📊 ภาพรวมวันนี้', html: html, showConfirmButton: false, showCloseButton: true, width: '36rem',
-                customClass: { popup: 'border-[6px] border-black rounded-[2.5rem] shadow-[12px_12px_0_0_rgba(0,0,0,1)] bg-[#f0fdf4]', title: 'font-black text-2xl mt-4 text-black tracking-widest' } });
+                customClass: { popup: popupClass_('bg-[#f0fdf4]'), title: 'font-black text-2xl mt-4 text-black tracking-widest' } });
         }
     </script>
 </body>
