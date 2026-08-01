@@ -131,31 +131,9 @@
             color: #1e293b;
         }
 
-        /* ---- ชั้นเส้นสแกน (scanline) ของจอ CRT — คลุมทั้งหน้า แต่กดผ่านได้ ไม่ขวางการใช้งาน ----
-           z-index 55 = อยู่เหนือเนื้อหาและแถบเมนู (z-50) แต่ต่ำกว่า popup ของ SweetAlert (z~1060)
-           จงใจให้ popup อยู่เหนือเส้นสแกน เพราะตารางคะแนนต้องอ่านง่ายที่สุด ห้ามมีอะไรมาบัง */
-        body::before {
-            content: '';
-            position: fixed;
-            top: 0; left: 0;
-            width: 100%; height: 100%;
-            pointer-events: none;
-            z-index: 55;
-            background: repeating-linear-gradient(
-                to bottom,
-                rgba(0, 0, 0, 0.055) 0px,
-                rgba(0, 0, 0, 0.055) 1px,
-                transparent 1px,
-                transparent 4px
-            );
-            animation: crtDrift 9s linear infinite;
-        }
-        @keyframes crtDrift {
-            from { transform: translateY(0); }
-            to   { transform: translateY(4px); }
-        }
-
-        /* ---- ขอบจอมืดลงเล็กน้อย (vignette) เหมือนมองจอตู้เกมของจริง ---- */
+        /* ---- ขอบจอมืดลงเล็กน้อย (vignette) เหมือนมองจอตู้เกมของจริง ----
+           หมายเหตุ: เดิมมี "เส้นสแกน CRT" พาดทั้งจออยู่ตรงนี้ด้วย แต่ถอดออกแล้วเพราะทำให้ลายตา
+           เหลือไว้แค่ขอบจอมืดซึ่งให้มิติได้โดยไม่มีเส้นมารบกวนสายตา */
         body::after {
             content: '';
             position: fixed;
@@ -163,7 +141,7 @@
             width: 100%; height: 100%;
             pointer-events: none;
             z-index: 54;
-            background: radial-gradient(ellipse at center, transparent 58%, rgba(10, 6, 30, 0.26) 100%);
+            background: radial-gradient(ellipse at center, transparent 62%, rgba(10, 6, 30, 0.20) 100%);
         }
 
         .bg-fixed-layer {
@@ -400,6 +378,52 @@
             border-radius: 6px;
         }
 
+        /* ==========================================================
+           ปรับสัดส่วนสำหรับจอมือถือ (กว้างไม่เกิน 640px)
+           เดิมไฟล์นี้ไม่มีการปรับตามความกว้างจอเลยสักจุด — การ์ดเกมใช้ขนาดตายตัว
+           (ตัวหนังสือ 3rem, สูงอย่างน้อย 320px, ลาย 6.5rem) ทำให้บนมือถือการ์ดสูงเกินจำเป็น
+           ต้องเลื่อนนาน และตัวหนังสือใหญ่จนอึดอัด
+           ========================================================== */
+        @media (max-width: 640px) {
+            .arcade-card-wrap {
+                min-height: 250px;
+                padding: 16px 14px 14px;
+                border-width: 4px;
+                box-shadow: 7px 7px 0 0 rgba(0,0,0,1);
+            }
+            .arcade-title {
+                font-size: 2.25rem;
+                line-height: 1.02;
+            }
+            .arcade-deco { font-size: 4.5rem; }
+            .arcade-btn {
+                font-size: 1rem;
+                padding: 12px 0;
+                letter-spacing: 2px;
+            }
+            .arcade-badge { font-size: 9px; padding: 4px 11px; }
+            .arcade-sub   { font-size: 10px; padding: 4px 11px; margin: 6px 0 10px; }
+
+            /* กรอบเส้นประด้านในขยับเข้ามาให้พอดีการ์ดที่เล็กลง */
+            .ai-border::before { inset: 8px; }
+            /* ป้าย "A.I. MODULE ACTIVE" ซ่อนบนมือถือ — พื้นที่น้อย ใส่แล้วรก */
+            .ai-border::after { display: none; }
+
+            /* ลายพื้นถี่ลงตามขนาดจอ ไม่งั้นลายจะดูใหญ่เกินสัดส่วนการ์ด */
+            .pat-grid    { background-size: 16px 16px, 16px 16px; }
+            .pat-dots    { background-size: 14px 14px; }
+            .pat-checker { background-size: 20px 20px; background-position: 0 0, 10px 10px; }
+
+            /* ไฟวิ่งรอบกรอบถี่ขึ้นเล็กน้อยให้ได้สัดส่วนกับกรอบที่เล็กลง */
+            .marquee-lights {
+                background-size: 100% 4px, 100% 4px, 4px 100%, 4px 100%;
+            }
+
+            /* ปิดขอบจอมืด (vignette) บนมือถือ — จอเล็กทำให้วงมืดกินเข้ามาถึงปุ่ม ☰/⚙️ ที่ลอยมุมขวาบน
+               ปุ่มขาวจะดูหม่นเป็นสีเทา ซึ่งเป็นอาการเดียวกับที่ครูให้เอาออก จอใหญ่ไม่มีปัญหานี้จึงคงไว้ */
+            body::after { display: none; }
+        }
+
         /* ---- Deadline หน้าตาแบบ "สมุดภารกิจ" (quest log) ในเกม ----
            รอยบากมุมซ้ายบน + หัวลูกศรหน้าชื่องาน ให้อ่านเป็นรายการภารกิจ ไม่ใช่แค่รายการวันที่ */
         .quest-entry {
@@ -431,7 +455,6 @@
            ช่วยทั้งคนที่เวียนหัวง่ายกับภาพเคลื่อนไหว และช่วยให้เครื่องรุ่นเก่าลื่นขึ้นด้วย
            ========================================================== */
         @media (prefers-reduced-motion: reduce) {
-            body::before { animation: none; }
             .starfield { animation: none; }
             .marquee-lights { animation: none; }
             .pixel-bar-fill { animation: none; width: 100%; }
@@ -448,26 +471,29 @@
     <div class="bg-fixed-layer"></div>
     <div class="starfield" aria-hidden="true"></div>
 
-    <!-- NAVBAR -->
-    <nav class="p-4 flex justify-between items-center bg-white border-b-[6px] border-black sticky top-0 z-50 shadow-[0_8px_0_0_rgba(0,0,0,1)] animate-bounce-up">
-        <div class="flex items-center gap-3">
+    <!-- NAVBAR
+         มือถือ: แถบใส ลอยทับเนื้อหา (เอาแถบขาวออกตามที่ครูสั่ง) เหลือแค่ปุ่ม ☰ / ⚙️ ลอยมุมขวาบน
+                 ทำให้การ์ดแรก (HERO) ขึ้นเต็มจอตั้งแต่ขอบบนสุด แต่ยังกดเมนูได้ตลอดเวลาเพราะปุ่มลอยติดจอ
+         pad/desktop: แถบขาวเต็มรูปแบบเหมือนเดิมทุกอย่าง ไม่เปลี่ยน -->
+    <nav class="p-3 md:p-4 flex justify-end md:justify-between items-center bg-transparent md:bg-white border-b-0 md:border-b-[6px] border-black fixed md:sticky top-0 left-0 right-0 z-50 shadow-none md:shadow-[0_8px_0_0_rgba(0,0,0,1)] animate-bounce-up">
+        <div class="hidden md:flex items-center gap-3">
             <span class="text-4xl animate-bounce">👩‍🎓</span>
             <h1 class="text-xl md:text-3xl font-black tracking-widest uppercase text-black">KRU<span class="text-[#8B4513]"> OAT</span></h1>
         </div>
         <div class="md:hidden flex items-center gap-2">
-            <button type="button" onclick="openStudentMenu()" class="w-11 h-11 flex items-center justify-center bg-white rounded-xl border-[3px] border-black text-xl shadow-[3px_3px_0_0_rgba(0,0,0,1)] active:shadow-none active:translate-x-[3px] active:translate-y-[3px] transition-all">
+            <button type="button" onclick="openStudentMenu()" aria-label="เมนูนักเรียน" class="w-11 h-11 flex items-center justify-center bg-white rounded-xl border-[3px] border-black text-xl shadow-[3px_3px_0_0_rgba(0,0,0,1)] active:shadow-none active:translate-x-[3px] active:translate-y-[3px] transition-all">
                 ☰
             </button>
-            <button type="button" onclick="openAdminMenu()" class="w-11 h-11 flex items-center justify-center bg-white rounded-xl border-[3px] border-black text-xl shadow-[3px_3px_0_0_rgba(0,0,0,1)] active:shadow-none active:translate-x-[3px] active:translate-y-[3px] transition-all">
+            <button type="button" onclick="openAdminMenu()" aria-label="เมนูครู" class="w-11 h-11 flex items-center justify-center bg-white rounded-xl border-[3px] border-black text-xl shadow-[3px_3px_0_0_rgba(0,0,0,1)] active:shadow-none active:translate-x-[3px] active:translate-y-[3px] transition-all">
                 🛠️
             </button>
         </div>
     </nav>
 
-    <div class="max-w-7xl mx-auto px-4 mt-8 relative z-10">
+    <div class="max-w-7xl mx-auto px-3 md:px-4 mt-2 md:mt-8 relative z-10">
 
         <!-- 1. HERO -->
-        <div class="bg-[url('https://i.postimg.cc/L6QjDb2M/Chat-GPT-Image-May-23-2026-at-07-30-52-PM.png')] bg-cover bg-center border-[6px] border-black rounded-[3rem] p-6 md:p-10 mb-8 relative group hover:-translate-y-2 transition-transform duration-300 animate-bounce-up delay-100 shadow-[12px_12px_0_0_rgba(0,0,0,1)] overflow-hidden ai-border ai-nodes">
+        <div class="bg-[url('https://i.postimg.cc/L6QjDb2M/Chat-GPT-Image-May-23-2026-at-07-30-52-PM.png')] bg-cover bg-center border-[6px] border-black rounded-[2rem] md:rounded-[3rem] p-5 pt-20 md:p-10 mb-6 md:mb-8 relative group hover:-translate-y-2 transition-transform duration-300 animate-bounce-up delay-100 shadow-[8px_8px_0_0_rgba(0,0,0,1)] md:shadow-[12px_12px_0_0_rgba(0,0,0,1)] overflow-hidden ai-border ai-nodes">
             <div class="marquee-lights" aria-hidden="true"></div>
             <div class="absolute -right-4 -top-4 text-[8rem] opacity-20 transform rotate-12 pointer-events-none z-0">🧨</div>
             <div class="absolute left-10 -bottom-10 text-[6rem] opacity-30 transform -rotate-12 pointer-events-none animate-float z-0">🛸</div>
@@ -477,7 +503,7 @@
                         <div class="w-16 h-16 bg-white rounded-full border-4 border-black shadow-[4px_4px_0_0_rgba(0,0,0,1)] flex items-center justify-center overflow-hidden p-1">
                             <img src="https://i.postimg.cc/ydtX6mMS/logo.png" alt="School Logo" class="w-full h-full object-contain" onerror="this.style.display='none'">
                         </div>
-                        <span class="px-4 py-1.5 bg-yellow-300 border-4 border-black text-black text-sm font-black tracking-widest rounded-full shadow-[2px_2px_0_0_rgba(0,0,0,1)] animate-pulse">WELCOME 🐣</span>
+                        <span class="px-4 py-1.5 bg-yellow-300 border-4 border-black text-black text-sm font-black tracking-widest rounded-full shadow-[2px_2px_0_0_rgba(0,0,0,1)] animate-pulse">WELCOME 👩‍💻</span>
                     </div>
                     <h1 class="text-5xl md:text-7xl font-black text-black mb-4 drop-shadow-[4px_4px_0_rgba(255,255,255,1)] tracking-wide">
                         HELLO <span class="text-[#8B4513] animate-pulse drop-shadow-[2px_2px_0_rgba(255,255,255,1)]">HUMAN!</span> 👋
@@ -498,7 +524,7 @@
                         <img src="https://i.postimg.cc/pVj2q08J/Chat-GPT-Image-May-23-2026-at-09-32-41-PM.png" onerror="this.src='https://i.postimg.cc/T3mZY2N5/default-avatar.png'" alt="Profile Image" class="w-full h-full object-cover object-top transform group-hover:scale-110 transition-transform duration-500 select-none pointer-events-none" oncontextmenu="return false;" draggable="false">
                     </div>
                     <div class="absolute -top-4 -right-4 bg-yellow-300 border-[4px] border-black text-black font-black px-5 py-2 rounded-full shadow-[6px_6px_0_0_rgba(0,0,0,1)] rotate-12 z-30 text-lg tracking-wider animate-bounce">
-                        I AM OAT! 🎄
+                        I AM OAT!🍁
                     </div>
                 </div>
             </div>
@@ -917,9 +943,21 @@
 
         // ---- ปุ่ม "Scores" ในเมนู ☰ (มือถือ): เลื่อนจอไปหาโซน SCORE STUDENTS แทนการเปิด popup ----
         // เพราะการดูคะแนนต้องเลือกห้องก่อน (มีอยู่แล้วเป็นกริดบนหน้าเว็บ) จึงพาไปที่โซนนั้นให้เลือกเองต่อ
+        //
+        // ★ แก้บั๊ก "กด Scores แล้วเลื่อนไปผิดที่ (ไปโผล่ที่ DEADLINE)":
+        // เดิมสั่งปิด popup แล้วสั่งเลื่อนจอทันทีในบรรทัดถัดไป — แต่ SweetAlert ยัง "ล็อคการเลื่อนจอ"
+        // ค้างไว้ระหว่างที่ popup กำลังเล่นภาพปิดอยู่ พอสั่งเลื่อนตอนนั้น ระบบคำนวณตำแหน่งจากหน้าจอที่ถูกล็อค
+        // พอ popup ปิดสนิทแล้วปลดล็อค ตำแหน่งเลยเพี้ยนไปคนละที่
+        // แก้โดยรอให้ popup หายไปจากหน้าจอจริงๆ ก่อน แล้วค่อยสั่งเลื่อน (รอสูงสุด ~1.2 วินาที กันค้าง)
         window.scrollToScoreStudents = function() {
             const el = document.getElementById('scoreStudentsSection');
-            if (el) { el.scrollIntoView({ behavior: 'smooth', block: 'start' }); }
+            if (!el) return;
+            let tries = 0;
+            (function waitThenScroll() {
+                const stillOpen = document.querySelector('.swal2-container');
+                if (stillOpen && tries < 30) { tries++; setTimeout(waitThenScroll, 40); return; }
+                el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            })();
         };
 
         // ---- ปุ่ม ☰ มุมขวาบน (มือถือ): เมนูลัดฝั่งนักเรียน (Quiz แต่ละเกรด/Game Quiz/Scores) ----
