@@ -28,10 +28,142 @@
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
     <style>
+        /* ==========================================================
+           ARCADE CABINET — ระบบตกแต่งธีมเกมส์
+           แนวคิด: ทำให้ทั้งหน้าเว็บดูเหมือนกำลังฉายอยู่บน "จอตู้เกมอาร์เคด" จริงๆ
+           ทุกอย่างเป็น CSS ล้วน ไม่มี JS มายุ่งกับสี (บทเรียนจากระบบธีมเดิมที่ถอดออกไป)
+           และทุกเอฟเฟกต์ปิดอัตโนมัติถ้าเครื่องตั้งค่า "ลดการเคลื่อนไหว" ไว้ (ช่วยเครื่องรุ่นเก่าด้วย)
+           ========================================================== */
+        :root {
+            --crt-cyan: #22d3ee;
+            --crt-magenta: #e040fb;
+            --crt-gold: #fde047;
+            --crt-lime: #39ff14;
+        }
+
+        /* ---- ไฟวิ่งรอบกรอบ เหมือนหลอดไฟหน้าตู้เกมอาร์เคด ----
+           ใช้ 4 ชั้นพื้นหลัง (บน/ล่าง/ซ้าย/ขวา) วาดเป็นจุดไฟ แล้วเลื่อนตำแหน่งให้ดูเหมือนไฟวิ่ง
+           วางเป็น element จริง ไม่ใช้ ::before/::after เพราะสองช่องนั้นถูกกรอบเส้นประใช้ไปแล้ว */
+        .marquee-lights {
+            position: absolute;
+            inset: 0;
+            border-radius: inherit;
+            pointer-events: none;
+            z-index: 20;
+            background-image:
+                repeating-linear-gradient(to right,  var(--crt-gold) 0 7px, transparent 7px 22px),
+                repeating-linear-gradient(to right,  var(--crt-gold) 0 7px, transparent 7px 22px),
+                repeating-linear-gradient(to bottom, var(--crt-gold) 0 7px, transparent 7px 22px),
+                repeating-linear-gradient(to bottom, var(--crt-gold) 0 7px, transparent 7px 22px);
+            background-size: 100% 5px, 100% 5px, 5px 100%, 5px 100%;
+            background-position: 0 0, 0 100%, 0 0, 100% 0;
+            background-repeat: no-repeat;
+            opacity: 0.85;
+            animation: marqueeChase 1.1s linear infinite;
+        }
+        @keyframes marqueeChase {
+            from { background-position: 0 0, 0 100%, 0 0, 100% 0; }
+            to   { background-position: 22px 0, -22px 100%, 0 -22px, 100% 22px; }
+        }
+
+        /* ---- แถบโหลดแบบพิกเซล (แทนวงกลมหมุนธรรมดา) — ใช้ transform อย่างเดียว เบามาก ---- */
+        .pixel-bar {
+            width: 100%;
+            height: 22px;
+            border: 4px solid #000;
+            border-radius: 6px;
+            background: #e5e7eb;
+            overflow: hidden;
+            box-shadow: 4px 4px 0 0 rgba(0,0,0,1);
+            margin-top: 6px;
+        }
+        .pixel-bar-fill {
+            height: 100%;
+            width: 38%;
+            background-image: repeating-linear-gradient(90deg, var(--crt-lime) 0 8px, #16a34a 8px 16px);
+            animation: pixelLoad 1.15s ease-in-out infinite;
+        }
+        @keyframes pixelLoad {
+            0%   { transform: translateX(-105%); }
+            100% { transform: translateX(275%); }
+        }
+
+        /* ---- ชุดลวดลายพื้นการ์ด ----
+           การ์ดตั้งสีพื้นด้วย Tailwind (background-color) ส่วนลายใช้ช่อง background-image
+           เป็นคนละช่องกัน จึงซ้อนกันได้ไม่ตีกัน และไม่ต้องแก้สีเดิมที่ตั้งไว้
+           ความเข้มลายคุมไว้ไม่เกิน 7% เพื่อให้ตัวหนังสือดำยังอ่านง่ายแม้ทับลายพอดี (ตรวจแล้วต่ำสุด 8.2:1) */
+
+        /* กระดาษกราฟ — ใช้กับการ์ดกลุ่ม "ตาราง/กำหนดการ" */
+        .pat-grid {
+            background-image:
+                linear-gradient(rgba(0, 0, 0, 0.055) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0, 0, 0, 0.055) 1px, transparent 1px);
+            background-size: 22px 22px, 22px 22px;
+        }
+
+        /* จุดกลม — ใช้กับการ์ดกลุ่มที่อยากให้รู้สึกสนุก เล่นได้ */
+        .pat-dots {
+            background-image: radial-gradient(rgba(0, 0, 0, 0.07) 1.6px, transparent 1.7px);
+            background-size: 18px 18px;
+        }
+
+        /* ตาหมากรุก — ใช้กับการ์ดคะแนน ให้ความรู้สึกธงสกอร์/เส้นชัย */
+        .pat-checker {
+            background-image:
+                linear-gradient(45deg, rgba(0, 0, 0, 0.05) 25%, transparent 25%, transparent 75%, rgba(0, 0, 0, 0.05) 75%),
+                linear-gradient(45deg, rgba(0, 0, 0, 0.05) 25%, transparent 25%, transparent 75%, rgba(0, 0, 0, 0.05) 75%);
+            background-size: 26px 26px;
+            background-position: 0 0, 13px 13px;
+        }
+
+        /* ลายทางเฉียงจางๆ ให้การ์ดแถบยาว (ASSESSMENTS / ตรวจ ร-มส / CENTRAL DB) มีพื้นผิว */
+        .hazard-panel {
+            background-image: repeating-linear-gradient(
+                45deg,
+                rgba(0, 0, 0, 0.05) 0 10px,
+                rgba(0, 0, 0, 0) 10px 22px
+            );
+        }
+
         body {
             font-family: 'Kanit', sans-serif;
             background-color: #f8fafc;
             color: #1e293b;
+        }
+
+        /* ---- ชั้นเส้นสแกน (scanline) ของจอ CRT — คลุมทั้งหน้า แต่กดผ่านได้ ไม่ขวางการใช้งาน ----
+           z-index 55 = อยู่เหนือเนื้อหาและแถบเมนู (z-50) แต่ต่ำกว่า popup ของ SweetAlert (z~1060)
+           จงใจให้ popup อยู่เหนือเส้นสแกน เพราะตารางคะแนนต้องอ่านง่ายที่สุด ห้ามมีอะไรมาบัง */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            pointer-events: none;
+            z-index: 55;
+            background: repeating-linear-gradient(
+                to bottom,
+                rgba(0, 0, 0, 0.055) 0px,
+                rgba(0, 0, 0, 0.055) 1px,
+                transparent 1px,
+                transparent 4px
+            );
+            animation: crtDrift 9s linear infinite;
+        }
+        @keyframes crtDrift {
+            from { transform: translateY(0); }
+            to   { transform: translateY(4px); }
+        }
+
+        /* ---- ขอบจอมืดลงเล็กน้อย (vignette) เหมือนมองจอตู้เกมของจริง ---- */
+        body::after {
+            content: '';
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            pointer-events: none;
+            z-index: 54;
+            background: radial-gradient(ellipse at center, transparent 58%, rgba(10, 6, 30, 0.26) 100%);
         }
 
         .bg-fixed-layer {
@@ -43,6 +175,36 @@
             background-size: cover;
             background-position: center top;
             background-repeat: no-repeat;
+        }
+
+        /* ---- ดาวพิกเซลลอยพื้นหลัง (บรรยากาศเกมยิงยาน) — เบามาก ใช้ transform อย่างเดียว ----
+           ใช้ลายกระเบื้องขนาด 400×400px ปูซ้ำ แล้วเลื่อนลงทีละ 400px พอดี = วนลูปต่อเนื่องไร้รอยต่อ
+           (ถ้าวางดาวเป็น % แล้วเลื่อน จะเห็นภาพกระตุกตอนวนกลับ) */
+        .starfield {
+            position: fixed;
+            top: -400px; left: 0;
+            width: 100%; height: calc(100% + 400px);
+            z-index: -1;
+            pointer-events: none;
+            opacity: 0.5;
+            background-image:
+                radial-gradient(2px 2px at  40px  30px, rgba(255,255,255,0.9) 50%, transparent 50%),
+                radial-gradient(2px 2px at 310px  58px, var(--crt-cyan) 50%, transparent 50%),
+                radial-gradient(2px 2px at 132px 104px, rgba(255,255,255,0.75) 50%, transparent 50%),
+                radial-gradient(3px 3px at 248px 152px, var(--crt-gold) 50%, transparent 50%),
+                radial-gradient(2px 2px at 352px 184px, rgba(255,255,255,0.8) 50%, transparent 50%),
+                radial-gradient(2px 2px at  80px 228px, var(--crt-magenta) 50%, transparent 50%),
+                radial-gradient(2px 2px at 208px 272px, rgba(255,255,255,0.7) 50%, transparent 50%),
+                radial-gradient(3px 3px at  32px 316px, var(--crt-cyan) 50%, transparent 50%),
+                radial-gradient(2px 2px at 284px 352px, rgba(255,255,255,0.85) 50%, transparent 50%),
+                radial-gradient(2px 2px at 164px 388px, var(--crt-gold) 50%, transparent 50%);
+            background-size: 400px 400px;
+            background-repeat: repeat;
+            animation: starDrift 28s linear infinite;
+        }
+        @keyframes starDrift {
+            from { transform: translateY(0); }
+            to   { transform: translateY(400px); }
         }
 
         .scrollbar-hide::-webkit-scrollbar { display: none; }
@@ -58,6 +220,18 @@
             pointer-events: none;
             z-index: 0;
         }
+
+        /* ★ แก้บั๊กเก่า: เดิม .ai-border::after กับ .ai-nodes::after แย่งช่อง ::after ช่องเดียวกัน
+           (การ์ด 11 ใบใส่ทั้งสองคลาส) ตัวหลังทับตัวแรก ทำให้ข้อความ "A.I. MODULE ACTIVE"
+           ไม่เคยแสดงเลยสักครั้ง — ย้ายสี่เหลี่ยม ■■■ มารวมกับกรอบเส้นประใน ::before ช่องเดียว
+           ปล่อยช่อง ::after ให้ข้อความได้โผล่ตามที่ตั้งใจไว้แต่แรก */
+        .ai-border.ai-nodes::before {
+            content: '■ ■ ■';
+            padding: 4px 0 0 10px;
+            font-size: 0.8rem;
+            line-height: 1;
+            color: rgba(0, 0, 0, 0.2);
+        }
         .ai-border::after {
             content: '+ + + A.I. MODULE ACTIVE + + +';
             position: absolute;
@@ -69,16 +243,6 @@
             pointer-events: none;
             z-index: 0;
         }
-        .ai-nodes::after {
-            content: '■ ■ ■';
-            position: absolute;
-            top: 18px; left: 24px;
-            font-size: 0.8rem;
-            color: rgba(0, 0, 0, 0.2);
-            pointer-events: none;
-            z-index: 0;
-        }
-
         @keyframes bounceUp {
             0% { opacity: 0; transform: translateY(60px) scale(0.9); }
             60% { opacity: 1; transform: translateY(-10px) scale(1.02); }
@@ -187,15 +351,102 @@
             opacity: 0.18;
             pointer-events: none;
         }
+
+        /* ---- แสงกวาดผ่านการ์ด (เหมือนแสงสะท้อนบนกระจกตู้เกม) เวลาเอาเมาส์ชี้/แตะ ---- */
+        .arcade-card-wrap::after {
+            content: '';
+            position: absolute;
+            top: -60%;
+            left: -75%;
+            width: 45%;
+            height: 220%;
+            pointer-events: none;
+            z-index: 3;
+            background: linear-gradient(
+                to right,
+                rgba(255, 255, 255, 0) 0%,
+                rgba(255, 255, 255, 0.42) 50%,
+                rgba(255, 255, 255, 0) 100%
+            );
+            transform: rotate(22deg);
+            transition: left 0.65s cubic-bezier(0.25, 1, 0.5, 1);
+        }
+        .arcade-card-wrap:hover::after,
+        .arcade-card-wrap:active::after {
+            left: 130%;
+        }
+
+        /* ---- ป้ายชื่อเกมเรืองแสงแบบไฟหน้าตู้ (marquee) — ใช้ที่เดียวคือหัวการ์ดเกม ให้เด่นจุดเดียว ---- */
+        .arcade-title {
+            text-shadow:
+                3px 3px 0 rgba(0, 0, 0, 0.35),
+                0 0 12px rgba(255, 255, 255, 0.55),
+                0 0 26px rgba(255, 255, 255, 0.28);
+        }
+
+        /* ---- ปุ่มสว่างขึ้นเล็กน้อยตอนชี้ ให้รู้สึกตอบสนอง ---- */
+        .arcade-btn:hover {
+            filter: brightness(1.08);
+        }
+
+        /* ---- เส้นขอบโฟกัสสำหรับคนที่ใช้คีย์บอร์ด (กด Tab) — ของเดิมไม่มี มองไม่เห็นว่าอยู่ตรงไหน ---- */
+        a:focus-visible,
+        button:focus-visible,
+        input:focus-visible,
+        select:focus-visible,
+        textarea:focus-visible {
+            outline: 4px solid var(--crt-cyan);
+            outline-offset: 3px;
+            border-radius: 6px;
+        }
+
+        /* ---- Deadline หน้าตาแบบ "สมุดภารกิจ" (quest log) ในเกม ----
+           รอยบากมุมซ้ายบน + หัวลูกศรหน้าชื่องาน ให้อ่านเป็นรายการภารกิจ ไม่ใช่แค่รายการวันที่ */
+        .quest-entry {
+            position: relative;
+        }
+        .quest-entry::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0;
+            border-width: 0 0 12px 12px;
+            border-style: solid;
+            border-color: transparent transparent rgba(0, 0, 0, 0.16) transparent;
+            pointer-events: none;
+        }
+        .quest-marker {
+            display: inline-block;
+            margin-right: 5px;
+            color: rgba(0, 0, 0, 0.45);
+        }
+
         /* ★ กันไม่ให้หัวข้อ SCORE STUDENTS โผล่มาแล้วโดนแถบเมนูบน (sticky) บังตอนกด "Scores" ในเมนู ☰ */
         /* แถบเมนูบนสุดสูงประมาณ 82px (ปุ่ม 44px + padding 32px + เส้นขอบ 6px) เผื่อพื้นที่ไว้เกินเล็กน้อยให้หายใจ */
         #scoreStudentsSection {
             scroll-margin-top: 100px;
         }
+
+        /* ==========================================================
+           ถ้าเครื่องตั้งค่า "ลดการเคลื่อนไหว" (Reduce Motion) ไว้ — ปิดแอนิเมชันทั้งหมด
+           ช่วยทั้งคนที่เวียนหัวง่ายกับภาพเคลื่อนไหว และช่วยให้เครื่องรุ่นเก่าลื่นขึ้นด้วย
+           ========================================================== */
+        @media (prefers-reduced-motion: reduce) {
+            body::before { animation: none; }
+            .starfield { animation: none; }
+            .marquee-lights { animation: none; }
+            .pixel-bar-fill { animation: none; width: 100%; }
+            .animate-bounce-up,
+            .animate-float,
+            .animate-bounce,
+            .animate-pulse { animation: none !important; opacity: 1 !important; }
+            .arcade-card-wrap::after { display: none; }
+            * { transition-duration: 0.01ms !important; }
+        }
     </style>
 </head>
 <body class="min-h-screen pb-10 overflow-x-hidden relative">
     <div class="bg-fixed-layer"></div>
+    <div class="starfield" aria-hidden="true"></div>
 
     <!-- NAVBAR -->
     <nav class="p-4 flex justify-between items-center bg-white border-b-[6px] border-black sticky top-0 z-50 shadow-[0_8px_0_0_rgba(0,0,0,1)] animate-bounce-up">
@@ -217,6 +468,7 @@
 
         <!-- 1. HERO -->
         <div class="bg-[url('https://i.postimg.cc/L6QjDb2M/Chat-GPT-Image-May-23-2026-at-07-30-52-PM.png')] bg-cover bg-center border-[6px] border-black rounded-[3rem] p-6 md:p-10 mb-8 relative group hover:-translate-y-2 transition-transform duration-300 animate-bounce-up delay-100 shadow-[12px_12px_0_0_rgba(0,0,0,1)] overflow-hidden ai-border ai-nodes">
+            <div class="marquee-lights" aria-hidden="true"></div>
             <div class="absolute -right-4 -top-4 text-[8rem] opacity-20 transform rotate-12 pointer-events-none z-0">⚙️</div>
             <div class="absolute left-10 -bottom-10 text-[6rem] opacity-30 transform -rotate-12 pointer-events-none animate-float z-0">🛸</div>
             <div class="relative z-10 flex flex-col md:flex-row items-center justify-between gap-8">
@@ -255,7 +507,7 @@
               <!-- DEADLINE TRACKER -->
 <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-6">
             
-            <div class="bg-[#fef3c7] border-[6px] border-black rounded-[3rem] p-6 shadow-[12px_12px_0_0_rgba(0,0,0,1)] hover:-translate-y-1 transition-transform relative overflow-hidden animate-bounce-up delay-400 ai-border ai-nodes flex flex-col h-full">
+            <div class="bg-[#fbbf24] pat-grid border-[6px] border-black rounded-[3rem] p-6 shadow-[12px_12px_0_0_rgba(0,0,0,1)] hover:-translate-y-1 transition-transform relative overflow-hidden animate-bounce-up delay-400 ai-border ai-nodes flex flex-col h-full">
                 <div class="absolute -right-6 -bottom-4 text-[9rem] opacity-25 transform rotate-12 pointer-events-none z-0">⏰</div>
                 <div class="relative z-10 flex flex-col h-full">
                     <div class="flex items-center justify-between mb-5 flex-wrap gap-3">
@@ -278,7 +530,7 @@
                 </div>
             </div>
 
-            <div class="bg-[#cffafe] border-[6px] border-black rounded-[3rem] p-6 shadow-[12px_12px_0_0_rgba(0,0,0,1)] hover:-translate-y-1 transition-transform relative overflow-hidden animate-bounce-up delay-400 ai-border ai-nodes flex flex-col justify-center items-center text-center h-full group">
+            <div class="bg-[#5ee7f2] pat-dots border-[6px] border-black rounded-[3rem] p-6 shadow-[12px_12px_0_0_rgba(0,0,0,1)] hover:-translate-y-1 transition-transform relative overflow-hidden animate-bounce-up delay-400 ai-border ai-nodes flex flex-col justify-center items-center text-center h-full group">
                 <div class="absolute -left-6 -top-6 text-[8rem] opacity-30 transform -rotate-12 pointer-events-none z-0 group-hover:rotate-12 transition-transform duration-500">🎲</div>
                 <div class="absolute -right-10 -bottom-10 text-[10rem] opacity-20 transform rotate-12 pointer-events-none z-0 group-hover:-rotate-12 transition-transform duration-500">🎡</div>
                 
@@ -297,7 +549,7 @@
 
         </div>
         <!-- 2. Mission Track (เต็มความกว้าง — เดิมมี DATA MODULES/สื่อการสอน อยู่ข้างๆ, เอาออกแล้วตามที่ครูสั่ง) -->
-        <div id="scoreStudentsSection" class="w-full bg-[#ffedd5] border-[6px] border-black rounded-[2.5rem] p-5 md:p-8 flex flex-col animate-bounce-up delay-200 shadow-[10px_10px_0_0_rgba(0,0,0,1)] relative overflow-hidden ai-border ai-nodes mb-6">
+        <div id="scoreStudentsSection" class="w-full bg-[#ffc09c] pat-checker border-[6px] border-black rounded-[2.5rem] p-5 md:p-8 flex flex-col animate-bounce-up delay-200 shadow-[10px_10px_0_0_rgba(0,0,0,1)] relative overflow-hidden ai-border ai-nodes mb-6">
                 <div class="absolute -right-4 bottom-10 text-8xl opacity-20 z-0 pointer-events-none">📡</div>
                 <div class="mb-6 text-center z-10 relative">
                     <h2 class="bg-white border-4 border-black px-6 py-2 rounded-full font-black text-xl md:text-2xl text-black shadow-[4px_4px_0_0_rgba(0,0,0,1)] inline-block transform rotate-2">
@@ -347,7 +599,7 @@
 
         <!-- 3. ตารางสอน (ครู) + ตารางเรียนนักเรียน (เดิมเป็นฟอร์มคุยกับครู เปลี่ยนเป็นตารางเรียนตามที่ครูสั่ง) -->
         <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-6">
-            <div class="bg-[#bae6fd] border-[6px] border-black rounded-[2.5rem] p-5 shadow-[10px_10px_0_0_rgba(0,0,0,1)] flex flex-col animate-bounce-up delay-300 hover:-translate-y-1 transition-transform overflow-hidden ai-border ai-nodes relative">
+            <div class="bg-[#7dd3fc] pat-grid border-[6px] border-black rounded-[2.5rem] p-5 shadow-[10px_10px_0_0_rgba(0,0,0,1)] flex flex-col animate-bounce-up delay-300 hover:-translate-y-1 transition-transform overflow-hidden ai-border ai-nodes relative">
                 <div class="absolute -right-6 -top-6 text-[7rem] opacity-20 transform rotate-12 pointer-events-none z-0">📚</div>
                 <div class="absolute left-6 -bottom-8 text-[5rem] opacity-25 transform -rotate-12 pointer-events-none z-0">🖊️</div>
                 <div class="flex justify-center mb-4 relative z-10">
@@ -361,7 +613,7 @@
                 <p class="text-center text-sm font-bold text-gray-700 mt-3 relative z-10">TAP TO ENLARGE 🔍</p>
             </div>
 
-            <div class="bg-[#fef08a] border-[6px] border-black rounded-[2.5rem] p-5 shadow-[10px_10px_0_0_rgba(0,0,0,1)] flex flex-col animate-bounce-up delay-300 hover:-translate-y-1 transition-transform overflow-hidden ai-border ai-nodes relative">
+            <div class="bg-[#fce96a] pat-grid border-[6px] border-black rounded-[2.5rem] p-5 shadow-[10px_10px_0_0_rgba(0,0,0,1)] flex flex-col animate-bounce-up delay-300 hover:-translate-y-1 transition-transform overflow-hidden ai-border ai-nodes relative">
                 <div class="absolute -left-6 -top-6 text-[7rem] opacity-20 transform -rotate-12 pointer-events-none z-0">🎒</div>
                 <div class="absolute right-6 -bottom-8 text-[5rem] opacity-25 transform rotate-12 pointer-events-none z-0">✏️</div>
                 <div class="flex justify-center mb-4 relative z-10">
@@ -461,7 +713,7 @@
         </div>
  
         <!-- เอกสาร/ใบงาน -->
-        <div class="w-full bg-[#93c5fd] border-[6px] border-black rounded-[3rem] p-6 md:p-10 shadow-[12px_12px_0_0_rgba(0,0,0,1)] mb-6 flex flex-col md:flex-row items-center justify-between gap-6 hover:-translate-y-1 transition-transform relative overflow-hidden animate-bounce-up delay-400 ai-border ai-nodes">
+        <div class="w-full bg-[#7fb3fb] hazard-panel border-[6px] border-black rounded-[3rem] p-6 md:p-10 shadow-[12px_12px_0_0_rgba(0,0,0,1)] mb-6 flex flex-col md:flex-row items-center justify-between gap-6 hover:-translate-y-1 transition-transform relative overflow-hidden animate-bounce-up delay-400 ai-border ai-nodes">
             <div class="absolute -left-6 -top-6 text-[8rem] opacity-30 transform rotate-12 pointer-events-none z-0">📁</div>
             <div class="flex items-center gap-6 relative z-10 text-center md:text-left flex-col md:flex-row w-full md:w-auto">
                 <div class="bg-white p-5 rounded-3xl border-4 border-black shadow-[6px_6px_0_0_rgba(0,0,0,1)] text-4xl transform -rotate-3">🗂️</div>
@@ -476,7 +728,7 @@
         </div>
 
         <!-- ตรวจ ร/มส -->
-        <div class="w-full bg-[#fca5a5] border-[6px] border-black rounded-[3rem] p-6 md:p-10 shadow-[12px_12px_0_0_rgba(0,0,0,1)] mb-6 flex flex-col md:flex-row items-center justify-between gap-6 hover:-translate-y-1 transition-transform relative overflow-hidden animate-bounce-up delay-400 ai-border ai-nodes">
+        <div class="w-full bg-[#fb9090] hazard-panel border-[6px] border-black rounded-[3rem] p-6 md:p-10 shadow-[12px_12px_0_0_rgba(0,0,0,1)] mb-6 flex flex-col md:flex-row items-center justify-between gap-6 hover:-translate-y-1 transition-transform relative overflow-hidden animate-bounce-up delay-400 ai-border ai-nodes">
             <div class="absolute -right-4 -bottom-4 text-[8rem] opacity-30 transform -rotate-12 pointer-events-none z-0">🚨</div>
             <div class="flex items-center gap-6 relative z-10 text-center md:text-left flex-col md:flex-row w-full md:w-auto">
                 <div class="bg-white p-5 rounded-3xl border-4 border-black shadow-[6px_6px_0_0_rgba(0,0,0,1)] text-4xl transform rotate-3">⚠️</div>
@@ -491,7 +743,7 @@
         </div>
 
         <!-- CENTRAL DB -->
-        <div class="w-full bg-[#d8b4fe] border-[6px] border-black rounded-[3rem] p-6 md:p-10 shadow-[12px_12px_0_0_rgba(0,0,0,1)] mb-6 flex flex-col md:flex-row items-center justify-between gap-6 hover:-translate-y-1 transition-transform relative overflow-hidden animate-bounce-up delay-400 ai-border ai-nodes">
+        <div class="w-full bg-[#c79bfd] hazard-panel border-[6px] border-black rounded-[3rem] p-6 md:p-10 shadow-[12px_12px_0_0_rgba(0,0,0,1)] mb-6 flex flex-col md:flex-row items-center justify-between gap-6 hover:-translate-y-1 transition-transform relative overflow-hidden animate-bounce-up delay-400 ai-border ai-nodes">
             <div class="absolute left-1/2 -top-10 text-[8rem] opacity-30 transform rotate-12 pointer-events-none z-0">💯</div>
             <div class="flex items-center gap-6 relative z-10 text-center md:text-left flex-col md:flex-row w-full md:w-auto">
                 <div class="bg-white p-5 rounded-3xl border-4 border-black shadow-[6px_6px_0_0_rgba(0,0,0,1)] text-4xl transform -rotate-6">📊</div>
@@ -507,7 +759,7 @@
 
         <!-- ตรวจระเบียบ & E-Portfolio -->
         <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
-            <div class="bg-[#86efac] border-[6px] border-black rounded-[3rem] p-6 md:p-8 shadow-[12px_12px_0_0_rgba(0,0,0,1)] flex flex-col justify-between hover:-translate-y-1 transition-transform relative overflow-hidden animate-bounce-up delay-400 ai-border ai-nodes group">
+            <div class="bg-[#6ee7b7] pat-dots border-[6px] border-black rounded-[3rem] p-6 md:p-8 shadow-[12px_12px_0_0_rgba(0,0,0,1)] flex flex-col justify-between hover:-translate-y-1 transition-transform relative overflow-hidden animate-bounce-up delay-400 ai-border ai-nodes group">
                 <div class="absolute -right-4 -bottom-4 text-[8rem] opacity-30 transform -rotate-12 pointer-events-none z-0 group-hover:rotate-12 transition-transform duration-500">👕</div>
                 <div class="relative z-10 flex items-center gap-4 mb-6">
                     <div class="bg-white p-4 rounded-3xl border-4 border-black shadow-[4px_4px_0_0_rgba(0,0,0,1)] text-4xl transform -rotate-3">👗</div>
@@ -521,7 +773,7 @@
                 </a>
             </div>
 
-            <div class="bg-[#fdba74] border-[6px] border-black rounded-[3rem] p-6 md:p-8 shadow-[12px_12px_0_0_rgba(0,0,0,1)] flex flex-col justify-between hover:-translate-y-1 transition-transform relative overflow-hidden animate-bounce-up delay-400 ai-border ai-nodes group">
+            <div class="bg-[#fda85a] pat-dots border-[6px] border-black rounded-[3rem] p-6 md:p-8 shadow-[12px_12px_0_0_rgba(0,0,0,1)] flex flex-col justify-between hover:-translate-y-1 transition-transform relative overflow-hidden animate-bounce-up delay-400 ai-border ai-nodes group">
                 <div class="absolute -left-6 -top-6 text-[8rem] opacity-30 transform rotate-12 pointer-events-none z-0 group-hover:-rotate-12 transition-transform duration-500">🏆</div>
                 <div class="relative z-10 flex items-center gap-4 mb-6">
                     <div class="bg-white p-4 rounded-3xl border-4 border-black shadow-[4px_4px_0_0_rgba(0,0,0,1)] text-4xl transform rotate-3">📁</div>
@@ -577,11 +829,16 @@
             return !!(data && typeof data === 'object' && !Array.isArray(data) && data.__error);
         }
 
-        // ★ แก้ปัญหา iPad/Safari รุ่นเก่าไม่ยอมเปิดแท็บใหม่ (หน้าจอค้าง ไม่ไปไหน) เวลากดเข้า Quiz ที่มีรหัสผ่าน
-        // สาเหตุ: window.open() ที่เรียกหลังรอผลจาก API (fetch) เสร็จ จะไม่ถูกนับเป็น "การกระทำของผู้ใช้" อีกต่อไป
-        // ในสายตาของ Safari รุ่นเก่า ทำให้ถูกบล็อกเงียบๆ (ไม่มี error ให้เห็นเลย)
-        // วิธีแก้: เปิดแท็บเปล่าทันทีตอนกด (ยังนับเป็นการกระทำของผู้ใช้อยู่) พร้อมข้อความ "กำลังโหลด..."
-        // แล้วค่อยเปลี่ยนปลายทางของแท็บนั้นทีหลังเมื่อรู้ลิงก์จริงจาก API — ไม่ต้องเปิดแท็บใหม่ซ้ำ จึงไม่โดนบล็อก
+        // ★ แก้ปัญหา iPad/Safari รุ่นเก่าไม่ยอมเปิดลิงก์ Quiz ให้ (หน้าจอค้าง ไม่ไปไหน)
+        // สาเหตุ: Safari รุ่นเก่าจะยอมให้เปิดแท็บใหม่เฉพาะ "ตอนที่ผู้ใช้เพิ่งกดจริงๆ" เท่านั้น
+        // พอเรารอผลจากเซิร์ฟเวอร์ (หรือรอให้นักเรียนกรอกรหัสผ่านเสร็จ) สิทธิ์ตรงนั้นจะหมดอายุไปแล้ว
+        // ทำให้คำสั่งเปิดแท็บถูกบล็อกเงียบๆ ไม่มี error ให้เห็นเลย
+        //
+        // วิธีแก้แบบ 3 ชั้น (ไล่จากดีที่สุดลงมา) — รับประกันว่าเข้าเกมได้เสมอทุกเครื่อง:
+        //   ชั้น 1: เปิดแท็บเปล่ารอไว้ก่อนตั้งแต่ตอนกด แล้วค่อยเปลี่ยนปลายทางทีหลัง (เครื่องใหม่ๆ ลื่นไหล ไม่ต้องกดซ้ำ)
+        //   ชั้น 2: ถ้าชั้น 1 ไม่ผ่าน ลองสั่งเปิดตรงๆ อีกที (บางเครื่องยังผ่านตรงนี้ได้)
+        //   ชั้น 3: ถ้ายังไม่ได้อีก โชว์ปุ่มลิงก์จริงให้นักเรียนกดเอง — การกดลิงก์ <a> เป็นการเปิดหน้าปกติ
+        //           ไม่มีเบราว์เซอร์ไหนบล็อก จึงได้ผล 100% แม้บน iPad รุ่นเก่ามาก (แค่ต้องกดเพิ่มอีก 1 ครั้ง)
         function openTabPending_() {
             var tab = null;
             try { tab = window.open('', '_blank'); } catch (e) {}
@@ -590,9 +847,24 @@
             } catch (e) {}
             return tab;
         }
-        function goToTab_(tab, url) {
-            if (tab && !tab.closed) { try { tab.location = url; } catch (e) { window.open(url, '_blank'); } }
-            else { window.open(url, '_blank'); }
+        function showLinkFallback_(url, name) {
+            var html = '<p class="font-bold text-gray-600 text-sm mb-4">แตะปุ่มด้านล่างเพื่อเข้าเล่นได้เลย 👇</p>';
+            html += '<a href="' + escapeHtml(url) + '" target="_blank" rel="noopener" class="block w-full bg-green-400 border-4 border-black text-black font-black text-xl py-4 px-6 rounded-2xl shadow-[6px_6px_0_0_rgba(0,0,0,1)] active:translate-y-1 active:shadow-[0_0_0_0_rgba(0,0,0,1)] transition-all tracking-widest uppercase" style="text-decoration:none;">▶ เข้าเล่นเลย</a>';
+            html += '<p class="text-[11px] font-bold text-gray-400 mt-3">ถ้ายังไม่เปิด ให้กดค้างที่ปุ่มแล้วเลือก "เปิดในแท็บใหม่"</p>';
+            fireSwal({ title: '🎮 ' + (name || 'พร้อมแล้ว!'), html: html, showConfirmButton: false, showCloseButton: true,
+                customClass: { popup: popupClass_('bg-[#f0fdf4]'), title: 'font-black text-xl mt-4 text-black tracking-widest' } });
+        }
+        function deliverLink_(tab, url, name) {
+            // ชั้น 1: ใช้แท็บที่เปิดรอไว้ (ถ้ามี)
+            if (tab && !tab.closed) {
+                try { tab.location = url; return; } catch (e) {}
+            }
+            // ชั้น 2: ลองเปิดตรงๆ
+            var w = null;
+            try { w = window.open(url, '_blank'); } catch (e) {}
+            if (w) return;
+            // ชั้น 3: โดนบล็อกจริง — ให้นักเรียนกดลิงก์เอง (ไม่มีทางถูกบล็อก)
+            showLinkFallback_(url, name);
         }
         function closeTab_(tab) {
             if (tab && !tab.closed) { try { tab.close(); } catch (e) {} }
@@ -615,6 +887,18 @@
         // อยากเปลี่ยนหน้าตา popup ทั้งเว็บในอนาคต (เช่น ปรับความหนาขอบ/สีเงา) แก้ที่นี่ที่เดียวพอ ไม่ต้องไล่หา 46 จุด
         // extra: class เสริมเฉพาะจุด เช่น สีพื้นหลัง, padding, ความกว้าง (ไม่ใส่ก็ได้)
         // radius: ขนาดมุมโค้ง ค่าเริ่มต้น 2.5rem — popup เล็กบางจุดใช้ 2rem แทน ระบุพารามิเตอร์ที่ 2 ได้
+        // ★ หน้าจอ "กำลังโหลด" แบบแถบพิกเซล (แทนวงกลมหมุนธรรมดาของ SweetAlert)
+        // รวมไว้จุดเดียว เดิมเขียนซ้ำกัน 17 จุดทั่วไฟล์ อยากเปลี่ยนหน้าตาทีหลังก็แก้ที่นี่ที่เดียว
+        function showLoading_(title) {
+            fireSwal({
+                title: title || 'LOADING...',
+                html: '<div class="pixel-bar"><div class="pixel-bar-fill"></div></div>',
+                allowOutsideClick: false,
+                showConfirmButton: false,
+                customClass: { popup: popupClass_('bg-[#f8fafc]'), title: 'font-black text-xl mt-3 text-black tracking-widest' }
+            });
+        }
+
         function popupClass_(extra, radius) {
             var base = 'border-[6px] border-black rounded-[' + (radius || '2.5rem') + '] shadow-[12px_12px_0_0_rgba(0,0,0,1)]';
             return extra ? (base + ' ' + extra) : base;
@@ -751,7 +1035,7 @@
         };
 
         window.fetchStudentStatus = function(room, password) {
-            fireSwal({ title: 'FETCHING DATA ⏳', allowOutsideClick: false, didOpen: function() { if(typeof Swal !== 'undefined') Swal.showLoading(); } });
+            showLoading_('FETCHING DATA ⏳');
             callAPI('getStudentStatus', { room: room, password: password })
                 .then(function(data) {
                     if (isAuthError(data)) { fireSwal({ icon: 'error', title: 'ACCESS DENIED', text: data.message, buttonsStyling: false,
@@ -801,7 +1085,7 @@
         };
 
         function fetchAndShowStudentList(room, password) {
-            fireSwal({ title: 'CONNECTING... ⏳', allowOutsideClick: false, didOpen: function() { if(typeof Swal !== 'undefined') Swal.showLoading(); }});
+            showLoading_('CONNECTING... ⏳');
             callAPI('getStudentScores', { room: room, password: password })
                 .then(function(data) {
                     if (isAuthError(data)) { fireSwal({ icon: 'error', title: 'ACCESS DENIED', text: data.message, buttonsStyling: false,
@@ -937,14 +1221,25 @@
             else if(totalScore100 >= 60) { grade = "2"; gradeColor = "text-purple-500"; }
             else if(totalScore100 >= 55) { grade = "1.5"; gradeColor = "text-pink-500"; }
             else if(totalScore100 >= 50) { grade = "1"; gradeColor = "text-orange-500"; }
+            // ★ แถบพลังแบบเกม (XP bar) — ให้เห็นภาพทันทีว่าแต่ละส่วนเต็มแค่ไหน ไม่ต้องตีความตัวเลขเอง
+            // จำกัดไม่ให้เกิน 100% เผื่อกรณีครูให้คะแนนเกินเต็ม แถบจะได้ไม่ล้นกรอบ
+            const taskPct  = Math.max(0, Math.min(100, (scaledTask / 50) * 100));
+            const midPct   = Math.max(0, Math.min(100, (scaledMid / 20) * 100));
+            const finPct   = Math.max(0, Math.min(100, (scaledFin / 30) * 100));
+            const totalPct = Math.max(0, Math.min(100, totalScore100));
+            function xpBar(pct, barColor) {
+                return '<div class="mt-1.5 h-2.5 w-full bg-black/15 border-2 border-black rounded-full overflow-hidden">' +
+                       '<div class="h-full ' + barColor + '" style="width:' + pct.toFixed(1) + '%;"></div></div>';
+            }
+
             let html = '<div class="text-center mb-5 border-b-4 border-black pb-4 border-dashed">';
             html += '<h3 class="text-2xl md:text-3xl font-black text-black mb-1 tracking-widest uppercase">' + escapeHtml(std.name) + '</h3>';
             html += '<p class="text-xs font-black text-black bg-yellow-300 border-2 border-black inline-block px-3 py-1 rounded-full tracking-widest mt-1 shadow-[2px_2px_0_0_rgba(0,0,0,1)]">ID: ' + escapeHtml(std.no) + '</p></div>';
             html += '<div class="grid grid-cols-2 md:grid-cols-4 gap-3 mb-5">';
-            html += '<div class="bg-blue-50 border-[3px] border-black rounded-2xl p-2 text-center shadow-[4px_4px_0_0_rgba(0,0,0,1)]"><p class="text-xs font-black text-black mb-1">TASK (50)</p><p class="text-2xl font-black text-blue-600">' + scaledTask.toFixed(1) + '</p></div>';
-            html += '<div class="bg-orange-50 border-[3px] border-black rounded-2xl p-2 text-center shadow-[4px_4px_0_0_rgba(0,0,0,1)]"><p class="text-xs font-black text-black mb-1">MID (20)</p><p class="text-2xl font-black text-orange-600">' + scaledMid.toFixed(1) + '</p></div>';
-            html += '<div class="bg-purple-50 border-[3px] border-black rounded-2xl p-2 text-center shadow-[4px_4px_0_0_rgba(0,0,0,1)]"><p class="text-xs font-black text-black mb-1">FINAL (30)</p><p class="text-2xl font-black text-purple-600">' + scaledFin.toFixed(1) + '</p></div>';
-            html += '<div class="bg-green-300 border-[3px] border-black rounded-2xl p-2 text-center shadow-[4px_4px_0_0_rgba(0,0,0,1)]"><p class="text-xs font-black text-black mb-1">TOTAL</p><p class="text-3xl font-black text-black">' + totalScore100 + '</p></div></div>';
+            html += '<div class="bg-blue-50 border-[3px] border-black rounded-2xl p-2 text-center shadow-[4px_4px_0_0_rgba(0,0,0,1)]"><p class="text-xs font-black text-black mb-1">TASK (50)</p><p class="text-2xl font-black text-blue-600">' + scaledTask.toFixed(1) + '</p>' + xpBar(taskPct, 'bg-blue-500') + '</div>';
+            html += '<div class="bg-orange-50 border-[3px] border-black rounded-2xl p-2 text-center shadow-[4px_4px_0_0_rgba(0,0,0,1)]"><p class="text-xs font-black text-black mb-1">MID (20)</p><p class="text-2xl font-black text-orange-600">' + scaledMid.toFixed(1) + '</p>' + xpBar(midPct, 'bg-orange-500') + '</div>';
+            html += '<div class="bg-purple-50 border-[3px] border-black rounded-2xl p-2 text-center shadow-[4px_4px_0_0_rgba(0,0,0,1)]"><p class="text-xs font-black text-black mb-1">FINAL (30)</p><p class="text-2xl font-black text-purple-600">' + scaledFin.toFixed(1) + '</p>' + xpBar(finPct, 'bg-purple-500') + '</div>';
+            html += '<div class="bg-green-300 border-[3px] border-black rounded-2xl p-2 text-center shadow-[4px_4px_0_0_rgba(0,0,0,1)]"><p class="text-xs font-black text-black mb-1">TOTAL</p><p class="text-3xl font-black text-black">' + totalScore100 + '</p>' + xpBar(totalPct, 'bg-black') + '</div></div>';
             html += '<div class="bg-white rounded-2xl p-4 mb-5 border-[4px] border-black shadow-[6px_6px_0_0_rgba(0,0,0,1)] flex items-center justify-between">';
             html += '<div class="text-left"><p class="text-xs font-black text-gray-500 tracking-widest">EVALUATION</p><p class="text-base font-black text-black">FINAL GRADE</p></div>';
             html += '<div class="bg-gray-100 rounded-xl px-5 py-2 border-[3px] border-black shadow-inner"><span class="text-5xl font-black ' + gradeColor + ' drop-shadow-[2px_2px_0_rgba(0,0,0,1)]">' + grade + '</span></div></div>';
@@ -995,7 +1290,7 @@
         };
 
         window.fetchAndShowAdminScores = function(room) {
-            fireSwal({ title: 'EXTRACTING... ⏳', allowOutsideClick: false, didOpen: function() { if(typeof Swal !== 'undefined') Swal.showLoading(); } });
+            showLoading_('EXTRACTING... ⏳');
             callAPI('getStudentScores', { room: room, password: window.masterAdminPw })
                 .then(function(data) {
                     if (isAuthError(data)) { fireSwal({ title: 'ERROR', text: data.message, icon: 'error'}); return; }
@@ -1091,7 +1386,7 @@
         };
 
         async function processUploadWork(data) {
-            fireSwal({ title: 'UPLOADING... 🚀', html: '<p class="font-bold text-gray-500 text-sm">TRANSMITTING PACKETS...</p>', allowOutsideClick: false, didOpen: function() { if(typeof Swal !== 'undefined') Swal.showLoading(); }});
+            showLoading_('UPLOADING... 🚀');
             try {
                 const fileData = await new Promise(function(resolve) {
                     const reader = new FileReader();
@@ -1113,7 +1408,7 @@
         // GAME QUIZZ — หน้านักเรียน (ไม่แก้ไข ไม่ปรับ — การ์ดสีส้มเดิม)
         // ============================================
         window.openQuizHub = function() {
-            fireSwal({ title: 'LOADING QUIZ HUB ⏳', allowOutsideClick: false, didOpen: function() { if(typeof Swal !== 'undefined') Swal.showLoading(); } });
+            showLoading_('LOADING QUIZ HUB ⏳');
             callAPI('getQuizCards', {})
                 .then(function(cards) { renderQuizHub(cards); })
                 .catch(function(err) { fireSwal({ icon: 'error', title: 'ERROR', text: err.message }); });
@@ -1150,7 +1445,7 @@
             if (!c.hasPassword) {
                 const newTab = openTabPending_();
                 callAPI('verifyQuizPassword', { data: { id: c.id, password: "" } })
-                    .then(function(res) { if (res.success) { goToTab_(newTab, res.link); } else { closeTab_(newTab); } });
+                    .then(function(res) { if (res.success) { deliverLink_(newTab, res.link, c.name); } else { closeTab_(newTab); } });
                 return;
             }
             const result = await fireSwal({
@@ -1165,7 +1460,7 @@
                 const newTab = openTabPending_();
                 callAPI('verifyQuizPassword', { data: { id: c.id, password: result.value } })
                     .then(function(res) {
-                        if (res.success) { goToTab_(newTab, res.link); }
+                        if (res.success) { deliverLink_(newTab, res.link, c.name); }
                         else { closeTab_(newTab); fireSwal({ icon: 'error', title: 'ACCESS DENIED', text: res.message, buttonsStyling: false,
                             customClass: { popup: popupClass_(null, '2rem'), confirmButton: 'bg-black text-white font-black py-2 px-6 rounded-xl border-4 border-black mt-4' } }); }
                     });
@@ -1195,7 +1490,7 @@
         };
 
         function loadQuizAdminList() {
-            fireSwal({ title: 'LOADING... ⏳', allowOutsideClick: false, didOpen: function() { if(typeof Swal !== 'undefined') Swal.showLoading(); } });
+            showLoading_('LOADING... ⏳');
             callAPI('getQuizCardsAdmin', { password: window.quizAdminPw })
                 .then(function(cards) {
                     if (isAuthError(cards)) { fireSwal({ icon: 'error', title: 'ERROR', text: cards.message }); return; }
@@ -1270,7 +1565,7 @@
                 }
             }).then(function(result) {
                 if (result.isConfirmed) {
-                    fireSwal({ title: 'SAVING... ⏳', allowOutsideClick: false, didOpen: function(){ if(typeof Swal!=='undefined') Swal.showLoading(); } });
+                    showLoading_('SAVING... ⏳');
                     callAPI('saveQuizCard', { data: result.value, password: window.quizAdminPw })
                         .then(function(res) {
                             if (res.success) { loadQuizAdminList(); }
@@ -1302,7 +1597,7 @@
             if (target < 0 || target >= cards.length) return;
             const cardA = cards[index];
             const cardB = cards[target];
-            fireSwal({ title: 'กำลังเรียง... ⏳', allowOutsideClick: false, didOpen: function(){ if(typeof Swal!=='undefined') Swal.showLoading(); } });
+            showLoading_('กำลังเรียง... ⏳');
             callAPI('swapQuizOrder', { data: { idA: cardA.id, idB: cardB.id }, password: window.quizAdminPw })
                 .then(function(res) {
                     if (res.success) { loadQuizAdminList(); }
@@ -1313,7 +1608,7 @@
 
         // ก๊อปปี้การ์ด
         window.duplicateQuiz = function(id) {
-            fireSwal({ title: 'กำลังก๊อปปี้... ⏳', allowOutsideClick: false, didOpen: function(){ if(typeof Swal!=='undefined') Swal.showLoading(); } });
+            showLoading_('กำลังก๊อปปี้... ⏳');
             callAPI('duplicateQuizCard', { data: { id: id }, password: window.quizAdminPw })
                 .then(function(res) {
                     if (res.success) { loadQuizAdminList(); }
@@ -1328,7 +1623,7 @@
         const GRADE_LABELS = { '10': 'GRADE 10 (ม.4)', '11': 'GRADE 11 (ม.5)', '12': 'GRADE 12 (ม.6)' };
 
         window.openGradeQuizHub = function(grade) {
-            fireSwal({ title: 'LOADING QUIZ HUB ⏳', allowOutsideClick: false, didOpen: function() { if(typeof Swal !== 'undefined') Swal.showLoading(); } });
+            showLoading_('LOADING QUIZ HUB ⏳');
             callAPI('getGradeQuizCards', { grade: grade })
                 .then(function(cards) { renderGradeQuizHub(grade, cards); })
                 .catch(function(err) { fireSwal({ icon: 'error', title: 'ERROR', text: err.message }); });
@@ -1368,7 +1663,7 @@
             if (!c.hasPassword) {
                 const newTab = openTabPending_();
                 callAPI('verifyGradeQuizPassword', { data: { id: c.id, password: "" } })
-                    .then(function(res) { if (res.success) { goToTab_(newTab, res.link); } else { closeTab_(newTab); } });
+                    .then(function(res) { if (res.success) { deliverLink_(newTab, res.link, c.name); } else { closeTab_(newTab); } });
                 return;
             }
             const result = await fireSwal({
@@ -1383,7 +1678,7 @@
                 const newTab = openTabPending_();
                 callAPI('verifyGradeQuizPassword', { data: { id: c.id, password: result.value } })
                     .then(function(res) {
-                        if (res.success) { goToTab_(newTab, res.link); }
+                        if (res.success) { deliverLink_(newTab, res.link, c.name); }
                         else { closeTab_(newTab); fireSwal({ icon: 'error', title: 'ACCESS DENIED', text: res.message, buttonsStyling: false,
                             customClass: { popup: popupClass_(null, '2rem'), confirmButton: 'bg-black text-white font-black py-2 px-6 rounded-xl border-4 border-black mt-4' } }); }
                     });
@@ -1410,7 +1705,7 @@
         };
 
         function loadGradeQuizAdminList(grade) {
-            fireSwal({ title: 'LOADING... ⏳', allowOutsideClick: false, didOpen: function() { if(typeof Swal !== 'undefined') Swal.showLoading(); } });
+            showLoading_('LOADING... ⏳');
             callAPI('getGradeQuizCardsAdmin', { grade: grade, password: window.gradeQuizAdminPw })
                 .then(function(cards) {
                     if (isAuthError(cards)) { fireSwal({ icon: 'error', title: 'ERROR', text: cards.message }); return; }
@@ -1487,7 +1782,7 @@
                 }
             }).then(function(result) {
                 if (result.isConfirmed) {
-                    fireSwal({ title: 'SAVING... ⏳', allowOutsideClick: false, didOpen: function(){ if(typeof Swal!=='undefined') Swal.showLoading(); } });
+                    showLoading_('SAVING... ⏳');
                     callAPI('saveGradeQuizCard', { data: result.value, password: window.gradeQuizAdminPw })
                         .then(function(res) {
                             if (res.success) { loadGradeQuizAdminList(grade); }
@@ -1518,7 +1813,7 @@
             if (target < 0 || target >= cards.length) return;
             const cardA = cards[index];
             const cardB = cards[target];
-            fireSwal({ title: 'กำลังเรียง... ⏳', allowOutsideClick: false, didOpen: function(){ if(typeof Swal!=='undefined') Swal.showLoading(); } });
+            showLoading_('กำลังเรียง... ⏳');
             callAPI('swapGradeQuizOrder', { data: { idA: cardA.id, idB: cardB.id }, password: window.gradeQuizAdminPw })
                 .then(function(res) {
                     if (res.success) { loadGradeQuizAdminList(grade); }
@@ -1528,7 +1823,7 @@
         };
 
         window.duplicateGradeQuiz = function(grade, id) {
-            fireSwal({ title: 'กำลังก๊อปปี้... ⏳', allowOutsideClick: false, didOpen: function(){ if(typeof Swal!=='undefined') Swal.showLoading(); } });
+            showLoading_('กำลังก๊อปปี้... ⏳');
             callAPI('duplicateGradeQuizCard', { data: { id: id }, password: window.gradeQuizAdminPw })
                 .then(function(res) {
                     if (res.success) { loadGradeQuizAdminList(grade); }
@@ -1611,13 +1906,13 @@
                     : '-';
                 const roomDisplay = d.rooms === 'ทุกห้อง' ? '🌐 ทุกห้อง' : '🏫 ม.' + escapeHtml(d.rooms);
 
-                html += '<div class="' + rowBg + ' border-4 border-black ' + borderLeft + ' rounded-2xl px-4 py-3 shadow-[4px_4px_0_0_rgba(0,0,0,1)] flex items-center gap-3 flex-wrap md:flex-nowrap">';
+                html += '<div class="quest-entry ' + rowBg + ' border-4 border-black ' + borderLeft + ' rounded-2xl px-4 py-3 shadow-[4px_4px_0_0_rgba(0,0,0,1)] flex items-center gap-3 flex-wrap md:flex-nowrap">';
                 html += '<div class="bg-white border-black rounded-xl px-3 py-2 text-center flex-shrink-0 border-2 shadow-[2px_2px_0_0_rgba(0,0,0,1)] min-w-[64px]">';
                 html += '<p class="text-xs font-black text-gray-500 leading-none">' + (dueDate ? dueDate.toLocaleDateString('th-TH', { month: 'short' }) : '-') + '</p>';
                 html += '<p class="text-2xl font-black text-black leading-tight">' + (dueDate ? dueDate.getDate() : '-') + '</p>';
                 html += '</div>';
                 html += '<div class="flex-1 min-w-0">';
-                html += '<p class="font-black text-black text-base leading-tight">' + escapeHtml(d.title) + '</p>';
+                html += '<p class="font-black text-black text-base leading-tight"><span class="quest-marker">▸</span>' + escapeHtml(d.title) + '</p>';
                 if (d.description && d.description.trim()) {
                     html += '<p class="text-xs font-bold text-gray-500 mt-0.5 truncate">' + escapeHtml(d.description) + '</p>';
                 }
@@ -1658,7 +1953,7 @@
         };
 
         function loadDeadlineAdminList() {
-            fireSwal({ title: 'LOADING... ⏳', allowOutsideClick: false, didOpen: function() { if(typeof Swal!=='undefined') Swal.showLoading(); } });
+            showLoading_('LOADING... ⏳');
             callAPI('getAllDeadlines', { password: window.deadlineAdminPw })
                 .then(function(deadlines) {
                     if (isAuthError(deadlines)) { fireSwal({ icon: 'error', title: 'ERROR', text: deadlines.message }); return; }
@@ -1781,7 +2076,7 @@
                 }
             }).then(function(result) {
                 if (result.isConfirmed) {
-                    fireSwal({ title: 'SAVING... ⏳', allowOutsideClick: false, didOpen: function(){ if(typeof Swal!=='undefined') Swal.showLoading(); } });
+                    showLoading_('SAVING... ⏳');
                     callAPI('saveDeadline', { data: result.value, password: window.deadlineAdminPw })
                         .then(function(res) {
                             if (res.success) { loadDeadlineAdminList(); }
@@ -1828,7 +2123,7 @@
                     cancelButton: 'bg-gray-300 hover:bg-gray-200 text-black font-black py-3 px-6 rounded-xl mx-2 border-4 border-black shadow-[4px_4px_0_0_rgba(0,0,0,1)] active:translate-y-1 active:shadow-[0_0_0_0_rgba(0,0,0,1)] transition-all' }
             });
             if (!result.value) return;
-            fireSwal({ title: 'LOADING... ⏳', allowOutsideClick: false, didOpen: function() { if(typeof Swal !== 'undefined') Swal.showLoading(); } });
+            showLoading_('LOADING... ⏳');
             callAPI('getDashboardStats', { password: result.value })
                 .then(function(stats) {
                     if (isAuthError(stats)) {
