@@ -490,13 +490,13 @@
                         <div class="w-16 h-16 bg-white rounded-full border-4 border-black shadow-[4px_4px_0_0_rgba(0,0,0,1)] flex items-center justify-center overflow-hidden p-1">
                             <img src="https://i.postimg.cc/ydtX6mMS/logo.png" alt="School Logo" class="w-full h-full object-contain" onerror="this.style.display='none'">
                         </div>
-                        <span class="px-4 py-1.5 bg-yellow-300 border-4 border-black text-black text-sm font-black tracking-widest rounded-full shadow-[2px_2px_0_0_rgba(0,0,0,1)] animate-pulse">WELCOME 🐣</span>
+                        <span class="px-4 py-1.5 bg-yellow-300 border-4 border-black text-black text-sm font-black tracking-widest rounded-full shadow-[2px_2px_0_0_rgba(0,0,0,1)] animate-pulse">WELCOME 👋 </span>
                     </div>
                     <h1 class="text-5xl md:text-7xl font-black text-black mb-4 drop-shadow-[4px_4px_0_rgba(255,255,255,1)] tracking-wide">
-                        HELLO <span class="text-[#8B4513] animate-pulse drop-shadow-[2px_2px_0_rgba(255,255,255,1)]">HUMAN!</span> 👋
+                        HELLO <span class="text-[#8B4513] animate-pulse drop-shadow-[2px_2px_0_rgba(255,255,255,1)]">HUMAN!</span> 🇬🇧
                     </h1>
                     <div class="inline-block bg-white border-[4px] border-black px-3 py-2 sm:px-6 sm:py-3 rounded-2xl mb-6 shadow-[6px_6px_0_0_rgba(0,0,0,1)] transform -rotate-1 max-w-full">
-                        <h2 class="text-sm sm:text-2xl md:text-3xl font-bold text-black whitespace-nowrap">T.JAKRAPONG SUTTIPRAPA 🇬🇧</h2>
+                        <h2 class="text-sm sm:text-2xl md:text-3xl font-bold text-black whitespace-nowrap">T.JAKRAPONG SUTTIPRAPA 🧑‍🏫</h2>
                     </div>
                     <div class="flex flex-wrap justify-center md:justify-start gap-3">
                         <span class="bg-pink-300 border-4 border-black text-black font-black px-4 py-2 rounded-xl text-sm md:text-base hover:-translate-y-1 transition-transform shadow-[4px_4px_0_0_rgba(0,0,0,1)]">📡 ภาษาต่างประเทศ</span>
@@ -511,7 +511,7 @@
                         <img src="https://i.postimg.cc/pVj2q08J/Chat-GPT-Image-May-23-2026-at-09-32-41-PM.png" onerror="this.src='https://i.postimg.cc/T3mZY2N5/default-avatar.png'" alt="Profile Image" class="w-full h-full object-cover object-top transform group-hover:scale-110 transition-transform duration-500 select-none pointer-events-none" oncontextmenu="return false;" draggable="false">
                     </div>
                     <div class="absolute -top-4 -right-4 bg-yellow-300 border-[4px] border-black text-black font-black px-5 py-2 rounded-full shadow-[6px_6px_0_0_rgba(0,0,0,1)] rotate-12 z-30 text-lg tracking-wider animate-bounce">
-                        I AM OAT! 🎄
+                        I AM OAT!🍁
                     </div>
                 </div>
             </div>
@@ -617,7 +617,7 @@
                 <div class="absolute left-6 -bottom-8 text-[5rem] opacity-25 transform -rotate-12 pointer-events-none z-0">🖊️</div>
                 <div class="flex justify-center mb-4 relative z-10">
                     <h2 class="bg-white border-4 border-black px-6 py-2 rounded-full font-black text-xl text-black shadow-[4px_4px_0_0_rgba(0,0,0,1)] transform rotate-1">
-                        📅 MY SCHEDULE
+                        📅 MY SCHEDULE 🧨
                     </h2>
                 </div>
                 <div class="bg-white border-4 border-black rounded-2xl overflow-hidden shadow-inner flex-grow flex items-start justify-center p-2 cursor-pointer group relative z-10" onclick="window.open('https://i.postimg.cc/JnmbbvN8/Gemini-Generated-Image-5blqtq5blqtq5blq.png', '_blank')">
@@ -631,7 +631,7 @@
                 <div class="absolute right-6 -bottom-8 text-[5rem] opacity-25 transform rotate-12 pointer-events-none z-0">✏️</div>
                 <div class="flex justify-center mb-4 relative z-10">
                     <h2 class="bg-white border-4 border-black px-6 py-2 rounded-full font-black text-xl text-black shadow-[4px_4px_0_0_rgba(0,0,0,1)] transform -rotate-2">
-                        🗓️ ตารางเรียนนักเรียน
+                        🗓️ ตารางเรียนนักเรียน 🏀
                     </h2>
                 </div>
                 <div class="grid grid-cols-4 sm:grid-cols-6 gap-2 mb-3 relative z-10">
@@ -852,11 +852,70 @@
         //   ชั้น 2: ถ้าชั้น 1 ไม่ผ่าน ลองสั่งเปิดตรงๆ อีกที (บางเครื่องยังผ่านตรงนี้ได้)
         //   ชั้น 3: ถ้ายังไม่ได้อีก โชว์ปุ่มลิงก์จริงให้นักเรียนกดเอง — การกดลิงก์ <a> เป็นการเปิดหน้าปกติ
         //           ไม่มีเบราว์เซอร์ไหนบล็อก จึงได้ผล 100% แม้บน iPad รุ่นเก่ามาก (แค่ต้องกดเพิ่มอีก 1 ครั้ง)
-        function openTabPending_() {
+        // ★ หน้าจอ "กำลังเปิดเกม" ที่โผล่ในแท็บใหม่ระหว่างรอเซิร์ฟเวอร์ตอบกลับ
+        // แท็บนี้เป็นเอกสารเปล่าที่แยกจากหน้าเว็บหลักโดยสิ้นเชิง (ใช้ Tailwind/CSS ของหน้าหลักไม่ได้)
+        // จึงต้องเขียน CSS ฝังลงไปทั้งหมดในนี้ และห้ามใช้เครื่องหมาย ' เพราะอยู่ในสตริง JS
+        //
+        // แนวคิด: ทำให้เป็น "ประตูมิติกำลังเปิด" — วงแหวนเรืองแสงหมุนรอบไอคอนเกม
+        // เพราะหน้านี้โผล่แค่ 1-2 วินาที ต้องดูปุ๊บรู้ปั๊บว่าเกิดอะไรขึ้น เอฟเฟกต์ช้าๆ จะไม่ทันเห็น
+        // เก็บความเด่นไว้ที่วงแหวนจุดเดียว ที่เหลือเงียบหมด ไม่ให้แย่งกันเด่น
+        function openTabPending_(name) {
             var tab = null;
             try { tab = window.open('', '_blank'); } catch (e) {}
+            if (!tab) return null;
+            var safeName = escapeHtml(name || '');
+            var doc = '<!DOCTYPE html><html lang="th"><head><meta charset="UTF-8">'
+              + '<meta name="viewport" content="width=device-width,initial-scale=1">'
+              + '<title>กำลังเปิดเกม...</title>'
+              + '<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>'
+              + '<link href="https://fonts.googleapis.com/css2?family=Kanit:wght@400;600;900&display=swap" rel="stylesheet">'
+              + '<style>'
+              + '*{margin:0;padding:0;box-sizing:border-box}'
+              + 'body{min-height:100vh;display:flex;align-items:center;justify-content:center;'
+              + 'padding:32px 24px;text-align:center;color:#fff;overflow:hidden;position:relative;'
+              + 'font-family:Kanit,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;background:#070a18}'
+              // ---- ม่านแสงออโรร่าไล่เคลื่อนช้าๆ อยู่หลังสุด ให้พื้นหลังไม่ตายด้าน ----
+              + 'body:before{content:"";position:fixed;inset:-25%;z-index:0;'
+              + 'background:radial-gradient(circle at 22% 26%,rgba(56,189,248,.30),transparent 46%),'
+              + 'radial-gradient(circle at 78% 28%,rgba(167,139,250,.32),transparent 48%),'
+              + 'radial-gradient(circle at 52% 84%,rgba(244,114,182,.24),transparent 52%);'
+              + 'animation:aurora 13s ease-in-out infinite alternate}'
+              + '@keyframes aurora{from{transform:translate3d(-3%,-2%,0) scale(1)}'
+              + 'to{transform:translate3d(3%,3%,0) scale(1.12)}}'
+              + '.pad{position:relative;z-index:1;width:100%;max-width:340px;display:flex;'
+              + 'flex-direction:column;align-items:center;gap:20px;'
+              + 'animation:enter .6s cubic-bezier(.2,.9,.3,1) both}'
+              + '@keyframes enter{from{opacity:0;transform:translateY(16px) scale(.95)}to{opacity:1;transform:none}}'
+              // ---- ★ ตัวชูโรง: วงแหวนประตูมิติ (ถ้าเบราว์เซอร์เก่าไม่รองรับ conic จะเหลือวงสีทึบ ยังดูดีอยู่) ----
+              + '.portal{position:relative;width:132px;height:132px;flex:0 0 auto}'
+              + '.ring{position:absolute;inset:0;border-radius:50%;background:#6366f1;'
+              + 'background:conic-gradient(from 0deg,#38bdf8,#a78bfa,#f472b6,#fbbf24,#38bdf8);'
+              + 'box-shadow:0 0 46px rgba(129,140,248,.55);animation:spin 2.6s linear infinite}'
+              + '@keyframes spin{to{transform:rotate(360deg)}}'
+              + '.core{position:absolute;inset:7px;border-radius:50%;background:#0b1026;'
+              + 'display:flex;align-items:center;justify-content:center;font-size:3rem;'
+              + 'box-shadow:inset 0 0 26px rgba(0,0,0,.6)}'
+              + '.eyebrow{font-size:.7rem;font-weight:600;letter-spacing:.24em;color:#9fb0f0}'
+              + '.name{font-size:1.4rem;font-weight:900;line-height:1.25;word-break:break-word;'
+              + 'text-shadow:0 0 26px rgba(167,139,250,.6)}'
+              + '.hint{font-size:.82rem;font-weight:400;color:#a9b6e8}'
+              + '.dot{display:inline-block;animation:blink 1.3s infinite}'
+              + '.dot:nth-child(2){animation-delay:.18s}.dot:nth-child(3){animation-delay:.36s}'
+              + '@keyframes blink{0%,80%,100%{opacity:.25}40%{opacity:1}}'
+              + '.brand{font-size:.66rem;font-weight:600;letter-spacing:.22em;color:#b4bdea}'
+              + '@media(prefers-reduced-motion:reduce){'
+              + 'body:before,.ring,.pad,.dot{animation:none}.pad{opacity:1;transform:none}}'
+              + '</style></head><body><div class="pad">'
+              + '<div class="portal"><div class="ring"></div><div class="core">🎮</div></div>'
+              + '<div class="eyebrow">กำลังเปิดเกม</div>'
+              + (safeName ? '<div class="name">' + safeName + '</div>' : '')
+              + '<div class="hint">รอสักครู่นะ กำลังพาไปหน้าเกม'
+              + '<span class="dot">.</span><span class="dot">.</span><span class="dot">.</span></div>'
+              + '<div class="brand">KRU OAT</div>'
+              + '</div></body></html>';
             try {
-                if (tab) { tab.document.write('<html><head><title>กำลังโหลด...</title></head><body style="margin:0;height:100vh;display:flex;align-items:center;justify-content:center;font-family:sans-serif;background:#000;color:#fff;font-size:1.2rem;"><p>⏳ กำลังโหลด...</p></body></html>'); }
+                tab.document.write(doc);
+                tab.document.close();
             } catch (e) {}
             return tab;
         }
@@ -1468,7 +1527,7 @@
             const c = window.quizCardData[index];
             if (!c) return;
             if (!c.hasPassword) {
-                const newTab = openTabPending_();
+                const newTab = openTabPending_(c.name);
                 callAPI('verifyQuizPassword', { data: { id: c.id, password: "" } })
                     .then(function(res) { if (res.success) { deliverLink_(newTab, res.link, c.name); } else { closeTab_(newTab); } });
                 return;
@@ -1482,7 +1541,7 @@
                     cancelButton: 'bg-gray-300 hover:bg-gray-200 text-black font-black py-3 px-6 rounded-xl mx-2 border-4 border-black shadow-[4px_4px_0_0_rgba(0,0,0,1)] active:translate-y-1 active:shadow-[0_0_0_0_rgba(0,0,0,1)] transition-all' }
             });
             if (result.value) {
-                const newTab = openTabPending_();
+                const newTab = openTabPending_(c.name);
                 callAPI('verifyQuizPassword', { data: { id: c.id, password: result.value } })
                     .then(function(res) {
                         if (res.success) { deliverLink_(newTab, res.link, c.name); }
@@ -1686,7 +1745,7 @@
             const c = window.gradeQuizCardData[index];
             if (!c) return;
             if (!c.hasPassword) {
-                const newTab = openTabPending_();
+                const newTab = openTabPending_(c.name);
                 callAPI('verifyGradeQuizPassword', { data: { id: c.id, password: "" } })
                     .then(function(res) { if (res.success) { deliverLink_(newTab, res.link, c.name); } else { closeTab_(newTab); } });
                 return;
@@ -1700,7 +1759,7 @@
                     cancelButton: 'bg-gray-300 hover:bg-gray-200 text-black font-black py-3 px-6 rounded-xl mx-2 border-4 border-black shadow-[4px_4px_0_0_rgba(0,0,0,1)] active:translate-y-1 active:shadow-[0_0_0_0_rgba(0,0,0,1)] transition-all' }
             });
             if (result.value) {
-                const newTab = openTabPending_();
+                const newTab = openTabPending_(c.name);
                 callAPI('verifyGradeQuizPassword', { data: { id: c.id, password: result.value } })
                     .then(function(res) {
                         if (res.success) { deliverLink_(newTab, res.link, c.name); }
