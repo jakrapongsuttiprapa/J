@@ -212,6 +212,53 @@
             pointer-events: none;
             z-index: 0;
         }
+        /* ---- อีโมจิตกแต่งขนาดใหญ่ให้มีชีวิตขึ้น ----
+           เดิมนิ่งสนิททั้งหมด (มีแค่ 🛸 ตัวเดียวที่ขยับ) ตอนนี้แต่ละตัวเลือกท่าตามความหมายของตัวเอง
+           ไม่ใช้ท่าเดียวกันทุกตัว เพราะจะดูซ้ำซากไม่เป็นธรรมชาติ
+           ★ sway-pos/neg คงมุมเอียงเดิม (+12deg / -12deg) ไว้เป็นจุดศูนย์กลางการแกว่ง ไม่ใช่เริ่มจาก 0
+             เพราะถ้าไม่ทำแบบนี้ transform จาก animation จะไปทับมุมเอียงเดิมที่ตั้งไว้ผ่าน class ให้หายไปเลย */
+        @keyframes decoSwayPos {
+            0%, 100% { transform: rotate(12deg); }
+            50%      { transform: rotate(19deg); }
+        }
+        @keyframes decoSwayNeg {
+            0%, 100% { transform: rotate(-12deg); }
+            50%      { transform: rotate(-19deg); }
+        }
+        .deco-sway-pos { animation: decoSwayPos 5s ease-in-out infinite; }
+        .deco-sway-neg { animation: decoSwayNeg 5.6s ease-in-out infinite; }
+
+        /* ---- 🎡 ชิงช้าสวรรค์ — หมุนวนช้าๆ ต่อเนื่อง เพราะของจริงมันหมุนอยู่แล้ว ---- */
+        @keyframes decoSpin {
+            from { transform: rotate(0deg); }
+            to   { transform: rotate(360deg); }
+        }
+        .deco-spin { animation: decoSpin 22s linear infinite; }
+
+        /* ---- 🎲 🧨  ลูกเต๋า — โยกแบบสั่นๆ เหมือนกำลังจะทอย ไม่ใช่แกว่งนุ่มๆ แบบตัวอื่น ---- */
+        @keyframes decoDiceRoll {
+            0%, 100% { transform: rotate(-12deg); }
+            20%      { transform: rotate(-22deg); }
+            40%      { transform: rotate(-2deg); }
+            60%      { transform: rotate(-18deg); }
+            80%      { transform: rotate(-6deg); }
+        }
+        .deco-dice-roll { animation: decoDiceRoll 3.2s ease-in-out infinite; }
+
+        /* ---- 🚨 สัญญาณเตือน — เต้นเข้า/ออกพร้อมแสงแดงกระพริบเบาๆ แบบไฟไซเรน ---- */
+        @keyframes decoPulseAlert {
+            0%, 100% { transform: rotate(-12deg) scale(1); filter: drop-shadow(0 0 0 rgba(239,68,68,0)); }
+            50%      { transform: rotate(-12deg) scale(1.12); filter: drop-shadow(0 0 14px rgba(239,68,68,0.55)); }
+        }
+        .deco-pulse-alert { animation: decoPulseAlert 1.7s ease-in-out infinite; }
+
+        /* ---- ป้ายตัวเลขแจ้งเตือนบนไอคอน 📅 — เต้นเบาๆ แบบ badge แจ้งเตือนทั่วไป ไม่มีมุมเอียงติดมาด้วย ---- */
+        @keyframes badgePulse {
+            0%, 100% { transform: scale(1); }
+            50%      { transform: scale(1.12); }
+        }
+        .badge-pulse { animation: badgePulse 1.7s ease-in-out infinite; }
+
         @keyframes bounceUp {
             0% { opacity: 0; transform: translateY(60px) scale(0.9); }
             60% { opacity: 1; transform: translateY(-10px) scale(1.02); }
@@ -254,6 +301,23 @@
         .arcade-card-wrap:hover {
             transform: translateY(-8px);
             box-shadow: 14px 14px 0 0 rgba(0,0,0,1);
+        }
+        /* ---- แสงเรืองรอบการ์ดเกม 4 ใบ — สีตรงกับไล่สีพื้นหลังของการ์ดนั้นเอง ----
+           ต่อยอดจากเงาดำแบบ hard-offset เดิม ไม่ได้แทนที่ เพิ่มชั้นแสงนวลๆ สีเข้าไปเสริมเฉยๆ
+           จึงยังคงลุค "การ์ดคอมิก ขอบดำ เงาทึบ" เดิมไว้ครบ แค่มีสีสันฟุ้งรอบตัวเพิ่มขึ้น */
+        .glow-purple { box-shadow: 10px 10px 0 0 rgba(0,0,0,1), 0 0 46px rgba(224,64,251,0.45); }
+        .glow-purple:hover { box-shadow: 14px 14px 0 0 rgba(0,0,0,1), 0 0 60px rgba(224,64,251,0.6); }
+        .glow-blue { box-shadow: 10px 10px 0 0 rgba(0,0,0,1), 0 0 46px rgba(124,77,255,0.45); }
+        .glow-blue:hover { box-shadow: 14px 14px 0 0 rgba(0,0,0,1), 0 0 60px rgba(124,77,255,0.6); }
+        .glow-teal { box-shadow: 10px 10px 0 0 rgba(0,0,0,1), 0 0 46px rgba(6,182,212,0.4); }
+        .glow-teal:hover { box-shadow: 14px 14px 0 0 rgba(0,0,0,1), 0 0 60px rgba(6,182,212,0.55); }
+        .glow-orange { box-shadow: 10px 10px 0 0 rgba(0,0,0,1), 0 0 46px rgba(255,111,0,0.45); }
+        .glow-orange:hover { box-shadow: 14px 14px 0 0 rgba(0,0,0,1), 0 0 60px rgba(255,111,0,0.6); }
+
+        /* ---- แสงเรืองอำพันรอบการ์ด HERO — โทนอุ่นตามภาพพื้นหลัง (ทอง/น้ำตาล) ---- */
+        .hero-glow { box-shadow: 8px 8px 0 0 rgba(0,0,0,1), 0 0 50px rgba(251,191,36,0.35); }
+        @media (min-width: 768px) {
+            .hero-glow { box-shadow: 12px 12px 0 0 rgba(0,0,0,1), 0 0 65px rgba(251,191,36,0.4); }
         }
         .arcade-badge {
             background: #fff;
@@ -445,6 +509,8 @@
             .starfield { animation: none; }
             .marquee-lights { animation: none; }
             .pixel-bar-fill { animation: none; width: 100%; }
+            .deco-sway-pos, .deco-sway-neg, .deco-spin,
+            .deco-dice-roll, .deco-pulse-alert, .badge-pulse { animation: none; }
             .animate-bounce-up,
             .animate-float,
             .animate-bounce,
@@ -480,9 +546,9 @@
     <div class="max-w-7xl mx-auto px-3 md:px-4 mt-2 md:mt-8 relative z-10">
 
         <!-- 1. HERO -->
-        <div class="bg-[url('https://i.postimg.cc/L6QjDb2M/Chat-GPT-Image-May-23-2026-at-07-30-52-PM.png')] bg-cover bg-center border-[6px] border-black rounded-[2rem] md:rounded-[3rem] p-5 pt-20 md:p-10 mb-6 md:mb-8 relative group hover:-translate-y-2 transition-transform duration-300 animate-bounce-up delay-100 shadow-[8px_8px_0_0_rgba(0,0,0,1)] md:shadow-[12px_12px_0_0_rgba(0,0,0,1)] overflow-hidden ai-border ai-nodes">
+        <div class="bg-[url('https://i.postimg.cc/L6QjDb2M/Chat-GPT-Image-May-23-2026-at-07-30-52-PM.png')] bg-cover bg-center border-[6px] border-black rounded-[2rem] md:rounded-[3rem] p-5 pt-20 md:p-10 mb-6 md:mb-8 relative group hover:-translate-y-2 transition-transform duration-300 animate-bounce-up delay-100 hero-glow overflow-hidden ai-border ai-nodes">
             <div class="marquee-lights" aria-hidden="true"></div>
-            <div class="absolute -right-4 -top-4 text-[8rem] opacity-20 transform rotate-12 pointer-events-none z-0"> 🇬🇧 🇹🇭 </div>
+            <div class="absolute -right-4 -top-4 text-[8rem] opacity-20 transform rotate-12 pointer-events-none z-0 deco-sway-pos">🇬🇧 🇹🇭 🇬🇧 🇹🇭 </div>
             <div class="absolute left-10 -bottom-10 text-[6rem] opacity-30 transform -rotate-12 pointer-events-none animate-float z-0">🛸</div>
             <div class="relative z-10 flex flex-col md:flex-row items-center justify-between gap-8">
                 <div class="flex-1 text-center md:text-left">
@@ -496,7 +562,7 @@
                         HELLO <span class="text-[#8B4513] animate-pulse drop-shadow-[2px_2px_0_rgba(255,255,255,1)]">HUMAN!</span> 👋
                     </h1>
                     <div class="inline-block bg-white border-[4px] border-black px-3 py-2 sm:px-6 sm:py-3 rounded-2xl mb-6 shadow-[6px_6px_0_0_rgba(0,0,0,1)] transform -rotate-1 max-w-full">
-                        <h2 class="text-sm sm:text-2xl md:text-3xl font-bold text-black whitespace-nowrap">T.JAKRAPONG SUTTIPRAPA 🧑‍🏫 </h2>
+                        <h2 class="text-sm sm:text-2xl md:text-3xl font-bold text-black whitespace-nowrap">T.JAKRAPONG SUTTIPRAPA 🧑‍🏫</h2>
                     </div>
                     <div class="flex flex-wrap justify-center md:justify-start gap-3">
                         <span class="bg-pink-300 border-4 border-black text-black font-black px-4 py-2 rounded-xl text-sm md:text-base hover:-translate-y-1 transition-transform shadow-[4px_4px_0_0_rgba(0,0,0,1)]">📡 ภาษาต่างประเทศ</span>
@@ -511,7 +577,7 @@
                         <img src="https://i.postimg.cc/pVj2q08J/Chat-GPT-Image-May-23-2026-at-09-32-41-PM.png" onerror="this.src='https://i.postimg.cc/T3mZY2N5/default-avatar.png'" alt="Profile Image" class="w-full h-full object-cover object-top transform group-hover:scale-110 transition-transform duration-500 select-none pointer-events-none" oncontextmenu="return false;" draggable="false">
                     </div>
                     <div class="absolute -top-4 -right-4 bg-yellow-300 border-[4px] border-black text-black font-black px-5 py-2 rounded-full shadow-[6px_6px_0_0_rgba(0,0,0,1)] rotate-12 z-30 text-lg tracking-wider animate-bounce">
-                        I AM OAT! 🇬🇧🍁🇹🇭
+                        I AM OAT! 🇹🇭 🇬🇧 
                     </div>
                 </div>
             </div>
@@ -521,11 +587,14 @@
 <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-6">
             
             <div class="bg-[#fbbf24] pat-grid border-[6px] border-black rounded-[3rem] p-6 shadow-[12px_12px_0_0_rgba(0,0,0,1)] hover:-translate-y-1 transition-transform relative overflow-hidden animate-bounce-up delay-400 ai-border ai-nodes flex flex-col h-full">
-                <div class="absolute -right-6 -bottom-4 text-[9rem] opacity-25 transform rotate-12 pointer-events-none z-0">⏰</div>
+                <div class="absolute -right-6 -bottom-4 text-[9rem] opacity-25 transform rotate-12 pointer-events-none z-0 deco-sway-pos">⏰</div>
                 <div class="relative z-10 flex flex-col h-full">
                     <div class="flex items-center justify-between mb-5 flex-wrap gap-3">
                         <div class="flex items-center gap-3">
-                            <div class="bg-white p-3 rounded-2xl border-4 border-black shadow-[4px_4px_0_0_rgba(0,0,0,1)] text-2xl transform -rotate-3">📅</div>
+                            <div class="relative bg-white p-3 rounded-2xl border-4 border-black shadow-[4px_4px_0_0_rgba(0,0,0,1)] text-2xl transform -rotate-3">
+                                📅
+                                <span id="deadlineUrgentBadge" class="hidden absolute -top-2 -right-2 bg-red-600 text-white text-[11px] font-black min-w-[22px] h-[22px] px-1 rounded-full border-2 border-black shadow-[2px_2px_0_0_rgba(0,0,0,1)] flex items-center justify-center badge-pulse"></span>
+                            </div>
                             <div>
                                 <h2 class="text-2xl md:text-3xl font-black text-black uppercase tracking-widest drop-shadow-[2px_2px_0_rgba(255,255,255,1)]">DEADLINE</h2>
                                 <p class="text-black font-black text-[10px] tracking-widest uppercase bg-amber-400 px-3 py-1 rounded-full border-2 border-black inline-block mt-1 shadow-[2px_2px_0_0_rgba(0,0,0,1)]">กำหนดส่งงาน</p>
@@ -544,19 +613,19 @@
             </div>
 
             <div class="bg-[#5ee7f2] pat-dots border-[6px] border-black rounded-[3rem] p-6 shadow-[12px_12px_0_0_rgba(0,0,0,1)] hover:-translate-y-1 transition-transform relative overflow-hidden animate-bounce-up delay-400 ai-border ai-nodes flex flex-col justify-center items-center text-center h-full group">
-                <div class="absolute -left-6 -top-6 text-[8rem] opacity-30 transform -rotate-12 pointer-events-none z-0 group-hover:rotate-12 transition-transform duration-500">🎲</div>
-                <div class="absolute -right-10 -bottom-10 text-[10rem] opacity-20 transform rotate-12 pointer-events-none z-0 group-hover:-rotate-12 transition-transform duration-500">🎡</div>
+                <div class="absolute -left-6 -top-6 text-[8rem] opacity-30 transform -rotate-12 pointer-events-none z-0 deco-dice-roll">🎲</div>
+                <div class="absolute -right-10 -bottom-10 text-[10rem] opacity-20 transform rotate-12 pointer-events-none z-0 deco-spin">🎡</div>
                 
                 <div class="relative z-10 flex flex-col items-center mb-6 mt-4">
                    <div class="bg-white p-5 md:p-6 rounded-3xl border-4 border-black shadow-[6px_6px_0_0_rgba(0,0,0,1)] text-5xl md:text-7xl transform rotate-6 mb-5">
-                        🎳
+                        🎯
                     </div>
                    <h2 class="text-3xl md:text-6xl font-black text-black uppercase tracking-widest drop-shadow-[2px_2px_0_rgba(255,255,255,1)]">RANDOMIZER</h2>
                    <p class="text-black font-black text-xs md:text-base tracking-widest uppercase bg-[#22d3ee] px-4 md:px-5 py-1.5 md:py-2 rounded-full border-2 border-black inline-block mt-2 shadow-[2px_2px_0_0_rgba(0,0,0,1)]">ระบบสุ่มชื่อนักเรียน</p>
                 </div>
                 
                 <a href="https://random.mynameisoat.com" target="_blank" class="w-full bg-[#fde047] border-4 border-black text-black font-black text-xl md:text-2xl py-4 md:py-5 px-6 rounded-2xl hover:bg-yellow-300 active:translate-y-1 active:shadow-[0_0_0_0_rgba(0,0,0,1)] shadow-[6px_6px_0_0_rgba(0,0,0,1)] transition-all flex items-center justify-center gap-2 relative z-10 uppercase tracking-widest mt-auto">
-                    <span>LET'S GO</span> <span class="group-hover:translate-x-1 transition-transform text-2xl">🎰</span>
+                    <span>LET'S GO</span> <span class="group-hover:translate-x-1 transition-transform text-2xl">🚀</span>
                 </a>
             </div>
 
@@ -568,7 +637,7 @@
                     <h2 class="bg-white border-4 border-black px-6 py-2 rounded-full font-black text-xl md:text-2xl text-black shadow-[4px_4px_0_0_rgba(0,0,0,1)] inline-block transform rotate-2">
                         🥇 SCORE STUDENTS 🏅
                     </h2>
-                    <p class="text-xs md:text-sm font-bold text-gray-600 mt-2"> Click - เลือกห้องเพื่อดูคะแนนตนเอง! 🪇</p>
+                    <p class="text-xs md:text-sm font-bold text-gray-600 mt-2"> Click - เลือกห้องเพื่อดูคะแนนตนเอง!</p>
                 </div>
                 <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 gap-3 md:gap-4 z-10 relative">
                     <button onclick="checkMissionPassword('4/1')" style="background: radial-gradient(circle, rgba(255,255,255,0.35) 1.5px, transparent 1.5px) 0 0/14px 14px, linear-gradient(145deg, #fdba74 0%, #f97316 100%);" class="border-4 border-black p-3 rounded-xl hover:-translate-y-1 hover:rotate-1 active:translate-y-1 active:shadow-[0_0_0_0_rgba(0,0,0,1)] shadow-[4px_4px_0_0_rgba(0,0,0,1)] transition-all flex items-center justify-between group">
@@ -613,11 +682,11 @@
         <!-- 3. ตารางสอน (ครู) + ตารางเรียนนักเรียน (เดิมเป็นฟอร์มคุยกับครู เปลี่ยนเป็นตารางเรียนตามที่ครูสั่ง) -->
         <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-6">
             <div class="bg-[#7dd3fc] pat-grid border-[6px] border-black rounded-[2.5rem] p-5 shadow-[10px_10px_0_0_rgba(0,0,0,1)] flex flex-col animate-bounce-up delay-300 hover:-translate-y-1 transition-transform overflow-hidden ai-border ai-nodes relative">
-                <div class="absolute -right-6 -top-6 text-[7rem] opacity-20 transform rotate-12 pointer-events-none z-0">📚</div>
-                <div class="absolute left-6 -bottom-8 text-[5rem] opacity-25 transform -rotate-12 pointer-events-none z-0">🖊️</div>
+                <div class="absolute -right-6 -top-6 text-[7rem] opacity-20 transform rotate-12 pointer-events-none z-0 deco-sway-pos">📚</div>
+                <div class="absolute left-6 -bottom-8 text-[5rem] opacity-25 transform -rotate-12 pointer-events-none z-0 deco-sway-neg">🖊️</div>
                 <div class="flex justify-center mb-4 relative z-10">
                     <h2 class="bg-white border-4 border-black px-6 py-2 rounded-full font-black text-xl text-black shadow-[4px_4px_0_0_rgba(0,0,0,1)] transform rotate-1">
-                        📅 MY SCHEDULE
+                        📅 MY SCHEDULE 🏀 
                     </h2>
                 </div>
                 <div class="bg-white border-4 border-black rounded-2xl overflow-hidden shadow-inner flex-grow flex items-start justify-center p-2 cursor-pointer group relative z-10" onclick="window.open('https://i.postimg.cc/JnmbbvN8/Gemini-Generated-Image-5blqtq5blqtq5blq.png', '_blank')">
@@ -627,11 +696,11 @@
             </div>
 
             <div class="bg-[#fce96a] pat-grid border-[6px] border-black rounded-[2.5rem] p-5 shadow-[10px_10px_0_0_rgba(0,0,0,1)] flex flex-col animate-bounce-up delay-300 hover:-translate-y-1 transition-transform overflow-hidden ai-border ai-nodes relative">
-                <div class="absolute -left-6 -top-6 text-[7rem] opacity-20 transform -rotate-12 pointer-events-none z-0">🎒</div>
-                <div class="absolute right-6 -bottom-8 text-[5rem] opacity-25 transform rotate-12 pointer-events-none z-0">✏️</div>
+                <div class="absolute -left-6 -top-6 text-[7rem] opacity-20 transform -rotate-12 pointer-events-none z-0 deco-sway-neg">🎒</div>
+                <div class="absolute right-6 -bottom-8 text-[5rem] opacity-25 transform rotate-12 pointer-events-none z-0 deco-sway-pos">✏️</div>
                 <div class="flex justify-center mb-4 relative z-10">
                     <h2 class="bg-white border-4 border-black px-6 py-2 rounded-full font-black text-xl text-black shadow-[4px_4px_0_0_rgba(0,0,0,1)] transform -rotate-2">
-                        🗓️ ตารางเรียนนักเรียน
+                        🗓️ ตารางเรียนนักเรียน 🎳 
                     </h2>
                 </div>
                 <div class="grid grid-cols-4 sm:grid-cols-6 gap-2 mb-3 relative z-10">
@@ -660,7 +729,7 @@
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-6">
 
             <!-- การ์ด 1: Quiz Grade 10 (เดิม Part of Speech) -->
-            <div class="arcade-card-wrap animate-bounce-up delay-300" style="background: linear-gradient(145deg, #b06fff 0%, #e040fb 100%);">
+            <div class="arcade-card-wrap glow-purple animate-bounce-up delay-300" style="background: linear-gradient(145deg, #b06fff 0%, #e040fb 100%);">
                 <div class="arcade-deco" style="top:-14px;left:-10px;transform:rotate(-15deg);">👾</div>
                 <div class="arcade-deco" style="bottom:-16px;right:-8px;transform:rotate(15deg);">🎮</div>
                 <div style="position:relative;z-index:2;display:flex;flex-direction:column;align-items:center;width:100%;flex:1;justify-content:space-between;">
@@ -676,7 +745,7 @@
             </div>
 
             <!-- การ์ด 2: Quiz Grade 11 (เดิม Secret Stage) -->
-            <div class="arcade-card-wrap animate-bounce-up delay-300" style="background: linear-gradient(145deg, #29b6f6 0%, #7c4dff 100%);">
+            <div class="arcade-card-wrap glow-blue animate-bounce-up delay-300" style="background: linear-gradient(145deg, #29b6f6 0%, #7c4dff 100%);">
                 <div class="arcade-deco" style="top:-14px;left:-10px;transform:rotate(-15deg);">🚀</div>
                 <div class="arcade-deco" style="bottom:-16px;right:-8px;transform:rotate(15deg);">🌟</div>
                 <div style="position:relative;z-index:2;display:flex;flex-direction:column;align-items:center;width:100%;flex:1;justify-content:space-between;">
@@ -692,7 +761,7 @@
             </div>
 
             <!-- การ์ด 3: Quiz Grade 12 (เดิม English Quest M.6) -->
-            <div class="arcade-card-wrap animate-bounce-up delay-300" style="background: linear-gradient(145deg, #1a237e 0%, #006064 100%);">
+            <div class="arcade-card-wrap glow-teal animate-bounce-up delay-300" style="background: linear-gradient(145deg, #1a237e 0%, #006064 100%);">
                 <div class="arcade-deco" style="top:-14px;left:-10px;transform:rotate(-15deg);">📜</div>
                 <div class="arcade-deco" style="bottom:-16px;right:-8px;transform:rotate(15deg);">⚔️</div>
                 <div style="position:relative;z-index:2;display:flex;flex-direction:column;align-items:center;width:100%;flex:1;justify-content:space-between;">
@@ -708,7 +777,7 @@
             </div>
 
             <!-- การ์ด 4: Game Quizz (ไม่แก้ไข ไม่ปรับ) -->
-            <div class="arcade-card-wrap animate-bounce-up delay-300" style="background: linear-gradient(145deg, #ff6f00 0%, #f50057 100%);">
+            <div class="arcade-card-wrap glow-orange animate-bounce-up delay-300" style="background: linear-gradient(145deg, #ff6f00 0%, #f50057 100%);">
                 <div class="arcade-deco" style="top:-14px;left:-10px;transform:rotate(-15deg);">❓</div>
                 <div class="arcade-deco" style="bottom:-16px;right:-8px;transform:rotate(15deg);">🧩</div>
                 <div style="position:relative;z-index:2;display:flex;flex-direction:column;align-items:center;width:100%;flex:1;justify-content:space-between;">
@@ -727,7 +796,7 @@
  
         <!-- เอกสาร/ใบงาน -->
         <div class="w-full bg-[#7fb3fb] hazard-panel border-[6px] border-black rounded-[3rem] p-6 md:p-10 shadow-[12px_12px_0_0_rgba(0,0,0,1)] mb-6 flex flex-col md:flex-row items-center justify-between gap-6 hover:-translate-y-1 transition-transform relative overflow-hidden animate-bounce-up delay-400 ai-border ai-nodes">
-            <div class="absolute -left-6 -top-6 text-[8rem] opacity-30 transform rotate-12 pointer-events-none z-0">📁</div>
+            <div class="absolute -left-6 -top-6 text-[8rem] opacity-30 transform rotate-12 pointer-events-none z-0 deco-sway-pos">📁</div>
             <div class="flex items-center gap-6 relative z-10 text-center md:text-left flex-col md:flex-row w-full md:w-auto">
                 <div class="bg-white p-5 rounded-3xl border-4 border-black shadow-[6px_6px_0_0_rgba(0,0,0,1)] text-4xl transform -rotate-3">🗂️</div>
                 <div>
@@ -742,7 +811,7 @@
 
         <!-- ตรวจ ร/มส -->
         <div class="w-full bg-[#fb9090] hazard-panel border-[6px] border-black rounded-[3rem] p-6 md:p-10 shadow-[12px_12px_0_0_rgba(0,0,0,1)] mb-6 flex flex-col md:flex-row items-center justify-between gap-6 hover:-translate-y-1 transition-transform relative overflow-hidden animate-bounce-up delay-400 ai-border ai-nodes">
-            <div class="absolute -right-4 -bottom-4 text-[8rem] opacity-30 transform -rotate-12 pointer-events-none z-0">🚨</div>
+            <div class="absolute -right-4 -bottom-4 text-[8rem] opacity-30 transform -rotate-12 pointer-events-none z-0 deco-pulse-alert">🚨</div>
             <div class="flex items-center gap-6 relative z-10 text-center md:text-left flex-col md:flex-row w-full md:w-auto">
                 <div class="bg-white p-5 rounded-3xl border-4 border-black shadow-[6px_6px_0_0_rgba(0,0,0,1)] text-4xl transform rotate-3">⚠️</div>
                 <div>
@@ -757,7 +826,7 @@
 
         <!-- CENTRAL DB -->
         <div class="w-full bg-[#c79bfd] hazard-panel border-[6px] border-black rounded-[3rem] p-6 md:p-10 shadow-[12px_12px_0_0_rgba(0,0,0,1)] mb-6 flex flex-col md:flex-row items-center justify-between gap-6 hover:-translate-y-1 transition-transform relative overflow-hidden animate-bounce-up delay-400 ai-border ai-nodes">
-            <div class="absolute left-1/2 -top-10 text-[8rem] opacity-30 transform rotate-12 pointer-events-none z-0">💯</div>
+            <div class="absolute left-1/2 -top-10 text-[8rem] opacity-30 transform rotate-12 pointer-events-none z-0 deco-sway-pos">💯</div>
             <div class="flex items-center gap-6 relative z-10 text-center md:text-left flex-col md:flex-row w-full md:w-auto">
                 <div class="bg-white p-5 rounded-3xl border-4 border-black shadow-[6px_6px_0_0_rgba(0,0,0,1)] text-4xl transform -rotate-6">📊</div>
                 <div>
@@ -773,7 +842,7 @@
         <!-- ตรวจระเบียบ & E-Portfolio -->
         <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
             <div class="bg-[#6ee7b7] pat-dots border-[6px] border-black rounded-[3rem] p-6 md:p-8 shadow-[12px_12px_0_0_rgba(0,0,0,1)] flex flex-col justify-between hover:-translate-y-1 transition-transform relative overflow-hidden animate-bounce-up delay-400 ai-border ai-nodes group">
-                <div class="absolute -right-4 -bottom-4 text-[8rem] opacity-30 transform -rotate-12 pointer-events-none z-0 group-hover:rotate-12 transition-transform duration-500">👕</div>
+                <div class="absolute -right-4 -bottom-4 text-[8rem] opacity-30 transform -rotate-12 pointer-events-none z-0 deco-sway-neg">👕</div>
                 <div class="relative z-10 flex items-center gap-4 mb-6">
                     <div class="bg-white p-4 rounded-3xl border-4 border-black shadow-[4px_4px_0_0_rgba(0,0,0,1)] text-4xl transform -rotate-3">👗</div>
                     <div>
@@ -787,7 +856,7 @@
             </div>
 
             <div class="bg-[#fda85a] pat-dots border-[6px] border-black rounded-[3rem] p-6 md:p-8 shadow-[12px_12px_0_0_rgba(0,0,0,1)] flex flex-col justify-between hover:-translate-y-1 transition-transform relative overflow-hidden animate-bounce-up delay-400 ai-border ai-nodes group">
-                <div class="absolute -left-6 -top-6 text-[8rem] opacity-30 transform rotate-12 pointer-events-none z-0 group-hover:-rotate-12 transition-transform duration-500">🏆</div>
+                <div class="absolute -left-6 -top-6 text-[8rem] opacity-30 transform rotate-12 pointer-events-none z-0 deco-sway-pos">🏆</div>
                 <div class="relative z-10 flex items-center gap-4 mb-6">
                     <div class="bg-white p-4 rounded-3xl border-4 border-black shadow-[4px_4px_0_0_rgba(0,0,0,1)] text-4xl transform rotate-3">📁</div>
                     <div>
@@ -1099,7 +1168,7 @@
             '5/3': 'https://i.postimg.cc/vZcRTj0N/7.png',
             '5/4': 'https://i.postimg.cc/05fhfx3F/8.png',
             '6/1': 'https://i.postimg.cc/cJwb8NwJ/9.png',
-            '6/2': 'https://i.postimg.cc/HnbKMgPP/Screenshot-2569-08-11-at-4-35-44-PM.png',
+            '6/2': 'https://i.postimg.cc/zvtt1DYN/10.png',
             '6/3': 'https://i.postimg.cc/59R66c3q/11.png',
             '6/4': 'https://i.postimg.cc/L4CN5sGK/12.png'
         };
@@ -2015,6 +2084,7 @@
                 board.innerHTML = '<div class="bg-white border-4 border-black rounded-2xl p-5 text-center shadow-[4px_4px_0_0_rgba(0,0,0,1)]">' +
                     '<p class="text-2xl mb-1">🎉</p>' +
                     '<p class="font-black text-gray-500 text-sm">ยังไม่มีกำหนดส่งงานในขณะนี้</p></div>';
+                updateDeadlineUrgentBadge_(0);
                 return;
             }
 
@@ -2035,9 +2105,11 @@
             });
 
             let html = '';
+            let urgentCount = 0; // ★ นับงานที่เกิน/วันนี้/ใกล้ถึงใน 3 วัน ไว้โชว์เป็นป้ายตัวเลขบนไอคอน 📅
             sorted.forEach(function(d) {
                 const dueDate = parseDateLocal(d.dueDate);
                 const days    = dueDate ? Math.floor((dueDate - today) / 86400000) : null;
+                if (days !== null && days <= 3) { urgentCount++; }
 
                 let urgencyClass, urgencyText, borderLeft, rowBg;
                 if (days === null) {
@@ -2094,6 +2166,17 @@
             });
 
             board.innerHTML = html;
+            updateDeadlineUrgentBadge_(urgentCount);
+        }
+
+        // ★ ป้ายตัวเลขสีแดงบนไอคอน 📅 บอกจำนวนงานที่เกิน/วันนี้/ใกล้ถึงใน 3 วัน โดยไม่ต้องเปิดดูรายการก่อน
+        // ซ่อนไปเลยถ้าไม่มีอะไรเร่งด่วน (count เป็น 0) เพื่อไม่ให้รกตาโดยไม่จำเป็น
+        function updateDeadlineUrgentBadge_(count) {
+            const badge = document.getElementById('deadlineUrgentBadge');
+            if (!badge) return;
+            if (!count || count <= 0) { badge.classList.add('hidden'); return; }
+            badge.textContent = count > 9 ? '9+' : String(count);
+            badge.classList.remove('hidden');
         }
 
         document.addEventListener('DOMContentLoaded', function() {
