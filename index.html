@@ -319,6 +319,64 @@
         @media (min-width: 768px) {
             .hero-glow { box-shadow: 12px 12px 0 0 rgba(0,0,0,1), 0 0 65px rgba(251,191,36,0.4); }
         }
+
+        /* ---- กล่อง FINAL GRADE แยกระดับ ให้เกรดสูงรู้สึกเป็นรางวัลจริงๆ ----
+           เกรดต่ำจงใจใช้โทนเทาอมฟ้าสงบ ไม่ใช้แดงจัด เพราะนักเรียนดูหน้าจอนี้คนเดียวเงียบๆ
+           ไม่ควรทำให้รู้สึกถูกประจานหรือตกใจกับผลของตัวเอง */
+        .grade-box-gold {
+            background: linear-gradient(135deg, #fef3c7 0%, #fde68a 45%, #fbbf24 100%);
+            box-shadow: 6px 6px 0 0 rgba(0,0,0,1), 0 0 34px rgba(251, 191, 36, 0.55);
+        }
+        /* แสงกวาดผ่านกล่องทองช้าๆ เหมือนโลหะสะท้อนแสง — ใช้เฉพาะเกรด 4 เท่านั้น */
+        .grade-box-gold::before {
+            content: '';
+            position: absolute;
+            top: -50%; left: -60%;
+            width: 40%; height: 200%;
+            background: linear-gradient(to right, rgba(255,255,255,0) 0%, rgba(255,255,255,0.65) 50%, rgba(255,255,255,0) 100%);
+            transform: rotate(22deg);
+            animation: gradeShine 3.4s ease-in-out infinite;
+            pointer-events: none;
+        }
+        @keyframes gradeShine {
+            0%   { left: -60%; }
+            60%  { left: 130%; }
+            100% { left: 130%; }
+        }
+        .grade-box-emerald {
+            background: linear-gradient(135deg, #d1fae5 0%, #a7f3d0 50%, #6ee7b7 100%);
+            box-shadow: 6px 6px 0 0 rgba(0,0,0,1), 0 0 26px rgba(16, 185, 129, 0.4);
+        }
+        .grade-box-sky {
+            background: linear-gradient(135deg, #e0f2fe 0%, #bae6fd 50%, #7dd3fc 100%);
+            box-shadow: 6px 6px 0 0 rgba(0,0,0,1), 0 0 22px rgba(56, 189, 248, 0.35);
+        }
+        /* เกรดต่ำ — เรียบ สงบ ให้กำลังใจ ไม่มีแสงเรือง ไม่มีสีเตือนภัย */
+        .grade-box-calm {
+            background: linear-gradient(135deg, #f8fafc 0%, #eef2f7 100%);
+        }
+        /* ดาวประกายรอบกล่องทอง */
+        .grade-spark {
+            position: absolute;
+            font-size: 1rem;
+            color: rgba(255, 255, 255, 0.95);
+            text-shadow: 0 0 8px rgba(251, 191, 36, 0.9);
+            pointer-events: none;
+            animation: sparkTwinkle 2s ease-in-out infinite;
+        }
+        @keyframes sparkTwinkle {
+            0%, 100% { opacity: 0; transform: scale(0.6); }
+            50%      { opacity: 1; transform: scale(1.15); }
+        }
+
+        /* ---- การ์ด Quiz ในหน้า HUB ----
+           แสงเรืองรอบการ์ดตอนชี้ ใช้สีของหมวดนั้นๆ ผ่านตัวแปร --quiz-ring ที่ส่งมาจาก JS
+           ทำให้การ์ดในแต่ละ HUB มีบุคลิกสีของตัวเอง แทนที่จะขาวเหมือนกันหมด */
+        .quiz-card { --quiz-ring: rgba(0,0,0,0); }
+        .quiz-card:hover {
+            box-shadow: 8px 8px 0 0 rgba(0,0,0,1), 0 0 30px var(--quiz-ring);
+        }
+
         .arcade-badge {
             background: #fff;
             border: 3px solid #000;
@@ -511,6 +569,8 @@
             .pixel-bar-fill { animation: none; width: 100%; }
             .deco-sway-pos, .deco-sway-neg, .deco-spin,
             .deco-dice-roll, .deco-pulse-alert, .badge-pulse { animation: none; }
+            .grade-box-gold::before { animation: none; display: none; }
+            .grade-spark { animation: none; opacity: 1; }
             .animate-bounce-up,
             .animate-float,
             .animate-bounce,
@@ -534,10 +594,10 @@
             <h1 class="text-xl md:text-3xl font-black tracking-widest uppercase text-black">KRU<span class="text-[#8B4513]"> OAT</span></h1>
         </div>
         <div class="md:hidden flex items-center gap-2">
-            <button type="button" onclick="openStudentMenu()" aria-label="เมนูนักเรียน" class="w-11 h-11 flex items-center justify-center bg-white rounded-xl border-[3px] border-black text-xl shadow-[3px_3px_0_0_rgba(0,0,0,1)] active:shadow-none active:translate-x-[3px] active:translate-y-[3px] transition-all">
+            <button type="button" onclick="openStudentMenu()" aria-label="🇬🇧 เมนูนักเรียน" class="w-11 h-11 flex items-center justify-center bg-white rounded-xl border-[3px] border-black text-xl shadow-[3px_3px_0_0_rgba(0,0,0,1)] active:shadow-none active:translate-x-[3px] active:translate-y-[3px] transition-all">
                 ☰
             </button>
-            <button type="button" onclick="openAdminMenu()" aria-label="เมนูครู" class="w-11 h-11 flex items-center justify-center bg-white rounded-xl border-[3px] border-black text-xl shadow-[3px_3px_0_0_rgba(0,0,0,1)] active:shadow-none active:translate-x-[3px] active:translate-y-[3px] transition-all">
+            <button type="button" onclick="openAdminMenu()" aria-label="🇬🇧 เมนูครู" class="w-11 h-11 flex items-center justify-center bg-white rounded-xl border-[3px] border-black text-xl shadow-[3px_3px_0_0_rgba(0,0,0,1)] active:shadow-none active:translate-x-[3px] active:translate-y-[3px] transition-all">
                 🛠️
             </button>
         </div>
@@ -548,7 +608,7 @@
         <!-- 1. HERO -->
         <div class="bg-[url('https://i.postimg.cc/L6QjDb2M/Chat-GPT-Image-May-23-2026-at-07-30-52-PM.png')] bg-cover bg-center border-[6px] border-black rounded-[2rem] md:rounded-[3rem] p-5 pt-20 md:p-10 mb-6 md:mb-8 relative group hover:-translate-y-2 transition-transform duration-300 animate-bounce-up delay-100 hero-glow overflow-hidden ai-border ai-nodes">
             <div class="marquee-lights" aria-hidden="true"></div>
-            <div class="absolute -right-4 -top-4 text-[8rem] opacity-20 transform rotate-12 pointer-events-none z-0 deco-sway-pos">🇬🇧 🇹🇭 🇬🇧 </div>
+            <div class="absolute -right-4 -top-4 text-[8rem] opacity-20 transform rotate-12 pointer-events-none z-0 deco-sway-pos">🇬🇧 🇹🇭</div>
             <div class="absolute left-10 -bottom-10 text-[6rem] opacity-30 transform -rotate-12 pointer-events-none animate-float z-0">🛸</div>
             <div class="relative z-10 flex flex-col md:flex-row items-center justify-between gap-8">
                 <div class="flex-1 text-center md:text-left">
@@ -556,7 +616,7 @@
                         <div class="w-16 h-16 bg-white rounded-full border-4 border-black shadow-[4px_4px_0_0_rgba(0,0,0,1)] flex items-center justify-center overflow-hidden p-1">
                             <img src="https://i.postimg.cc/ydtX6mMS/logo.png" alt="School Logo" class="w-full h-full object-contain" onerror="this.style.display='none'">
                         </div>
-                        <span class="px-4 py-1.5 bg-yellow-300 border-4 border-black text-black text-sm font-black tracking-widest rounded-full shadow-[2px_2px_0_0_rgba(0,0,0,1)] animate-pulse">WELCOME 🐣</span>
+                        <span class="px-4 py-1.5 bg-yellow-300 border-4 border-black text-black text-sm font-black tracking-widest rounded-full shadow-[2px_2px_0_0_rgba(0,0,0,1)] animate-pulse">WELCOME 🇬🇧 </span>
                     </div>
                     <h1 class="text-5xl md:text-7xl font-black text-black mb-4 drop-shadow-[4px_4px_0_rgba(255,255,255,1)] tracking-wide">
                         HELLO <span class="text-[#8B4513] animate-pulse drop-shadow-[2px_2px_0_rgba(255,255,255,1)]">HUMAN!</span> 👋
@@ -577,7 +637,7 @@
                         <img src="https://i.postimg.cc/pVj2q08J/Chat-GPT-Image-May-23-2026-at-09-32-41-PM.png" onerror="this.src='https://i.postimg.cc/T3mZY2N5/default-avatar.png'" alt="Profile Image" class="w-full h-full object-cover object-top transform group-hover:scale-110 transition-transform duration-500 select-none pointer-events-none" oncontextmenu="return false;" draggable="false">
                     </div>
                     <div class="absolute -top-4 -right-4 bg-yellow-300 border-[4px] border-black text-black font-black px-5 py-2 rounded-full shadow-[6px_6px_0_0_rgba(0,0,0,1)] rotate-12 z-30 text-lg tracking-wider animate-bounce">
-                        I AM OAT! 🇬🇧 🍁 🇹🇭
+                        I AM OAT! 🇬🇧 🇹🇭 🍁 
                     </div>
                 </div>
             </div>
@@ -601,7 +661,7 @@
                             </div>
                         </div>
                         <button type="button" onclick="openDeadlineAdmin()" class="bg-amber-500 border-4 border-black text-white font-black text-xs py-2 px-4 rounded-xl hover:bg-amber-400 active:translate-y-1 active:shadow-[0_0_0_0_rgba(0,0,0,1)] shadow-[4px_4px_0_0_rgba(0,0,0,1)] transition-all flex items-center gap-2 uppercase tracking-widest flex-shrink-0">
-                            🍁 K.OAT
+                            🍁 T.OAT
                         </button>
                     </div>
                     <div id="deadlineBoard" class="flex flex-col gap-3 flex-grow max-h-[350px] overflow-y-auto scrollbar-hide pr-1">
@@ -618,14 +678,14 @@
                 
                 <div class="relative z-10 flex flex-col items-center mb-6 mt-4">
                    <div class="bg-white p-5 md:p-6 rounded-3xl border-4 border-black shadow-[6px_6px_0_0_rgba(0,0,0,1)] text-5xl md:text-7xl transform rotate-6 mb-5">
-                        🎯
+                        🎳
                     </div>
                    <h2 class="text-3xl md:text-6xl font-black text-black uppercase tracking-widest drop-shadow-[2px_2px_0_rgba(255,255,255,1)]">RANDOMIZER</h2>
                    <p class="text-black font-black text-xs md:text-base tracking-widest uppercase bg-[#22d3ee] px-4 md:px-5 py-1.5 md:py-2 rounded-full border-2 border-black inline-block mt-2 shadow-[2px_2px_0_0_rgba(0,0,0,1)]">ระบบสุ่มชื่อนักเรียน</p>
                 </div>
                 
                 <a href="https://random.mynameisoat.com" target="_blank" class="w-full bg-[#fde047] border-4 border-black text-black font-black text-xl md:text-2xl py-4 md:py-5 px-6 rounded-2xl hover:bg-yellow-300 active:translate-y-1 active:shadow-[0_0_0_0_rgba(0,0,0,1)] shadow-[6px_6px_0_0_rgba(0,0,0,1)] transition-all flex items-center justify-center gap-2 relative z-10 uppercase tracking-widest mt-auto">
-                    <span>LET'S GO</span> <span class="group-hover:translate-x-1 transition-transform text-2xl">❤️</span>
+                    <span>LET'S GO</span> <span class="group-hover:translate-x-1 transition-transform text-2xl">🎲</span>
                 </a>
             </div>
 
@@ -686,7 +746,7 @@
                 <div class="absolute left-6 -bottom-8 text-[5rem] opacity-25 transform -rotate-12 pointer-events-none z-0 deco-sway-neg">🖊️</div>
                 <div class="flex justify-center mb-4 relative z-10">
                     <h2 class="bg-white border-4 border-black px-6 py-2 rounded-full font-black text-xl text-black shadow-[4px_4px_0_0_rgba(0,0,0,1)] transform rotate-1">
-                        📅 MY SCHEDULE 🥇
+                        📅 MY SCHEDULE 🏀
                     </h2>
                 </div>
                 <div class="bg-white border-4 border-black rounded-2xl overflow-hidden shadow-inner flex-grow flex items-start justify-center p-2 cursor-pointer group relative z-10" onclick="window.open('https://i.postimg.cc/JnmbbvN8/Gemini-Generated-Image-5blqtq5blqtq5blq.png', '_blank')">
@@ -700,7 +760,7 @@
                 <div class="absolute right-6 -bottom-8 text-[5rem] opacity-25 transform rotate-12 pointer-events-none z-0 deco-sway-pos">✏️</div>
                 <div class="flex justify-center mb-4 relative z-10">
                     <h2 class="bg-white border-4 border-black px-6 py-2 rounded-full font-black text-xl text-black shadow-[4px_4px_0_0_rgba(0,0,0,1)] transform -rotate-2">
-                        🗓️ ตารางเรียนนักเรียน 🛠️
+                        🗓️ ตารางเรียนนักเรียน 🎲
                     </h2>
                 </div>
                 <div class="grid grid-cols-4 sm:grid-cols-6 gap-2 mb-3 relative z-10">
@@ -796,7 +856,7 @@
  
         <!-- เอกสาร/ใบงาน -->
         <div class="w-full bg-[#7fb3fb] hazard-panel border-[6px] border-black rounded-[3rem] p-6 md:p-10 shadow-[12px_12px_0_0_rgba(0,0,0,1)] mb-6 flex flex-col md:flex-row items-center justify-between gap-6 hover:-translate-y-1 transition-transform relative overflow-hidden animate-bounce-up delay-400 ai-border ai-nodes">
-            <div class="absolute -left-6 -top-6 text-[8rem] opacity-30 transform rotate-12 pointer-events-none z-0 deco-sway-pos">📁</div>
+            <div class="absolute -left-6 -top-6 text-[8rem] opacity-30 transform rotate-12 pointer-events-none z-0 deco-sway-pos"> 📖 </div>
             <div class="flex items-center gap-6 relative z-10 text-center md:text-left flex-col md:flex-row w-full md:w-auto">
                 <div class="bg-white p-5 rounded-3xl border-4 border-black shadow-[6px_6px_0_0_rgba(0,0,0,1)] text-4xl transform -rotate-3">🗂️</div>
                 <div>
@@ -1094,6 +1154,28 @@
             });
         }
 
+        // ★ หน้าจอ "ยังไม่มีข้อมูล" แบบมีดีไซน์ — ใช้ร่วมกันทุกจุดในเว็บ
+        // เดิมเป็นตัวหนังสือเทาบนพื้นขาวล้วน ทำให้ดูเหมือนระบบพังหรือโหลดไม่ขึ้น
+        // ตอนนี้มีอีโมจิใหญ่ + กล่องสีอ่อน + ข้อความบอกว่าต้องทำอะไรต่อ ให้รู้ว่า "ปกติ ยังไม่มีข้อมูลเฉยๆ"
+        // tone: 'neutral' = ยังไม่มีข้อมูลทั่วไป | 'good' = ไม่มีข้อมูลแล้วเป็นเรื่องดี (เช่น ไม่มีใครติด ร/มส)
+        //       'action' = ครูต้องกดเพิ่มข้อมูลเอง
+        function emptyState_(emoji, title, hint, tone) {
+            var box, ring, titleColor;
+            if (tone === 'good') {
+                box = 'bg-emerald-50'; ring = 'border-emerald-300'; titleColor = 'text-emerald-800';
+            } else if (tone === 'action') {
+                box = 'bg-amber-50'; ring = 'border-amber-300'; titleColor = 'text-amber-800';
+            } else {
+                box = 'bg-slate-50'; ring = 'border-slate-300'; titleColor = 'text-slate-700';
+            }
+            var h = '<div class="' + box + ' border-[3px] border-dashed ' + ring + ' rounded-2xl py-8 px-5 text-center">';
+            h += '<div class="text-5xl mb-3 leading-none">' + emoji + '</div>';
+            h += '<p class="font-black text-base ' + titleColor + ' leading-snug">' + title + '</p>';
+            if (hint) h += '<p class="text-xs font-bold text-slate-500 mt-2 leading-relaxed">' + hint + '</p>';
+            h += '</div>';
+            return h;
+        }
+
         function popupClass_(extra, radius) {
             var base = 'border-[6px] border-black rounded-[' + (radius || '2.5rem') + '] shadow-[12px_12px_0_0_rgba(0,0,0,1)]';
             return extra ? (base + ' ' + extra) : base;
@@ -1254,8 +1336,9 @@
 
         window.renderStudentStatusPopup = function(students, room) {
             if (students.length === 0) {
-                fireSwal({ icon: 'success', title: 'SYSTEM CLEAR! 🎉', text: 'ไม่พบผู้ติดสถานะใน SECTOR ' + room, buttonsStyling: false,
-                    customClass: { popup: popupClass_(null, '2rem'), title: 'font-black text-green-500', confirmButton: 'bg-black text-white font-black py-2 px-6 rounded-xl border-4 border-black mt-4' }});
+                fireSwal({ html: emptyState_('🎉', 'ไม่มีใครติด ร/มส เลย!', 'ห้อง ม.' + escapeHtml(room) + ' เคลียร์หมดทุกคน เยี่ยมมาก', 'good'),
+                    showConfirmButton: true, confirmButtonText: 'ปิด', buttonsStyling: false,
+                    customClass: { popup: popupClass_('bg-[#f0fdf4]', '2rem'), confirmButton: 'bg-black text-white font-black py-2 px-8 rounded-xl border-4 border-black mt-4' }});
                 return;
             }
             let html = '<div class="flex flex-col gap-3 max-h-[400px] overflow-y-auto p-2 scrollbar-hide">';
@@ -1308,17 +1391,30 @@
             renderStudentListPopup(window.currentRoomName, window.currentRoomData);
         };
 
+        // ★ สีประจำระดับชั้น — ใช้ค่าเดียวกับปุ่มเลือกห้องบนหน้าเว็บเป๊ะๆ (ม.4 ส้ม / ม.5 เขียว / ม.6 ชมพู)
+        // ทำให้ทั้งระบบสอดคล้องกัน: นักเรียนกดปุ่มห้องสีส้ม ก็จะเจอรายชื่อที่ใช้สีส้มเหมือนกัน
+        // ถ้าเจอห้องรูปแบบแปลกที่ไม่ใช่ 4/5/6 จะคืนสีน้ำเงินเดิมเป็นค่าสำรอง ไม่ทำให้หน้าพัง
+        function gradeTheme_(room) {
+            const lvl = (room || '').toString().trim().charAt(0);
+            if (lvl === '4') return { grad: 'linear-gradient(145deg, #fdba74 0%, #f97316 100%)', hover: 'hover:bg-[#fff7ed]' };
+            if (lvl === '5') return { grad: 'linear-gradient(145deg, #86efac 0%, #22c55e 100%)', hover: 'hover:bg-[#f0fdf4]' };
+            if (lvl === '6') return { grad: 'linear-gradient(145deg, #f9a8d4 0%, #ec4899 100%)', hover: 'hover:bg-[#fdf2f8]' };
+            return { grad: 'linear-gradient(145deg, #93c5fd 0%, #3b82f6 100%)', hover: 'hover:bg-[#e0f2fe]' };
+        }
+
         function renderStudentListPopup(room, students) {
             if (students.length === 0) {
-                fireSwal({ icon: 'info', title: 'NO DATA', text: 'Database initialized. Awaiting data input.', buttonsStyling: false,
-                    customClass: { popup: popupClass_(null, '2rem'), confirmButton: 'bg-black text-white font-black py-2 px-6 rounded-xl border-4 border-black mt-4' }});
+                fireSwal({ html: emptyState_('📝', 'ยังไม่มีรายชื่อในห้องนี้', 'ครูยังไม่ได้กรอกข้อมูลนักเรียน ลองเช็คใหม่อีกครั้งภายหลัง', 'neutral'),
+                    showConfirmButton: true, confirmButtonText: 'ปิด', buttonsStyling: false,
+                    customClass: { popup: popupClass_('bg-[#f8fafc]', '2rem'), confirmButton: 'bg-black text-white font-black py-2 px-8 rounded-xl border-4 border-black mt-4' }});
                 return;
             }
+            const theme = gradeTheme_(room);
             let html = '<button onclick="showRoomOverview()" class="w-full bg-purple-500 border-4 border-black text-white font-black py-3 rounded-2xl shadow-[4px_4px_0_0_rgba(0,0,0,1)] hover:-translate-y-1 active:translate-y-1 active:shadow-[0_0_0_0_rgba(0,0,0,1)] transition-all mb-3 tracking-widest uppercase flex items-center justify-center gap-2">📊 ดูภาพรวมทั้งห้อง</button>';
             html += '<div class="flex flex-col gap-3 max-h-[400px] overflow-y-auto p-2 scrollbar-hide">';
             students.forEach(function(std, index) {
-                html += '<button onclick="showScoreDetail(' + index + ')" class="bg-white border-4 border-black hover:bg-[#e0f2fe] p-4 rounded-2xl shadow-[4px_4px_0_0_rgba(0,0,0,1)] hover:-translate-y-1 active:translate-y-1 active:shadow-[0_0_0_0_rgba(0,0,0,1)] transition-all flex items-center justify-between group w-full text-left">';
-                html += '<div class="flex items-center gap-4 w-full"><span class="bg-blue-500 border-2 border-black text-white text-lg font-black w-10 h-10 flex items-center justify-center rounded-xl shadow-[2px_2px_0_0_rgba(0,0,0,1)]">' + escapeHtml(std.no) + '</span>';
+                html += '<button onclick="showScoreDetail(' + index + ')" class="bg-white border-4 border-black ' + theme.hover + ' p-4 rounded-2xl shadow-[4px_4px_0_0_rgba(0,0,0,1)] hover:-translate-y-1 active:translate-y-1 active:shadow-[0_0_0_0_rgba(0,0,0,1)] transition-all flex items-center justify-between group w-full text-left">';
+                html += '<div class="flex items-center gap-4 w-full"><span style="background: ' + theme.grad + ';" class="border-2 border-black text-black text-lg font-black w-10 h-10 flex items-center justify-center rounded-xl shadow-[2px_2px_0_0_rgba(0,0,0,1)] flex-shrink-0">' + escapeHtml(std.no) + '</span>';
                 html += '<span class="font-black text-black text-base md:text-lg truncate tracking-wide">' + escapeHtml(std.name) + '</span></div>';
                 html += '<span class="text-2xl opacity-50 group-hover:opacity-100 group-hover:scale-125 transition-all">🔍</span></button>';
             });
@@ -1424,14 +1520,75 @@
             // ถ้าครูเว้นว่างไว้ในชีต จะเป็น 0 ไม่กระทบการคำนวณเดิมเลย
             let bonusPts = parseFloat(std.bonus) || 0;
             let totalScore100 = Math.round(scaledTask + scaledMid + scaledFin + bonusPts);
-            let grade = "0"; let gradeColor = "text-red-500";
-            if(totalScore100 >= 80) { grade = "4"; gradeColor = "text-green-500"; }
-            else if(totalScore100 >= 75) { grade = "3.5"; gradeColor = "text-green-400"; }
-            else if(totalScore100 >= 70) { grade = "3"; gradeColor = "text-blue-500"; }
-            else if(totalScore100 >= 65) { grade = "2.5"; gradeColor = "text-blue-400"; }
-            else if(totalScore100 >= 60) { grade = "2"; gradeColor = "text-purple-500"; }
-            else if(totalScore100 >= 55) { grade = "1.5"; gradeColor = "text-pink-500"; }
-            else if(totalScore100 >= 50) { grade = "1"; gradeColor = "text-orange-500"; }
+
+            // ★ ระบบแสดงเกรดแบบ "มีรางวัลทางสายตา" — เดิมเกรด 4 กับเกรด 0 หน้าตาเหมือนกันเป๊ะ
+            // ต่างแค่สีตัวเลข ทำให้ช่วงเวลาที่นักเรียนลุ้นที่สุดกลับรู้สึกจืดที่สุด
+            //
+            // หลักคิดสำคัญ: เกรดสูง = ฉลองให้เต็มที่ (ทอง/เรืองแสง/มีดาว)
+            //              เกรดต่ำ = ใช้โทนสงบ ให้กำลังใจ ไม่ใช้สีแดงจัดหรือคำตำหนิ
+            //              เพราะหน้าจอนี้นักเรียนดูคนเดียวเงียบๆ ไม่ควรทำให้รู้สึกถูกประจาน
+            let grade = "0";
+            let gradeBoxClass, gradeTextClass, gradeIcon, gradeMsg, gradeMsgClass;
+
+            if (totalScore100 >= 80) {
+                grade = "4";
+                gradeBoxClass = 'grade-box-gold';
+                gradeTextClass = 'text-amber-900';
+                gradeIcon = '🏆';
+                gradeMsg = 'ยอดเยี่ยมมาก! เก่งสุดๆ ไปเลย';
+                gradeMsgClass = 'text-amber-800';
+            } else if (totalScore100 >= 75) {
+                grade = "3.5";
+                gradeBoxClass = 'grade-box-emerald';
+                gradeTextClass = 'text-emerald-900';
+                gradeIcon = '🌟';
+                gradeMsg = 'เยี่ยมมาก! อีกนิดเดียวถึงเต็ม';
+                gradeMsgClass = 'text-emerald-800';
+            } else if (totalScore100 >= 70) {
+                grade = "3";
+                gradeBoxClass = 'grade-box-emerald';
+                gradeTextClass = 'text-emerald-900';
+                gradeIcon = '✨';
+                gradeMsg = 'ทำได้ดีมาก รักษาระดับนี้ไว้นะ';
+                gradeMsgClass = 'text-emerald-800';
+            } else if (totalScore100 >= 65) {
+                grade = "2.5";
+                gradeBoxClass = 'grade-box-sky';
+                gradeTextClass = 'text-sky-900';
+                gradeIcon = '💪';
+                gradeMsg = 'ดีแล้ว! พัฒนาต่อได้อีกแน่นอน';
+                gradeMsgClass = 'text-sky-800';
+            } else if (totalScore100 >= 60) {
+                grade = "2";
+                gradeBoxClass = 'grade-box-sky';
+                gradeTextClass = 'text-sky-900';
+                gradeIcon = '📘';
+                gradeMsg = 'ผ่านแล้ว ลองเก็บงานที่ขาดเพิ่มนะ';
+                gradeMsgClass = 'text-sky-800';
+            } else if (totalScore100 >= 55) {
+                grade = "1.5";
+                gradeBoxClass = 'grade-box-calm';
+                gradeTextClass = 'text-slate-800';
+                gradeIcon = '🌱';
+                gradeMsg = 'ยังพัฒนาได้อีก ค่อยๆ เก็บไปทีละงาน';
+                gradeMsgClass = 'text-slate-600';
+            } else if (totalScore100 >= 50) {
+                grade = "1";
+                gradeBoxClass = 'grade-box-calm';
+                gradeTextClass = 'text-slate-800';
+                gradeIcon = '🌱';
+                gradeMsg = 'ผ่านแล้วนะ ลองส่งงานที่ค้างเพิ่มดู';
+                gradeMsgClass = 'text-slate-600';
+            } else {
+                grade = "0";
+                gradeBoxClass = 'grade-box-calm';
+                gradeTextClass = 'text-slate-800';
+                gradeIcon = '📌';
+                gradeMsg = 'ยังมีเวลาแก้ตัว ลองคุยกับครูดูนะ';
+                gradeMsgClass = 'text-slate-600';
+            }
+            // เก็บตัวแปรเดิมไว้เผื่อจุดอื่นในไฟล์ยังอ้างถึง (ตารางภาพรวมห้องใช้ตัวแปรของตัวเองแยกอยู่แล้ว)
+            let gradeColor = gradeTextClass;
             // ★ แถบพลังแบบเกม (XP bar) — ให้เห็นภาพทันทีว่าแต่ละส่วนเต็มแค่ไหน ไม่ต้องตีความตัวเลขเอง
             // จำกัดไม่ให้เกิน 100% เผื่อกรณีครูให้คะแนนเกินเต็ม แถบจะได้ไม่ล้นกรอบ
             const taskPct  = Math.max(0, Math.min(100, (scaledTask / 50) * 100));
@@ -1457,16 +1614,30 @@
                 html += '<span class="font-black text-emerald-800 text-sm tracking-wide">🎁 คะแนนพิเศษ</span>';
                 html += '<span class="font-black text-emerald-700 text-xl">+' + bonusPts + '</span></div>';
             }
-            html += '<div class="bg-white rounded-2xl p-4 mb-5 border-[4px] border-black shadow-[6px_6px_0_0_rgba(0,0,0,1)] flex items-center justify-between">';
-            html += '<div class="text-left"><p class="text-xs font-black text-gray-500 tracking-widest">EVALUATION</p><p class="text-base font-black text-black">FINAL GRADE</p></div>';
-            html += '<div class="bg-gray-100 rounded-xl px-5 py-2 border-[3px] border-black shadow-inner"><span class="text-5xl font-black ' + gradeColor + ' drop-shadow-[2px_2px_0_rgba(0,0,0,1)]">' + grade + '</span></div></div>';
+            html += '<div class="' + gradeBoxClass + ' rounded-2xl p-4 mb-5 border-[4px] border-black shadow-[6px_6px_0_0_rgba(0,0,0,1)] relative overflow-hidden">';
+            // ดาวประกายรอบกล่อง — โผล่เฉพาะเกรด 4 เท่านั้น ให้รู้สึกว่าเป็นรางวัลพิเศษจริงๆ
+            if (grade === "4") {
+                html += '<span class="grade-spark" style="top:12%;left:6%;animation-delay:0s;">✦</span>';
+                html += '<span class="grade-spark" style="top:62%;left:16%;animation-delay:.5s;">✦</span>';
+                html += '<span class="grade-spark" style="top:22%;left:44%;animation-delay:1s;">✦</span>';
+                html += '<span class="grade-spark" style="top:70%;left:56%;animation-delay:1.5s;">✦</span>';
+            }
+            html += '<div class="relative z-10 flex items-center justify-between gap-3">';
+            html += '<div class="text-left min-w-0">';
+            html += '<p class="text-xs font-black opacity-70 tracking-widest ' + gradeMsgClass + '">EVALUATION</p>';
+            html += '<p class="text-base md:text-lg font-black ' + gradeTextClass + '">' + gradeIcon + ' FINAL GRADE</p>';
+            html += '<p class="text-[11px] md:text-xs font-bold mt-1 ' + gradeMsgClass + '">' + gradeMsg + '</p>';
+            html += '</div>';
+            html += '<div class="bg-white/85 rounded-xl px-5 py-2 border-[3px] border-black shadow-inner flex-shrink-0">';
+            html += '<span class="text-5xl font-black ' + gradeTextClass + ' drop-shadow-[2px_2px_0_rgba(255,255,255,0.7)]">' + grade + '</span>';
+            html += '</div></div></div>';
             html += '<div class="text-left mb-2"><p class="font-black text-sm text-black tracking-widest">📝 DATA LOGS</p></div>';
             html += '<div class="overflow-x-auto rounded-2xl border-4 border-black shadow-[4px_4px_0_0_rgba(0,0,0,1)] mb-4 max-h-[200px] overflow-y-auto scrollbar-hide">';
             html += '<table class="w-full table-fixed bg-white"><colgroup><col style="width:44%"><col style="width:12%"><col style="width:14%"><col style="width:12%"><col style="width:18%"></colgroup><thead class="bg-gray-100 border-b-4 border-black text-[10px] md:text-sm text-black sticky top-0 z-10"><tr>';
             html += '<th class="py-2 px-2 font-black text-left border-r-2 border-black">MODULE</th><th class="py-2 px-0.5 font-black text-center border-r-2 border-black">MAX</th><th class="py-2 px-0.5 font-black text-center border-r-2 border-black">PASS</th><th class="py-2 px-0.5 font-black text-center border-r-2 border-black">VAL</th><th class="py-2 px-1 font-black text-center">STAT</th></tr></thead><tbody>';
             html += '<tr class="border-b-2 border-gray-200 bg-orange-50"><td class="py-2 px-2 font-bold text-[11px] md:text-sm text-left text-black border-r-2 border-gray-200">MIDTERM</td><td class="py-2 px-0.5 font-black text-gray-400 text-center border-r-2 border-gray-200 text-[11px] md:text-sm">' + midMax + '</td><td class="py-2 px-0.5 font-black text-amber-600 text-center border-r-2 border-gray-200 text-[11px] md:text-sm">' + escapeHtml(midPassData) + '</td><td class="py-2 px-0.5 font-black text-orange-600 text-center border-r-2 border-gray-200 text-[11px] md:text-sm">' + midGot + '</td><td class="py-2 px-1 font-bold text-gray-500 text-center text-[11px] md:text-sm break-words">' + midStatusData + '</td></tr>';
             html += '<tr class="border-b-4 border-black bg-purple-50"><td class="py-2 px-2 font-bold text-[11px] md:text-sm text-left text-black border-r-2 border-gray-200">FINAL</td><td class="py-2 px-0.5 font-black text-gray-400 text-center border-r-2 border-gray-200 text-[11px] md:text-sm">' + finMax + '</td><td class="py-2 px-0.5 font-black text-amber-600 text-center border-r-2 border-gray-200 text-[11px] md:text-sm">' + escapeHtml(finPassData) + '</td><td class="py-2 px-0.5 font-black text-purple-600 text-center border-r-2 border-gray-200 text-[11px] md:text-sm">' + finGot + '</td><td class="py-2 px-1 font-bold text-gray-500 text-center text-[11px] md:text-sm break-words">' + finStatusData + '</td></tr>';
-            html += tableRows || '<tr><td colspan="5" class="py-4 text-center font-bold text-gray-400 text-xs">NO LOGS FOUND</td></tr>';
+            html += tableRows || '<tr><td colspan="5" class="py-6 text-center bg-slate-50"><div class="text-3xl mb-1 leading-none">📭</div><p class="font-black text-slate-600 text-sm">ยังไม่มีคะแนนงานย่อย</p><p class="text-[11px] font-bold text-slate-400 mt-1">เมื่อครูกรอกคะแนนแล้วจะแสดงที่นี่</p></td></tr>';
             html += '</tbody></table></div>';
             html += '<div class="grid grid-cols-2 gap-2 mt-2">';
             html += '<button onclick="backToStudentList()" class="w-full bg-blue-500 border-[4px] border-black text-white font-black py-3 rounded-2xl hover:-translate-y-1 shadow-[4px_4px_0_0_rgba(0,0,0,1)] active:translate-y-1 active:shadow-[0_0_0_0_rgba(0,0,0,1)] transition-all text-sm md:text-base tracking-widest uppercase">⬅ BACK</button>';
@@ -1518,8 +1689,9 @@
 
         window.renderAdminScoreTable = function(room, students) {
             if (!students || students.length === 0) {
-                fireSwal({ icon: 'info', title: 'NO DATA', buttonsStyling: false,
-                    customClass: { popup: popupClass_(), confirmButton: 'bg-black text-white font-black py-2 px-6 rounded-xl border-4 border-black mt-4' } });
+                fireSwal({ html: emptyState_('📊', 'ยังไม่มีข้อมูลคะแนนในห้องนี้', 'เมื่อกรอกคะแนนในชีตแล้ว ข้อมูลจะแสดงที่นี่', 'neutral'),
+                    showConfirmButton: true, confirmButtonText: 'ปิด', buttonsStyling: false,
+                    customClass: { popup: popupClass_('bg-[#f8fafc]'), confirmButton: 'bg-black text-white font-black py-2 px-8 rounded-xl border-4 border-black mt-4' } });
                 return;
             }
             let html = '<div class="overflow-x-auto rounded-2xl border-[4px] border-black shadow-[6px_6px_0_0_rgba(0,0,0,1)] max-h-[60vh] scrollbar-hide bg-white">';
@@ -1634,23 +1806,16 @@
 
         function renderQuizHub(cards) {
             if (!cards || cards.length === 0) {
-                fireSwal({ icon: 'info', title: 'ยังไม่มี Quiz', text: 'ครูยังไม่ได้เพิ่มเกม กลับมาใหม่นะ!', buttonsStyling: false,
-                    customClass: { popup: popupClass_(null, '2rem'), confirmButton: 'bg-black text-white font-black py-2 px-6 rounded-xl border-4 border-black mt-4' } });
+                fireSwal({ html: emptyState_('🎮', 'ยังไม่มีเกมให้เล่นตอนนี้', 'ครูกำลังเตรียมเกมอยู่ กลับมาเช็คใหม่เร็วๆ นี้นะ', 'neutral'),
+                    showConfirmButton: true, confirmButtonText: 'ปิด', buttonsStyling: false,
+                    customClass: { popup: popupClass_('bg-[#fff7ed]', '2rem'), confirmButton: 'bg-black text-white font-black py-2 px-8 rounded-xl border-4 border-black mt-4' } });
                 return;
             }
             window.quizCardData = cards;
+            const theme = quizTheme_('game');
             let html = '<div class="grid grid-cols-1 sm:grid-cols-2 gap-4 p-2 max-h-[60vh] overflow-y-auto scrollbar-hide">';
             cards.forEach(function(c, i) {
-                let img = escapeHtml(c.imageUrl || 'https://via.placeholder.com/600x400?text=QUIZ');
-                let lock = c.hasPassword ? '<span class="absolute top-2 right-2 bg-black text-white text-xs font-black px-2 py-1 rounded-full border-2 border-white">🔒 LOCK</span>' : '';
-                html += '<div onclick="openQuizCard(' + i + ')" class="bg-white border-4 border-black rounded-2xl overflow-hidden shadow-[6px_6px_0_0_rgba(0,0,0,1)] hover:-translate-y-1 active:translate-y-1 active:shadow-[0_0_0_0_rgba(0,0,0,1)] transition-all cursor-pointer group">';
-                html += '<div class="relative w-full bg-gray-200 border-b-4 border-black overflow-hidden" style="padding-top:66.66%;">';
-                html += '<img src="' + img + '" onerror="this.src=\'https://via.placeholder.com/600x400?text=QUIZ\'" loading="lazy" class="absolute inset-0 w-full h-full object-cover group-hover:scale-110 transition-transform duration-300">' + lock + '</div>';
-                html += '<div class="p-3 text-center">';
-                html += '<p class="font-black text-black text-base md:text-lg tracking-wide leading-tight">' + escapeHtml(c.emoji || '🎮') + ' ' + escapeHtml(c.name) + '</p>';
-                if (c.subtitle) html += '<p class="text-xs font-bold text-gray-500 mt-1">' + escapeHtml(c.subtitle) + '</p>';
-                html += '<div class="mt-2 bg-[#00e5ff] border-[3px] border-black text-black font-black text-sm py-2 rounded-xl tracking-widest uppercase">PLAY ▶</div>';
-                html += '</div></div>';
+                html += quizCardHtml_(c, theme, 'openQuizCard(' + i + ')');
             });
             html += '</div>';
             fireSwal({ title: '🎲 GAME QUIZZ HUB', html: html, showConfirmButton: false, showCloseButton: true, width: '42rem',
@@ -1724,7 +1889,7 @@
             let html = '<div class="text-left p-1">';
             html += '<button onclick="openQuizCardForm(-1)" class="w-full bg-green-400 border-4 border-black text-black font-black py-3 rounded-2xl shadow-[4px_4px_0_0_rgba(0,0,0,1)] hover:-translate-y-1 active:translate-y-1 active:shadow-[0_0_0_0_rgba(0,0,0,1)] transition-all mb-4 tracking-widest uppercase">➕ เพิ่มการ์ดใหม่</button>';
             if (!cards || cards.length === 0) {
-                html += '<p class="text-center text-gray-500 font-bold py-6">ยังไม่มีการ์ด กดปุ่มด้านบนเพื่อเพิ่ม</p>';
+                html += emptyState_('🕹️', 'ยังไม่มีการ์ดเกม', 'กดปุ่ม ➕ เพิ่มการ์ดใหม่ ด้านบนเพื่อสร้างอันแรกได้เลย', 'action');
             } else {
                 html += '<div class="flex flex-col gap-3 max-h-[50vh] overflow-y-auto scrollbar-hide">';
                 cards.forEach(function(c, i) {
@@ -1850,27 +2015,60 @@
                 .catch(function(err) { fireSwal({ icon: 'error', title: 'ERROR', text: err.message }); });
         };
 
+        // ★ สีประจำ Quiz HUB แต่ละระดับ — ใช้ค่าเดียวกับ "การ์ดที่นักเรียนเพิ่งกดเข้ามา" เป๊ะๆ
+        // (พื้นการ์ด + ปุ่ม ENTER จากหน้าแรก) เพื่อให้รู้สึกว่าหน้านี้คือส่วนต่อขยายของการ์ดใบนั้น
+        // ไม่ใช่หน้าขาวๆ ที่ไม่เกี่ยวกัน — ความต่อเนื่องทางสายตาไม่ขาดตอน
+        function quizTheme_(grade) {
+            if (grade === '10') return { accent: 'linear-gradient(90deg, #b06fff, #e040fb)', play: '#39ff14', ring: 'rgba(224,64,251,0.45)' };
+            if (grade === '11') return { accent: 'linear-gradient(90deg, #29b6f6, #7c4dff)', play: '#ffe600', ring: 'rgba(124,77,255,0.45)' };
+            if (grade === '12') return { accent: 'linear-gradient(90deg, #1a237e, #006064)', play: '#ffd700', ring: 'rgba(6,182,212,0.45)' };
+            // ค่าเริ่มต้น = Game Quizz (การ์ดสีส้ม-ชมพูบนหน้าแรก)
+            return { accent: 'linear-gradient(90deg, #ff6f00, #f50057)', play: '#00e5ff', ring: 'rgba(255,111,0,0.45)' };
+        }
+
+        // ★ สร้าง HTML การ์ด Quiz หนึ่งใบ — ใช้ร่วมกันทั้ง Game Quiz และ Grade Quiz
+        // แยกออกมาเป็นฟังก์ชันเดียว เพราะเดิมโค้ดสร้างการ์ดถูกเขียนซ้ำสองที่
+        // ทำให้เวลาปรับหน้าตาต้องแก้สองรอบและมักลืมแก้ที่ใดที่หนึ่ง
+        function quizCardHtml_(c, theme, onclickAttr) {
+            const img = escapeHtml(c.imageUrl || 'https://via.placeholder.com/600x400?text=QUIZ');
+            const locked = !!c.hasPassword;
+            let h = '<div onclick="' + onclickAttr + '" class="quiz-card bg-white border-4 border-black rounded-2xl overflow-hidden shadow-[6px_6px_0_0_rgba(0,0,0,1)] hover:-translate-y-1 active:translate-y-1 active:shadow-[0_0_0_0_rgba(0,0,0,1)] transition-all cursor-pointer group relative"';
+            h += ' style="--quiz-ring: ' + theme.ring + ';">';
+            // แถบสีบนหัวการ์ด — ตัวบอกว่าการ์ดใบนี้อยู่หมวดไหน
+            h += '<div style="height:7px;background:' + theme.accent + ';" class="border-b-4 border-black"></div>';
+            h += '<div class="relative w-full bg-gray-200 border-b-4 border-black overflow-hidden" style="padding-top:66.66%;">';
+            h += '<img src="' + img + '" onerror="this.src=\'https://via.placeholder.com/600x400?text=QUIZ\'" loading="lazy" class="absolute inset-0 w-full h-full object-cover group-hover:scale-110 transition-transform duration-300">';
+            if (locked) {
+                // การ์ดล็อก: โชว์รูปปกเต็มๆ ไม่หรี่สี ไม่มีฉากทึบทับ
+                // ใช้ป้ายกุญแจลอยมุมขวาบนบอกสถานะแทน — เห็นชัดแต่ไม่บังรูป
+                h += '<span class="absolute top-2 right-2 bg-amber-400 text-black text-[11px] font-black px-2.5 py-1 rounded-full border-2 border-black shadow-[2px_2px_0_0_rgba(0,0,0,1)] flex items-center gap-1">🔒 ต้องใส่รหัส</span>';
+            }
+            h += '</div>';
+            h += '<div class="p-3 text-center">';
+            h += '<p class="font-black text-black text-base md:text-lg tracking-wide leading-tight">' + escapeHtml(c.emoji || '🎮') + ' ' + escapeHtml(c.name) + '</p>';
+            if (c.subtitle) h += '<p class="text-xs font-bold text-gray-500 mt-1">' + escapeHtml(c.subtitle) + '</p>';
+            if (locked) {
+                h += '<div class="mt-2 bg-amber-300 border-[3px] border-black text-black font-black text-sm py-2 rounded-xl tracking-widest uppercase">🔑 ใส่รหัส</div>';
+            } else {
+                h += '<div class="mt-2 border-[3px] border-black text-black font-black text-sm py-2 rounded-xl tracking-widest uppercase" style="background:' + theme.play + ';">PLAY ▶</div>';
+            }
+            h += '</div></div>';
+            return h;
+        }
+
         function renderGradeQuizHub(grade, cards) {
             window.gradeQuizCardData = cards || [];
             let label = GRADE_LABELS[grade] || ('GRADE ' + grade);
+            const theme = quizTheme_(grade);
             let html = '<div class="flex justify-end mb-3">';
             html += '<button onclick="openGradeQuizAdmin(\'' + grade + '\')" class="bg-white border-2 border-black text-xs font-black px-3 py-1.5 rounded-full shadow-[2px_2px_0_0_rgba(0,0,0,1)] hover:-translate-y-0.5 active:translate-y-0 transition-all">⚙️ จัดการ (ครู)</button>';
             html += '</div>';
             if (!cards || cards.length === 0) {
-                html += '<p class="text-center text-gray-500 font-bold py-10">ยังไม่มี Quiz ในระดับชั้นนี้<br>กดปุ่ม ⚙️ จัดการ (ครู) ด้านบนเพื่อเพิ่มได้เลย</p>';
+                html += emptyState_('🎯', 'ยังไม่มี Quiz ในระดับชั้นนี้', 'ครูสามารถกดปุ่ม ⚙️ จัดการ (ครู) ด้านบนเพื่อเพิ่มได้เลย', 'neutral');
             } else {
                 html += '<div class="grid grid-cols-1 sm:grid-cols-2 gap-4 p-1 max-h-[55vh] overflow-y-auto scrollbar-hide">';
                 cards.forEach(function(c, i) {
-                    let img = escapeHtml(c.imageUrl || 'https://via.placeholder.com/600x400?text=QUIZ');
-                    let lock = c.hasPassword ? '<span class="absolute top-2 right-2 bg-black text-white text-xs font-black px-2 py-1 rounded-full border-2 border-white">🔒 LOCK</span>' : '';
-                    html += '<div onclick="openGradeQuizCard(\'' + grade + '\',' + i + ')" class="bg-white border-4 border-black rounded-2xl overflow-hidden shadow-[6px_6px_0_0_rgba(0,0,0,1)] hover:-translate-y-1 active:translate-y-1 active:shadow-[0_0_0_0_rgba(0,0,0,1)] transition-all cursor-pointer group">';
-                    html += '<div class="relative w-full bg-gray-200 border-b-4 border-black overflow-hidden" style="padding-top:66.66%;">';
-                    html += '<img src="' + img + '" onerror="this.src=\'https://via.placeholder.com/600x400?text=QUIZ\'" loading="lazy" class="absolute inset-0 w-full h-full object-cover group-hover:scale-110 transition-transform duration-300">' + lock + '</div>';
-                    html += '<div class="p-3 text-center">';
-                    html += '<p class="font-black text-black text-base md:text-lg tracking-wide leading-tight">' + escapeHtml(c.emoji || '🎮') + ' ' + escapeHtml(c.name) + '</p>';
-                    if (c.subtitle) html += '<p class="text-xs font-bold text-gray-500 mt-1">' + escapeHtml(c.subtitle) + '</p>';
-                    html += '<div class="mt-2 bg-[#39ff14] border-[3px] border-black text-black font-black text-sm py-2 rounded-xl tracking-widest uppercase">PLAY ▶</div>';
-                    html += '</div></div>';
+                    html += quizCardHtml_(c, theme, 'openGradeQuizCard(\'' + grade + '\',' + i + ')');
                 });
                 html += '</div>';
             }
@@ -1943,7 +2141,7 @@
             let html = '<div class="text-left p-1">';
             html += '<button onclick="openGradeQuizCardForm(\'' + grade + '\',-1)" class="w-full bg-green-400 border-4 border-black text-black font-black py-3 rounded-2xl shadow-[4px_4px_0_0_rgba(0,0,0,1)] hover:-translate-y-1 active:translate-y-1 active:shadow-[0_0_0_0_rgba(0,0,0,1)] transition-all mb-4 tracking-widest uppercase">➕ เพิ่ม Quiz ใหม่</button>';
             if (!cards || cards.length === 0) {
-                html += '<p class="text-center text-gray-500 font-bold py-6">ยังไม่มี Quiz กดปุ่มด้านบนเพื่อเพิ่ม</p>';
+                html += emptyState_('🎲', 'ยังไม่มี Quiz ในระดับชั้นนี้', 'กดปุ่ม ➕ เพิ่ม Quiz ใหม่ ด้านบนเพื่อสร้างอันแรก', 'action');
             } else {
                 html += '<div class="flex flex-col gap-3 max-h-[50vh] overflow-y-auto scrollbar-hide">';
                 cards.forEach(function(c, i) {
@@ -2081,9 +2279,7 @@
             const today = new Date(); today.setHours(0, 0, 0, 0);
 
             if (!deadlines || deadlines.length === 0) {
-                board.innerHTML = '<div class="bg-white border-4 border-black rounded-2xl p-5 text-center shadow-[4px_4px_0_0_rgba(0,0,0,1)]">' +
-                    '<p class="text-2xl mb-1">🎉</p>' +
-                    '<p class="font-black text-gray-500 text-sm">ยังไม่มีกำหนดส่งงานในขณะนี้</p></div>';
+                board.innerHTML = emptyState_('🎉', 'ไม่มีงานค้างส่ง!', 'ตอนนี้ยังไม่มีกำหนดส่งงาน พักผ่อนได้เลย', 'good');
                 updateDeadlineUrgentBadge_(0);
                 return;
             }
@@ -2225,7 +2421,7 @@
             html += '<button onclick="openDeadlineForm(-1)" class="w-full bg-amber-400 border-4 border-black text-black font-black py-3 rounded-2xl shadow-[4px_4px_0_0_rgba(0,0,0,1)] hover:-translate-y-1 active:translate-y-1 active:shadow-[0_0_0_0_rgba(0,0,0,1)] transition-all mb-4 tracking-widest uppercase text-lg">➕ เพิ่มกำหนดส่งใหม่</button>';
 
             if (!deadlines || deadlines.length === 0) {
-                html += '<p class="text-center text-gray-500 font-bold py-8">ยังไม่มีกำหนดส่งงาน<br>กดปุ่มด้านบนเพื่อเพิ่มได้เลย</p>';
+                html += emptyState_('📋', 'ยังไม่มีกำหนดส่งงาน', 'กดปุ่ม ➕ เพิ่มกำหนดส่งใหม่ ด้านบนเพื่อสร้างอันแรก', 'action');
             } else {
                 html += '<div class="flex flex-col gap-3 max-h-[55vh] overflow-y-auto scrollbar-hide">';
                 deadlines.forEach(function(d, i) {
@@ -2410,7 +2606,7 @@
             html += '<div class="bg-white border-4 border-black rounded-2xl p-4 shadow-[4px_4px_0_0_rgba(0,0,0,1)]">';
             html += '<p class="font-black text-sm text-black tracking-widest mb-3">🏆 QUIZ ยอดนิยม (Top 5 ตามยอดคลิก)</p>';
             if (!s.topQuizzes || s.topQuizzes.length === 0 || s.topQuizzes.every(function(q){ return q.clicks === 0; })) {
-                html += '<p class="text-center text-gray-400 font-bold text-sm py-4">ยังไม่มีการเล่น Quiz</p>';
+                html += emptyState_('🎮', 'ยังไม่มีการเล่น Quiz', 'ตัวเลขจะขึ้นเมื่อนักเรียนเริ่มเข้าเล่นเกม', 'neutral');
             } else {
                 html += '<div class="flex flex-col gap-2">';
                 s.topQuizzes.forEach(function(q, i) {
