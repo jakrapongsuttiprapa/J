@@ -140,7 +140,7 @@
             top: 0; left: 0;
             width: 100%; height: 100%;
             z-index: -1;
-            background-image: url('https://i.postimg.cc/gj557Ffk/Chat-GPT-Image-Aug-20-2026-07-25-55-PM.png');
+            background-image: url('https://i.postimg.cc/FH235kYZ/Chat-GPT-Image-May-23-2026-at-07-34-21-PM.png');
             background-size: cover;
             background-position: center top;
             background-repeat: no-repeat;
@@ -535,6 +535,267 @@
 
         /* ---- Deadline หน้าตาแบบ "สมุดภารกิจ" (quest log) ในเกม ----
            รอยบากมุมซ้ายบน + หัวลูกศรหน้าชื่องาน ให้อ่านเป็นรายการภารกิจ ไม่ใช่แค่รายการวันที่ */
+        /* ==========================================================
+           การ์ดตารางสอน / ตารางเรียนนักเรียน — ออกแบบใหม่
+           ★ กรอบรูปทำเป็น "หน้าต่างโปรแกรม" มีแถบหัวของตัวเอง
+             แล้วเอาปุ่มขยายไปไว้บนแถบนั้น แทนที่จะลอยทับบนรูป
+             (ของเดิมป้ายขยายลอยทับจนบังหัวตารางอ่านไม่ออก)
+           ========================================================== */
+        .sc-viewer {
+            position: relative; z-index: 10; border: 4px solid #000; border-radius: 16px;
+            overflow: hidden; box-shadow: 5px 5px 0 0 rgba(0,0,0,.85);
+            display: flex; flex-direction: column; background: #fff; flex-grow: 1;
+        }
+        .sc-bar {
+            background: #1e293b; display: flex; align-items: center; gap: 9px;
+            padding: 8px 11px; flex: 0 0 auto;
+        }
+        .sc-dots { display: flex; gap: 5px; flex: 0 0 auto; }
+        .sc-dots i { width: 10px; height: 10px; border-radius: 999px; display: block; }
+        .sc-name {
+            flex: 1; color: #fff; font-size: .76rem; font-weight: 800; letter-spacing: .03em;
+            white-space: nowrap; overflow: hidden; text-overflow: ellipsis; text-align: center;
+        }
+        .sc-zoom {
+            flex: 0 0 auto; background: #fde047; color: #0f172a; border: 2px solid #000;
+            border-radius: 999px; padding: 3px 11px; font-size: .68rem; font-weight: 900;
+            box-shadow: 2px 2px 0 0 rgba(0,0,0,.55);
+        }
+        .sc-body { padding: 8px; overflow: hidden; display: flex; align-items: flex-start; justify-content: center; }
+
+        /* ---- ปุ่มเลือกห้อง จัดกลุ่มตามระดับชั้น ---- */
+        .grade-row { display: flex; align-items: center; gap: 8px; margin-bottom: 8px; position: relative; z-index: 10; }
+        .grade-tag {
+            flex: 0 0 auto; width: 40px; background: #fff; border: 2.5px solid #000; border-radius: 9px;
+            padding: 6px 0; text-align: center; font-size: .7rem; font-weight: 900; color: #0f172a;
+            box-shadow: 2px 2px 0 0 #000;
+        }
+        .grade-btns { flex: 1; display: grid; grid-template-columns: repeat(4, 1fr); gap: 7px; }
+        /* ★ ตัวหนังสือสีดำ — แก้บั๊กเดิมที่ใช้ตัวขาวบนพื้นอ่อน (ค่าความคมชัดตกเหลือ 1.40:1) */
+        .rm-btn {
+            border: 2.5px solid #000; border-radius: 10px; padding: 8px 0; text-align: center;
+            font-size: .85rem; font-weight: 900; color: #0f172a; position: relative;
+            box-shadow: 3px 3px 0 0 #000; transition: transform .13s, box-shadow .13s;
+        }
+        .rm-btn:hover { transform: translateY(-2px); box-shadow: 5px 5px 0 0 #000; }
+        /* ★ สถานะ "กำลังเลือกอยู่" แบบกลับสี (ครูเลือกแบบนี้)
+           ปุ่มที่เลือกเป็นสีเข้มตัวหนังสือขาว + จุดสีเล็กบอกระดับชั้น
+           ทุกอย่างอยู่ในขอบเขตปุ่ม ไม่ล้นออกนอกเหมือนแบบเดิมที่ทำให้แถวเบี้ยว */
+        .rm-btn.rm-on {
+            background: #0f172a !important; color: #fff;
+            box-shadow: 4px 4px 0 0 #000; transform: translateY(-2px);
+        }
+        .rm-btn .rm-dot {
+            display: none; width: 9px; height: 9px; border-radius: 999px;
+            margin-right: 5px; vertical-align: middle; border: 1.5px solid rgba(255,255,255,.6);
+        }
+        .rm-btn.rm-on .rm-dot { display: inline-block; }
+
+        /* ==========================================================
+           DEADLINE — ปฏิทินจริงแทนอีโมจิ + แถบสรุปสถานะ + แถวเบาลง
+           ========================================================== */
+        .cal-widget { width: 56px; flex: 0 0 auto; border: 3px solid #000; border-radius: 12px;
+            overflow: hidden; background: #fff; box-shadow: 3px 3px 0 0 #000; position: relative; }
+        .cal-top { background: #dc2626; color: #fff; font-size: .58rem; font-weight: 800;
+            text-align: center; padding: 3px 0; letter-spacing: .07em; }
+        .cal-day { font-size: 1.4rem; font-weight: 900; text-align: center; line-height: 1.15;
+            padding: 2px 0 4px; color: #0f172a; }
+        .cal-badge { position: absolute; top: -8px; right: -8px; background: #dc2626; color: #fff;
+            font-size: .64rem; font-weight: 900; min-width: 21px; height: 21px; padding: 0 5px;
+            border-radius: 999px; border: 2px solid #000; display: flex; align-items: center;
+            justify-content: center; box-shadow: 2px 2px 0 0 #000; }
+
+        .sum-row { display: flex; gap: 6px; margin-bottom: 12px; flex-wrap: wrap; }
+        .sum-chip { display: flex; align-items: center; gap: 5px; background: rgba(255,255,255,.92);
+            border: 2px solid #000; border-radius: 999px; padding: 3px 10px; font-size: .68rem;
+            font-weight: 800; color: #0f172a; box-shadow: 2px 2px 0 0 #000; }
+        .sum-dot { width: 8px; height: 8px; border-radius: 999px; border: 1.5px solid rgba(0,0,0,.5); }
+
+        .row-new { background: #fff; border-radius: 13px; padding: 10px 12px; display: flex;
+            align-items: center; gap: 10px; box-shadow: 0 2px 5px rgba(0,0,0,.13), 0 0 0 2px rgba(0,0,0,.82);
+            position: relative; overflow: hidden; }
+        .row-new::before { content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 6px; }
+        .row-new.u-over::before { background: #dc2626; }
+        .row-new.u-today::before { background: #f97316; }
+        .row-new.u-soon::before { background: #f59e0b; }
+        .row-new.u-week::before { background: #eab308; }
+        .row-new.u-later::before { background: #4ade80; }
+        .row-new.u-none::before { background: #94a3b8; }
+
+        .mini-cal { width: 46px; flex: 0 0 auto; border-radius: 9px; overflow: hidden;
+            border: 2px solid rgba(0,0,0,.8); background: #fff; }
+        .mini-top { font-size: .52rem; font-weight: 800; text-align: center; padding: 2px 0;
+            color: #fff; letter-spacing: .04em; }
+        .mini-day { font-size: 1.05rem; font-weight: 900; text-align: center; line-height: 1.2;
+            padding: 1px 0 3px; color: #0f172a; }
+        .u-over .mini-top { background: #dc2626; } .u-today .mini-top { background: #c2410c; }
+        .u-soon .mini-top { background: #b45309; } .u-week .mini-top { background: #eab308; color:#000; }
+        .u-later .mini-top { background: #4ade80; color: #000; } .u-none .mini-top { background: #475569; }
+
+        .pill-new { font-size: .68rem; font-weight: 800; padding: 5px 11px; border-radius: 999px;
+            white-space: nowrap; flex: 0 0 auto; border: 2px solid rgba(0,0,0,.8); }
+        .pill-new.u-over { background: #fee2e2; color: #991b1b; }
+        .pill-new.u-today { background: #ffedd5; color: #9a3412; }
+        .pill-new.u-soon { background: #fef3c7; color: #92400e; }
+        .pill-new.u-week { background: #fef9c3; color: #854d0e; }
+        .pill-new.u-later { background: #dcfce7; color: #166534; }
+        .pill-new.u-none { background: #f1f5f9; color: #475569; }
+
+        /* ==========================================================
+           RANDOMIZER — ลูกเต๋า 3 ลูกซ้อนมีมิติ แทนอีโมจิแบนใบเดียว
+           ========================================================== */
+        .dice-stack { position: relative; height: 128px; width: 100%; max-width: 280px; margin: 4px auto 6px; }
+        .die { position: absolute; background: #fff; border: 4px solid #000; border-radius: 14px;
+            box-shadow: 4px 4px 0 0 rgba(0,0,0,.85); display: grid; place-items: center; }
+        .die.d1 { width: 56px; height: 56px; left: 50%; margin-left: -82px; top: 38px; transform: rotate(-16deg); }
+        .die.d2 { width: 78px; height: 78px; left: 50%; margin-left: -39px; top: 14px; transform: rotate(7deg); z-index: 2; }
+        .die.d3 { width: 51px; height: 51px; left: 50%; margin-left: 39px; top: 48px; transform: rotate(19deg); }
+        .die .pips { display: grid; gap: 4px; }
+        .die .pip { background: #0f172a; border-radius: 999px; }
+        .d1 .pips { grid-template-columns: repeat(2,1fr); } .d1 .pip { width: 9px; height: 9px; }
+        .d2 .pips { grid-template-columns: repeat(3,1fr); } .d2 .pip { width: 11px; height: 11px; }
+        .d3 .pips { grid-template-columns: 1fr; } .d3 .pip { width: 12px; height: 12px; }
+
+        .rd-tags { display: flex; gap: 6px; justify-content: center; flex-wrap: wrap; margin: 4px 0 2px; }
+        .rd-tag { background: rgba(255,255,255,.92); border: 2px solid #000; border-radius: 9px;
+            padding: 3px 10px; font-size: .7rem; font-weight: 800; color: #0f172a; box-shadow: 2px 2px 0 0 #000; }
+        .rd-hint { font-size: .72rem; font-weight: 600; color: #0f172a; opacity: .75; margin-top: 6px; }
+
+        /* ==========================================================
+           แบนเนอร์ ASSESSMENTS / ตรวจ 0 ร มส / CHECK GRADE
+           ทรีตเมนต์ "SPLIT PANEL" — แบ่งการ์ดเป็น 2 โซนชัดเจน
+           โซนซ้ายสีสด (ข้อมูล) + โซนขวาแผงเข้ม (ปุ่มกด) แทนที่จะลอยอยู่บนพื้นเดียวกันแบบเดิม
+           ========================================================== */
+        .split-panel {
+            border: 6px solid #000; border-radius: 2rem; overflow: hidden;
+            box-shadow: 10px 10px 0 0 rgba(0,0,0,1); display: flex; flex-direction: column;
+            position: relative; margin-bottom: 24px;
+        }
+        @media (min-width: 640px) { .split-panel { flex-direction: row; min-height: 150px; } }
+        .split-info {
+            flex: 1; padding: 26px 28px; position: relative; overflow: hidden;
+            display: flex; align-items: center; gap: 18px; flex-direction: column; text-align: center;
+        }
+        @media (min-width: 640px) { .split-info { flex-direction: row; text-align: left; } }
+        .split-icon {
+            width: 64px; height: 64px; background: rgba(255,255,255,.95); border: 3px solid #000;
+            border-radius: 16px; display: flex; align-items: center; justify-content: center;
+            font-size: 2rem; flex-shrink: 0; box-shadow: 3px 3px 0 0 #000;
+        }
+        .split-title {
+            font-size: 1.7rem; font-weight: 900; color: #0f172a; line-height: 1.1;
+            text-transform: uppercase; letter-spacing: .03em;
+        }
+        @media (min-width: 768px) { .split-title { font-size: 2.1rem; } }
+        .split-sub { font-size: .78rem; font-weight: 600; color: #1e293b; opacity: .75; margin-top: 4px; }
+        .split-cta {
+            flex: 0 0 auto; background: #0f172a; display: flex; align-items: center; justify-content: center;
+            padding: 20px 34px; position: relative; overflow: hidden; cursor: pointer;
+            border-top: 6px solid #000; border-right: none; border-bottom: none; border-left: none;
+            font-family: 'Kanit', sans-serif; -webkit-appearance: none; appearance: none;
+        }
+        @media (min-width: 640px) { .split-cta { border-top: 0; border-left: 6px solid #000; } }
+        .split-btn {
+            color: #fff; font-weight: 900; font-size: 1.05rem; letter-spacing: .06em; text-transform: uppercase;
+            display: flex; align-items: center; gap: 10px; position: relative; z-index: 2; white-space: nowrap;
+        }
+        .split-cta::after {
+            content: ''; position: absolute; top: -50%; left: -20%; width: 35%; height: 220%;
+            background: linear-gradient(to right, rgba(255,255,255,0), rgba(255,255,255,.18), rgba(255,255,255,0));
+            transform: rotate(20deg); animation: splitSheen 4s ease-in-out infinite;
+        }
+        @keyframes splitSheen { 0% { left: -30%; } 60% { left: 120%; } 100% { left: 120%; } }
+
+        /* ==========================================================
+           เมนูครู (openAdminMenu) — ปุ่ม 5 อันปรับให้เข้าชุดกัน
+           ไอคอนใส่ในวงกลมโปร่งแสง + แสงกวาดผ่านต่อเนื่อง ให้เข้าชุดกับปุ่มอื่นๆ ในเว็บ
+           ========================================================== */
+        .menu-btn {
+            position: relative; overflow: hidden;
+        }
+        .menu-btn .ico-badge {
+            width: 44px; height: 44px; border-radius: 999px; background: rgba(255,255,255,.22);
+            display: flex; align-items: center; justify-content: center; font-size: 1.4rem;
+            border: 2px solid rgba(255,255,255,.4); margin-bottom: 2px;
+        }
+        .menu-btn::after {
+            content: ''; position: absolute; top: -60%; left: -30%; width: 35%; height: 220%;
+            background: linear-gradient(to right, rgba(255,255,255,0), rgba(255,255,255,.25), rgba(255,255,255,0));
+            transform: rotate(20deg); animation: menuBtnSheen 5s ease-in-out infinite; pointer-events: none;
+        }
+        @keyframes menuBtnSheen { 0% { left: -30%; } 55% { left: 130%; } 100% { left: 130%; } }
+
+        /* ==========================================================
+           ป๊อปอัปกรอกรหัสผ่าน 9 จุดทั่วเว็บ — ให้เข้าชุดกันตามแบบ SECURE LOGIN ที่อนุมัติ
+           ========================================================== */
+        .lock-badge {
+            width: 66px; height: 66px; border-radius: 999px; margin: 0 auto 10px;
+            background: linear-gradient(145deg, #fde047 0%, #f59e0b 100%); border: 4px solid #000;
+            display: flex; align-items: center; justify-content: center; font-size: 1.8rem;
+            box-shadow: 4px 4px 0 0 #000, 0 0 24px rgba(245,158,11,.5);
+            animation: lockPulse 2.4s ease-in-out infinite;
+        }
+        @keyframes lockPulse {
+            0%, 100% { box-shadow: 4px 4px 0 0 #000, 0 0 24px rgba(245,158,11,.5); }
+            50%      { box-shadow: 4px 4px 0 0 #000, 0 0 38px rgba(245,158,11,.75); }
+        }
+        .login-chip {
+            display: block; width: fit-content; margin: 0 auto 14px; font-weight: 900; font-size: .8rem;
+            color: #0f172a; padding: 4px 16px; border-radius: 999px; border: 2.5px solid #000;
+            box-shadow: 2px 2px 0 0 #000;
+        }
+        .glass-confirm-btn { position: relative; overflow: hidden; }
+        .glass-confirm-btn::after {
+            content: ''; position: absolute; top: -60%; left: -30%; width: 35%; height: 220%;
+            background: linear-gradient(to right, rgba(255,255,255,0), rgba(255,255,255,.3), rgba(255,255,255,0));
+            transform: rotate(20deg); animation: loginBtnSheen 3.4s ease-in-out infinite; pointer-events: none;
+        }
+        @keyframes loginBtnSheen { 0% { left: -30%; } 55% { left: 130%; } 100% { left: 130%; } }
+
+        /* ==========================================================
+           QUIZ GRADE 10/11/12 — ทรีตเมนต์ "NEON PULSE"
+           ขอบเรืองแสงเต้นจังหวะตามสีของการ์ดตัวเอง + แถบป้ายเฉียงมุม
+           + จุดแสงลอยหลายขนาด + ปุ่มกระจกฝ้าขอบเรือง
+           ========================================================== */
+        .quiz-neon { animation: quizNeonPulse 2.6s ease-in-out infinite; }
+        @keyframes quizNeonPulse {
+            0%, 100% { box-shadow: 10px 10px 0 0 rgba(0,0,0,1), 0 0 30px var(--ncol); }
+            50%      { box-shadow: 10px 10px 0 0 rgba(0,0,0,1), 0 0 52px var(--ncol); }
+        }
+        /* ★ แถบป้ายเฉียงมุม + ปุ่ม — ใช้ชั้น "สีเข้มโปร่งแสง" (ไม่ใช่ขาวโปร่งแสง)
+           เพราะตรวจแล้วว่าตัวหนังสือขาวบนชั้นขาวโปร่งแสงอ่านไม่ออกบนการ์ดสีอ่อน (2.07:1)
+           ชั้นเข้มโปร่งแสงดึงพื้นหลังให้เข้มพอเสมอ ไม่ว่าการ์ดจะสีอ่อนหรือเข้ม (ตรวจผ่านทุกจุด 5.6–16.4:1) */
+        .quiz-stripe {
+            position: absolute; top: 22px; right: -46px; width: 180px; height: 34px;
+            background: rgba(15,23,42,.55); border-top: 2px solid rgba(255,255,255,.5);
+            border-bottom: 2px solid rgba(255,255,255,.5); transform: rotate(40deg);
+            display: flex; align-items: center; justify-content: center; font-size: .62rem; font-weight: 900;
+            color: #fff; letter-spacing: .15em; z-index: 6; pointer-events: none;
+        }
+        .quiz-glass-btn {
+            width: 100%; background: rgba(15,23,42,.55); backdrop-filter: blur(2px);
+            border: 3px solid #fff; border-radius: 16px; padding: 14px 0; font-size: 1.1rem; font-weight: 900;
+            font-family: 'Kanit', sans-serif; color: #fff; letter-spacing: .06em; text-transform: uppercase;
+            display: flex; align-items: center; justify-content: center; gap: 8px; cursor: pointer;
+            box-shadow: 0 0 18px rgba(255,255,255,.4); transition: transform .15s, box-shadow .15s;
+        }
+        .quiz-glass-btn:hover { transform: translateY(-3px); box-shadow: 0 0 26px rgba(255,255,255,.6); }
+        .quiz-glass-btn:active { transform: translateY(0); }
+
+        /* จุดแสงลอย — หลายขนาดให้ดูมีมิติ (เล็ก=ไกล/จาง, ใหญ่=ใกล้/สว่างกว่า) */
+        .neon-dot {
+            position: absolute; border-radius: 999px; background: #fff; pointer-events: none;
+            animation: neonFloat 4.5s ease-in-out infinite;
+        }
+        .neon-dot.xs { width: 3px; height: 3px; opacity: .5; }
+        .neon-dot.sm { width: 4px; height: 4px; opacity: .65; }
+        .neon-dot.md { width: 5px; height: 5px; opacity: .8; box-shadow: 0 0 6px rgba(255,255,255,.8); }
+        .neon-dot.lg { width: 7px; height: 7px; opacity: .9; box-shadow: 0 0 10px rgba(255,255,255,.9); }
+        @keyframes neonFloat {
+            0%, 100% { transform: translateY(0) scale(1); opacity: .25; }
+            50%      { transform: translateY(-16px) scale(1.15); opacity: 1; }
+        }
+
         .quest-entry {
             position: relative;
         }
@@ -569,6 +830,12 @@
             .pixel-bar-fill { animation: none; width: 100%; }
             .deco-sway-pos, .deco-sway-neg, .deco-spin,
             .deco-dice-roll, .deco-pulse-alert, .badge-pulse { animation: none; }
+            .quiz-neon { animation: none; }
+            .menu-btn::after { animation: none; display: none; }
+            .lock-badge { animation: none; }
+            .glass-confirm-btn::after { animation: none; display: none; }
+            .split-cta::after { animation: none; display: none; }
+            .neon-dot { animation: none; opacity: .7 !important; }
             .grade-box-gold::before { animation: none; display: none; }
             .grade-spark { animation: none; opacity: 1; }
             .animate-bounce-up,
@@ -608,7 +875,7 @@
         <!-- 1. HERO -->
         <div class="bg-[url('https://i.postimg.cc/L6QjDb2M/Chat-GPT-Image-May-23-2026-at-07-30-52-PM.png')] bg-cover bg-center border-[6px] border-black rounded-[2rem] md:rounded-[3rem] p-5 pt-20 md:p-10 mb-6 md:mb-8 relative group hover:-translate-y-2 transition-transform duration-300 animate-bounce-up delay-100 hero-glow overflow-hidden ai-border ai-nodes">
             <div class="marquee-lights" aria-hidden="true"></div>
-            <div class="absolute -right-4 -top-4 text-[8rem] opacity-20 transform rotate-12 pointer-events-none z-0 deco-sway-pos"> 🇬🇧 🇹🇭 🇬🇧</div>
+            <div class="absolute -right-4 -top-4 text-[8rem] opacity-20 transform rotate-12 pointer-events-none z-0 deco-sway-pos"> 🇬🇧 🇹🇭 </div>
             <div class="absolute left-10 -bottom-10 text-[6rem] opacity-30 transform -rotate-12 pointer-events-none animate-float z-0">🛸</div>
             <div class="relative z-10 flex flex-col md:flex-row-reverse items-center justify-between gap-8">
                 <div class="flex-1 text-center md:text-left">
@@ -637,7 +904,7 @@
                         <img src="https://i.postimg.cc/pVj2q08J/Chat-GPT-Image-May-23-2026-at-09-32-41-PM.png" onerror="this.src='https://i.postimg.cc/T3mZY2N5/default-avatar.png'" alt="Profile Image" class="w-full h-full object-cover object-top transform group-hover:scale-110 transition-transform duration-500 select-none pointer-events-none" oncontextmenu="return false;" draggable="false">
                     </div>
                     <div class="absolute -top-4 -right-4 bg-yellow-300 border-[4px] border-black text-black font-black px-5 py-2 rounded-full shadow-[6px_6px_0_0_rgba(0,0,0,1)] rotate-12 z-30 text-lg tracking-wider animate-bounce">
-                        I AM OAT! 🇬🇧 🇹🇭 🇬🇧 
+                        I AM OAT! 🇬🇧 🇹🇭  
                     </div>
                 </div>
             </div>
@@ -651,16 +918,17 @@
                 <div class="relative z-10 flex flex-col h-full">
                     <div class="flex items-center justify-between mb-5 flex-wrap gap-3">
                         <div class="flex items-center gap-3">
-                            <div class="relative bg-white p-3 rounded-2xl border-4 border-black shadow-[4px_4px_0_0_rgba(0,0,0,1)] text-2xl transform -rotate-3">
-                                📆
-                                <span id="deadlineUrgentBadge" class="hidden absolute -top-2 -right-2 bg-red-600 text-white text-[11px] font-black min-w-[22px] h-[22px] px-1 rounded-full border-2 border-black shadow-[2px_2px_0_0_rgba(0,0,0,1)] flex items-center justify-center badge-pulse"></span>
+                            <div class="cal-widget">
+                                <div class="cal-top" id="deadlineCalMonth">--</div>
+                                <div class="cal-day" id="deadlineCalDay">--</div>
+                                <span id="deadlineUrgentBadge" class="hidden cal-badge badge-pulse"></span>
                             </div>
                             <div>
                                 <h2 class="text-2xl md:text-3xl font-black text-black uppercase tracking-widest drop-shadow-[2px_2px_0_rgba(255,255,255,1)]">DEADLINE</h2>
                                 <p class="text-black font-black text-[10px] tracking-widest uppercase bg-amber-400 px-3 py-1 rounded-full border-2 border-black inline-block mt-1 shadow-[2px_2px_0_0_rgba(0,0,0,1)]">กำหนดส่งงาน</p>
                             </div>
                         </div>
-                        <button type="button" onclick="openDeadlineAdmin()" class="bg-amber-500 border-4 border-black text-white font-black text-xs py-2 px-4 rounded-xl hover:bg-amber-400 active:translate-y-1 active:shadow-[0_0_0_0_rgba(0,0,0,1)] shadow-[4px_4px_0_0_rgba(0,0,0,1)] transition-all flex items-center gap-2 uppercase tracking-widest flex-shrink-0">
+                        <button type="button" onclick="openDeadlineAdmin()" class="border-4 border-black text-white font-black text-xs py-2 px-4 rounded-xl active:translate-y-1 active:shadow-[0_0_0_0_rgba(0,0,0,1)] shadow-[4px_4px_0_0_rgba(0,0,0,1)] transition-all flex items-center gap-2 uppercase tracking-widest flex-shrink-0" style="background:#92400e;">
                             🍁 K.OAT
                         </button>
                     </div>
@@ -676,12 +944,20 @@
                 <div class="absolute -left-6 -top-6 text-[8rem] opacity-30 transform -rotate-12 pointer-events-none z-0 deco-dice-roll">🎲</div>
                 <div class="absolute -right-10 -bottom-10 text-[10rem] opacity-20 transform rotate-12 pointer-events-none z-0 deco-spin">🎡</div>
                 
-                <div class="relative z-10 flex flex-col items-center mb-6 mt-4">
-                   <div class="bg-white p-5 md:p-6 rounded-3xl border-4 border-black shadow-[6px_6px_0_0_rgba(0,0,0,1)] text-5xl md:text-7xl transform rotate-6 mb-5">
-                        🎲
+                <div class="relative z-10 flex flex-col items-center mb-4 mt-4 w-full">
+                   <div class="dice-stack">
+                        <div class="die d1"><div class="pips"><span class="pip"></span><span class="pip"></span><span class="pip"></span><span class="pip"></span></div></div>
+                        <div class="die d2"><div class="pips">
+                            <span class="pip"></span><span class="pip"></span><span class="pip"></span>
+                            <span class="pip"></span><span class="pip"></span><span class="pip"></span>
+                            <span class="pip"></span><span class="pip"></span><span class="pip"></span>
+                        </div></div>
+                        <div class="die d3"><div class="pips"><span class="pip"></span></div></div>
                     </div>
                    <h2 class="text-3xl md:text-6xl font-black text-black uppercase tracking-widest drop-shadow-[2px_2px_0_rgba(255,255,255,1)]">RANDOMIZER</h2>
                    <p class="text-black font-black text-xs md:text-base tracking-widest uppercase bg-[#22d3ee] px-4 md:px-5 py-1.5 md:py-2 rounded-full border-2 border-black inline-block mt-2 shadow-[2px_2px_0_0_rgba(0,0,0,1)]">ระบบสุ่มชื่อนักเรียน</p>
+                   <div class="rd-tags"><span class="rd-tag">ม.4</span><span class="rd-tag">ม.5</span><span class="rd-tag">ม.6</span><span class="rd-tag">ครบ 12 ห้อง</span></div>
+                   <p class="rd-hint">สุ่มเลือกนักเรียนขึ้นมาตอบคำถามได้ทันที</p>
                 </div>
                 
                 <a href="https://random.mynameisoat.com" target="_blank" class="w-full bg-[#fde047] border-4 border-black text-black font-black text-xl md:text-2xl py-4 md:py-5 px-6 rounded-2xl hover:bg-yellow-300 active:translate-y-1 active:shadow-[0_0_0_0_rgba(0,0,0,1)] shadow-[6px_6px_0_0_rgba(0,0,0,1)] transition-all flex items-center justify-center gap-2 relative z-10 uppercase tracking-widest mt-auto">
@@ -744,43 +1020,70 @@
             <div class="bg-[#7dd3fc] pat-grid border-[6px] border-black rounded-[2.5rem] p-5 shadow-[10px_10px_0_0_rgba(0,0,0,1)] flex flex-col animate-bounce-up delay-300 hover:-translate-y-1 transition-transform overflow-hidden ai-border ai-nodes relative">
                 <div class="absolute -right-6 -top-6 text-[7rem] opacity-20 transform rotate-12 pointer-events-none z-0 deco-sway-pos">📚</div>
                 <div class="absolute left-6 -bottom-8 text-[5rem] opacity-25 transform -rotate-12 pointer-events-none z-0 deco-sway-neg">🖊️</div>
-                <div class="flex justify-center mb-4 relative z-10">
-                    <h2 class="bg-white border-4 border-black px-6 py-2 rounded-full font-black text-xl text-black shadow-[4px_4px_0_0_rgba(0,0,0,1)] transform rotate-1">
-                        📅 MY SCHEDULE 🧨
-                    </h2>
+                <div class="hd relative z-10 text-center mb-4">
+                    <span class="inline-flex items-center gap-1.5 bg-white border-[2.5px] border-black rounded-full px-3.5 py-1 text-[.66rem] font-black tracking-[.11em] text-black shadow-[2px_2px_0_0_rgba(0,0,0,1)]">👩‍🏫 ตารางสอนของครู</span>
+                    <h2 class="text-[1.7rem] font-black text-black tracking-[.05em] mt-2 leading-none drop-shadow-[2px_2px_0_rgba(255,255,255,0.9)]">MY SCHEDULE</h2>
+                    <p class="text-[.7rem] font-semibold text-slate-700 mt-1">ภาคเรียนที่ 1 · ปีการศึกษา 2569</p>
                 </div>
-                <div class="bg-white border-4 border-black rounded-2xl overflow-hidden shadow-inner flex-grow flex items-start justify-center p-2 cursor-pointer group relative z-10" onclick="window.open('https://i.postimg.cc/JnmbbvN8/Gemini-Generated-Image-5blqtq5blqtq5blq.png', '_blank')">
-                    <img src="https://i.postimg.cc/JnmbbvN8/Gemini-Generated-Image-5blqtq5blqtq5blq.png" onerror="this.src='https://via.placeholder.com/600x800?text=Schedule'" alt="ตารางสอน" loading="lazy" class="w-full h-auto object-contain transform group-hover:scale-[1.02] transition-transform duration-300">
+                <div class="sc-viewer cursor-pointer group" onclick="window.open('https://i.postimg.cc/JnmbbvN8/Gemini-Generated-Image-5blqtq5blqtq5blq.png', '_blank')">
+                    <div class="sc-bar">
+                        <div class="sc-dots"><i style="background:#f87171"></i><i style="background:#fbbf24"></i><i style="background:#4ade80"></i></div>
+                        <span class="sc-name">ตารางสอน · ครูจักรพงษ์</span>
+                        <span class="sc-zoom">🔍 ขยาย</span>
+                    </div>
+                    <div class="sc-body">
+                        <img src="https://i.postimg.cc/JnmbbvN8/Gemini-Generated-Image-5blqtq5blqtq5blq.png" onerror="this.src='https://via.placeholder.com/600x800?text=Schedule'" alt="ตารางสอน" loading="lazy" class="w-full h-auto object-contain transform group-hover:scale-[1.02] transition-transform duration-300">
+                    </div>
                 </div>
-                <p class="text-center text-sm font-bold text-gray-700 mt-3 relative z-10">TAP TO ENLARGE 🔍</p>
+                <div onclick="window.open('https://i.postimg.cc/JnmbbvN8/Gemini-Generated-Image-5blqtq5blqtq5blq.png', '_blank')" class="relative z-10 mt-3 bg-slate-900 text-white border-[3px] border-black rounded-2xl py-3 text-center text-[.9rem] font-black tracking-wide shadow-[4px_4px_0_0_rgba(0,0,0,0.45)] hover:-translate-y-1 transition-transform cursor-pointer">🔍 แตะเพื่อดูภาพเต็ม</div>
             </div>
 
             <div class="bg-[#fce96a] pat-grid border-[6px] border-black rounded-[2.5rem] p-5 shadow-[10px_10px_0_0_rgba(0,0,0,1)] flex flex-col animate-bounce-up delay-300 hover:-translate-y-1 transition-transform overflow-hidden ai-border ai-nodes relative">
                 <div class="absolute -left-6 -top-6 text-[7rem] opacity-20 transform -rotate-12 pointer-events-none z-0 deco-sway-neg">🎒</div>
                 <div class="absolute right-6 -bottom-8 text-[5rem] opacity-25 transform rotate-12 pointer-events-none z-0 deco-sway-pos">✏️</div>
-                <div class="flex justify-center mb-4 relative z-10">
-                    <h2 class="bg-white border-4 border-black px-6 py-2 rounded-full font-black text-xl text-black shadow-[4px_4px_0_0_rgba(0,0,0,1)] transform -rotate-2">
-                        🗓️ ตารางเรียนนักเรียน 🏀
-                    </h2>
+                <div class="hd relative z-10 text-center mb-4">
+                    <span class="inline-flex items-center gap-1.5 bg-white border-[2.5px] border-black rounded-full px-3.5 py-1 text-[.66rem] font-black tracking-[.11em] text-black shadow-[2px_2px_0_0_rgba(0,0,0,1)]">🎒 ตารางเรียนนักเรียน</span>
+                    <h2 class="text-[1.7rem] font-black text-black tracking-[.05em] mt-2 leading-none drop-shadow-[2px_2px_0_rgba(255,255,255,0.9)]">CLASS SCHEDULE</h2>
+                    <p class="text-[.7rem] font-semibold text-slate-700 mt-1">เลือกห้องของตัวเองด้านล่าง</p>
                 </div>
-                <div class="grid grid-cols-4 sm:grid-cols-6 gap-2 mb-3 relative z-10">
-                    <button onclick="showRoomSchedule('4/1')" data-room="4/1" style="background: linear-gradient(145deg, #fdba74 0%, #f97316 100%);" class="room-sched-btn border-2 border-black text-white font-black text-sm py-2.5 rounded-xl shadow-[4px_4px_0_0_rgba(0,0,0,1)] hover:-translate-y-0.5 hover:rotate-1 active:translate-y-1 active:shadow-[0_0_0_0_rgba(0,0,0,1)] transition-all">4/1</button>
-                    <button onclick="showRoomSchedule('4/2')" data-room="4/2" style="background: linear-gradient(145deg, #fdba74 0%, #f97316 100%);" class="room-sched-btn border-2 border-black text-white font-black text-sm py-2.5 rounded-xl shadow-[4px_4px_0_0_rgba(0,0,0,1)] hover:-translate-y-0.5 hover:rotate-1 active:translate-y-1 active:shadow-[0_0_0_0_rgba(0,0,0,1)] transition-all">4/2</button>
-                    <button onclick="showRoomSchedule('4/3')" data-room="4/3" style="background: linear-gradient(145deg, #fdba74 0%, #f97316 100%);" class="room-sched-btn border-2 border-black text-white font-black text-sm py-2.5 rounded-xl shadow-[4px_4px_0_0_rgba(0,0,0,1)] hover:-translate-y-0.5 hover:rotate-1 active:translate-y-1 active:shadow-[0_0_0_0_rgba(0,0,0,1)] transition-all">4/3</button>
-                    <button onclick="showRoomSchedule('4/4')" data-room="4/4" style="background: linear-gradient(145deg, #fdba74 0%, #f97316 100%);" class="room-sched-btn border-2 border-black text-white font-black text-sm py-2.5 rounded-xl shadow-[4px_4px_0_0_rgba(0,0,0,1)] hover:-translate-y-0.5 hover:rotate-1 active:translate-y-1 active:shadow-[0_0_0_0_rgba(0,0,0,1)] transition-all">4/4</button>
-                    <button onclick="showRoomSchedule('5/1')" data-room="5/1" style="background: linear-gradient(145deg, #86efac 0%, #22c55e 100%);" class="room-sched-btn border-2 border-black text-white font-black text-sm py-2.5 rounded-xl shadow-[4px_4px_0_0_rgba(0,0,0,1)] hover:-translate-y-0.5 hover:rotate-1 active:translate-y-1 active:shadow-[0_0_0_0_rgba(0,0,0,1)] transition-all">5/1</button>
-                    <button onclick="showRoomSchedule('5/2')" data-room="5/2" style="background: linear-gradient(145deg, #86efac 0%, #22c55e 100%);" class="room-sched-btn border-2 border-black text-white font-black text-sm py-2.5 rounded-xl shadow-[4px_4px_0_0_rgba(0,0,0,1)] hover:-translate-y-0.5 hover:rotate-1 active:translate-y-1 active:shadow-[0_0_0_0_rgba(0,0,0,1)] transition-all">5/2</button>
-                    <button onclick="showRoomSchedule('5/3')" data-room="5/3" style="background: linear-gradient(145deg, #86efac 0%, #22c55e 100%);" class="room-sched-btn border-2 border-black text-white font-black text-sm py-2.5 rounded-xl shadow-[4px_4px_0_0_rgba(0,0,0,1)] hover:-translate-y-0.5 hover:rotate-1 active:translate-y-1 active:shadow-[0_0_0_0_rgba(0,0,0,1)] transition-all">5/3</button>
-                    <button onclick="showRoomSchedule('5/4')" data-room="5/4" style="background: linear-gradient(145deg, #86efac 0%, #22c55e 100%);" class="room-sched-btn border-2 border-black text-white font-black text-sm py-2.5 rounded-xl shadow-[4px_4px_0_0_rgba(0,0,0,1)] hover:-translate-y-0.5 hover:rotate-1 active:translate-y-1 active:shadow-[0_0_0_0_rgba(0,0,0,1)] transition-all">5/4</button>
-                    <button onclick="showRoomSchedule('6/1')" data-room="6/1" style="background: linear-gradient(145deg, #f9a8d4 0%, #ec4899 100%);" class="room-sched-btn border-2 border-black text-white font-black text-sm py-2.5 rounded-xl shadow-[4px_4px_0_0_rgba(0,0,0,1)] hover:-translate-y-0.5 hover:rotate-1 active:translate-y-1 active:shadow-[0_0_0_0_rgba(0,0,0,1)] transition-all">6/1</button>
-                    <button onclick="showRoomSchedule('6/2')" data-room="6/2" style="background: linear-gradient(145deg, #f9a8d4 0%, #ec4899 100%);" class="room-sched-btn border-2 border-black text-white font-black text-sm py-2.5 rounded-xl shadow-[4px_4px_0_0_rgba(0,0,0,1)] hover:-translate-y-0.5 hover:rotate-1 active:translate-y-1 active:shadow-[0_0_0_0_rgba(0,0,0,1)] transition-all">6/2</button>
-                    <button onclick="showRoomSchedule('6/3')" data-room="6/3" style="background: linear-gradient(145deg, #f9a8d4 0%, #ec4899 100%);" class="room-sched-btn border-2 border-black text-white font-black text-sm py-2.5 rounded-xl shadow-[4px_4px_0_0_rgba(0,0,0,1)] hover:-translate-y-0.5 hover:rotate-1 active:translate-y-1 active:shadow-[0_0_0_0_rgba(0,0,0,1)] transition-all">6/3</button>
-                    <button onclick="showRoomSchedule('6/4')" data-room="6/4" style="background: linear-gradient(145deg, #f9a8d4 0%, #ec4899 100%);" class="room-sched-btn border-2 border-black text-white font-black text-sm py-2.5 rounded-xl shadow-[4px_4px_0_0_rgba(0,0,0,1)] hover:-translate-y-0.5 hover:rotate-1 active:translate-y-1 active:shadow-[0_0_0_0_rgba(0,0,0,1)] transition-all">6/4</button>
+                <div class="grade-row">
+                    <div class="grade-tag">ม.4</div>
+                    <div class="grade-btns">
+                        <button onclick="showRoomSchedule('4/1')" data-room="4/1" data-dot="#f97316" style="background: linear-gradient(145deg, #fdba74 0%, #f97316 100%);" class="rm-btn room-sched-btn"><span class="rm-dot" style="background:#f97316;"></span>4/1</button>
+                        <button onclick="showRoomSchedule('4/2')" data-room="4/2" data-dot="#f97316" style="background: linear-gradient(145deg, #fdba74 0%, #f97316 100%);" class="rm-btn room-sched-btn"><span class="rm-dot" style="background:#f97316;"></span>4/2</button>
+                        <button onclick="showRoomSchedule('4/3')" data-room="4/3" data-dot="#f97316" style="background: linear-gradient(145deg, #fdba74 0%, #f97316 100%);" class="rm-btn room-sched-btn"><span class="rm-dot" style="background:#f97316;"></span>4/3</button>
+                        <button onclick="showRoomSchedule('4/4')" data-room="4/4" data-dot="#f97316" style="background: linear-gradient(145deg, #fdba74 0%, #f97316 100%);" class="rm-btn room-sched-btn"><span class="rm-dot" style="background:#f97316;"></span>4/4</button>
+                    </div>
                 </div>
-                <div id="roomScheduleBox" class="bg-white rounded-2xl overflow-hidden shadow-inner flex-grow flex items-center justify-center p-4 relative z-10" style="min-height:180px;">
-                    <p class="text-center text-gray-400 font-bold text-sm px-4">👆 เลือกห้องของตัวเองด้านบนก่อนนะ 😊</p>
+                <div class="grade-row">
+                    <div class="grade-tag">ม.5</div>
+                    <div class="grade-btns">
+                        <button onclick="showRoomSchedule('5/1')" data-room="5/1" data-dot="#22c55e" style="background: linear-gradient(145deg, #86efac 0%, #22c55e 100%);" class="rm-btn room-sched-btn"><span class="rm-dot" style="background:#22c55e;"></span>5/1</button>
+                        <button onclick="showRoomSchedule('5/2')" data-room="5/2" data-dot="#22c55e" style="background: linear-gradient(145deg, #86efac 0%, #22c55e 100%);" class="rm-btn room-sched-btn"><span class="rm-dot" style="background:#22c55e;"></span>5/2</button>
+                        <button onclick="showRoomSchedule('5/3')" data-room="5/3" data-dot="#22c55e" style="background: linear-gradient(145deg, #86efac 0%, #22c55e 100%);" class="rm-btn room-sched-btn"><span class="rm-dot" style="background:#22c55e;"></span>5/3</button>
+                        <button onclick="showRoomSchedule('5/4')" data-room="5/4" data-dot="#22c55e" style="background: linear-gradient(145deg, #86efac 0%, #22c55e 100%);" class="rm-btn room-sched-btn"><span class="rm-dot" style="background:#22c55e;"></span>5/4</button>
+                    </div>
                 </div>
-                <p id="roomScheduleHint" class="text-center text-sm font-bold text-gray-700 mt-3 relative z-10" style="display:none;">TAP TO ENLARGE 🔍</p>
+                <div class="grade-row">
+                    <div class="grade-tag">ม.6</div>
+                    <div class="grade-btns">
+                        <button onclick="showRoomSchedule('6/1')" data-room="6/1" data-dot="#ec4899" style="background: linear-gradient(145deg, #f9a8d4 0%, #ec4899 100%);" class="rm-btn room-sched-btn"><span class="rm-dot" style="background:#ec4899;"></span>6/1</button>
+                        <button onclick="showRoomSchedule('6/2')" data-room="6/2" data-dot="#ec4899" style="background: linear-gradient(145deg, #f9a8d4 0%, #ec4899 100%);" class="rm-btn room-sched-btn"><span class="rm-dot" style="background:#ec4899;"></span>6/2</button>
+                        <button onclick="showRoomSchedule('6/3')" data-room="6/3" data-dot="#ec4899" style="background: linear-gradient(145deg, #f9a8d4 0%, #ec4899 100%);" class="rm-btn room-sched-btn"><span class="rm-dot" style="background:#ec4899;"></span>6/3</button>
+                        <button onclick="showRoomSchedule('6/4')" data-room="6/4" data-dot="#ec4899" style="background: linear-gradient(145deg, #f9a8d4 0%, #ec4899 100%);" class="rm-btn room-sched-btn"><span class="rm-dot" style="background:#ec4899;"></span>6/4</button>
+                    </div>
+                </div>
+                <div class="sc-viewer">
+                    <div class="sc-bar">
+                        <div class="sc-dots"><i style="background:#f87171"></i><i style="background:#fbbf24"></i><i style="background:#4ade80"></i></div>
+                        <span class="sc-name" id="roomScheduleName">ยังไม่ได้เลือกห้อง</span>
+                        <span class="sc-zoom" id="roomScheduleZoom" style="display:none;">🔍 ขยาย</span>
+                    </div>
+                    <div class="sc-body" id="roomScheduleBox" style="min-height:150px;">
+                        <p class="text-center text-slate-400 font-bold text-sm px-4 py-8">👆 เลือกห้องของตัวเองด้านบนก่อนนะ 😊</p>
+                    </div>
+                </div>
+                <div id="roomScheduleHint" class="relative z-10 mt-3 bg-slate-900 text-white border-[3px] border-black rounded-2xl py-3 text-center text-[.9rem] font-black tracking-wide shadow-[4px_4px_0_0_rgba(0,0,0,0.45)] hover:-translate-y-1 transition-transform cursor-pointer" style="display:none;">🔍 แตะเพื่อดูภาพเต็ม</div>
             </div>
         </div>
 
@@ -789,64 +1092,96 @@
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-6">
 
             <!-- การ์ด 1: Quiz Grade 10 (เดิม Part of Speech) -->
-            <div class="arcade-card-wrap glow-purple animate-bounce-up delay-300" style="background: linear-gradient(145deg, #b06fff 0%, #e040fb 100%);">
+            <div class="arcade-card-wrap glow-purple quiz-neon animate-bounce-up delay-300" style="background: linear-gradient(145deg, #b06fff 0%, #e040fb 100%); --ncol: rgba(224,64,251,.65);">
                 <div class="arcade-deco" style="top:-14px;left:-10px;transform:rotate(-15deg);">👾</div>
                 <div class="arcade-deco" style="bottom:-16px;right:-8px;transform:rotate(15deg);">🎮</div>
+                <div class="quiz-stripe">GRADE 10</div>
+                <span class="neon-dot lg" style="top:14%;left:10%;animation-delay:0s;"></span>
+                <span class="neon-dot sm" style="top:28%;left:78%;animation-delay:.5s;"></span>
+                <span class="neon-dot md" style="top:48%;left:22%;animation-delay:1s;"></span>
+                <span class="neon-dot xs" style="top:60%;left:66%;animation-delay:1.5s;"></span>
+                <span class="neon-dot md" style="top:70%;left:14%;animation-delay:2s;"></span>
+                <span class="neon-dot sm" style="top:20%;left:50%;animation-delay:2.5s;"></span>
+                <span class="neon-dot lg" style="top:80%;left:82%;animation-delay:3s;"></span>
                 <div style="position:relative;z-index:2;display:flex;flex-direction:column;align-items:center;width:100%;flex:1;justify-content:space-between;">
                     <div style="text-align:center;">
                         <span class="arcade-badge">🎯 QUIZ HUB</span>
                         <div class="arcade-title">QUIZ<br>GRADE 10</div>
                         <span class="arcade-sub">📚 ม.4 สอบย่อย</span>
                     </div>
-                    <button class="arcade-btn" style="background:#39ff14;color:#000;" onclick="openGradeQuizHub('10')">
+                    <button class="quiz-glass-btn" onclick="openGradeQuizHub('10')">
                         <span style="font-size:1.6rem;">🎲</span>ENTER
                     </button>
                 </div>
             </div>
 
             <!-- การ์ด 2: Quiz Grade 11 (เดิม Secret Stage) -->
-            <div class="arcade-card-wrap glow-blue animate-bounce-up delay-300" style="background: linear-gradient(145deg, #29b6f6 0%, #7c4dff 100%);">
+            <div class="arcade-card-wrap glow-blue quiz-neon animate-bounce-up delay-300" style="background: linear-gradient(145deg, #29b6f6 0%, #7c4dff 100%); --ncol: rgba(124,77,255,.65);">
                 <div class="arcade-deco" style="top:-14px;left:-10px;transform:rotate(-15deg);">🚀</div>
                 <div class="arcade-deco" style="bottom:-16px;right:-8px;transform:rotate(15deg);">🌟</div>
+                <div class="quiz-stripe">GRADE 11</div>
+                <span class="neon-dot md" style="top:16%;left:14%;animation-delay:.2s;"></span>
+                <span class="neon-dot xs" style="top:32%;left:80%;animation-delay:.7s;"></span>
+                <span class="neon-dot lg" style="top:50%;left:26%;animation-delay:1.2s;"></span>
+                <span class="neon-dot sm" style="top:62%;left:62%;animation-delay:1.7s;"></span>
+                <span class="neon-dot md" style="top:74%;left:18%;animation-delay:2.2s;"></span>
+                <span class="neon-dot lg" style="top:22%;left:52%;animation-delay:2.7s;"></span>
+                <span class="neon-dot xs" style="top:82%;left:78%;animation-delay:3.2s;"></span>
                 <div style="position:relative;z-index:2;display:flex;flex-direction:column;align-items:center;width:100%;flex:1;justify-content:space-between;">
                     <div style="text-align:center;">
                         <span class="arcade-badge">🎯 QUIZ HUB</span>
                         <div class="arcade-title">QUIZ<br>GRADE 11</div>
                         <span class="arcade-sub">📚 ม.5 สอบย่อย</span>
                     </div>
-                    <button class="arcade-btn" style="background:#ffe600;color:#000;" onclick="openGradeQuizHub('11')">
+                    <button class="quiz-glass-btn" onclick="openGradeQuizHub('11')">
                         <span style="font-size:1.6rem;">🎲</span>ENTER
                     </button>
                 </div>
             </div>
 
             <!-- การ์ด 3: Quiz Grade 12 (เดิม English Quest M.6) -->
-            <div class="arcade-card-wrap glow-teal animate-bounce-up delay-300" style="background: linear-gradient(145deg, #1a237e 0%, #006064 100%);">
+            <div class="arcade-card-wrap glow-teal quiz-neon animate-bounce-up delay-300" style="background: linear-gradient(145deg, #1a237e 0%, #006064 100%); --ncol: rgba(6,182,212,.65);">
                 <div class="arcade-deco" style="top:-14px;left:-10px;transform:rotate(-15deg);">📜</div>
                 <div class="arcade-deco" style="bottom:-16px;right:-8px;transform:rotate(15deg);">⚔️</div>
+                <div class="quiz-stripe">GRADE 12</div>
+                <span class="neon-dot sm" style="top:12%;left:20%;animation-delay:.1s;"></span>
+                <span class="neon-dot lg" style="top:30%;left:74%;animation-delay:.6s;"></span>
+                <span class="neon-dot xs" style="top:46%;left:16%;animation-delay:1.1s;"></span>
+                <span class="neon-dot md" style="top:58%;left:58%;animation-delay:1.6s;"></span>
+                <span class="neon-dot lg" style="top:72%;left:24%;animation-delay:2.1s;"></span>
+                <span class="neon-dot xs" style="top:18%;left:60%;animation-delay:2.6s;"></span>
+                <span class="neon-dot md" style="top:84%;left:76%;animation-delay:3.1s;"></span>
                 <div style="position:relative;z-index:2;display:flex;flex-direction:column;align-items:center;width:100%;flex:1;justify-content:space-between;">
                     <div style="text-align:center;">
                         <span class="arcade-badge">🎯 QUIZ HUB</span>
                         <div class="arcade-title">QUIZ<br>GRADE 12</div>
                         <span class="arcade-sub">📚 ม.6 สอบย่อย</span>
                     </div>
-                    <button class="arcade-btn" style="background:#ffd700;color:#000;" onclick="openGradeQuizHub('12')">
+                    <button class="quiz-glass-btn" onclick="openGradeQuizHub('12')">
                         <span style="font-size:1.6rem;">🎲</span>ENTER
                     </button>
                 </div>
             </div>
 
             <!-- การ์ด 4: Game Quizz (ไม่แก้ไข ไม่ปรับ) -->
-            <div class="arcade-card-wrap glow-orange animate-bounce-up delay-300" style="background: linear-gradient(145deg, #ff6f00 0%, #f50057 100%);">
+            <div class="arcade-card-wrap glow-orange quiz-neon animate-bounce-up delay-300" style="background: linear-gradient(145deg, #ff6f00 0%, #f50057 100%); --ncol: rgba(255,111,0,.55);">
                 <div class="arcade-deco" style="top:-14px;left:-10px;transform:rotate(-15deg);">❓</div>
                 <div class="arcade-deco" style="bottom:-16px;right:-8px;transform:rotate(15deg);">🧩</div>
+                <div class="quiz-stripe">GAME QUIZZ</div>
+                <span class="neon-dot lg" style="top:14%;left:10%;animation-delay:0s;"></span>
+                <span class="neon-dot sm" style="top:28%;left:78%;animation-delay:.5s;"></span>
+                <span class="neon-dot md" style="top:48%;left:22%;animation-delay:1s;"></span>
+                <span class="neon-dot xs" style="top:60%;left:66%;animation-delay:1.5s;"></span>
+                <span class="neon-dot md" style="top:70%;left:14%;animation-delay:2s;"></span>
+                <span class="neon-dot sm" style="top:20%;left:50%;animation-delay:2.5s;"></span>
+                <span class="neon-dot lg" style="top:80%;left:82%;animation-delay:3s;"></span>
                 <div style="position:relative;z-index:2;display:flex;flex-direction:column;align-items:center;width:100%;flex:1;justify-content:space-between;">
                     <div style="text-align:center;">
                         <span class="arcade-badge">🎲 QUIZ HUB</span>
                         <div class="arcade-title">GAME<br>QUIZZ</div>
                         <span class="arcade-sub">📚 Exercise & Games</span>
                     </div>
-                    <button class="arcade-btn" style="background:#00e5ff;color:#000;" onclick="openQuizHub()">
+                    <button class="quiz-glass-btn" onclick="openQuizHub()">
                         <span style="font-size:1.6rem;">🎲</span>ENTER
                     </button>
                 </div>
@@ -855,47 +1190,44 @@
         </div>
  
         <!-- เอกสาร/ใบงาน -->
-        <div class="w-full bg-[#7fb3fb] hazard-panel border-[6px] border-black rounded-[3rem] p-6 md:p-10 shadow-[12px_12px_0_0_rgba(0,0,0,1)] mb-6 flex flex-col md:flex-row items-center justify-between gap-6 hover:-translate-y-1 transition-transform relative overflow-hidden animate-bounce-up delay-400 ai-border ai-nodes">
-            <div class="absolute -left-6 -top-6 text-[8rem] opacity-30 transform rotate-12 pointer-events-none z-0 deco-sway-pos">📁</div>
-            <div class="flex items-center gap-6 relative z-10 text-center md:text-left flex-col md:flex-row w-full md:w-auto">
-                <div class="bg-white p-5 rounded-3xl border-4 border-black shadow-[6px_6px_0_0_rgba(0,0,0,1)] text-4xl transform -rotate-3">🗂️</div>
+        <div class="split-panel" style="background: #7fb3fb;">
+            <div class="split-info">
+                <div class="split-icon">🗂️</div>
                 <div>
-                    <h2 class="text-3xl md:text-5xl font-black text-black mb-2 uppercase tracking-widest drop-shadow-[2px_2px_0_rgba(255,255,255,1)]">ASSESSMENTS</h2>
-                    <p class="text-white font-black text-sm tracking-widest uppercase bg-blue-800 px-4 py-1.5 rounded-full border-2 border-black inline-block shadow-[2px_2px_0_0_rgba(0,0,0,1)]">ดาวน์โหลดเอกสารประกอบการเรียน</p>
+                    <div class="split-title">Assessments</div>
+                    <div class="split-sub">ดาวน์โหลดเอกสารประกอบการเรียน</div>
                 </div>
             </div>
-            <button type="button" onclick="showDownloadFolders()" class="w-full md:w-auto flex-shrink-0 bg-yellow-300 border-4 border-black text-black font-black text-xl py-4 px-10 rounded-2xl hover:bg-yellow-200 active:translate-y-1 active:shadow-[0_0_0_0_rgba(0,0,0,1)] shadow-[6px_6px_0_0_rgba(0,0,0,1)] transition-all flex items-center justify-center gap-3 relative z-10 uppercase tracking-widest">
-                <span>DOWNLOAD</span> <span class="text-2xl animate-bounce">📥</span>
+            <button type="button" class="split-cta" onclick="showDownloadFolders()">
+                <span class="split-btn">DOWNLOAD <span class="text-2xl">📥</span></span>
             </button>
         </div>
 
         <!-- ตรวจ ร/มส -->
-        <div class="w-full bg-[#fb9090] hazard-panel border-[6px] border-black rounded-[3rem] p-6 md:p-10 shadow-[12px_12px_0_0_rgba(0,0,0,1)] mb-6 flex flex-col md:flex-row items-center justify-between gap-6 hover:-translate-y-1 transition-transform relative overflow-hidden animate-bounce-up delay-400 ai-border ai-nodes">
-            <div class="absolute -right-4 -bottom-4 text-[8rem] opacity-30 transform -rotate-12 pointer-events-none z-0 deco-pulse-alert">🚨</div>
-            <div class="flex items-center gap-6 relative z-10 text-center md:text-left flex-col md:flex-row w-full md:w-auto">
-                <div class="bg-white p-5 rounded-3xl border-4 border-black shadow-[6px_6px_0_0_rgba(0,0,0,1)] text-4xl transform rotate-3">⚠️</div>
+        <div class="split-panel" style="background: #fb9090;">
+            <div class="split-info">
+                <div class="split-icon">⚠️</div>
                 <div>
-                    <h2 class="text-3xl md:text-5xl font-black text-black mb-2 uppercase tracking-widest drop-shadow-[2px_2px_0_rgba(255,255,255,1)]">ตรวจ 0 ร มส</h2>
-                    <p class="text-white font-black text-sm tracking-widest uppercase bg-red-800 px-4 py-1.5 rounded-full border-2 border-black inline-block shadow-[2px_2px_0_0_rgba(0,0,0,1)]">ตรวจสอบรายชื่อติด ร/มส.</p>
+                    <div class="split-title">ตรวจ 0 ร มส</div>
+                    <div class="split-sub">ตรวจสอบรายชื่อติด ร/มส.</div>
                 </div>
             </div>
-            <button type="button" onclick="checkStudentStatus()" class="w-full md:w-auto flex-shrink-0 bg-red-500 border-4 border-black text-white font-black text-xl py-4 px-10 rounded-2xl hover:bg-red-400 active:translate-y-1 active:shadow-[0_0_0_0_rgba(0,0,0,1)] shadow-[6px_6px_0_0_rgba(0,0,0,1)] transition-all flex items-center justify-center gap-3 relative z-10 uppercase tracking-widest">
-                <span>VERIFY STATUS</span> <span class="text-2xl animate-pulse">🔍</span>
+            <button type="button" class="split-cta" style="background:#7f1d1d;" onclick="checkStudentStatus()">
+                <span class="split-btn">VERIFY STATUS <span class="text-2xl">🔍</span></span>
             </button>
         </div>
 
         <!-- CENTRAL DB -->
-        <div class="w-full bg-[#c79bfd] hazard-panel border-[6px] border-black rounded-[3rem] p-6 md:p-10 shadow-[12px_12px_0_0_rgba(0,0,0,1)] mb-6 flex flex-col md:flex-row items-center justify-between gap-6 hover:-translate-y-1 transition-transform relative overflow-hidden animate-bounce-up delay-400 ai-border ai-nodes">
-            <div class="absolute left-1/2 -top-10 text-[8rem] opacity-30 transform rotate-12 pointer-events-none z-0 deco-sway-pos">💯</div>
-            <div class="flex items-center gap-6 relative z-10 text-center md:text-left flex-col md:flex-row w-full md:w-auto">
-                <div class="bg-white p-5 rounded-3xl border-4 border-black shadow-[6px_6px_0_0_rgba(0,0,0,1)] text-4xl transform -rotate-6">📊</div>
+        <div class="split-panel" style="background: #c79bfd;">
+            <div class="split-info">
+                <div class="split-icon">📊</div>
                 <div>
-                    <h2 class="text-3xl md:text-5xl font-black text-black mb-2 uppercase tracking-widest drop-shadow-[2px_2px_0_rgba(255,255,255,1)]">CHECK GRADE</h2>
-                    <p class="text-white font-black text-sm tracking-widest uppercase bg-purple-800 px-4 py-1.5 rounded-full border-2 border-black inline-block shadow-[2px_2px_0_0_rgba(0,0,0,1)]">ระบบดูเกรดโรงเรียน SCCL</p>
+                    <div class="split-title">Check Grade</div>
+                    <div class="split-sub">ระบบดูเกรดโรงเรียน SCCL</div>
                 </div>
             </div>
-            <a href="https://sccl.gsbschool.ac.th/LC2/SDC.php?" target="_blank" class="w-full md:w-auto flex-shrink-0 bg-[#34d399] border-4 border-black text-black font-black text-xl py-4 px-10 rounded-2xl hover:bg-green-300 active:translate-y-1 active:shadow-[0_0_0_0_rgba(0,0,0,1)] shadow-[6px_6px_0_0_rgba(0,0,0,1)] transition-all flex items-center justify-center gap-3 relative z-10 uppercase tracking-widest">
-                <span>ACCESS SYSTEM</span> <span class="text-2xl">🌐</span>
+            <a href="https://sccl.gsbschool.ac.th/LC2/SDC.php?" target="_blank" class="split-cta" style="background:#4c1d95;text-decoration:none;">
+                <span class="split-btn">ACCESS SYSTEM <span class="text-2xl">🌐</span></span>
             </a>
         </div>
 
@@ -932,20 +1264,20 @@
 
         <!-- Upload & Admin (ซ่อนบนมือถือ ใช้เมนู ⚙️ มุมขวาบนแทน — เหมือนเดิมทุกอย่างบน pad/desktop) -->
         <div class="hidden md:flex mt-12 md:flex-row justify-center gap-6 animate-bounce-up delay-500 mb-10 relative z-10 flex-wrap">
-            <button type="button" onclick="openUploadPopup()" class="bg-blue-600 border-[6px] border-black text-white text-xl md:text-2xl font-black px-8 md:px-12 py-5 rounded-[2rem] shadow-[10px_10px_0_0_rgba(0,0,0,1)] hover:-translate-y-1 active:translate-y-2 active:shadow-[0_0_0_0_rgba(0,0,0,1)] transition-all flex items-center justify-center gap-4 cursor-pointer uppercase tracking-widest">
-                <span class="text-3xl">📤</span> UPLOAD (นักเรียน)
+            <button type="button" onclick="openUploadPopup()" class="menu-btn bg-blue-600 border-[6px] border-black text-white text-xl md:text-2xl font-black px-8 md:px-12 py-5 rounded-[2rem] shadow-[10px_10px_0_0_rgba(0,0,0,1)] hover:-translate-y-1 active:translate-y-2 active:shadow-[0_0_0_0_rgba(0,0,0,1)] transition-all flex items-center justify-center gap-4 cursor-pointer uppercase tracking-widest">
+                <span class="ico-badge relative z-10">📤</span> <span class="relative z-10">UPLOAD (นักเรียน)</span>
             </button>
-            <button type="button" onclick="checkAdminScores()" class="bg-slate-800 border-[6px] border-black text-white text-xl md:text-2xl font-black px-8 md:px-12 py-5 rounded-[2rem] shadow-[10px_10px_0_0_rgba(0,0,0,1)] hover:-translate-y-1 active:translate-y-2 active:shadow-[0_0_0_0_rgba(0,0,0,1)] transition-all flex items-center justify-center gap-4 cursor-pointer uppercase tracking-widest">
-                <span class="text-3xl">🤖</span> OVERRIDE (ครู)
+            <button type="button" onclick="checkAdminScores()" class="menu-btn bg-slate-800 border-[6px] border-black text-white text-xl md:text-2xl font-black px-8 md:px-12 py-5 rounded-[2rem] shadow-[10px_10px_0_0_rgba(0,0,0,1)] hover:-translate-y-1 active:translate-y-2 active:shadow-[0_0_0_0_rgba(0,0,0,1)] transition-all flex items-center justify-center gap-4 cursor-pointer uppercase tracking-widest">
+                <span class="ico-badge relative z-10">🤖</span> <span class="relative z-10">OVERRIDE (ครู)</span>
             </button>
-            <button type="button" onclick="openQuizAdmin()" class="bg-orange-600 border-[6px] border-black text-white text-xl md:text-2xl font-black px-8 md:px-12 py-5 rounded-[2rem] shadow-[10px_10px_0_0_rgba(0,0,0,1)] hover:-translate-y-1 active:translate-y-2 active:shadow-[0_0_0_0_rgba(0,0,0,1)] transition-all flex items-center justify-center gap-4 cursor-pointer uppercase tracking-widest">
-                <span class="text-3xl">🎲</span> จัดการ QUIZ (ครู)
+            <button type="button" onclick="openQuizAdmin()" class="menu-btn border-[6px] border-black text-white text-xl md:text-2xl font-black px-8 md:px-12 py-5 rounded-[2rem] shadow-[10px_10px_0_0_rgba(0,0,0,1)] hover:-translate-y-1 active:translate-y-2 active:shadow-[0_0_0_0_rgba(0,0,0,1)] transition-all flex items-center justify-center gap-4 cursor-pointer uppercase tracking-widest" style="background:#9a3412;">
+                <span class="ico-badge relative z-10">🎲</span> <span class="relative z-10">จัดการ QUIZ (ครู)</span>
             </button>
-            <button type="button" onclick="openDeadlineAdmin()" class="bg-amber-500 border-[6px] border-black text-white text-xl md:text-2xl font-black px-8 md:px-12 py-5 rounded-[2rem] shadow-[10px_10px_0_0_rgba(0,0,0,1)] hover:-translate-y-1 active:translate-y-2 active:shadow-[0_0_0_0_rgba(0,0,0,1)] transition-all flex items-center justify-center gap-4 cursor-pointer uppercase tracking-widest">
-    <span class="text-3xl">📅</span> DEADLINE (ครู)
+            <button type="button" onclick="openDeadlineAdmin()" class="menu-btn border-[6px] border-black text-white text-xl md:text-2xl font-black px-8 md:px-12 py-5 rounded-[2rem] shadow-[10px_10px_0_0_rgba(0,0,0,1)] hover:-translate-y-1 active:translate-y-2 active:shadow-[0_0_0_0_rgba(0,0,0,1)] transition-all flex items-center justify-center gap-4 cursor-pointer uppercase tracking-widest" style="background:#92400e;">
+    <span class="ico-badge relative z-10">📅</span> <span class="relative z-10">DEADLINE (ครู)</span>
 </button>
-            <button type="button" onclick="openDashboard()" class="bg-emerald-600 border-[6px] border-black text-white text-xl md:text-2xl font-black px-8 md:px-12 py-5 rounded-[2rem] shadow-[10px_10px_0_0_rgba(0,0,0,1)] hover:-translate-y-1 active:translate-y-2 active:shadow-[0_0_0_0_rgba(0,0,0,1)] transition-all flex items-center justify-center gap-4 cursor-pointer uppercase tracking-widest">
-    <span class="text-3xl">📊</span> DASHBOARD (ครู)
+            <button type="button" onclick="openDashboard()" class="menu-btn border-[6px] border-black text-white text-xl md:text-2xl font-black px-8 md:px-12 py-5 rounded-[2rem] shadow-[10px_10px_0_0_rgba(0,0,0,1)] hover:-translate-y-1 active:translate-y-2 active:shadow-[0_0_0_0_rgba(0,0,0,1)] transition-all flex items-center justify-center gap-4 cursor-pointer uppercase tracking-widest" style="background:#065f46;">
+    <span class="ico-badge relative z-10">📊</span> <span class="relative z-10">DASHBOARD (ครู)</span>
 </button>
         </div>
 
@@ -1229,11 +1561,11 @@
         // (ฝั่งนักเรียนมีเมนู ☰ แยกต่างหากอยู่ข้างๆ กันคนละหมวดชัดเจน)
         window.openAdminMenu = function() {
             let html = '<div class="grid grid-cols-2 gap-3 p-1">';
-            html += '<button onclick="if(typeof Swal!==\'undefined\') Swal.close(); openUploadPopup();" class="bg-blue-600 border-4 border-black text-white font-black py-4 rounded-2xl shadow-[4px_4px_0_0_rgba(0,0,0,1)] active:translate-y-1 active:shadow-none transition-all flex flex-col items-center gap-1"><span class="text-2xl">📤</span><span class="text-xs uppercase tracking-wide">Upload</span></button>';
-            html += '<button onclick="if(typeof Swal!==\'undefined\') Swal.close(); checkAdminScores();" class="bg-slate-800 border-4 border-black text-white font-black py-4 rounded-2xl shadow-[4px_4px_0_0_rgba(0,0,0,1)] active:translate-y-1 active:shadow-none transition-all flex flex-col items-center gap-1"><span class="text-2xl">🤖</span><span class="text-xs uppercase tracking-wide">Override</span></button>';
-            html += '<button onclick="if(typeof Swal!==\'undefined\') Swal.close(); openQuizAdmin();" class="bg-orange-600 border-4 border-black text-white font-black py-4 rounded-2xl shadow-[4px_4px_0_0_rgba(0,0,0,1)] active:translate-y-1 active:shadow-none transition-all flex flex-col items-center gap-1"><span class="text-2xl">🎲</span><span class="text-xs uppercase tracking-wide">Quiz</span></button>';
-            html += '<button onclick="if(typeof Swal!==\'undefined\') Swal.close(); openDeadlineAdmin();" class="bg-amber-500 border-4 border-black text-white font-black py-4 rounded-2xl shadow-[4px_4px_0_0_rgba(0,0,0,1)] active:translate-y-1 active:shadow-none transition-all flex flex-col items-center gap-1"><span class="text-2xl">📅</span><span class="text-xs uppercase tracking-wide">Deadline</span></button>';
-            html += '<button onclick="if(typeof Swal!==\'undefined\') Swal.close(); openDashboard();" class="bg-emerald-600 border-4 border-black text-white font-black py-4 rounded-2xl shadow-[4px_4px_0_0_rgba(0,0,0,1)] active:translate-y-1 active:shadow-none transition-all flex flex-col items-center gap-1 col-span-2"><span class="text-2xl">📊</span><span class="text-xs uppercase tracking-wide">Dashboard</span></button>';
+            html += '<button onclick="if(typeof Swal!==\'undefined\') Swal.close(); openUploadPopup();" class="menu-btn bg-blue-600 border-4 border-black text-white font-black py-4 rounded-2xl shadow-[4px_4px_0_0_rgba(0,0,0,1)] active:translate-y-1 active:shadow-none transition-all flex flex-col items-center gap-1"><span class="ico-badge relative z-10">📤</span><span class="text-xs uppercase tracking-wide relative z-10">Upload</span></button>';
+            html += '<button onclick="if(typeof Swal!==\'undefined\') Swal.close(); checkAdminScores();" class="menu-btn bg-slate-800 border-4 border-black text-white font-black py-4 rounded-2xl shadow-[4px_4px_0_0_rgba(0,0,0,1)] active:translate-y-1 active:shadow-none transition-all flex flex-col items-center gap-1"><span class="ico-badge relative z-10">🤖</span><span class="text-xs uppercase tracking-wide relative z-10">Override</span></button>';
+            html += '<button onclick="if(typeof Swal!==\'undefined\') Swal.close(); openQuizAdmin();" class="menu-btn border-4 border-black text-white font-black py-4 rounded-2xl shadow-[4px_4px_0_0_rgba(0,0,0,1)] active:translate-y-1 active:shadow-none transition-all flex flex-col items-center gap-1" style="background:#9a3412;"><span class="ico-badge relative z-10">🎲</span><span class="text-xs uppercase tracking-wide relative z-10">Quiz</span></button>';
+            html += '<button onclick="if(typeof Swal!==\'undefined\') Swal.close(); openDeadlineAdmin();" class="menu-btn border-4 border-black text-white font-black py-4 rounded-2xl shadow-[4px_4px_0_0_rgba(0,0,0,1)] active:translate-y-1 active:shadow-none transition-all flex flex-col items-center gap-1" style="background:#92400e;"><span class="ico-badge relative z-10">📅</span><span class="text-xs uppercase tracking-wide relative z-10">Deadline</span></button>';
+            html += '<button onclick="if(typeof Swal!==\'undefined\') Swal.close(); openDashboard();" class="menu-btn border-4 border-black text-white font-black py-4 rounded-2xl shadow-[4px_4px_0_0_rgba(0,0,0,1)] active:translate-y-1 active:shadow-none transition-all flex flex-col items-center gap-1 col-span-2" style="background:#065f46;"><span class="ico-badge relative z-10">📊</span><span class="text-xs uppercase tracking-wide relative z-10">Dashboard</span></button>';
             html += '</div>';
             fireSwal({ title: '🛠️ เมนูครู', html: html, showConfirmButton: false, showCloseButton: true,
                 customClass: { popup: popupClass_('bg-[#f8fafc]'), title: 'font-black text-2xl mt-4 text-black tracking-widest' } });
@@ -1272,14 +1604,28 @@
             img.onerror = function() { img.src = 'https://via.placeholder.com/600x800?text=Schedule'; };
             box.appendChild(img);
 
-            const hint = document.getElementById('roomScheduleHint');
-            if (hint) hint.style.display = 'block';
+            // แถบหัวหน้าต่าง: โชว์ว่ากำลังดูห้องไหน + เปิดปุ่มขยาย
+            const nameEl = document.getElementById('roomScheduleName');
+            if (nameEl) nameEl.textContent = '📍 กำลังดู · ห้อง ม.' + room;
+            const zoomEl = document.getElementById('roomScheduleZoom');
+            if (zoomEl) zoomEl.style.display = '';
 
+            const hint = document.getElementById('roomScheduleHint');
+            if (hint) {
+                hint.style.display = 'block';
+                hint.onclick = function() { window.open(url, '_blank'); };
+            }
+
+            // ★ สถานะ "กำลังเลือกอยู่" แบบกลับสี — ปุ่มที่เลือกเป็นสีเข้มตัวขาว
+            // เก็บสีพื้นเดิมไว้ใน data-bg ครั้งแรก เพื่อคืนค่าได้ตอนเปลี่ยนไปเลือกห้องอื่น
             document.querySelectorAll('.room-sched-btn').forEach(function(btn) {
+                if (!btn.dataset.bg) btn.dataset.bg = btn.style.background;
                 if (btn.getAttribute('data-room') === room) {
-                    btn.classList.add('ring-4', 'ring-white', 'ring-offset-2', 'ring-offset-black', 'scale-110');
+                    btn.classList.add('rm-on');
+                    btn.style.background = '';
                 } else {
-                    btn.classList.remove('ring-4', 'ring-white', 'ring-offset-2', 'ring-offset-black', 'scale-110');
+                    btn.classList.remove('rm-on');
+                    btn.style.background = btn.dataset.bg;
                 }
             });
         };
@@ -1312,12 +1658,15 @@
         // ★ แก้ความปลอดภัย: เดิมเช็ครหัสในเบราว์เซอร์เอง (if (result.value === room)) ก่อนค่อยดึงข้อมูลแบบไม่มีรหัสเลย
         //   ตอนนี้ส่งรหัสที่กรอกไปให้เซิร์ฟเวอร์ตรวจเองทุกครั้ง (ดูฟังก์ชัน checkRoomAuth_ ใน Code.gs)
         window.promptStudentStatusPassword = async function(room) {
+            const theme = gradeTheme_(room);
+            const loginHtml = '<div class="lock-badge">🔐</div>' +
+                '<span class="login-chip" style="background:' + theme.grad + ';">ห้อง ม.' + escapeHtml(room) + '</span>';
             const result = await fireSwal({
-                title: '🔐 SECURE LOGIN ' + room, input: 'text', inputPlaceholder: 'กรอกรหัสผ่านห้อง',
+                title: 'SECURE LOGIN', html: loginHtml, input: 'text', inputPlaceholder: 'กรอกรหัสผ่านห้อง',
                 showCancelButton: true, confirmButtonText: 'VERIFY', cancelButtonText: 'CANCEL', buttonsStyling: false,
-                customClass: { popup: popupClass_(), title: 'text-black font-black tracking-widest text-2xl mt-2',
+                customClass: { popup: popupClass_('bg-[#fef2f2]'), title: 'text-black font-black tracking-widest text-2xl mt-2',
                     input: 'bg-white border-4 border-black text-black focus:ring-4 focus:ring-red-300 rounded-xl p-3 text-center tracking-widest font-black text-lg shadow-[4px_4px_0_0_rgba(0,0,0,1)] mt-4',
-                    confirmButton: 'bg-red-400 hover:bg-red-300 text-black font-black py-3 px-6 rounded-xl mx-2 border-4 border-black shadow-[4px_4px_0_0_rgba(0,0,0,1)] active:translate-y-1 active:shadow-[0_0_0_0_rgba(0,0,0,1)] transition-all',
+                    confirmButton: 'glass-confirm-btn bg-red-600 hover:bg-red-500 text-white font-black py-3 px-6 rounded-xl mx-2 border-4 border-black shadow-[4px_4px_0_0_rgba(0,0,0,1)] active:translate-y-1 active:shadow-[0_0_0_0_rgba(0,0,0,1)] transition-all',
                     cancelButton: 'bg-gray-300 hover:bg-gray-200 text-black font-black py-3 px-6 rounded-xl mx-2 border-4 border-black shadow-[4px_4px_0_0_rgba(0,0,0,1)] active:translate-y-1 active:shadow-[0_0_0_0_rgba(0,0,0,1)] transition-all' }
             });
             if (result.value) { fetchStudentStatus(room, result.value); }
@@ -1363,12 +1712,15 @@
 
         // ★ แก้ความปลอดภัย: เดิมเช็ครหัสในเบราว์เซอร์เอง ตอนนี้ส่งไปให้เซิร์ฟเวอร์ตรวจจริง
         window.checkMissionPassword = async function(room) {
+            const theme = gradeTheme_(room);
+            const loginHtml = '<div class="lock-badge">🔐</div>' +
+                '<span class="login-chip" style="background:' + theme.grad + ';">ห้อง ม.' + escapeHtml(room) + '</span>';
             const result = await fireSwal({
-                title: '🔐 SECURE LOGIN ' + room, input: 'text', inputPlaceholder: 'กรอกรหัสผ่านห้อง',
+                title: 'SECURE LOGIN', html: loginHtml, input: 'text', inputPlaceholder: 'กรอกรหัสผ่านห้อง',
                 showCancelButton: true, confirmButtonText: 'CONNECT 🚀', cancelButtonText: 'CANCEL', buttonsStyling: false,
-                customClass: { popup: popupClass_(), title: 'text-black font-black tracking-widest text-2xl mt-2',
+                customClass: { popup: popupClass_('bg-[#eff6ff]'), title: 'text-black font-black tracking-widest text-2xl mt-2',
                     input: 'bg-white border-4 border-black text-black focus:ring-4 focus:ring-blue-300 rounded-xl p-3 text-center tracking-widest font-black text-lg shadow-[4px_4px_0_0_rgba(0,0,0,1)] mt-4',
-                    confirmButton: 'bg-blue-400 hover:bg-blue-300 text-black font-black py-3 px-6 rounded-xl mx-2 border-4 border-black shadow-[4px_4px_0_0_rgba(0,0,0,1)] active:translate-y-1 active:shadow-[0_0_0_0_rgba(0,0,0,1)] transition-all',
+                    confirmButton: 'glass-confirm-btn bg-blue-600 hover:bg-blue-500 text-white font-black py-3 px-6 rounded-xl mx-2 border-4 border-black shadow-[4px_4px_0_0_rgba(0,0,0,1)] active:translate-y-1 active:shadow-[0_0_0_0_rgba(0,0,0,1)] transition-all',
                     cancelButton: 'bg-gray-300 hover:bg-gray-200 text-black font-black py-3 px-6 rounded-xl mx-2 border-4 border-black shadow-[4px_4px_0_0_rgba(0,0,0,1)] active:translate-y-1 active:shadow-[0_0_0_0_rgba(0,0,0,1)] transition-all' }
             });
             if (result.value) { fetchAndShowStudentList(room, result.value); }
@@ -1650,12 +2002,14 @@
         // ---- Admin Scores ----
         // ★ แก้ความปลอดภัย: ยังคงเช็คทันทีเหมือนเดิม (ผ่าน verifyAdminAccess ที่เซิร์ฟเวอร์ตรวจจริง แทนการเทียบสตริงในเบราว์เซอร์)
         window.checkAdminScores = async function() {
+            const loginHtml = '<div class="lock-badge">🤖</div>' +
+                '<span class="login-chip" style="background:linear-gradient(145deg,#d8b4fe 0%,#a855f7 100%);">🔑 MASTER ACCESS (ทุกห้อง)</span>';
             const result = await fireSwal({
-                title: '🤖 MASTER OVERRIDE', input: 'password', inputPlaceholder: 'กรอกรหัสผ่าน',
+                title: 'MASTER OVERRIDE', html: loginHtml, input: 'password', inputPlaceholder: 'กรอกรหัสผ่าน',
                 showCancelButton: true, confirmButtonText: 'VERIFY', cancelButtonText: 'CANCEL', buttonsStyling: false,
-                customClass: { popup: popupClass_(), title: 'text-black font-black tracking-widest text-2xl mt-2',
+                customClass: { popup: popupClass_('bg-[#faf5ff]'), title: 'text-black font-black tracking-widest text-2xl mt-2',
                     input: 'bg-white border-4 border-black text-black focus:ring-4 focus:ring-purple-300 rounded-xl p-3 text-center tracking-widest font-black text-lg shadow-[4px_4px_0_0_rgba(0,0,0,1)] mt-4',
-                    confirmButton: 'bg-purple-400 hover:bg-purple-300 text-black font-black py-3 px-6 rounded-xl mx-2 border-4 border-black shadow-[4px_4px_0_0_rgba(0,0,0,1)] active:translate-y-1 active:shadow-[0_0_0_0_rgba(0,0,0,1)] transition-all',
+                    confirmButton: 'glass-confirm-btn bg-purple-600 hover:bg-purple-500 text-white font-black py-3 px-6 rounded-xl mx-2 border-4 border-black shadow-[4px_4px_0_0_rgba(0,0,0,1)] active:translate-y-1 active:shadow-[0_0_0_0_rgba(0,0,0,1)] transition-all',
                     cancelButton: 'bg-gray-300 hover:bg-gray-200 text-black font-black py-3 px-6 rounded-xl mx-2 border-4 border-black shadow-[4px_4px_0_0_rgba(0,0,0,1)] active:translate-y-1 active:shadow-[0_0_0_0_rgba(0,0,0,1)] transition-all' }
             });
             if (!result.value) return;
@@ -1832,12 +2186,14 @@
                     .catch(function(err) { closeTab_(newTab); showNetworkError_(err); });
                 return;
             }
+            const loginHtml = '<div class="lock-badge">🔐</div>' +
+                '<span class="login-chip" style="background:linear-gradient(145deg,#fdba74 0%,#f97316 100%);">🎮 GAME QUIZ</span>';
             const result = await fireSwal({
-                title: '🔐 ' + c.name, input: 'text', inputPlaceholder: 'กรอกรหัสผ่าน',
+                title: c.name, html: loginHtml, input: 'text', inputPlaceholder: 'กรอกรหัสผ่าน',
                 showCancelButton: true, confirmButtonText: 'ENTER 🚀', cancelButtonText: 'CANCEL', buttonsStyling: false,
-                customClass: { popup: popupClass_(), title: 'text-black font-black tracking-widest text-2xl mt-2',
+                customClass: { popup: popupClass_('bg-[#fff7ed]'), title: 'text-black font-black tracking-widest text-2xl mt-2',
                     input: 'bg-white border-4 border-black text-black focus:ring-4 focus:ring-orange-300 rounded-xl p-3 text-center tracking-widest font-black text-lg shadow-[4px_4px_0_0_rgba(0,0,0,1)] mt-4',
-                    confirmButton: 'bg-orange-400 hover:bg-orange-300 text-black font-black py-3 px-6 rounded-xl mx-2 border-4 border-black shadow-[4px_4px_0_0_rgba(0,0,0,1)] active:translate-y-1 active:shadow-[0_0_0_0_rgba(0,0,0,1)] transition-all',
+                    confirmButton: 'glass-confirm-btn bg-[#9a3412] hover:bg-[#c2410c] text-white font-black py-3 px-6 rounded-xl mx-2 border-4 border-black shadow-[4px_4px_0_0_rgba(0,0,0,1)] active:translate-y-1 active:shadow-[0_0_0_0_rgba(0,0,0,1)] transition-all',
                     cancelButton: 'bg-gray-300 hover:bg-gray-200 text-black font-black py-3 px-6 rounded-xl mx-2 border-4 border-black shadow-[4px_4px_0_0_rgba(0,0,0,1)] active:translate-y-1 active:shadow-[0_0_0_0_rgba(0,0,0,1)] transition-all' }
             });
             if (result.value) {
@@ -1856,12 +2212,14 @@
         // GAME QUIZZ — ADMIN (ไม่แก้ไข ไม่ปรับ — การ์ดสีส้มเดิม / ★ แก้ตรวจรหัสให้เป็นฝั่งเซิร์ฟเวอร์)
         // ============================================
         window.openQuizAdmin = async function() {
+            const loginHtml = '<div class="lock-badge">🛠️</div>' +
+                '<span class="login-chip" style="background:linear-gradient(145deg,#fde047 0%,#f59e0b 100%);">👨‍🏫 สำหรับครูเท่านั้น</span>';
             const result = await fireSwal({
-                title: '🛠️ จัดการ Game Quizz', input: 'password', inputPlaceholder: 'รหัสผ่าน Admin',
+                title: 'จัดการ Game Quizz', html: loginHtml, input: 'password', inputPlaceholder: 'รหัสผ่าน Admin',
                 showCancelButton: true, confirmButtonText: 'VERIFY', cancelButtonText: 'CANCEL', buttonsStyling: false,
-                customClass: { popup: popupClass_(), title: 'text-black font-black tracking-widest text-2xl mt-2',
+                customClass: { popup: popupClass_('bg-[#fff7ed]'), title: 'text-black font-black tracking-widest text-2xl mt-2',
                     input: 'bg-white border-4 border-black text-black focus:ring-4 focus:ring-orange-300 rounded-xl p-3 text-center tracking-widest font-black text-lg shadow-[4px_4px_0_0_rgba(0,0,0,1)] mt-4',
-                    confirmButton: 'bg-orange-400 hover:bg-orange-300 text-black font-black py-3 px-6 rounded-xl mx-2 border-4 border-black shadow-[4px_4px_0_0_rgba(0,0,0,1)] active:translate-y-1 active:shadow-[0_0_0_0_rgba(0,0,0,1)] transition-all',
+                    confirmButton: 'glass-confirm-btn bg-[#9a3412] hover:bg-[#c2410c] text-white font-black py-3 px-6 rounded-xl mx-2 border-4 border-black shadow-[4px_4px_0_0_rgba(0,0,0,1)] active:translate-y-1 active:shadow-[0_0_0_0_rgba(0,0,0,1)] transition-all',
                     cancelButton: 'bg-gray-300 hover:bg-gray-200 text-black font-black py-3 px-6 rounded-xl mx-2 border-4 border-black shadow-[4px_4px_0_0_rgba(0,0,0,1)] active:translate-y-1 active:shadow-[0_0_0_0_rgba(0,0,0,1)] transition-all' }
             });
             if (!result.value) return;
@@ -2086,12 +2444,14 @@
                     .catch(function(err) { closeTab_(newTab); showNetworkError_(err); });
                 return;
             }
+            const loginHtml = '<div class="lock-badge">🔐</div>' +
+                '<span class="login-chip" style="background:linear-gradient(145deg,#d8b4fe 0%,#a855f7 100%);">📚 GRADE QUIZ</span>';
             const result = await fireSwal({
-                title: '🔐 ' + c.name, input: 'text', inputPlaceholder: 'กรอกรหัสผ่าน',
+                title: c.name, html: loginHtml, input: 'text', inputPlaceholder: 'กรอกรหัสผ่าน',
                 showCancelButton: true, confirmButtonText: 'ENTER 🚀', cancelButtonText: 'CANCEL', buttonsStyling: false,
-                customClass: { popup: popupClass_(), title: 'text-black font-black tracking-widest text-2xl mt-2',
+                customClass: { popup: popupClass_('bg-[#faf5ff]'), title: 'text-black font-black tracking-widest text-2xl mt-2',
                     input: 'bg-white border-4 border-black text-black focus:ring-4 focus:ring-purple-300 rounded-xl p-3 text-center tracking-widest font-black text-lg shadow-[4px_4px_0_0_rgba(0,0,0,1)] mt-4',
-                    confirmButton: 'bg-purple-400 hover:bg-purple-300 text-black font-black py-3 px-6 rounded-xl mx-2 border-4 border-black shadow-[4px_4px_0_0_rgba(0,0,0,1)] active:translate-y-1 active:shadow-[0_0_0_0_rgba(0,0,0,1)] transition-all',
+                    confirmButton: 'glass-confirm-btn bg-purple-600 hover:bg-purple-500 text-white font-black py-3 px-6 rounded-xl mx-2 border-4 border-black shadow-[4px_4px_0_0_rgba(0,0,0,1)] active:translate-y-1 active:shadow-[0_0_0_0_rgba(0,0,0,1)] transition-all',
                     cancelButton: 'bg-gray-300 hover:bg-gray-200 text-black font-black py-3 px-6 rounded-xl mx-2 border-4 border-black shadow-[4px_4px_0_0_rgba(0,0,0,1)] active:translate-y-1 active:shadow-[0_0_0_0_rgba(0,0,0,1)] transition-all' }
             });
             if (result.value) {
@@ -2107,12 +2467,15 @@
         };
 
         window.openGradeQuizAdmin = async function(grade) {
+            const gLabel = GRADE_LABELS[grade] || ('GRADE ' + grade);
+            const loginHtml = '<div class="lock-badge">🛠️</div>' +
+                '<span class="login-chip" style="background:linear-gradient(145deg,#fde047 0%,#f59e0b 100%);">👨‍🏫 ' + escapeHtml(gLabel) + '</span>';
             const result = await fireSwal({
-                title: '🛠️ จัดการ Quiz', input: 'password', inputPlaceholder: 'รหัสผ่าน Admin',
+                title: 'จัดการ Quiz', html: loginHtml, input: 'password', inputPlaceholder: 'รหัสผ่าน Admin',
                 showCancelButton: true, confirmButtonText: 'VERIFY', cancelButtonText: 'CANCEL', buttonsStyling: false,
-                customClass: { popup: popupClass_(), title: 'text-black font-black tracking-widest text-2xl mt-2',
+                customClass: { popup: popupClass_('bg-[#faf5ff]'), title: 'text-black font-black tracking-widest text-2xl mt-2',
                     input: 'bg-white border-4 border-black text-black focus:ring-4 focus:ring-purple-300 rounded-xl p-3 text-center tracking-widest font-black text-lg shadow-[4px_4px_0_0_rgba(0,0,0,1)] mt-4',
-                    confirmButton: 'bg-purple-400 hover:bg-purple-300 text-black font-black py-3 px-6 rounded-xl mx-2 border-4 border-black shadow-[4px_4px_0_0_rgba(0,0,0,1)] active:translate-y-1 active:shadow-[0_0_0_0_rgba(0,0,0,1)] transition-all',
+                    confirmButton: 'glass-confirm-btn bg-purple-600 hover:bg-purple-500 text-white font-black py-3 px-6 rounded-xl mx-2 border-4 border-black shadow-[4px_4px_0_0_rgba(0,0,0,1)] active:translate-y-1 active:shadow-[0_0_0_0_rgba(0,0,0,1)] transition-all',
                     cancelButton: 'bg-gray-300 hover:bg-gray-200 text-black font-black py-3 px-6 rounded-xl mx-2 border-4 border-black shadow-[4px_4px_0_0_rgba(0,0,0,1)] active:translate-y-1 active:shadow-[0_0_0_0_rgba(0,0,0,1)] transition-all' }
             });
             if (!result.value) return;
@@ -2269,7 +2632,7 @@
                 .then(function(deadlines) { renderDeadlineBoard(deadlines); })
                 .catch(function() {
                     document.getElementById('deadlineBoard').innerHTML =
-                        '<p class="text-center text-gray-400 font-bold text-sm py-4">ไม่สามารถโหลดข้อมูลได้</p>';
+                        emptyState_('📡', 'โหลดข้อมูลไม่สำเร็จ', 'ลองรีเฟรชหน้าเว็บอีกครั้งนะ', 'neutral');
                 });
         }
 
@@ -2277,6 +2640,12 @@
             const board = document.getElementById('deadlineBoard');
             if (!board) return;
             const today = new Date(); today.setHours(0, 0, 0, 0);
+
+            // ★ เติมวันที่วันนี้ลงในไอคอนปฏิทินแบบจริง (คงที่ ไม่ขึ้นกับรายการ deadline)
+            const calMonthEl = document.getElementById('deadlineCalMonth');
+            const calDayEl = document.getElementById('deadlineCalDay');
+            if (calMonthEl) calMonthEl.textContent = today.toLocaleDateString('th-TH', { month: 'short' });
+            if (calDayEl) calDayEl.textContent = today.getDate();
 
             if (!deadlines || deadlines.length === 0) {
                 board.innerHTML = emptyState_('🎉', 'ไม่มีงานค้างส่ง!', 'ตอนนี้ยังไม่มีกำหนดส่งงาน พักผ่อนได้เลย', 'good');
@@ -2300,68 +2669,50 @@
                 return da - db;                               // วันใกล้ถึงก่อน
             });
 
-            let html = '';
-            let urgentCount = 0; // ★ นับงานที่เกิน/วันนี้/ใกล้ถึงใน 3 วัน ไว้โชว์เป็นป้ายตัวเลขบนไอคอน 📅
+            let rowsHtml = '';
+            let urgentCount = 0;   // ★ นับงานที่เกิน/วันนี้/ใกล้ถึงใน 3 วัน ไว้โชว์เป็นป้ายตัวเลขบนไอคอนปฏิทิน
+            let overdueN = 0, todayN = 0, soonN = 0; // ★ นับแยกไว้โชว์เป็นแถบสรุปสถานะด้านบนรายการ
             sorted.forEach(function(d) {
                 const dueDate = parseDateLocal(d.dueDate);
                 const days    = dueDate ? Math.floor((dueDate - today) / 86400000) : null;
                 if (days !== null && days <= 3) { urgentCount++; }
 
-                let urgencyClass, urgencyText, borderLeft, rowBg;
-                if (days === null) {
-                    urgencyClass = 'bg-gray-400 text-white';
-                    urgencyText  = 'ไม่ระบุวัน';
-                    borderLeft   = 'border-l-[10px] border-gray-400';
-                    rowBg        = 'bg-white';
-                } else if (days < 0) {
-                    urgencyClass = 'bg-red-600 text-white';
-                    urgencyText  = 'เกิน ' + Math.abs(days) + ' วัน ❌';
-                    borderLeft   = 'border-l-[10px] border-red-600';
-                    rowBg        = 'bg-red-50';
-                } else if (days === 0) {
-                    urgencyClass = 'bg-red-500 text-white';
-                    urgencyText  = 'ส่งวันนี้! 🔥';
-                    borderLeft   = 'border-l-[10px] border-red-500';
-                    rowBg        = 'bg-red-50';
-                } else if (days <= 3) {
-                    urgencyClass = 'bg-orange-400 text-black';
-                    urgencyText  = 'อีก ' + days + ' วัน ⚠️';
-                    borderLeft   = 'border-l-[10px] border-orange-400';
-                    rowBg        = 'bg-orange-50';
-                } else if (days <= 7) {
-                    urgencyClass = 'bg-yellow-400 text-black';
-                    urgencyText  = 'อีก ' + days + ' วัน';
-                    borderLeft   = 'border-l-[10px] border-yellow-400';
-                    rowBg        = 'bg-yellow-50';
-                } else {
-                    urgencyClass = 'bg-green-400 text-black';
-                    urgencyText  = 'อีก ' + days + ' วัน';
-                    borderLeft   = 'border-l-[10px] border-green-400';
-                    rowBg        = 'bg-white';
-                }
+                let tier, urgencyText;
+                if (days === null) { tier = 'u-none';  urgencyText = 'ไม่ระบุวัน'; }
+                else if (days < 0)  { tier = 'u-over';  urgencyText = 'เกิน ' + Math.abs(days) + ' วัน'; overdueN++; }
+                else if (days === 0){ tier = 'u-today'; urgencyText = 'ส่งวันนี้ 🔥'; todayN++; }
+                else if (days <= 3) { tier = 'u-soon';  urgencyText = 'อีก ' + days + ' วัน'; soonN++; }
+                else if (days <= 7) { tier = 'u-week';  urgencyText = 'อีก ' + days + ' วัน'; }
+                else                { tier = 'u-later'; urgencyText = 'อีก ' + days + ' วัน'; }
 
                 const displayDate = dueDate
                     ? dueDate.toLocaleDateString('th-TH', { year: 'numeric', month: 'long', day: 'numeric' })
                     : '-';
                 const roomDisplay = d.rooms === 'ทุกห้อง' ? '🌐 ทุกห้อง' : '🏫 ม.' + escapeHtml(d.rooms);
 
-                html += '<div class="quest-entry ' + rowBg + ' border-4 border-black ' + borderLeft + ' rounded-2xl px-4 py-3 shadow-[4px_4px_0_0_rgba(0,0,0,1)] flex items-center gap-3 flex-wrap md:flex-nowrap">';
-                html += '<div class="bg-white border-black rounded-xl px-3 py-2 text-center flex-shrink-0 border-2 shadow-[2px_2px_0_0_rgba(0,0,0,1)] min-w-[64px]">';
-                html += '<p class="text-xs font-black text-gray-500 leading-none">' + (dueDate ? dueDate.toLocaleDateString('th-TH', { month: 'short' }) : '-') + '</p>';
-                html += '<p class="text-2xl font-black text-black leading-tight">' + (dueDate ? dueDate.getDate() : '-') + '</p>';
-                html += '</div>';
-                html += '<div class="flex-1 min-w-0">';
-                html += '<p class="font-black text-black text-base leading-tight"><span class="quest-marker">▸</span>' + escapeHtml(d.title) + '</p>';
+                rowsHtml += '<div class="row-new ' + tier + '">';
+                rowsHtml += '<div class="mini-cal ' + tier + '">';
+                rowsHtml += '<div class="mini-top">' + (dueDate ? dueDate.toLocaleDateString('th-TH', { month: 'short' }) : '-') + '</div>';
+                rowsHtml += '<div class="mini-day">' + (dueDate ? dueDate.getDate() : '-') + '</div>';
+                rowsHtml += '</div>';
+                rowsHtml += '<div class="flex-1 min-w-0">';
+                rowsHtml += '<p class="font-black text-black text-base leading-tight"><span class="quest-marker">▸</span>' + escapeHtml(d.title) + '</p>';
                 if (d.description && d.description.trim()) {
-                    html += '<p class="text-xs font-bold text-gray-500 mt-0.5 truncate">' + escapeHtml(d.description) + '</p>';
+                    rowsHtml += '<p class="text-xs font-bold text-gray-500 mt-0.5 truncate">' + escapeHtml(d.description) + '</p>';
                 }
-                html += '<p class="text-xs font-bold text-gray-400 mt-1">' + displayDate + ' • ' + roomDisplay + '</p>';
-                html += '</div>';
-                html += '<span class="' + urgencyClass + ' border-2 border-black text-xs font-black px-3 py-1.5 rounded-full whitespace-nowrap shadow-[2px_2px_0_0_rgba(0,0,0,1)] flex-shrink-0">' + urgencyText + '</span>';
-                html += '</div>';
+                rowsHtml += '<p class="text-xs font-bold text-gray-400 mt-1">' + displayDate + ' • ' + roomDisplay + '</p>';
+                rowsHtml += '</div>';
+                rowsHtml += '<span class="pill-new ' + tier + '">' + urgencyText + '</span>';
+                rowsHtml += '</div>';
             });
 
-            board.innerHTML = html;
+            // ★ แถบสรุปสถานะ — โผล่เฉพาะหมวดที่มีจริง ไม่โชว์ "เกินกำหนด 0" ให้รกตาเปล่าๆ
+            let sumHtml = '';
+            if (overdueN > 0) sumHtml += '<span class="sum-chip"><span class="sum-dot" style="background:#dc2626;"></span>เกินกำหนด ' + overdueN + '</span>';
+            if (todayN > 0)   sumHtml += '<span class="sum-chip"><span class="sum-dot" style="background:#f97316;"></span>ส่งวันนี้ ' + todayN + '</span>';
+            if (soonN > 0)    sumHtml += '<span class="sum-chip"><span class="sum-dot" style="background:#f59e0b;"></span>ใกล้ถึง ' + soonN + '</span>';
+
+            board.innerHTML = (sumHtml ? '<div class="sum-row">' + sumHtml + '</div>' : '') + rowsHtml;
             updateDeadlineUrgentBadge_(urgentCount);
         }
 
@@ -2384,12 +2735,14 @@
         // DEADLINE — ADMIN (★ แก้ตรวจรหัสให้เป็นฝั่งเซิร์ฟเวอร์)
         // ============================================
         window.openDeadlineAdmin = async function() {
+            const loginHtml = '<div class="lock-badge">🛠️</div>' +
+                '<span class="login-chip" style="background:linear-gradient(145deg,#fde047 0%,#f59e0b 100%);">👨‍🏫 สำหรับครูเท่านั้น</span>';
             const result = await fireSwal({
-                title: '📅 จัดการ DEADLINE', input: 'password', inputPlaceholder: 'รหัสผ่าน Admin',
+                title: 'จัดการ DEADLINE', html: loginHtml, input: 'password', inputPlaceholder: 'รหัสผ่าน Admin',
                 showCancelButton: true, confirmButtonText: 'VERIFY', cancelButtonText: 'CANCEL', buttonsStyling: false,
-                customClass: { popup: popupClass_(), title: 'text-black font-black tracking-widest text-2xl mt-2',
+                customClass: { popup: popupClass_('bg-[#fffbeb]'), title: 'text-black font-black tracking-widest text-2xl mt-2',
                     input: 'bg-white border-4 border-black text-black focus:ring-4 focus:ring-amber-300 rounded-xl p-3 text-center tracking-widest font-black text-lg shadow-[4px_4px_0_0_rgba(0,0,0,1)] mt-4',
-                    confirmButton: 'bg-amber-400 hover:bg-amber-300 text-black font-black py-3 px-6 rounded-xl mx-2 border-4 border-black shadow-[4px_4px_0_0_rgba(0,0,0,1)] active:translate-y-1 active:shadow-[0_0_0_0_rgba(0,0,0,1)] transition-all',
+                    confirmButton: 'glass-confirm-btn bg-[#92400e] hover:bg-[#b45309] text-white font-black py-3 px-6 rounded-xl mx-2 border-4 border-black shadow-[4px_4px_0_0_rgba(0,0,0,1)] active:translate-y-1 active:shadow-[0_0_0_0_rgba(0,0,0,1)] transition-all',
                     cancelButton: 'bg-gray-300 hover:bg-gray-200 text-black font-black py-3 px-6 rounded-xl mx-2 border-4 border-black shadow-[4px_4px_0_0_rgba(0,0,0,1)] active:translate-y-1 active:shadow-[0_0_0_0_rgba(0,0,0,1)] transition-all' }
             });
             if (!result.value) return;
@@ -2565,12 +2918,14 @@
         // ★★★ DASHBOARD สถิติครู — ใหม่ ★★★
         // ============================================
         window.openDashboard = async function() {
+            const loginHtml = '<div class="lock-badge">🛠️</div>' +
+                '<span class="login-chip" style="background:linear-gradient(145deg,#fde047 0%,#f59e0b 100%);">👨‍🏫 สำหรับครูเท่านั้น</span>';
             const result = await fireSwal({
-                title: '📊 TEACHER DASHBOARD', input: 'password', inputPlaceholder: 'รหัสผ่าน Admin',
+                title: 'TEACHER DASHBOARD', html: loginHtml, input: 'password', inputPlaceholder: 'รหัสผ่าน Admin',
                 showCancelButton: true, confirmButtonText: 'VERIFY', cancelButtonText: 'CANCEL', buttonsStyling: false,
-                customClass: { popup: popupClass_(), title: 'text-black font-black tracking-widest text-xl md:text-2xl mt-2',
+                customClass: { popup: popupClass_('bg-[#f0fdf4]'), title: 'text-black font-black tracking-widest text-xl md:text-2xl mt-2',
                     input: 'bg-white border-4 border-black text-black focus:ring-4 focus:ring-emerald-300 rounded-xl p-3 text-center tracking-widest font-black text-lg shadow-[4px_4px_0_0_rgba(0,0,0,1)] mt-4',
-                    confirmButton: 'bg-emerald-400 hover:bg-emerald-300 text-black font-black py-3 px-6 rounded-xl mx-2 border-4 border-black shadow-[4px_4px_0_0_rgba(0,0,0,1)] active:translate-y-1 active:shadow-[0_0_0_0_rgba(0,0,0,1)] transition-all',
+                    confirmButton: 'glass-confirm-btn bg-[#065f46] hover:bg-[#047857] text-white font-black py-3 px-6 rounded-xl mx-2 border-4 border-black shadow-[4px_4px_0_0_rgba(0,0,0,1)] active:translate-y-1 active:shadow-[0_0_0_0_rgba(0,0,0,1)] transition-all',
                     cancelButton: 'bg-gray-300 hover:bg-gray-200 text-black font-black py-3 px-6 rounded-xl mx-2 border-4 border-black shadow-[4px_4px_0_0_rgba(0,0,0,1)] active:translate-y-1 active:shadow-[0_0_0_0_rgba(0,0,0,1)] transition-all' }
             });
             if (!result.value) return;
