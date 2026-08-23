@@ -268,6 +268,18 @@
             animation: bounceUp 0.8s cubic-bezier(0.25, 1, 0.5, 1) forwards;
             opacity: 0;
         }
+        /* ★★★ แก้บั๊กร้ายแรง: การ์ด Quiz 4 ใบหายไปเงียบๆ (ค้างที่ opacity:0 ตลอดกาล) ★★★
+           สาเหตุ: .quiz-neon (ประกาศทีหลังในไฟล์นี้) ตั้งค่า animation ทับ .animate-bounce-up
+           เพราะทั้งคู่ใช้ property "animation" (shorthand) แบบค่าเดียว specificity เท่ากัน
+           ตัวที่มาทีหลังในไฟล์จะชนะทั้งหมด ทำให้แอนิเมชัน bounceUp (ที่ทำให้ opacity ไปจาก 0 เป็น 1)
+           ไม่เคยทำงานเลยบนการ์ดที่มีทั้งสองคลาสนี้ การ์ดเลยติดอยู่ที่ opacity:0 ตลอดไป — มองไม่เห็นเลย
+           แก้โดยรวมทั้งสองแอนิเมชันไว้ใน selector ที่จำเพาะกว่า (สองคลาสรวมกัน) ให้ทำงานพร้อมกันได้จริง
+           วางไว้ก่อนกลุ่ม .delay-100..500 เจตนา เพื่อให้ค่า delay ที่ตั้งไว้ยังทับเข้าไปถูกต้องเสมอ
+           ไม่ว่าการ์ดนั้นจะใช้ delay-100 ถึง delay-500 ตัวไหนก็ตาม */
+        .animate-bounce-up.quiz-neon {
+            animation: bounceUp 0.8s cubic-bezier(0.25, 1, 0.5, 1) forwards,
+                        quizNeonPulse 2.6s ease-in-out infinite;
+        }
 
         @keyframes float {
             0% { transform: translateY(0px); }
@@ -875,7 +887,7 @@
         <!-- 1. HERO -->
         <div class="bg-[url('https://i.postimg.cc/L6QjDb2M/Chat-GPT-Image-May-23-2026-at-07-30-52-PM.png')] bg-cover bg-center border-[6px] border-black rounded-[2rem] md:rounded-[3rem] p-5 pt-20 md:p-10 mb-6 md:mb-8 relative group hover:-translate-y-2 transition-transform duration-300 animate-bounce-up delay-100 hero-glow overflow-hidden ai-border ai-nodes">
             <div class="marquee-lights" aria-hidden="true"></div>
-            <div class="absolute -right-4 -top-4 text-[8rem] opacity-20 transform rotate-12 pointer-events-none z-0 deco-sway-pos"> 🇬🇧 🇹🇭 </div>
+            <div class="absolute -right-4 -top-4 text-[8rem] opacity-20 transform rotate-12 pointer-events-none z-0 deco-sway-pos"> 🇬🇧 🇹🇭 🇬🇧</div>
             <div class="absolute left-10 -bottom-10 text-[6rem] opacity-30 transform -rotate-12 pointer-events-none animate-float z-0">🛸</div>
             <div class="relative z-10 flex flex-col md:flex-row-reverse items-center justify-between gap-8">
                 <div class="flex-1 text-center md:text-left">
@@ -904,7 +916,7 @@
                         <img src="https://i.postimg.cc/pVj2q08J/Chat-GPT-Image-May-23-2026-at-09-32-41-PM.png" onerror="this.src='https://i.postimg.cc/T3mZY2N5/default-avatar.png'" alt="Profile Image" class="w-full h-full object-cover object-top transform group-hover:scale-110 transition-transform duration-500 select-none pointer-events-none" oncontextmenu="return false;" draggable="false">
                     </div>
                     <div class="absolute -top-4 -right-4 bg-yellow-300 border-[4px] border-black text-black font-black px-5 py-2 rounded-full shadow-[6px_6px_0_0_rgba(0,0,0,1)] rotate-12 z-30 text-lg tracking-wider animate-bounce">
-                        I AM OAT! 🇬🇧 🇹🇭  
+                        I AM OAT! 🇬🇧 🇹🇭 🇬🇧 
                     </div>
                 </div>
             </div>
