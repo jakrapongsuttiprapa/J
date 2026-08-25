@@ -140,7 +140,7 @@
             top: 0; left: 0;
             width: 100%; height: 100%;
             z-index: -1;
-            background-image: url('https://i.postimg.cc/FH235kYZ/Chat-GPT-Image-May-23-2026-at-07-34-21-PM.png');
+            background-image: url('https://i.postimg.cc/gj557Ffk/Chat-GPT-Image-Aug-20-2026-07-25-55-PM.png');
             background-size: cover;
             background-position: center top;
             background-repeat: no-repeat;
@@ -706,6 +706,13 @@
             border-top: 6px solid #000; border-right: none; border-bottom: none; border-left: none;
             font-family: 'Kanit', sans-serif; -webkit-appearance: none; appearance: none;
         }
+        /* ★ กำหนดความกว้างโซนปุ่มให้ "เท่ากันทุกใบ" ตอนเรียงแนวนอน
+           เดิมใช้ความกว้างอัตโนมัติ ทำให้กว้างตามความยาวข้อความในปุ่ม
+           (DOWNLOAD สั้นกว่า VERIFY STATUS / ACCESS SYSTEM) จุดแบ่งสีเลยไม่ตรงกันสักใบ
+           250px = พอดีข้อความยาวสุด (~233px) + เผื่อขอบหายใจ */
+        @media (min-width: 640px) {
+            .split-cta { width: 250px; padding-left: 20px; padding-right: 20px; }
+        }
         @media (min-width: 640px) { .split-cta { border-top: 0; border-left: 6px solid #000; } }
         .split-btn {
             color: #fff; font-weight: 900; font-size: 1.05rem; letter-spacing: .06em; text-transform: uppercase;
@@ -887,7 +894,7 @@
         <!-- 1. HERO -->
         <div class="bg-[url('https://i.postimg.cc/L6QjDb2M/Chat-GPT-Image-May-23-2026-at-07-30-52-PM.png')] bg-cover bg-center border-[6px] border-black rounded-[2rem] md:rounded-[3rem] p-5 pt-20 md:p-10 mb-6 md:mb-8 relative group hover:-translate-y-2 transition-transform duration-300 animate-bounce-up delay-100 hero-glow overflow-hidden ai-border ai-nodes">
             <div class="marquee-lights" aria-hidden="true"></div>
-            <div class="absolute -right-4 -top-4 text-[8rem] opacity-20 transform rotate-12 pointer-events-none z-0 deco-sway-pos"> 🇬🇧 🇹🇭 🇬🇧</div>
+            <div class="absolute -right-4 -top-4 text-[8rem] opacity-20 transform rotate-12 pointer-events-none z-0 deco-sway-pos"> 🇬🇧 🇹🇭 </div>
             <div class="absolute left-10 -bottom-10 text-[6rem] opacity-30 transform -rotate-12 pointer-events-none animate-float z-0">🛸</div>
             <div class="relative z-10 flex flex-col md:flex-row-reverse items-center justify-between gap-8">
                 <div class="flex-1 text-center md:text-left">
@@ -944,7 +951,7 @@
                             🍁 K.OAT
                         </button>
                     </div>
-                    <div id="deadlineBoard" class="flex flex-col gap-3 flex-grow max-h-[350px] overflow-y-auto scrollbar-hide pr-1">
+                    <div id="deadlineBoard" class="flex flex-col gap-3 flex-grow max-h-[300px] overflow-y-auto scrollbar-hide pr-1">
                         <div class="flex items-center justify-center py-6 text-gray-400 font-bold text-sm">
                             <span class="animate-pulse">⏳ โหลดอยู่น้า...</span>
                         </div>
@@ -1594,7 +1601,7 @@
             '5/3': 'https://i.postimg.cc/vZcRTj0N/7.png',
             '5/4': 'https://i.postimg.cc/05fhfx3F/8.png',
             '6/1': 'https://i.postimg.cc/cJwb8NwJ/9.png',
-            '6/2': 'https://i.postimg.cc/zvtt1DYN/10.png',
+            '6/2': 'https://i.postimg.cc/HnbKMgPP/Screenshot-2569-08-11-at-4-35-44-PM.png',
             '6/3': 'https://i.postimg.cc/59R66c3q/11.png',
             '6/4': 'https://i.postimg.cc/L4CN5sGK/12.png'
         };
