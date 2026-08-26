@@ -623,19 +623,32 @@
             font-weight: 800; color: #0f172a; box-shadow: 2px 2px 0 0 #000; }
         .sum-dot { width: 8px; height: 8px; border-radius: 999px; border: 1.5px solid rgba(0,0,0,.5); }
 
-        .row-new { background: #fff; border-radius: 13px; padding: 10px 12px; display: flex;
-            align-items: center; gap: 10px; box-shadow: 0 2px 5px rgba(0,0,0,.13), 0 0 0 2px rgba(0,0,0,.82);
-            position: relative; overflow: hidden; }
+        /* ---- กล่องรายการ Deadline: จำกัดความสูงให้เห็น ~4 แถว แล้วเลื่อนดูที่เหลือ ---- */
+        .dl-board { max-height: 330px; overflow-y: auto; }
+        /* แถบเลื่อนบางๆ ให้เห็นชัดว่าเลื่อนได้ (ของเดิมซ่อนแถบไว้ ทำให้ไม่รู้ว่ามีต่อ) */
+        .dl-board::-webkit-scrollbar { width: 8px; }
+        .dl-board::-webkit-scrollbar-track { background: rgba(0,0,0,.12); border-radius: 999px; }
+        .dl-board::-webkit-scrollbar-thumb { background: rgba(0,0,0,.45); border-radius: 999px; }
+        .dl-board::-webkit-scrollbar-thumb:hover { background: rgba(0,0,0,.65); }
+
+        .row-new { background: #fff; border-radius: 14px; padding: 11px 13px; display: flex;
+            align-items: center; gap: 12px; box-shadow: 0 2px 6px rgba(0,0,0,.14), 0 0 0 2.5px rgba(0,0,0,.85);
+            position: relative; overflow: hidden;
+            /* ★★★ กุญแจสำคัญ: กันไม่ให้แถวถูกบีบจนกล่องปฏิทินโดนตัดหัว ★★★
+               กล่องรายการเป็น flex column ที่จำกัดความสูงไว้ ค่าเริ่มต้นของ flex-shrink คือ 1
+               ทำให้เบราว์เซอร์ "บีบทุกแถวให้เตี้ยลง" แทนที่จะปล่อยให้ล้นแล้วเลื่อน
+               ผลคือปฏิทินย่อโดนตัดหัวทิ้ง ป้ายเดือนอ่านไม่ออก — ต้องกำหนดเป็น 0 เสมอ */
+            flex-shrink: 0; }
         .row-new::before { content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 6px; }
         .row-new.u-over::before { background: #dc2626; }
-        .row-new.u-today::before { background: #f97316; }
-        .row-new.u-soon::before { background: #f59e0b; }
+        .row-new.u-today::before { background: #c2410c; }
+        .row-new.u-soon::before { background: #b45309; }
         .row-new.u-week::before { background: #eab308; }
         .row-new.u-later::before { background: #4ade80; }
-        .row-new.u-none::before { background: #94a3b8; }
+        .row-new.u-none::before { background: #475569; }
 
-        .mini-cal { width: 46px; flex: 0 0 auto; border-radius: 9px; overflow: hidden;
-            border: 2px solid rgba(0,0,0,.8); background: #fff; }
+        .mini-cal { width: 52px; flex: 0 0 auto; border-radius: 10px; overflow: hidden;
+            border: 2.5px solid rgba(0,0,0,.85); background: #fff; margin-left: 4px; }
         .mini-top { font-size: .52rem; font-weight: 800; text-align: center; padding: 2px 0;
             color: #fff; letter-spacing: .04em; }
         .mini-day { font-size: 1.05rem; font-weight: 900; text-align: center; line-height: 1.2;
@@ -644,8 +657,9 @@
         .u-soon .mini-top { background: #b45309; } .u-week .mini-top { background: #eab308; color:#000; }
         .u-later .mini-top { background: #4ade80; color: #000; } .u-none .mini-top { background: #475569; }
 
-        .pill-new { font-size: .68rem; font-weight: 800; padding: 5px 11px; border-radius: 999px;
-            white-space: nowrap; flex: 0 0 auto; border: 2px solid rgba(0,0,0,.8); }
+        .pill-new { font-size: .7rem; font-weight: 800; padding: 6px 0; border-radius: 999px;
+            white-space: nowrap; flex: 0 0 auto; border: 2px solid rgba(0,0,0,.85);
+            width: 82px; text-align: center; }
         .pill-new.u-over { background: #fee2e2; color: #991b1b; }
         .pill-new.u-today { background: #ffedd5; color: #9a3412; }
         .pill-new.u-soon { background: #fef3c7; color: #92400e; }
@@ -951,7 +965,7 @@
                             🍁 K.OAT
                         </button>
                     </div>
-                    <div id="deadlineBoard" class="flex flex-col gap-3 flex-grow max-h-[300px] overflow-y-auto scrollbar-hide pr-1">
+                    <div id="deadlineBoard" class="dl-board flex flex-col gap-2.5 flex-grow pr-1.5">
                         <div class="flex items-center justify-center py-6 text-gray-400 font-bold text-sm">
                             <span class="animate-pulse">⏳ โหลดอยู่น้า...</span>
                         </div>
@@ -2715,11 +2729,11 @@
                 rowsHtml += '<div class="mini-day">' + (dueDate ? dueDate.getDate() : '-') + '</div>';
                 rowsHtml += '</div>';
                 rowsHtml += '<div class="flex-1 min-w-0">';
-                rowsHtml += '<p class="font-black text-black text-base leading-tight"><span class="quest-marker">▸</span>' + escapeHtml(d.title) + '</p>';
+                rowsHtml += '<p class="text-[.95rem] font-extrabold text-slate-900 leading-snug truncate">' + escapeHtml(d.title) + '</p>';
                 if (d.description && d.description.trim()) {
-                    rowsHtml += '<p class="text-xs font-bold text-gray-500 mt-0.5 truncate">' + escapeHtml(d.description) + '</p>';
+                    rowsHtml += '<p class="text-[.72rem] font-medium text-slate-600 mt-0.5 truncate">' + escapeHtml(d.description) + '</p>';
                 }
-                rowsHtml += '<p class="text-xs font-bold text-gray-400 mt-1">' + displayDate + ' • ' + roomDisplay + '</p>';
+                rowsHtml += '<p class="text-[.68rem] font-medium text-slate-500 mt-0.5 truncate">' + displayDate + ' · ' + roomDisplay + '</p>';
                 rowsHtml += '</div>';
                 rowsHtml += '<span class="pill-new ' + tier + '">' + urgencyText + '</span>';
                 rowsHtml += '</div>';
