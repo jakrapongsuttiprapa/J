@@ -140,7 +140,7 @@
             top: 0; left: 0;
             width: 100%; height: 100%;
             z-index: -1;
-            background-image: url('https://i.postimg.cc/FH235kYZ/Chat-GPT-Image-May-23-2026-at-07-34-21-PM.png');
+            background-image: url('https://i.postimg.cc/gj557Ffk/Chat-GPT-Image-Aug-20-2026-07-25-55-PM.png');
             background-size: cover;
             background-position: center top;
             background-repeat: no-repeat;
@@ -895,6 +895,41 @@
         }
         @keyframes livePulse { 0%, 100% { opacity: .5; transform: scale(1); } 50% { opacity: 1; transform: scale(1.3); } }
 
+        /* จุดประกายสำหรับการ์ดพื้น "สว่าง" (DEADLINE อำพัน / RANDOMIZER ฟ้า)
+           ★ ใช้สีเข้ม ไม่ใช่ขาวแบบการ์ด HERO เพราะ HERO มีพื้นหลังเป็นรูปภาพโทนมืด
+             แต่สองการ์ดนี้เป็นสีทึบสว่าง — ตรวจแล้วจุดขาวจะจางมาก (1.48–1.67:1)
+             ส่วนจุดเข้มได้ 10.69–12.06:1 เด่นชัดกว่ามาก (บทเรียนเดียวกับการ์ดแบนเนอร์) */
+        .card-spark {
+            position: absolute; border-radius: 999px; background: rgba(15,23,42,.42);
+            z-index: 2; pointer-events: none; animation: cardSparkFloat 4.5s ease-in-out infinite;
+        }
+        .card-spark.sm { width: 5px; height: 5px; }
+        .card-spark.md { width: 7px; height: 7px; }
+        .card-spark.lg { width: 9px; height: 9px; }
+        @keyframes cardSparkFloat {
+            0%, 100% { transform: translateY(0); opacity: .3; }
+            50%      { transform: translateY(-15px); opacity: .8; }
+        }
+
+        /* ==========================================================
+           เมนูนักเรียน — ป้ายชื่อพื้นเข้มโปร่งใต้ตัวหนังสือ
+           ★ แก้บั๊กจริง: เดิมตัวหนังสือขาววางบนไล่เฉดสว่างตรงๆ
+             4 ใน 5 ปุ่มอ่านไม่ออก (SCORES แย่สุดแค่ 1.32:1 จากเกณฑ์ 4.5)
+           ★ เลือกวิธีนี้แทนการเปลี่ยนเป็นตัวหนังสือดำ เพราะปุ่ม Grade 12
+             เป็นสีกรมท่าเข้ม ตัวดำจะอ่านไม่ออก (1.59:1) — ป้ายเข้มใช้ได้กับทุกปุ่ม
+           ★ คงสีไล่เฉดเดิมของทุกปุ่มไว้ครบ 100% ไม่เปลี่ยนสักสี
+             ตรวจแล้วผ่านทุกปุ่ม 5.74–13.30:1
+           ========================================================== */
+        .menu-plate {
+            background: rgba(15,23,42,.6);
+            padding: 3px 12px; border-radius: 999px;
+            font-size: .7rem; letter-spacing: .05em; text-transform: uppercase;
+            display: inline-block;
+        }
+        /* พื้นหลังป๊อปอัปเมนู — ไล่เฉดอ่อนโทนเดียวกับธีมออโรร่าของการ์ด HERO
+           แทนสีขาวอมเทาเรียบๆ (ตรวจแล้วหัวข้อสีดำยังอ่านชัด 17.04:1) */
+        .menu-popup-bg { background: linear-gradient(160deg, #ffffff 0%, #f5f7ff 55%, #e8ecff 100%); }
+
         /* ==========================================================
            แถบเมนู "GLASS PILL" — แคปซูลกระจกฝ้าลอยแยกจากขอบจอ (เฉพาะ pad/desktop)
            ★ ไม่ใส่ animation ให้ .nav-pill เด็ดขาด เพราะ <nav> แม่มี .animate-bounce-up อยู่
@@ -1061,6 +1096,7 @@
             .aurora-wash { animation: none; }
             .sweep-sheen { animation: none; display: none; }
             .hero-spark { animation: none; opacity: .6 !important; }
+            .card-spark { animation: none; opacity: .55 !important; }
             .photo-halo { animation: none; }
             .live-dot { animation: none; opacity: 1; }
             /* ปิดเหลือบทองแดงบนตัว OAT — ต้องคืนสีทึบด้วย เพราะปกติตัวอักษรโปร่งใสโดยอาศัยไล่เฉดวาดสีให้ */
@@ -1166,6 +1202,13 @@
 <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-6">
             
             <div class="bg-[#fbbf24] pat-grid border-[6px] border-black rounded-[3rem] p-6 shadow-[12px_12px_0_0_rgba(0,0,0,1)] hover:-translate-y-1 transition-transform relative overflow-hidden animate-bounce-up delay-400 ai-border ai-nodes flex flex-col h-full">
+                <div class="aurora-wash" aria-hidden="true"></div>
+                <div class="sweep-sheen" aria-hidden="true"></div>
+                <span class="card-spark lg" style="top:14%;left:10%;animation-delay:0s;"></span>
+                <span class="card-spark sm" style="top:30%;left:86%;animation-delay:.7s;"></span>
+                <span class="card-spark md" style="top:60%;left:6%;animation-delay:1.4s;"></span>
+                <span class="card-spark sm" style="top:78%;left:72%;animation-delay:2.1s;"></span>
+                <span class="card-spark md" style="top:44%;left:52%;animation-delay:2.8s;"></span>
                 <div class="absolute -right-6 -bottom-4 text-[9rem] opacity-25 transform rotate-12 pointer-events-none z-0 deco-sway-pos">⏰</div>
                 <div class="relative z-10 flex flex-col h-full">
                     <div class="flex items-center justify-between mb-5 flex-wrap gap-3">
@@ -1177,7 +1220,7 @@
                             </div>
                             <div>
                                 <h2 class="text-2xl md:text-3xl font-black text-black uppercase tracking-widest drop-shadow-[2px_2px_0_rgba(255,255,255,1)]">DEADLINE</h2>
-                                <p class="text-black font-black text-[10px] tracking-widest uppercase bg-amber-400 px-3 py-1 rounded-full border-2 border-black inline-block mt-1 shadow-[2px_2px_0_0_rgba(0,0,0,1)]">กำหนดส่งงาน</p>
+                                <p class="glass-tag inline-block mt-1" style="font-size:.62rem;letter-spacing:.1em;padding:4px 12px;border-radius:999px;">กำหนดส่งงาน</p>
                             </div>
                         </div>
                         <button type="button" onclick="openDeadlineAdmin()" class="border-4 border-black text-white font-black text-xs py-2 px-4 rounded-xl active:translate-y-1 active:shadow-[0_0_0_0_rgba(0,0,0,1)] shadow-[4px_4px_0_0_rgba(0,0,0,1)] transition-all flex items-center gap-2 uppercase tracking-widest flex-shrink-0" style="background:#92400e;">
@@ -1193,6 +1236,13 @@
             </div>
 
             <div class="bg-[#5ee7f2] pat-dots border-[6px] border-black rounded-[3rem] p-6 shadow-[12px_12px_0_0_rgba(0,0,0,1)] hover:-translate-y-1 transition-transform relative overflow-hidden animate-bounce-up delay-400 ai-border ai-nodes flex flex-col justify-center items-center text-center h-full group">
+                <div class="aurora-wash" aria-hidden="true"></div>
+                <div class="sweep-sheen" aria-hidden="true"></div>
+                <span class="card-spark md" style="top:18%;left:12%;animation-delay:.3s;"></span>
+                <span class="card-spark lg" style="top:36%;left:84%;animation-delay:1s;"></span>
+                <span class="card-spark sm" style="top:64%;left:16%;animation-delay:1.7s;"></span>
+                <span class="card-spark md" style="top:82%;left:78%;animation-delay:2.4s;"></span>
+                <span class="card-spark sm" style="top:50%;left:46%;animation-delay:3s;"></span>
                 <div class="absolute -left-6 -top-6 text-[8rem] opacity-30 transform -rotate-12 pointer-events-none z-0 deco-dice-roll">🎲</div>
                 <div class="absolute -right-10 -bottom-10 text-[10rem] opacity-20 transform rotate-12 pointer-events-none z-0 deco-spin">🎡</div>
                 
@@ -1207,7 +1257,7 @@
                         <div class="die d3"><div class="pips"><span class="pip"></span></div></div>
                     </div>
                    <h2 class="text-3xl md:text-6xl font-black text-black uppercase tracking-widest drop-shadow-[2px_2px_0_rgba(255,255,255,1)]">RANDOMIZER</h2>
-                   <p class="text-black font-black text-xs md:text-base tracking-widest uppercase bg-[#22d3ee] px-4 md:px-5 py-1.5 md:py-2 rounded-full border-2 border-black inline-block mt-2 shadow-[2px_2px_0_0_rgba(0,0,0,1)]">ระบบสุ่มชื่อนักเรียน</p>
+                   <p class="glass-tag inline-block mt-2" style="font-size:.8rem;letter-spacing:.08em;padding:7px 20px;border-radius:999px;">🎯 ระบบสุ่มชื่อนักเรียน</p>
                    <div class="rd-tags"><span class="rd-tag">ม.4</span><span class="rd-tag">ม.5</span><span class="rd-tag">ม.6</span><span class="rd-tag">ครบ 12 ห้อง</span></div>
                    <p class="rd-hint">สุ่มเลือกนักเรียนขึ้นมาตอบคำถามได้ทันที</p>
                 </div>
@@ -1808,14 +1858,14 @@
         // ---- ปุ่ม ☰ มุมขวาบน (มือถือ): เมนูลัดฝั่งนักเรียน (Quiz แต่ละเกรด/Game Quiz/Scores) ----
         window.openStudentMenu = function() {
             let html = '<div class="grid grid-cols-2 gap-3 p-1">';
-            html += '<button onclick="if(typeof Swal!==\'undefined\') Swal.close(); openGradeQuizHub(\'10\');" style="background: linear-gradient(145deg, #b06fff 0%, #e040fb 100%);" class="border-4 border-black text-white font-black py-4 rounded-2xl shadow-[4px_4px_0_0_rgba(0,0,0,1)] active:translate-y-1 active:shadow-none transition-all flex flex-col items-center gap-1"><span class="text-2xl">👾</span><span class="text-xs uppercase tracking-wide">Grade 10</span></button>';
-            html += '<button onclick="if(typeof Swal!==\'undefined\') Swal.close(); openGradeQuizHub(\'11\');" style="background: linear-gradient(145deg, #29b6f6 0%, #7c4dff 100%);" class="border-4 border-black text-white font-black py-4 rounded-2xl shadow-[4px_4px_0_0_rgba(0,0,0,1)] active:translate-y-1 active:shadow-none transition-all flex flex-col items-center gap-1"><span class="text-2xl">🚀</span><span class="text-xs uppercase tracking-wide">Grade 11</span></button>';
-            html += '<button onclick="if(typeof Swal!==\'undefined\') Swal.close(); openGradeQuizHub(\'12\');" style="background: linear-gradient(145deg, #1a237e 0%, #006064 100%);" class="border-4 border-black text-white font-black py-4 rounded-2xl shadow-[4px_4px_0_0_rgba(0,0,0,1)] active:translate-y-1 active:shadow-none transition-all flex flex-col items-center gap-1"><span class="text-2xl">⚔️</span><span class="text-xs uppercase tracking-wide">Grade 12</span></button>';
-            html += '<button onclick="if(typeof Swal!==\'undefined\') Swal.close(); openQuizHub();" style="background: linear-gradient(145deg, #ff6f00 0%, #f50057 100%);" class="border-4 border-black text-white font-black py-4 rounded-2xl shadow-[4px_4px_0_0_rgba(0,0,0,1)] active:translate-y-1 active:shadow-none transition-all flex flex-col items-center gap-1"><span class="text-2xl">🧩</span><span class="text-xs uppercase tracking-wide">Game Quiz</span></button>';
-            html += '<button onclick="if(typeof Swal!==\'undefined\') Swal.close(); scrollToScoreStudents();" style="background: linear-gradient(145deg, #fde047 0%, #f59e0b 100%);" class="border-4 border-black text-white font-black py-4 rounded-2xl shadow-[4px_4px_0_0_rgba(0,0,0,1)] active:translate-y-1 active:shadow-none transition-all flex flex-col items-center gap-1 col-span-2"><span class="text-2xl">🎯</span><span class="text-xs uppercase tracking-wide">Scores</span></button>';
+            html += '<button onclick="if(typeof Swal!==\'undefined\') Swal.close(); openGradeQuizHub(\'10\');" style="background: linear-gradient(145deg, #b06fff 0%, #e040fb 100%);" class="menu-btn border-4 border-black text-white font-black py-4 rounded-2xl shadow-[4px_4px_0_0_rgba(0,0,0,1)] active:translate-y-1 active:shadow-none transition-all flex flex-col items-center gap-1"><span class="ico-badge relative z-10">👾</span><span class="menu-plate relative z-10">Grade 10</span></button>';
+            html += '<button onclick="if(typeof Swal!==\'undefined\') Swal.close(); openGradeQuizHub(\'11\');" style="background: linear-gradient(145deg, #29b6f6 0%, #7c4dff 100%);" class="menu-btn border-4 border-black text-white font-black py-4 rounded-2xl shadow-[4px_4px_0_0_rgba(0,0,0,1)] active:translate-y-1 active:shadow-none transition-all flex flex-col items-center gap-1"><span class="ico-badge relative z-10">🚀</span><span class="menu-plate relative z-10">Grade 11</span></button>';
+            html += '<button onclick="if(typeof Swal!==\'undefined\') Swal.close(); openGradeQuizHub(\'12\');" style="background: linear-gradient(145deg, #1a237e 0%, #006064 100%);" class="menu-btn border-4 border-black text-white font-black py-4 rounded-2xl shadow-[4px_4px_0_0_rgba(0,0,0,1)] active:translate-y-1 active:shadow-none transition-all flex flex-col items-center gap-1"><span class="ico-badge relative z-10">⚔️</span><span class="menu-plate relative z-10">Grade 12</span></button>';
+            html += '<button onclick="if(typeof Swal!==\'undefined\') Swal.close(); openQuizHub();" style="background: linear-gradient(145deg, #ff6f00 0%, #f50057 100%);" class="menu-btn border-4 border-black text-white font-black py-4 rounded-2xl shadow-[4px_4px_0_0_rgba(0,0,0,1)] active:translate-y-1 active:shadow-none transition-all flex flex-col items-center gap-1"><span class="ico-badge relative z-10">🧩</span><span class="menu-plate relative z-10">Game Quiz</span></button>';
+            html += '<button onclick="if(typeof Swal!==\'undefined\') Swal.close(); scrollToScoreStudents();" style="background: linear-gradient(145deg, #fde047 0%, #f59e0b 100%);" class="menu-btn border-4 border-black text-white font-black py-4 rounded-2xl shadow-[4px_4px_0_0_rgba(0,0,0,1)] active:translate-y-1 active:shadow-none transition-all flex flex-col items-center gap-1 col-span-2"><span class="ico-badge relative z-10">🎯</span><span class="menu-plate relative z-10">Scores</span></button>';
             html += '</div>';
             fireSwal({ title: '📚 เมนูนักเรียน', html: html, showConfirmButton: false, showCloseButton: true,
-                customClass: { popup: popupClass_('bg-[#f8fafc]'), title: 'font-black text-2xl mt-4 text-black tracking-widest' } });
+                customClass: { popup: popupClass_('menu-popup-bg'), title: 'font-black text-2xl mt-4 text-black tracking-widest' } });
         };
 
         // ---- ปุ่ม ⚙️ มุมขวาบน (มือถือ): รวมทางลัดเข้าเครื่องมือครูทั้งหมด ----
@@ -1823,14 +1873,14 @@
         // (ฝั่งนักเรียนมีเมนู ☰ แยกต่างหากอยู่ข้างๆ กันคนละหมวดชัดเจน)
         window.openAdminMenu = function() {
             let html = '<div class="grid grid-cols-2 gap-3 p-1">';
-            html += '<button onclick="if(typeof Swal!==\'undefined\') Swal.close(); openUploadPopup();" class="menu-btn bg-blue-600 border-4 border-black text-white font-black py-4 rounded-2xl shadow-[4px_4px_0_0_rgba(0,0,0,1)] active:translate-y-1 active:shadow-none transition-all flex flex-col items-center gap-1"><span class="ico-badge relative z-10">📤</span><span class="text-xs uppercase tracking-wide relative z-10">Upload</span></button>';
-            html += '<button onclick="if(typeof Swal!==\'undefined\') Swal.close(); checkAdminScores();" class="menu-btn bg-slate-800 border-4 border-black text-white font-black py-4 rounded-2xl shadow-[4px_4px_0_0_rgba(0,0,0,1)] active:translate-y-1 active:shadow-none transition-all flex flex-col items-center gap-1"><span class="ico-badge relative z-10">🤖</span><span class="text-xs uppercase tracking-wide relative z-10">Override</span></button>';
-            html += '<button onclick="if(typeof Swal!==\'undefined\') Swal.close(); openQuizAdmin();" class="menu-btn border-4 border-black text-white font-black py-4 rounded-2xl shadow-[4px_4px_0_0_rgba(0,0,0,1)] active:translate-y-1 active:shadow-none transition-all flex flex-col items-center gap-1" style="background:#9a3412;"><span class="ico-badge relative z-10">🎲</span><span class="text-xs uppercase tracking-wide relative z-10">Quiz</span></button>';
-            html += '<button onclick="if(typeof Swal!==\'undefined\') Swal.close(); openDeadlineAdmin();" class="menu-btn border-4 border-black text-white font-black py-4 rounded-2xl shadow-[4px_4px_0_0_rgba(0,0,0,1)] active:translate-y-1 active:shadow-none transition-all flex flex-col items-center gap-1" style="background:#92400e;"><span class="ico-badge relative z-10">📅</span><span class="text-xs uppercase tracking-wide relative z-10">Deadline</span></button>';
-            html += '<button onclick="if(typeof Swal!==\'undefined\') Swal.close(); openDashboard();" class="menu-btn border-4 border-black text-white font-black py-4 rounded-2xl shadow-[4px_4px_0_0_rgba(0,0,0,1)] active:translate-y-1 active:shadow-none transition-all flex flex-col items-center gap-1 col-span-2" style="background:#065f46;"><span class="ico-badge relative z-10">📊</span><span class="text-xs uppercase tracking-wide relative z-10">Dashboard</span></button>';
+            html += '<button onclick="if(typeof Swal!==\'undefined\') Swal.close(); openUploadPopup();" class="menu-btn bg-blue-600 border-4 border-black text-white font-black py-4 rounded-2xl shadow-[4px_4px_0_0_rgba(0,0,0,1)] active:translate-y-1 active:shadow-none transition-all flex flex-col items-center gap-1"><span class="ico-badge relative z-10">📤</span><span class="menu-plate relative z-10">Upload</span></button>';
+            html += '<button onclick="if(typeof Swal!==\'undefined\') Swal.close(); checkAdminScores();" class="menu-btn bg-slate-800 border-4 border-black text-white font-black py-4 rounded-2xl shadow-[4px_4px_0_0_rgba(0,0,0,1)] active:translate-y-1 active:shadow-none transition-all flex flex-col items-center gap-1"><span class="ico-badge relative z-10">🤖</span><span class="menu-plate relative z-10">Override</span></button>';
+            html += '<button onclick="if(typeof Swal!==\'undefined\') Swal.close(); openQuizAdmin();" class="menu-btn border-4 border-black text-white font-black py-4 rounded-2xl shadow-[4px_4px_0_0_rgba(0,0,0,1)] active:translate-y-1 active:shadow-none transition-all flex flex-col items-center gap-1" style="background:#9a3412;"><span class="ico-badge relative z-10">🎲</span><span class="menu-plate relative z-10">Quiz</span></button>';
+            html += '<button onclick="if(typeof Swal!==\'undefined\') Swal.close(); openDeadlineAdmin();" class="menu-btn border-4 border-black text-white font-black py-4 rounded-2xl shadow-[4px_4px_0_0_rgba(0,0,0,1)] active:translate-y-1 active:shadow-none transition-all flex flex-col items-center gap-1" style="background:#92400e;"><span class="ico-badge relative z-10">📅</span><span class="menu-plate relative z-10">Deadline</span></button>';
+            html += '<button onclick="if(typeof Swal!==\'undefined\') Swal.close(); openDashboard();" class="menu-btn border-4 border-black text-white font-black py-4 rounded-2xl shadow-[4px_4px_0_0_rgba(0,0,0,1)] active:translate-y-1 active:shadow-none transition-all flex flex-col items-center gap-1 col-span-2" style="background:#065f46;"><span class="ico-badge relative z-10">📊</span><span class="menu-plate relative z-10">Dashboard</span></button>';
             html += '</div>';
             fireSwal({ title: '🛠️ เมนูครู', html: html, showConfirmButton: false, showCloseButton: true,
-                customClass: { popup: popupClass_('bg-[#f8fafc]'), title: 'font-black text-2xl mt-4 text-black tracking-widest' } });
+                customClass: { popup: popupClass_('menu-popup-bg'), title: 'font-black text-2xl mt-4 text-black tracking-widest' } });
         };
 
         // ---- ตารางเรียนนักเรียน (รูปนิ่งจาก postimg.cc ต่อห้อง — ไม่ต้องใช้รหัสผ่าน ไม่ผ่าน API เลย) ----
