@@ -61,7 +61,6 @@
             opacity: 0.85;
             /* ★ 4 ชั้นขยับ background-position ที่ 1.1s = วาดใหม่ถี่มาก
                ชะลอเป็น 2s และแยกชั้น GPU ลดภาระลงครึ่งหนึ่งโดยตายังเห็นไฟวิ่งเหมือนเดิม */
-            will-change: background-position;
             animation: marqueeChase 2s linear infinite;
         }
         @keyframes marqueeChase {
@@ -769,7 +768,7 @@
         .menu-btn::after {
             content: ''; position: absolute; top: -60%; left: -30%; width: 35%; height: 220%;
             background: linear-gradient(to right, rgba(255,255,255,0), rgba(255,255,255,.25), rgba(255,255,255,0));
-            transform: translateX(0) rotate(20deg); will-change: transform; animation: menuBtnSheen 5s ease-in-out infinite; pointer-events: none;
+            transform: translateX(0) rotate(20deg); animation: menuBtnSheen 5s ease-in-out infinite; pointer-events: none;
         }
         @keyframes menuBtnSheen { 0% { transform: translateX(0) rotate(20deg); } 55%, 100% { transform: translateX(457%) rotate(20deg); } }
 
@@ -819,7 +818,7 @@
         /* จุดลอยสีเข้ม — พื้นการ์ดคู่นี้อ่อน จุดขาวจะจางเกินไป (เหตุผลเดียวกับการ์ดแบนเนอร์) */
         .ep-dot {
             position: absolute; border-radius: 999px; background: rgba(15,23,42,.4);
-            pointer-events: none; will-change: transform, opacity; animation: epFloat 4.5s ease-in-out infinite;
+            pointer-events: none; animation: epFloat 4.5s ease-in-out infinite;
         }
         .ep-dot.sm { width: 5px; height: 5px; }
         .ep-dot.md { width: 7px; height: 7px; }
@@ -856,7 +855,9 @@
                เดิม background-position บังคับให้วาดพื้นหลังใหม่ทุกเฟรม = กระตุก
                ตอนนี้ภาพพื้นหลังวาดครั้งเดียว แล้วให้การ์ดจอเลื่อนอย่างเดียว
                ที่ขยายไว้ -25% เพื่อไม่ให้เห็นขอบตอนเลื่อน */
-            position: absolute; inset: -25%; z-index: 1; pointer-events: none; mix-blend-mode: overlay;
+            /* ★ ตัด mix-blend-mode ออก — บังคับ GPU อ่านภาพที่วาดแล้วกลับมาผสมสีใหม่ทุกเฟรม
+               ซึ่งการ์ดจอในตัวช้ามากในงานนี้ ใช้ความโปร่งใสธรรมดาแทน สีใกล้เคียงเดิม */
+            position: absolute; inset: -25%; z-index: 1; pointer-events: none; opacity: .55;
             background: radial-gradient(circle at 20% 30%, rgba(168,85,247,.35), transparent 45%),
                         radial-gradient(circle at 80% 70%, rgba(59,130,246,.3), transparent 45%),
                         radial-gradient(circle at 50% 100%, rgba(236,72,153,.25), transparent 50%);
@@ -873,7 +874,7 @@
 
         .hero-spark {
             position: absolute; width: 5px; height: 5px; border-radius: 999px; background: #fff; z-index: 2;
-            box-shadow: 0 0 10px 3px rgba(255,255,255,.9); will-change: transform, opacity;
+            box-shadow: 0 0 10px 3px rgba(255,255,255,.9);
             animation: sparkFloat 4.5s ease-in-out infinite;
             pointer-events: none;
         }
@@ -884,7 +885,8 @@
 
         .photo-halo {
             background: conic-gradient(from 0deg, #f472b6, #a78bfa, #60a5fa, #34d399, #fbbf24, #f472b6);
-            filter: blur(14px); opacity: .75; will-change: transform; transform: translateZ(0);
+            /* ★ ลดรัศมีเบลอ 14px -> 7px : ต้นทุนเบลอโตตามรัศมียกกำลังสอง ลดครึ่ง = เบาลง ~4 เท่า */
+            filter: blur(7px); opacity: .8; will-change: transform; transform: translateZ(0);
             animation: haloSpin 6s linear infinite; z-index: 0;
         }
         @keyframes haloSpin { to { transform: rotate(360deg); } }
@@ -892,7 +894,7 @@
         /* แท็ก 3 อัน: กระจกฝ้าโปร่งแสง แทนสีทึบเดิม
            ตรวจแล้วว่าตัวดำอ่านออกทุกกรณี แม้ทับสีออโรร่า/รูปมืดสุด (แย่สุด 9.00:1) */
         .glass-tag {
-            background: rgba(255,255,255,.72); backdrop-filter: blur(5px); -webkit-backdrop-filter: blur(5px);
+            background: rgba(255,255,255,.82);
             border: 1.5px solid rgba(255,255,255,.85); color: #0f172a; font-weight: 800; padding: 8px 16px;
             border-radius: 12px; font-size: .85rem; box-shadow: 0 4px 14px rgba(15,23,42,.18);
             transition: transform .15s;
@@ -916,7 +918,7 @@
              ส่วนจุดเข้มได้ 10.69–12.06:1 เด่นชัดกว่ามาก (บทเรียนเดียวกับการ์ดแบนเนอร์) */
         .card-spark {
             position: absolute; border-radius: 999px; background: rgba(15,23,42,.42);
-            z-index: 2; pointer-events: none; will-change: transform, opacity;
+            z-index: 2; pointer-events: none;
             animation: cardSparkFloat 4.5s ease-in-out infinite;
         }
         .card-spark.sm { width: 5px; height: 5px; }
@@ -955,11 +957,11 @@
              ไม่ว่าพื้นหลังที่เลื่อนผ่านใต้แถบจะมืดสนิทหรือสว่างจ้า
            ========================================================== */
         .nav-pill {
-            background: rgba(255,255,255,.85);
-            /* ★ ลดรัศมีเบลอจาก 14px เหลือ 8px — แถบนี้ติดจอตลอด เบราว์เซอร์ต้องคำนวณเบลอใหม่
-               ทุกครั้งที่เลื่อนหน้า ยิ่งรัศมีมากยิ่งหนัก ลดแล้วยังเห็นเป็นกระจกฝ้าเหมือนเดิม */
-            -webkit-backdrop-filter: blur(8px);   /* จำเป็นสำหรับ Safari/iPad ที่ครูใช้เป็นหลัก */
-            backdrop-filter: blur(8px);
+            /* ★ ตัด backdrop-filter ออก — เป็นจุดอ่อนที่หนักที่สุดของการ์ดจอในตัว (Intel UHD)
+               ทุกเฟรมต้องคัดลอกภาพข้างหลัง -> เบลอ -> วางกลับ
+               เดิมตั้งความทึบ 85% อยู่แล้ว = แทบมองไม่เห็นภาพข้างหลังอยู่ดี
+               เพิ่มเป็น 92% ชดเชย ตาเปล่าแทบไม่ต่าง แต่ภาระ GPU หายไปเกือบหมด */
+            background: rgba(255,255,255,.92);
             border: 1.5px solid rgba(255,255,255,.9);
             border-radius: 999px;
             box-shadow: 0 10px 30px rgba(15,23,42,.35), inset 0 1px 0 rgba(255,255,255,.9);
@@ -993,8 +995,7 @@
            ความทึบ .88 ตรวจแล้วอ่านออกทุกส่วนของภาพ HERO ที่ลอยทับ (แย่สุด 13.52:1) */
         .nav-glass-btn {
             width: 44px; height: 44px; border-radius: 999px;
-            background: rgba(255,255,255,.88);
-            -webkit-backdrop-filter: blur(8px); backdrop-filter: blur(8px);
+            background: rgba(255,255,255,.94);
             border: 1.5px solid rgba(255,255,255,.9);
             display: flex; align-items: center; justify-content: center; font-size: 1.15rem;
             box-shadow: 0 6px 18px rgba(15,23,42,.32), inset 0 1px 0 rgba(255,255,255,.9);
@@ -1050,7 +1051,7 @@
             color: #fff; letter-spacing: .15em; z-index: 6; pointer-events: none;
         }
         .quiz-glass-btn {
-            width: 100%; background: rgba(15,23,42,.55); backdrop-filter: blur(2px);
+            width: 100%; background: rgba(15,23,42,.62);
             border: 3px solid #fff; border-radius: 16px; padding: 14px 0; font-size: 1.1rem; font-weight: 900;
             font-family: 'Kanit', sans-serif; color: #fff; letter-spacing: .06em; text-transform: uppercase;
             display: flex; align-items: center; justify-content: center; gap: 8px; cursor: pointer;
@@ -1062,7 +1063,7 @@
         /* จุดแสงลอย — หลายขนาดให้ดูมีมิติ (เล็ก=ไกล/จาง, ใหญ่=ใกล้/สว่างกว่า) */
         .neon-dot {
             position: absolute; border-radius: 999px; background: #fff; pointer-events: none;
-            will-change: transform, opacity; animation: neonFloat 4.5s ease-in-out infinite;
+            animation: neonFloat 4.5s ease-in-out infinite;
         }
         .neon-dot.xs { width: 3px; height: 3px; opacity: .5; }
         .neon-dot.sm { width: 4px; height: 4px; opacity: .65; }
@@ -1608,7 +1609,10 @@
         function callAPI(action, payload, options) {
             payload = payload || {};
             options = options || {};
-            var timeoutMs = (options.timeoutMs !== undefined) ? options.timeoutMs : 15000;
+            // ★ 30 วิ (เดิม 15 วิ สั้นเกินไป)
+            // Google Apps Script ตอน "ปลุกเครื่อง" (cold start) ใช้เวลา 10-20 วิได้เองอยู่แล้ว
+            // ถ้าเน็ตช้าด้วย 15 วิจะตัดทิ้งทั้งที่เซิร์ฟเวอร์กำลังทำงานอยู่ = ขึ้น error ทั้งที่ไม่ควร
+            var timeoutMs = (options.timeoutMs !== undefined) ? options.timeoutMs : 30000;
             var retries = (options.retries !== undefined) ? options.retries : 1;
 
             function attempt(retriesLeft) {
@@ -1653,13 +1657,26 @@
 
         // ★ แสดง error แบบเข้าใจง่ายเวลาเชื่อมต่อกับเซิร์ฟเวอร์ไม่สำเร็จ — ใช้ร่วมกันทุกจุดที่เรียก callAPI
         // รวมไว้จุดเดียวกันข้อความซ้ำ 11 จุดที่เคยขาด error handling ไปก่อนหน้านี้
-        function showNetworkError_(err) {
-            fireSwal({
-                icon: 'error', title: 'เชื่อมต่อไม่สำเร็จ',
+        function showNetworkError_(err, retryFn) {
+            // ★ ถ้าส่ง retryFn มาด้วย จะมีปุ่ม "ลองอีกครั้ง" ให้กดซ้ำได้ทันที
+            // เดิมมีแค่ปุ่ม OK ซึ่งกดแล้วจบ นักเรียนต้องหาทางกดเข้าใหม่เองทั้งที่แค่เน็ตสะดุดชั่วคราว
+            var opts = {
+                icon: 'warning', title: 'เชื่อมต่อไม่สำเร็จ',
                 text: (err && err.message) ? err.message : 'เกิดข้อผิดพลาดที่ไม่คาดคิด กรุณาลองใหม่อีกครั้ง',
                 buttonsStyling: false,
-                customClass: { popup: popupClass_(null, '2rem'), confirmButton: 'bg-black text-white font-black py-2 px-6 rounded-xl border-4 border-black mt-4' }
-            });
+                customClass: { popup: popupClass_(null, '2rem'),
+                    confirmButton: 'bg-blue-600 text-white font-black py-2.5 px-7 rounded-xl border-4 border-black mt-4 mx-1',
+                    cancelButton: 'bg-gray-300 text-black font-black py-2.5 px-7 rounded-xl border-4 border-black mt-4 mx-1' }
+            };
+            if (typeof retryFn === 'function') {
+                opts.showCancelButton = true;
+                opts.confirmButtonText = '🔄 ลองอีกครั้ง';
+                opts.cancelButtonText = 'ปิด';
+                fireSwal(opts).then(function(r) { if (r && r.value) { retryFn(); } });
+            } else {
+                opts.confirmButtonText = 'ตกลง';
+                fireSwal(opts);
+            }
         }
 
         // ผลลัพธ์ error จากเซิร์ฟเวอร์ (เช่น รหัสผ่านผิด) จะมี __error:true แนบมาเสมอ (ดู Code.gs -> doPost)
@@ -2465,7 +2482,7 @@
             showLoading_('LOADING QUIZ HUB ⏳');
             callAPI('getQuizCards', {})
                 .then(function(cards) { renderQuizHub(cards); })
-                .catch(function(err) { fireSwal({ icon: 'error', title: 'ERROR', text: err.message }); });
+                .catch(function(err) { showNetworkError_(err, function() { openQuizHub(); }); });
         };
 
         function renderQuizHub(cards) {
@@ -2493,7 +2510,7 @@
                 const newTab = openTabPending_(c.name);
                 callAPI('verifyQuizPassword', { data: { id: c.id, password: "" } })
                     .then(function(res) { if (res.success) { deliverLink_(newTab, res.link, c.name); } else { closeTab_(newTab); } })
-                    .catch(function(err) { closeTab_(newTab); showNetworkError_(err); });
+                    .catch(function(err) { closeTab_(newTab); showNetworkError_(err, function() { openQuizCard(index); }); });
                 return;
             }
             const loginHtml = '<div class="lock-badge">🔐</div>' +
@@ -2549,7 +2566,7 @@
                     if (isAuthError(cards)) { fireSwal({ icon: 'error', title: 'ERROR', text: cards.message }); return; }
                     renderQuizAdminList(cards);
                 })
-                .catch(function(err) { fireSwal({ icon: 'error', title: 'ERROR', text: err.message }); });
+                .catch(function(err) { showNetworkError_(err); });
         }
 
         function renderQuizAdminList(cards) {
@@ -2680,7 +2697,7 @@
             showLoading_('LOADING QUIZ HUB ⏳');
             callAPI('getGradeQuizCards', { grade: grade })
                 .then(function(cards) { renderGradeQuizHub(grade, cards); })
-                .catch(function(err) { fireSwal({ icon: 'error', title: 'ERROR', text: err.message }); });
+                .catch(function(err) { showNetworkError_(err, function() { openGradeQuizHub(grade); }); });
         };
 
         // ★ สีประจำ Quiz HUB แต่ละระดับ — ใช้ค่าเดียวกับ "การ์ดที่นักเรียนเพิ่งกดเข้ามา" เป๊ะๆ
@@ -2751,7 +2768,7 @@
                 const newTab = openTabPending_(c.name);
                 callAPI('verifyGradeQuizPassword', { data: { id: c.id, password: "" } })
                     .then(function(res) { if (res.success) { deliverLink_(newTab, res.link, c.name); } else { closeTab_(newTab); } })
-                    .catch(function(err) { closeTab_(newTab); showNetworkError_(err); });
+                    .catch(function(err) { closeTab_(newTab); showNetworkError_(err, function() { openGradeQuizCard(grade, index); }); });
                 return;
             }
             const loginHtml = '<div class="lock-badge">🔐</div>' +
@@ -2805,7 +2822,7 @@
                     if (isAuthError(cards)) { fireSwal({ icon: 'error', title: 'ERROR', text: cards.message }); return; }
                     renderGradeQuizAdminList(grade, cards);
                 })
-                .catch(function(err) { fireSwal({ icon: 'error', title: 'ERROR', text: err.message }); });
+                .catch(function(err) { showNetworkError_(err); });
         }
 
         function renderGradeQuizAdminList(grade, cards) {
@@ -3073,7 +3090,7 @@
                     renderDeadlineAdminList(deadlines);
                     loadDeadlineBoard();
                 })
-                .catch(function(err) { fireSwal({ icon: 'error', title: 'ERROR', text: err.message }); });
+                .catch(function(err) { showNetworkError_(err); });
         }
 
         function renderDeadlineAdminList(deadlines) {
@@ -3195,7 +3212,7 @@
                             if (res.success) { loadDeadlineAdminList(); }
                             else { fireSwal({ icon: 'error', title: 'FAILED', text: res.message }); }
                         })
-                        .catch(function(e) { fireSwal({ icon: 'error', title: 'ERROR', text: e.message }); });
+                        .catch(function(e) { showNetworkError_(e); });
                 }
             });
         };
@@ -3249,7 +3266,7 @@
                     }
                     renderDashboard(stats);
                 })
-                .catch(function(err) { fireSwal({ icon: 'error', title: 'ERROR', text: err.message }); });
+                .catch(function(err) { showNetworkError_(err); });
         };
 
         function renderDashboard(s) {
