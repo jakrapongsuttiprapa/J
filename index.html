@@ -1178,7 +1178,7 @@
             <span class="hero-spark" style="top:22%;left:88%;animation-delay:.8s;"></span>
             <span class="hero-spark" style="top:55%;left:4%;animation-delay:1.6s;"></span>
             <span class="hero-spark" style="top:68%;left:92%;animation-delay:2.4s;"></span>
-            <div class="absolute -right-4 -top-4 text-[8rem] opacity-20 transform rotate-12 pointer-events-none z-0 deco-sway-pos"> 🇬🇧 🇹🇭 </div>
+            <div class="absolute -right-4 -top-4 text-[8rem] opacity-20 transform rotate-12 pointer-events-none z-0 deco-sway-pos"> 🇬🇧 🇹🇭 🇬🇧</div>
             <div class="absolute left-10 -bottom-10 text-[6rem] opacity-30 transform -rotate-12 pointer-events-none animate-float z-0">🛸</div>
             <div class="relative z-10 flex flex-col md:flex-row-reverse items-center justify-between gap-8">
                 <div class="flex-1 text-center md:text-left">
@@ -1606,8 +1606,9 @@
         // เพราะถ้าการขอครั้งแรกจริงๆ แล้วบันทึกสำเร็จที่เซิร์ฟเวอร์ แต่ผลลัพธ์ส่งกลับมาไม่ทัน (ไทม์เอาต์)
         // แล้วเราลองใหม่อัตโนมัติ อาจกลายเป็นสร้างข้อมูลซ้ำสอง (เช่น การ์ด Quiz เดียวกันถูกเพิ่ม 2 ที) 
         // จุดพวกนี้ปล่อยให้ผู้ใช้กดปุ่มเองอีกครั้งถ้าจำเป็น ปลอดภัยกว่า
-        function callAPI(action, payload, options) {
-            payload = payload || {};
+        // ★ ตัวส่งคำขอกลาง — ใช้ร่วมกันทั้งฝั่ง Google (callGAS_) และฝั่ง Supabase (sbRpc_)
+        //   รวม "เวลาจำกัด" + "ลองใหม่อัตโนมัติ" + ข้อความ error ที่เข้าใจง่ายไว้ที่เดียว
+        function requestJSON_(url, init, options) {
             options = options || {};
             // ★ 30 วิ (เดิม 15 วิ สั้นเกินไป)
             // Google Apps Script ตอน "ปลุกเครื่อง" (cold start) ใช้เวลา 10-20 วิได้เองอยู่แล้ว
@@ -1619,12 +1620,7 @@
                 var controller = (typeof AbortController !== 'undefined') ? new AbortController() : null;
                 var timer = controller ? setTimeout(function () { controller.abort(); }, timeoutMs) : null;
 
-                return fetch(API_URL, {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'text/plain;charset=utf-8' },
-                    body: JSON.stringify(Object.assign({ action: action }, payload)),
-                    signal: controller ? controller.signal : undefined
-                }).then(function (res) {
+                return fetch(url, Object.assign({}, init, { signal: controller ? controller.signal : undefined })).then(function (res) {
                     if (timer) clearTimeout(timer);
                     if (!res.ok) {
                         var httpErr = new Error('เซิร์ฟเวอร์ตอบกลับผิดปกติ (HTTP ' + res.status + ')');
@@ -1653,6 +1649,166 @@
             }
 
             return attempt(retries);
+        }
+
+        // ---- ฝั่ง Google Apps Script (ทำงานเหมือนเดิมทุกอย่าง) ----
+        function callGAS_(action, payload, options) {
+            payload = payload || {};
+            return requestJSON_(API_URL, {
+                method: 'POST',
+                headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+                body: JSON.stringify(Object.assign({ action: action }, payload))
+            }, options);
+        }
+
+        // ================================================================
+        // ฐานข้อมูลใหม่ (Supabase) สำหรับ Game Quizz / Grade Quizz / Deadline
+        // - กุญแจนี้เป็น "กุญแจสาธารณะ" (publishable) ออกแบบมาให้อยู่ในหน้าเว็บได้ ปลอดภัยโดยโครงสร้าง:
+        //   ตารางถูกล็อกทั้งหมด เรียกได้เฉพาะฟังก์ชัน hub_* ซึ่งไม่ส่งลิงก์/รหัสผ่านของ Quiz ให้นักเรียน
+        //   และตรวจรหัส Admin ฝั่งเซิร์ฟเวอร์ทุกครั้ง
+        // - ชีตคะแนน 4/1-6/4, ตรวจ ร/มส, ส่งงาน ยังอยู่ที่ Google Sheet เหมือนเดิม
+        // ================================================================
+        const SUPABASE_URL = 'https://zjpyusmvwbebpiwzehqb.supabase.co';
+        const SUPABASE_KEY = 'sb_publishable_FutFx0bLILIRJwEo-k3ZDw_dfRRhaYc';
+
+        function sbRpc_(fn, args, options) {
+            return requestJSON_(SUPABASE_URL + '/rest/v1/rpc/' + fn, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json', 'apikey': SUPABASE_KEY },
+                body: JSON.stringify(args || {})
+            }, options);
+        }
+
+        function sbPw_(p) { return (p && p.password !== undefined && p.password !== null) ? String(p.password) : ''; }
+        function sbData_(p) { return (p && p.data) ? p.data : {}; }
+        function sbId_(p) { var d = sbData_(p); return (d.id !== undefined && d.id !== null) ? String(d.id) : ''; }
+
+        // แผนที่: ชื่อ action เดิม -> [ชื่อฟังก์ชัน Supabase, ค่าที่ส่ง] (หน้าเว็บส่วนอื่นเรียก callAPI เหมือนเดิมทุกจุด)
+        var SB_ROUTES = {
+            getQuizCards:           function (p) { return ['hub_get_quiz_cards', { p_kind: 'game', p_grade: null }]; },
+            getQuizCardsAdmin:      function (p) { return ['hub_get_quiz_cards_admin', { p_kind: 'game', p_pw: sbPw_(p), p_grade: null }]; },
+            verifyQuizPassword:     function (p) { return ['hub_verify_quiz', { p_kind: 'game', p_id: sbId_(p), p_password: String(sbData_(p).password || '') }]; },
+            saveQuizCard:           function (p) { return ['hub_save_quiz', { p_kind: 'game', p_pw: sbPw_(p), p_card: sbData_(p) }]; },
+            deleteQuizCard:         function (p) { return ['hub_delete_quiz', { p_kind: 'game', p_pw: sbPw_(p), p_id: sbId_(p) }]; },
+            duplicateQuizCard:      function (p) { return ['hub_duplicate_quiz', { p_kind: 'game', p_pw: sbPw_(p), p_id: sbId_(p) }]; },
+            swapQuizOrder:          function (p) { return ['hub_swap_quiz', { p_kind: 'game', p_pw: sbPw_(p), p_id_a: String(sbData_(p).idA || ''), p_id_b: String(sbData_(p).idB || '') }]; },
+
+            getGradeQuizCards:      function (p) { return ['hub_get_quiz_cards', { p_kind: 'grade', p_grade: (p.grade === undefined || p.grade === null) ? null : String(p.grade) }]; },
+            getGradeQuizCardsAdmin: function (p) { return ['hub_get_quiz_cards_admin', { p_kind: 'grade', p_pw: sbPw_(p), p_grade: (p.grade === undefined || p.grade === null) ? null : String(p.grade) }]; },
+            verifyGradeQuizPassword:function (p) { return ['hub_verify_quiz', { p_kind: 'grade', p_id: sbId_(p), p_password: String(sbData_(p).password || '') }]; },
+            saveGradeQuizCard:      function (p) { return ['hub_save_quiz', { p_kind: 'grade', p_pw: sbPw_(p), p_card: sbData_(p) }]; },
+            deleteGradeQuizCard:    function (p) { return ['hub_delete_quiz', { p_kind: 'grade', p_pw: sbPw_(p), p_id: sbId_(p) }]; },
+            duplicateGradeQuizCard: function (p) { return ['hub_duplicate_quiz', { p_kind: 'grade', p_pw: sbPw_(p), p_id: sbId_(p) }]; },
+            swapGradeQuizOrder:     function (p) { return ['hub_swap_quiz', { p_kind: 'grade', p_pw: sbPw_(p), p_id_a: String(sbData_(p).idA || ''), p_id_b: String(sbData_(p).idB || '') }]; },
+
+            getDeadlines:           function (p) { return ['hub_get_deadlines', { p_room: p.room || 'ทุกห้อง' }]; },
+            getAllDeadlines:        function (p) { return ['hub_get_all_deadlines', { p_pw: sbPw_(p) }]; },
+            saveDeadline:           function (p) { return ['hub_save_deadline', { p_pw: sbPw_(p), p_data: sbData_(p) }]; },
+            deleteDeadline:         function (p) { return ['hub_delete_deadline', { p_pw: sbPw_(p), p_id: sbId_(p) }]; },
+
+            // รหัส Admin (เฉพาะ type 'admin') — type 'master' (Override คะแนน) ยังอยู่ที่ Google
+            verifyAdminAccess:      function (p) { return ['hub_verify_admin', { p_pw: String(sbData_(p).password || '') }]; }
+        };
+
+        // action ฝั่งนักเรียน/อ่านอย่างเดียว: ถ้าติดต่อ Supabase ไม่ได้ ยอมถอยกลับไปอ่านจาก Google Sheet (ข้อมูลเก่าแต่ยังใช้งานได้)
+        // action ฝั่งครูที่แก้ไขข้อมูล: ห้ามถอยกลับ เพราะจะไปเขียนลงชีตเก่าแล้วข้อมูลสองที่ไม่ตรงกัน
+        var SB_FALLBACK_OK = { getQuizCards: 1, getGradeQuizCards: 1, getDeadlines: 1,
+                               verifyQuizPassword: 1, verifyGradeQuizPassword: 1, getDashboardStats: 1 };
+
+        // สถานะฐานข้อมูล: 'supabase' (ย้ายแล้ว) | 'sheets' (ยังไม่ย้าย) | 'unknown' (ติดต่อ Supabase ไม่ได้)
+        // ทดสอบบนเครื่องตัวเองได้โดยไม่กระทบนักเรียน: เปิดเว็บด้วย ?db=supabase หรือ ?db=sheets (ล้างค่าด้วย ?db=auto)
+        var DB_STATE = { promise: null, value: null, at: '' };
+        function dbOverride_() {
+            try { var v = localStorage.getItem('oatDb'); return (v === 'sheets' || v === 'supabase') ? v : ''; } catch (e) { return ''; }
+        }
+        (function () {
+            try {
+                var m = /[?&]db=([a-z]+)/.exec(location.search);
+                if (m) {
+                    if (m[1] === 'sheets' || m[1] === 'supabase') { localStorage.setItem('oatDb', m[1]); }
+                    else { localStorage.removeItem('oatDb'); }
+                }
+            } catch (e) {}
+        })();
+
+        function getDbState_(fresh) {
+            var ov = dbOverride_();
+            if (ov) { DB_STATE.value = ov; return Promise.resolve(ov); }
+            if (DB_STATE.promise && !(fresh && DB_STATE.value === 'unknown')) { return DB_STATE.promise; }
+            DB_STATE.value = null;
+            var gaveUp = false, capTimer = null;
+            function finish(s, at) {
+                if (capTimer) { clearTimeout(capTimer); }
+                DB_STATE.value = s; DB_STATE.at = at || '';
+                if (gaveUp) { DB_STATE.promise = Promise.resolve(s); }   // ผลมาช้ากว่ากำหนด: อัปเดตให้คำขอถัดไปใช้ค่าจริง
+                return s;
+            }
+            var real = sbRpc_('hub_status', {}, { timeoutMs: 4000, retries: 0 }).then(function (r) {
+                return finish((r && r.migrated === true) ? 'supabase' : ((r && r.migrated === false) ? 'sheets' : 'unknown'),
+                              (r && r.at) ? String(r.at) : '');
+            }).catch(function () { return finish('unknown', ''); });
+            // ★ ตัวจับเวลาสำรอง: เบราว์เซอร์รุ่นเก่า (เช่น iPad เก่า) ไม่มี AbortController ทำให้ timeout ข้างบนไม่ทำงาน
+            //   ถ้า Supabase ค้างโดยไม่ตอบ ต้องไม่ทำให้รายการ Quiz/Deadline ค้างตามไปด้วย — รอสูงสุด ~4.5 วิแล้วถอยไปใช้ Google
+            var cap = new Promise(function (resolve) { capTimer = setTimeout(function () { resolve('cap'); }, 4500); });
+            DB_STATE.promise = Promise.race([real, cap]).then(function (s) {
+                if (s === 'cap') { gaveUp = true; DB_STATE.value = 'unknown'; return 'unknown'; }
+                return s;
+            });
+            return DB_STATE.promise;
+        }
+        try { getDbState_(); } catch (e) {}   // เริ่มตรวจสถานะตั้งแต่โหลดหน้า จะได้ไม่เสียเวลาตอนเรียกครั้งแรก
+
+        function callSB_(action, payload, options) {
+            var r = SB_ROUTES[action](payload || {});
+            return sbRpc_(r[0], r[1], options).then(function (res) {
+                if (action === 'verifyAdminAccess' && res && res.success === false && !res.locked) {
+                    res.hint = 'หากเพิ่งย้ายระบบและเคยเปลี่ยนรหัส Admin ไว้ใน Google ให้ตั้งรหัสในฐานข้อมูลใหม่ให้ตรงกัน (ดูคู่มือ)';
+                }
+                return res;
+            });
+        }
+
+        // Dashboard: ตัวเลขงานส่ง/ร-มส ยังมาจาก Google ส่วน Quiz/Deadline มาจาก Supabase (ยิงพร้อมกัน)
+        function dashboardMerged_(payload, options) {
+            return Promise.all([
+                callGAS_('getDashboardStats', payload, options),
+                sbRpc_('hub_dashboard_stats', { p_pw: sbPw_(payload) }, options)
+            ]).then(function (arr) {
+                var gas = arr[0], sb = arr[1];
+                if (isAuthError(gas)) { return gas; }
+                if (isAuthError(sb)) {
+                    var m = String(sb.message || '');
+                    if (m.indexOf('ลองรหัสผิด') !== 0) {
+                        sb.message = m + ' — รหัสนี้ถูกต้องสำหรับ Google แต่ไม่ตรงกับรหัส Admin ในฐานข้อมูลใหม่ (ดูคู่มือ)';
+                    }
+                    return sb;
+                }
+                return Object.assign({}, gas, { topQuizzes: sb.topQuizzes, deadlinesUpcoming: sb.deadlinesUpcoming, deadlinesOverdue: sb.deadlinesOverdue });
+            });
+        }
+
+        // ★ จุดเรียกเดียวของทั้งหน้าเว็บ (ทุกจุดเรียก callAPI เหมือนเดิม ไม่ต้องแก้)
+        //   เลือกเองว่าจะไป Google หรือ Supabase ตามสถานะการย้ายข้อมูล
+        function callAPI(action, payload, options) {
+            payload = payload || {};
+            var toSB = SB_ROUTES.hasOwnProperty(action) &&
+                !(action === 'verifyAdminAccess' && payload.data && payload.data.type === 'master');
+            if (!toSB && action !== 'getDashboardStats') { return callGAS_(action, payload, options); }
+            var canFallback = !!SB_FALLBACK_OK[action];
+            return getDbState_(!canFallback).then(function (state) {
+                if (state === 'sheets') { return callGAS_(action, payload, options); }
+                if (state === 'unknown') {
+                    if (canFallback) { return callGAS_(action, payload, options); }
+                    throw new Error('เชื่อมต่อฐานข้อมูลใหม่ (Supabase) ไม่ได้ในตอนนี้ จึงยังแก้ไขข้อมูลไม่ได้ กรุณาลองใหม่อีกครั้งในอีกสักครู่');
+                }
+                return (action === 'getDashboardStats') ? dashboardMerged_(payload, options) : callSB_(action, payload, options);
+            });
+        }
+
+        // ข้อความตอนรหัส Admin ไม่ผ่าน (แยกกรณี "ผิด" กับ "ถูกพักการตรวจชั่วคราว")
+        function adminDeniedText_(res) {
+            if (res && res.locked && res.message) { return String(res.message); }
+            return 'รหัสผ่านผิด' + ((res && res.hint) ? ' — ' + res.hint : '');
         }
 
         // ★ แสดง error แบบเข้าใจง่ายเวลาเชื่อมต่อกับเซิร์ฟเวอร์ไม่สำเร็จ — ใช้ร่วมกันทุกจุดที่เรียก callAPI
@@ -2073,6 +2229,24 @@
         // ★ สีประจำระดับชั้น — ใช้ค่าเดียวกับปุ่มเลือกห้องบนหน้าเว็บเป๊ะๆ (ม.4 ส้ม / ม.5 เขียว / ม.6 ชมพู)
         // ทำให้ทั้งระบบสอดคล้องกัน: นักเรียนกดปุ่มห้องสีส้ม ก็จะเจอรายชื่อที่ใช้สีส้มเหมือนกัน
         // ถ้าเจอห้องรูปแบบแปลกที่ไม่ใช่ 4/5/6 จะคืนสีน้ำเงินเดิมเป็นค่าสำรอง ไม่ทำให้หน้าพัง
+        // ★ ตัดสิน "ผ่าน / ไม่ผ่าน" ของงานแต่ละชิ้น — ใช้ร่วมกันทั้งหน้าคะแนนรายคนและหน้าภาพรวม
+        //   เดิมหน้าภาพรวมนับว่าผ่านเฉพาะเมื่อช่องผลในชีตมีคำว่า "ผ่าน" หรือ "ดี" เท่านั้น
+        //   ถ้าช่องผลว่าง หรือพิมพ์ Pass / ✓ / ส่งแล้ว จะถูกนับเป็นไม่ผ่านทั้งหมด
+        //   → ขึ้น 0/1 ทั้งที่นักเรียนได้คะแนนเกินเกณฑ์ไปแล้ว (เจอที่ห้อง 4/4)
+        //   คืนค่า: true = ผ่าน, false = ไม่ผ่าน, null = ตัดสินไม่ได้ (ไม่มีทั้งผลและเกณฑ์)
+        function taskVerdict_(s) {
+            if (!s) return null;
+            const st = String(s.status || '').trim().toLowerCase();
+            // 1) คำปฏิเสธต้องเช็คก่อนเสมอ เพราะ "ไม่ผ่าน" / "ไม่ดี" มีคำว่า "ผ่าน" / "ดี" ซ่อนอยู่ข้างใน
+            if (/ไม่ผ่าน|ไม่ดี|ตก|fail|✗|✘|❌/.test(st)) return false;
+            if (/ผ่าน|ดี|pass|✓|✔|✅/.test(st)) return true;
+            // 2) ช่องผลว่างหรือเป็นคำอื่น → เทียบคะแนนกับเกณฑ์ผ่านแทน
+            //    ต้องมีเกณฑ์มากกว่า 0 ถึงจะตัดสิน (เกณฑ์ว่างในชีตจะกลายเป็น "0" ซึ่งทำให้ทุกคนผ่านหมด)
+            const sc = parseFloat(s.score), ps = parseFloat(s.passScore);
+            if (!isNaN(sc) && !isNaN(ps) && ps > 0) return sc >= ps;
+            return null;
+        }
+
         function gradeTheme_(room) {
             const lvl = (room || '').toString().trim().charAt(0);
             if (lvl === '4') return { grad: 'linear-gradient(145deg, #fdba74 0%, #f97316 100%)', hover: 'hover:bg-[#fff7ed]' };
@@ -2117,8 +2291,7 @@
                 std.scores.forEach(function(s) {
                     if (!s.task || s.task.trim() === '') return;
                     tasksTotal++;
-                    const st = s.status || '';
-                    if (st.indexOf('ไม่ผ่าน') === -1 && st.indexOf('ตก') === -1 && (st.indexOf('ผ่าน') !== -1 || st.indexOf('ดี') !== -1)) { tasksPassed++; }
+                    if (taskVerdict_(s) === true) { tasksPassed++; }
                     if (!isNaN(parseFloat(s.score))) rawTaskGot += parseFloat(s.score);
                     if (!isNaN(parseFloat(s.maxScore))) rawTaskMax += parseFloat(s.maxScore);
                 });
@@ -2143,8 +2316,9 @@
                 else if (totalScore100 >= 60) { grade = '2'; gradeColor = 'text-purple-600 bg-purple-100 rounded-lg px-2 border-2 border-purple-300'; }
                 else if (totalScore100 >= 55) { grade = '1.5'; gradeColor = 'text-pink-600 bg-pink-100 rounded-lg px-2 border-2 border-pink-300'; }
                 else if (totalScore100 >= 50) { grade = '1'; gradeColor = 'text-orange-600 bg-orange-100 rounded-lg px-2 border-2 border-orange-300'; }
-                const midColor = midStatus.indexOf('ไม่ผ่าน') !== -1 ? 'text-red-500' : (midStatus.indexOf('ผ่าน') !== -1 ? 'text-green-600' : 'text-gray-400');
-                const finColor = finStatus.indexOf('ไม่ผ่าน') !== -1 ? 'text-red-500' : (finStatus.indexOf('ผ่าน') !== -1 ? 'text-green-600' : 'text-gray-400');
+                const vColor = function(v) { return v === true ? 'text-green-600' : (v === false ? 'text-red-500' : 'text-gray-400'); };
+                const midColor = vColor(taskVerdict_(std.midterm));
+                const finColor = vColor(taskVerdict_(std.final));
                 const tasksColor = (tasksTotal > 0 && tasksPassed === tasksTotal) ? 'text-green-600' : (tasksPassed < tasksTotal ? 'text-orange-500' : 'text-gray-400');
                 const bgClass = idx % 2 === 0 ? 'bg-white' : 'bg-gray-50';
                 html += '<tr class="' + bgClass + ' border-b-2 border-gray-200 hover:bg-yellow-100 transition-colors">';
@@ -2156,7 +2330,7 @@
                 html += '<td class="py-2 px-2 text-center font-black"><span class="' + gradeColor + ' inline-block shadow-sm">' + grade + '</span></td></tr>';
             });
             html += '</tbody></table></div>';
-            html += '<p class="text-center text-[10px] text-gray-400 font-bold mt-2">TASKS = จำนวนงานที่ผ่าน / จำนวนงานที่มีคะแนนแล้ว</p>';
+            html += '<p class="text-center text-[10px] text-gray-400 font-bold mt-2">TASKS = จำนวนงานที่ผ่าน / จำนวนงานทั้งหมด (ถ้าช่องผลว่าง จะเทียบคะแนนกับเกณฑ์ผ่านให้อัตโนมัติ)</p>';
             fireSwal({ title: '📊 ภาพรวม // S-' + room, html: html, showConfirmButton: false, showCloseButton: true, width: '34rem',
                 customClass: { popup: popupClass_('bg-[#faf5ff]'), title: 'font-black text-2xl mt-4 text-black tracking-widest' } });
         };
@@ -2170,9 +2344,15 @@
                 if (s.task && s.task.trim() !== "") {
                     let scoreDisplay = s.score || "0";
                     let statusDisplay = s.status || "-";
+                    const verdict = taskVerdict_(s);
+                    // ช่องผลในชีตว่าง แต่ตัดสินจากคะแนนเทียบเกณฑ์ได้ → แสดงผลให้เห็นเลย
+                    // ทำให้หน้ารายคนกับหน้าภาพรวมบอกตรงกันเสมอ
+                    if ((statusDisplay === "-" || statusDisplay.trim() === "") && verdict !== null) {
+                        statusDisplay = verdict ? "ผ่าน" : "ไม่ผ่าน";
+                    }
                     let statusColor = "text-gray-500";
-                    if(statusDisplay.includes("ไม่ผ่าน") || statusDisplay.includes("ตก")) { statusColor = "text-red-500 bg-red-100 rounded-md px-2 py-0.5 border border-red-300"; }
-                    else if(statusDisplay.includes("ผ่าน") || statusDisplay.includes("ดี")) { statusColor = "text-green-600 bg-green-100 rounded-md px-2 py-0.5 border border-green-300"; }
+                    if (verdict === false) { statusColor = "text-red-500 bg-red-100 rounded-md px-2 py-0.5 border border-red-300"; }
+                    else if (verdict === true) { statusColor = "text-green-600 bg-green-100 rounded-md px-2 py-0.5 border border-green-300"; }
                     if (!isNaN(parseFloat(s.score))) rawTaskGot += parseFloat(s.score);
                     if (!isNaN(parseFloat(s.maxScore))) rawTaskMax += parseFloat(s.maxScore);
                     tableRows += '<tr class="border-b-2 border-gray-200 hover:bg-gray-50"><td class="py-2 px-2 font-bold text-[11px] md:text-sm text-left text-black border-r-2 border-gray-200 break-words">' + escapeHtml(s.task) + '</td>';
@@ -2553,7 +2733,7 @@
             callAPI('verifyAdminAccess', { data: { type: 'admin', password: result.value } }).then(function(res) {
                 if (res.success) { window.quizAdminPw = result.value; loadQuizAdminList(); }
                 else {
-                    fireSwal({ icon: 'error', title: 'DENIED!', text: 'รหัสผ่านผิด', buttonsStyling: false,
+                    fireSwal({ icon: 'error', title: 'DENIED!', text: adminDeniedText_(res), buttonsStyling: false,
                         customClass: { popup: popupClass_(), confirmButton: 'bg-black text-white font-black py-2 px-6 rounded-xl border-4 border-black mt-4' } });
                 }
             }).catch(function(err) { showNetworkError_(err); });
@@ -2809,7 +2989,7 @@
             callAPI('verifyAdminAccess', { data: { type: 'admin', password: result.value } }).then(function(res) {
                 if (res.success) { window.gradeQuizAdminPw = result.value; loadGradeQuizAdminList(grade); }
                 else {
-                    fireSwal({ icon: 'error', title: 'DENIED!', text: 'รหัสผ่านผิด', buttonsStyling: false,
+                    fireSwal({ icon: 'error', title: 'DENIED!', text: adminDeniedText_(res), buttonsStyling: false,
                         customClass: { popup: popupClass_(), confirmButton: 'bg-black text-white font-black py-2 px-6 rounded-xl border-4 border-black mt-4' } });
                 }
             }).catch(function(err) { showNetworkError_(err); });
@@ -3076,7 +3256,7 @@
             callAPI('verifyAdminAccess', { data: { type: 'admin', password: result.value } }).then(function(res) {
                 if (res.success) { window.deadlineAdminPw = result.value; loadDeadlineAdminList(); }
                 else {
-                    fireSwal({ icon: 'error', title: 'DENIED!', text: 'รหัสผ่านผิด', buttonsStyling: false,
+                    fireSwal({ icon: 'error', title: 'DENIED!', text: adminDeniedText_(res), buttonsStyling: false,
                         customClass: { popup: popupClass_(), confirmButton: 'bg-black text-white font-black py-2 px-6 rounded-xl border-4 border-black mt-4' } });
                 }
             }).catch(function(err) { showNetworkError_(err); });
@@ -3264,9 +3444,84 @@
                             customClass: { popup: popupClass_(), confirmButton: 'bg-black text-white font-black py-2 px-6 rounded-xl border-4 border-black mt-4' } });
                         return;
                     }
+                    window.dashboardAdminPw = result.value;
                     renderDashboard(stats);
                 })
                 .catch(function(err) { showNetworkError_(err); });
+        };
+
+        // ★ แผงสถานะฐานข้อมูลท้าย Dashboard: บอกว่าตอนนี้ Quiz/Deadline อยู่ที่ไหน + ปุ่มย้ายข้อมูลครั้งเดียว
+        function dbStatusPanel_(st) {
+            var ov = dbOverride_();
+            var p = '<div class="mt-3 rounded-2xl border-[3px] border-black p-3 text-center bg-white">';
+            if (st === 'supabase') {
+                p += '<p class="text-xs font-black text-emerald-800">☁️ Quiz / Deadline อยู่บนฐานข้อมูลใหม่ (Supabase)</p>';
+                if (DB_STATE.at) { p += '<p class="text-[10px] font-bold text-gray-600 mt-0.5">ย้ายเมื่อ ' + escapeHtml(String(DB_STATE.at).replace('T', ' ')) + '</p>'; }
+            } else if (st === 'sheets') {
+                p += '<p class="text-xs font-black text-amber-800">📄 ตอนนี้ Quiz / Deadline ยังใช้ข้อมูลจาก Google Sheet</p>';
+                p += '<p class="text-[10px] font-bold text-gray-600 mt-0.5 mb-2">กดย้ายครั้งเดียว ใช้เวลาไม่กี่วินาที หลังย้ายเว็บจะสลับไปใช้ฐานข้อมูลใหม่ทันที (ชีตเดิมไม่ถูกแตะ)</p>';
+                p += '<button type="button" onclick="syncSheetsToSupabase()" class="bg-[#065f46] text-white font-black text-xs py-2.5 px-5 rounded-xl border-4 border-black shadow-[4px_4px_0_0_rgba(0,0,0,1)] active:translate-y-1 active:shadow-none transition-all">🔄 ย้ายไปฐานข้อมูลใหม่ (Supabase)</button>';
+            } else {
+                p += '<p class="text-xs font-black text-red-800">⚠️ ติดต่อฐานข้อมูลใหม่ไม่ได้ในตอนนี้</p>';
+                p += '<p class="text-[10px] font-bold text-gray-600 mt-0.5">ตัวเลข Quiz/Deadline ด้านบนอาจไม่ใช่ข้อมูลล่าสุด</p>';
+            }
+            if (ov) { p += '<p class="text-[10px] font-bold text-gray-600 mt-2">🧪 เครื่องนี้ถูกตั้งเป็นโหมดทดสอบ (?db=' + ov + ') — ล้างด้วยการเปิดเว็บแบบ ?db=auto</p>'; }
+            return p + '</div>';
+        }
+
+        // ★ ย้ายข้อมูล Quiz/Deadline จาก Google Sheet -> Supabase (ทำครั้งเดียว ปลอดภัยถ้ากดซ้ำ)
+        //   ข้อมูลวิ่งตรงจากเบราว์เซอร์ของครูไป Supabase ไม่ผ่านใครอื่น
+        window.syncSheetsToSupabase = async function() {
+            const pw = window.dashboardAdminPw || '';
+            const ask = await fireSwal({
+                icon: 'question', title: 'ย้ายข้อมูลไปฐานข้อมูลใหม่?',
+                html: '<div class="text-left text-sm font-bold text-black leading-relaxed">' +
+                      '• ย้าย Game Quizz, Grade Quizz และ Deadline<br>' +
+                      '• ชีตเดิมไม่ถูกแตะ ยังเป็นข้อมูลสำรองอยู่<br>' +
+                      '• หลังย้าย นักเรียนทุกคนจะใช้ฐานข้อมูลใหม่ (เร็วกว่า)<br>' +
+                      '• การแก้ไขต่อจากนี้จะบันทึกที่ฐานข้อมูลใหม่</div>',
+                showCancelButton: true, confirmButtonText: 'ย้ายเลย', cancelButtonText: 'ยกเลิก', buttonsStyling: false,
+                customClass: { popup: popupClass_('bg-[#f8fafc]'), title: 'font-black text-xl text-black mt-2',
+                    confirmButton: 'bg-[#065f46] text-white font-black py-3 px-6 rounded-xl mx-2 border-4 border-black shadow-[4px_4px_0_0_rgba(0,0,0,1)] active:translate-y-1 active:shadow-none transition-all',
+                    cancelButton: 'bg-gray-300 text-black font-black py-3 px-6 rounded-xl mx-2 border-4 border-black shadow-[4px_4px_0_0_rgba(0,0,0,1)] active:translate-y-1 active:shadow-none transition-all' }
+            });
+            if (!ask || !ask.isConfirmed) { return; }
+            showLoading_('กำลังอ่านข้อมูลจาก Google Sheet... ⏳');
+            try {
+                const out = await Promise.all([
+                    callGAS_('getQuizCardsAdmin', { password: pw }),
+                    callGAS_('getGradeQuizCardsAdmin', { password: pw }),   // ไม่ส่ง grade = ได้ทุกระดับชั้น
+                    callGAS_('getAllDeadlines', { password: pw })
+                ]);
+                for (var i = 0; i < out.length; i++) {
+                    if (isAuthError(out[i])) { throw new Error(out[i].message || 'อ่านข้อมูลจาก Google Sheet ไม่สำเร็จ'); }
+                    if (!Array.isArray(out[i])) { throw new Error('ข้อมูลจาก Google Sheet อยู่ในรูปแบบที่ไม่คาดคิด จึงยังไม่ย้าย'); }
+                }
+                if (out[0].length + out[1].length + out[2].length === 0) {
+                    throw new Error('ไม่พบข้อมูล Quiz/Deadline ใน Google Sheet เลย จึงยังไม่ย้าย (กันไม่ให้สลับไปใช้ฐานข้อมูลเปล่า)');
+                }
+                showLoading_('กำลังย้ายเข้าฐานข้อมูลใหม่... ⏳');
+                const res = await sbRpc_('hub_import_all', { p_pw: pw, p_data: { game: out[0], grade: out[1], deadlines: out[2] } },
+                                         { retries: 0, timeoutMs: 60000 });
+                if (!res || res.success !== true) {
+                    var why = (res && res.message) ? String(res.message) : 'ย้ายข้อมูลไม่สำเร็จ';
+                    if (why.indexOf('ลองรหัสผิด') !== 0) { why += ' — รหัสนี้ถูกต้องสำหรับ Google แต่ไม่ตรงกับรหัส Admin ในฐานข้อมูลใหม่ (ดูคู่มือ)'; }
+                    throw new Error(why);
+                }
+                DB_STATE.value = 'supabase'; DB_STATE.promise = Promise.resolve('supabase'); DB_STATE.at = '';
+                var skipped = (res.game.skipped || 0) + (res.grade.skipped || 0) + (res.deadlines.skipped || 0);
+                var html = '<div class="text-left text-sm font-bold text-black leading-relaxed">' +
+                    '🎮 Game Quizz: <b>' + res.game.inserted + '</b> การ์ด<br>' +
+                    '🧩 Grade Quizz: <b>' + res.grade.inserted + '</b> การ์ด<br>' +
+                    '📅 Deadline: <b>' + res.deadlines.inserted + '</b> รายการ</div>';
+                if (res.firstRun === false) { html += '<p class="text-xs font-bold text-gray-600 mt-3">เคยย้ายไปแล้ว — เติมเฉพาะรายการที่ยังไม่มี ไม่ทับของเดิม</p>'; }
+                if (skipped > 0) { html += '<p class="text-xs font-bold text-gray-600 mt-2">ข้าม ' + skipped + ' รายการที่ข้อมูลไม่สมบูรณ์ (เช่น ไม่มีชื่อ)</p>'; }
+                html += '<p class="text-xs font-bold text-emerald-800 mt-3">ตอนนี้เว็บใช้ฐานข้อมูลใหม่แล้ว ✅</p>';
+                fireSwal({ icon: 'success', title: 'ย้ายสำเร็จ!', html: html, buttonsStyling: false,
+                    customClass: { popup: popupClass_('bg-[#f0fdf4]'), title: 'font-black text-xl text-black mt-2',
+                        confirmButton: 'bg-black text-white font-black py-2 px-6 rounded-xl border-4 border-black mt-4' } });
+                loadDeadlineBoard();
+            } catch (err) { showNetworkError_(err); }
         };
 
         function renderDashboard(s) {
@@ -3320,7 +3575,11 @@
                 html += '</div>';
             }
             html += '</div>';
-            html += '<p class="text-center text-[10px] text-gray-500 font-bold mt-3">ตัวเลข Quiz อาจดีเลย์ได้ถึง 5 นาที (ระบบแคชเพื่อความเร็ว)</p>';
+            html += '<p class="text-center text-[10px] text-gray-600 font-bold mt-3">' +
+                (DB_STATE.value === 'supabase'
+                    ? 'ตัวเลข Quiz และ Deadline เป็นข้อมูลสดจากฐานข้อมูลใหม่'
+                    : 'ตัวเลข Quiz อาจดีเลย์ได้ถึง 5 นาที (ระบบแคชเพื่อความเร็ว)') + '</p>';
+            html += dbStatusPanel_(DB_STATE.value);
 
             fireSwal({ title: '📊 ภาพรวมวันนี้', html: html, showConfirmButton: false, showCloseButton: true, width: '36rem',
                 customClass: { popup: popupClass_('bg-[#f0fdf4]'), title: 'font-black text-2xl mt-4 text-black tracking-widest' } });
