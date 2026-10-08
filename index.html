@@ -2241,20 +2241,23 @@
             renderStudentListPopup(window.currentRoomName, window.currentRoomData);
         };
 
-        // ★ สีประจำระดับชั้น — ใช้ค่าเดียวกับปุ่มเลือกห้องบนหน้าเว็บเป๊ะๆ (ม.4 ส้ม / ม.5 เขียว / ม.6 ชมพู)
-        // ทำให้ทั้งระบบสอดคล้องกัน: นักเรียนกดปุ่มห้องสีส้ม ก็จะเจอรายชื่อที่ใช้สีส้มเหมือนกัน
-        // ถ้าเจอห้องรูปแบบแปลกที่ไม่ใช่ 4/5/6 จะคืนสีน้ำเงินเดิมเป็นค่าสำรอง ไม่ทำให้หน้าพัง
-        // ★★ ระบบ "ร" (ติด ร) ★★
-        // กฎของครู: ทุกช่องที่มีคะแนนต้องขึ้นว่า "ผ่าน" ถ้าไม่ขึ้นแปลว่า "ติด ร"
-        // ครูพิมพ์ "ร" ลงในช่องคะแนน (ได้) ของงาน/กลางภาค/ปลายภาคในชีตได้เลย (รับ ร / ร. / R)
-        //   - ช่องคะแนนเป็น "ร"  → ติด ร ทันที (ชนะทุกอย่าง กันสูตรในชีตที่เทียบข้อความกับตัวเลขแล้วได้ "ผ่าน" มั่ว)
-        //   - ครูเขียนผลเองในช่องสถานะ → เชื่อครู (ไม่ผ่าน / Fail / ร = ติด ร, ผ่าน / Pass / ✓ = ผ่าน)
+        // ★★ ระบบ "ร" ★★
+        // (1) "ติด ร" ระดับนักเรียน = ครูตัดสินเอง: ติ๊กช่อง "ติด ร" ท้ายแถวนักเรียนในชีต Score_
+        //       ติ๊ก    → แสดง "ร" แทนคะแนนรวมและเกรด (ครูดูเองเมื่อคะแนนครบเต็ม 100 แล้ว)
+        //       ไม่ติ๊ก → แสดงคะแนนตามปกติ   (ระบบไม่ตัดสินให้เอง)
+        // (2) ป้ายรายช่อง: ทุกช่องที่มีคะแนนขึ้น "ผ่าน" หรือ "ร" ให้ครูเห็นว่าช่องไหนยังไม่ผ่าน (ไม่กระทบเกรด)
+        //       ครูพิมพ์ "ร" ลงในช่องคะแนน (ได้) ของช่องนั้นก็ได้ (รับ ร / ร. / R)
+        //   - ช่องคะแนนเป็น "ร"  → ร (ชนะทุกอย่าง กันสูตรในชีตที่เทียบข้อความกับตัวเลขแล้วได้ "ผ่าน" มั่ว)
+        //   - ครูเขียนผลเองในช่องสถานะ → เชื่อครู (ไม่ผ่าน / Fail / ร = ร, ผ่าน / Pass / ✓ = ผ่าน)
         //   - ไม่มีผล แต่มีคะแนน → เทียบเกณฑ์ผ่าน (ถ้าไม่ได้ตั้งเกณฑ์ไว้ = ผ่าน)
-        //   - ไม่มีคะแนน (ว่าง หรือ 0) → ยังไม่ตัดสิน (ไม่นับ) ถ้าอยากให้ติด ร ให้พิมพ์ ร
-        // ตั้งเป็น false ถ้าอยากให้เกรดแสดงตามคะแนนเหมือนเดิม (ยังมีป้าย "ติด ร" ให้เห็น แต่ไม่แทนที่ตัวเลขเกรด)
-        var R_REPLACES_GRADE = true;
-
+        //   - ไม่มีคะแนน (ว่าง หรือ 0) → ยังไม่ตัดสิน (ไม่นับ)
         function isRMark_(v) { return /^\s*(ร|r)\.?\s*$/i.test(String(v === undefined || v === null ? '' : v)); }
+
+        // ช่องติ๊ก "ติด ร" ของนักเรียน: Google ส่งมาเป็น "TRUE" (ติ๊ก) / "FALSE" หรือว่าง (ไม่ติ๊ก) — พิมพ์ ร / ✓ แทนการติ๊กก็ได้
+        function isRFlag_(std) {
+            const v = std ? std.rFlag : '';
+            return /^\s*(true|ร|r|✓|✔|✅|yes|1)\s*$/i.test(String(v === undefined || v === null ? '' : v));
+        }
 
         // คืนค่า { state: 'pass' | 'r' | 'none', label: ข้อความที่จะแสดง }
         function taskResult_(s) {
@@ -2300,6 +2303,9 @@
             return 'text-gray-500';
         }
 
+        // ★ สีประจำระดับชั้น — ใช้ค่าเดียวกับปุ่มเลือกห้องบนหน้าเว็บเป๊ะๆ (ม.4 ส้ม / ม.5 เขียว / ม.6 ชมพู)
+        // ทำให้ทั้งระบบสอดคล้องกัน: นักเรียนกดปุ่มห้องสีส้ม ก็จะเจอรายชื่อที่ใช้สีส้มเหมือนกัน
+        // ถ้าเจอห้องรูปแบบแปลกที่ไม่ใช่ 4/5/6 จะคืนสีน้ำเงินเดิมเป็นค่าสำรอง ไม่ทำให้หน้าพัง
         function gradeTheme_(room) {
             const lvl = (room || '').toString().trim().charAt(0);
             if (lvl === '4') return { grad: 'linear-gradient(145deg, #fdba74 0%, #f97316 100%)', hover: 'hover:bg-[#fff7ed]' };
@@ -2372,9 +2378,9 @@
                 else if (totalScore100 >= 60) { grade = '2'; gradeColor = 'text-purple-600 bg-purple-100 rounded-lg px-2 border-2 border-purple-300'; }
                 else if (totalScore100 >= 55) { grade = '1.5'; gradeColor = 'text-pink-600 bg-pink-100 rounded-lg px-2 border-2 border-pink-300'; }
                 else if (totalScore100 >= 50) { grade = '1'; gradeColor = 'text-orange-600 bg-orange-100 rounded-lg px-2 border-2 border-orange-300'; }
-                // ติด ร: ถ้ามีช่องที่ไม่ผ่าน/พิมพ์ ร ไว้ แสดงเกรดเป็น "ร"
-                const rSum = studentRSummary_(std);
-                if (R_REPLACES_GRADE && rSum.rLabels.length > 0) { grade = 'ร'; gradeColor = 'text-amber-900 bg-amber-100 rounded-lg px-2 border-2 border-amber-500'; }
+                // ติด ร: ครูติ๊กในชีต → แสดง ร แทนคะแนนรวมและเกรด
+                const rFlag = isRFlag_(std);
+                if (rFlag) { grade = 'ร'; gradeColor = 'text-amber-900 bg-amber-100 rounded-lg px-2 border-2 border-amber-500'; }
                 const vColor = function(r) { return r.state === 'pass' ? 'text-green-600' : (r.state === 'r' ? 'text-amber-700' : 'text-gray-400'); };
                 const midColor = vColor(midRes);
                 const finColor = vColor(finRes);
@@ -2385,11 +2391,11 @@
                 html += '<td class="py-2 px-1 text-center font-black ' + tasksColor + ' border-r-2 border-gray-200">' + tasksPassed + '/' + tasksTotal + '</td>';
                 html += '<td class="py-2 px-1 text-center font-bold ' + midColor + ' border-r-2 border-gray-200">' + escapeHtml(midStatus) + '</td>';
                 html += '<td class="py-2 px-1 text-center font-bold ' + finColor + ' border-r-2 border-gray-200">' + escapeHtml(finStatus) + '</td>';
-                html += '<td class="py-2 px-1 text-center font-black text-black border-r-2 border-gray-200 text-base">' + totalScore100 + (bonusPts > 0 ? '<span class="block text-[9px] font-bold text-emerald-600 leading-none">+' + bonusPts + ' พิเศษ</span>' : '') + '</td>';
+                html += '<td class="py-2 px-1 text-center font-black text-black border-r-2 border-gray-200 text-base">' + (rFlag ? 'ร' : totalScore100) + (!rFlag && bonusPts > 0 ? '<span class="block text-[9px] font-bold text-emerald-600 leading-none">+' + bonusPts + ' พิเศษ</span>' : '') + '</td>';
                 html += '<td class="py-2 px-2 text-center font-black"><span class="' + gradeColor + ' inline-block shadow-sm">' + grade + '</span></td></tr>';
             });
             html += '</tbody></table></div>';
-            html += '<p class="text-center text-[10px] text-gray-400 font-bold mt-2">TASKS = งานที่ผ่าน / งานที่มีคะแนน · GRD "ร" = ติด ร (มีช่องที่ยังไม่ผ่าน หรือครูพิมพ์ ร ไว้) · ช่องที่ยังไม่มีคะแนนไม่นับ</p>';
+            html += '<p class="text-center text-[10px] text-gray-400 font-bold mt-2">TASKS = งานที่ผ่าน / งานที่มีคะแนน (ช่องที่ยังไม่มีคะแนนไม่นับ) · "ร" = ครูตัดสินให้ ร</p>';
             fireSwal({ title: '📊 ภาพรวม // S-' + room, html: html, showConfirmButton: false, showCloseButton: true, width: '34rem',
                 customClass: { popup: popupClass_('bg-[#faf5ff]'), title: 'font-black text-2xl mt-4 text-black tracking-widest' } });
         };
@@ -2503,15 +2509,15 @@
             }
             // เก็บตัวแปรเดิมไว้เผื่อจุดอื่นในไฟล์ยังอ้างถึง (ตารางภาพรวมห้องใช้ตัวแปรของตัวเองแยกอยู่แล้ว)
             let gradeColor = gradeTextClass;
-            // ★ ติด ร: ถ้ามีช่องไหนติด ร เกรดจะแสดงเป็น "ร" (ตัวเลขคะแนนรวมยังเห็นตามปกติ)
+            // ★ ติด ร: ครูติ๊กช่อง "ติด ร" ในชีต → แสดง "ร" แทนคะแนนรวมและเกรด / ไม่ติ๊ก → แสดงตามปกติ
             const rSum = studentRSummary_(std);
-            const hasR = rSum.rLabels.length > 0;
-            if (R_REPLACES_GRADE && hasR) {
+            const rFlag = isRFlag_(std);
+            if (rFlag) {
                 grade = "ร";
                 gradeBoxClass = 'grade-box-calm';
                 gradeTextClass = 'text-slate-800';
                 gradeIcon = '📌';
-                gradeMsg = 'ติด ร — ต้องแก้ให้ผ่านครบทุกช่องก่อน ติดต่อครูได้เลยนะ';
+                gradeMsg = 'ติด ร — ยังไม่ได้ผลการเรียน ต้องแก้/ส่งงานให้ครบก่อน ติดต่อครูได้เลยนะ';
                 gradeMsgClass = 'text-slate-600';
             }
             // ★ แถบพลังแบบเกม (XP bar) — ให้เห็นภาพทันทีว่าแต่ละส่วนเต็มแค่ไหน ไม่ต้องตีความตัวเลขเอง
@@ -2532,19 +2538,22 @@
             html += '<div class="bg-blue-50 border-[3px] border-black rounded-2xl p-2 text-center shadow-[4px_4px_0_0_rgba(0,0,0,1)]"><p class="text-xs font-black text-black mb-1">TASK (50)</p><p class="text-2xl font-black text-blue-600">' + scaledTask.toFixed(1) + '</p>' + xpBar(taskPct, 'bg-blue-500') + '</div>';
             html += '<div class="bg-orange-50 border-[3px] border-black rounded-2xl p-2 text-center shadow-[4px_4px_0_0_rgba(0,0,0,1)]"><p class="text-xs font-black text-black mb-1">MID (20)</p><p class="text-2xl font-black text-orange-600">' + scaledMid.toFixed(1) + '</p>' + xpBar(midPct, 'bg-orange-500') + '</div>';
             html += '<div class="bg-purple-50 border-[3px] border-black rounded-2xl p-2 text-center shadow-[4px_4px_0_0_rgba(0,0,0,1)]"><p class="text-xs font-black text-black mb-1">FINAL (30)</p><p class="text-2xl font-black text-purple-600">' + scaledFin.toFixed(1) + '</p>' + xpBar(finPct, 'bg-purple-500') + '</div>';
-            html += '<div class="bg-green-300 border-[3px] border-black rounded-2xl p-2 text-center shadow-[4px_4px_0_0_rgba(0,0,0,1)]"><p class="text-xs font-black text-black mb-1">TOTAL</p><p class="text-3xl font-black text-black">' + totalScore100 + '</p>' + xpBar(totalPct, 'bg-black') + '</div></div>';
+            html += '<div class="bg-green-300 border-[3px] border-black rounded-2xl p-2 text-center shadow-[4px_4px_0_0_rgba(0,0,0,1)]"><p class="text-xs font-black text-black mb-1">TOTAL</p><p class="text-3xl font-black text-black">' + (rFlag ? 'ร' : totalScore100) + '</p>' + xpBar(rFlag ? 0 : totalPct, 'bg-black') + '</div></div>';
             // แถบคะแนนพิเศษ — โผล่เฉพาะคนที่ครูให้จริงเท่านั้น คนที่ไม่ได้รับจะไม่เห็นอะไรเพิ่ม
             if (bonusPts > 0) {
                 html += '<div class="bg-emerald-100 border-[3px] border-emerald-600 rounded-2xl px-4 py-2.5 mb-5 flex items-center justify-between shadow-[4px_4px_0_0_rgba(5,150,105,1)]">';
                 html += '<span class="font-black text-emerald-800 text-sm tracking-wide">🎁 คะแนนพิเศษ</span>';
                 html += '<span class="font-black text-emerald-700 text-xl">+' + bonusPts + '</span></div>';
             }
-            // แถบสรุปสถานะ "ร": ติด ร = เหลืองอำพันโทนสงบ (บอกว่าช่องไหน) / ผ่านครบ = เขียว
-            if (hasR) {
+            // แถบสรุป: ครูติ๊ก ร = แถบเหลืองอำพันโทนสงบ (บอกช่องที่ยังไม่ผ่านถ้ามี) / ไม่ติ๊กและผ่านครบทุกช่องที่มีคะแนน = แถบเขียว
+            if (rFlag) {
                 html += '<div class="bg-amber-100 border-[3px] border-amber-600 rounded-2xl px-4 py-2.5 mb-5 shadow-[4px_4px_0_0_rgba(217,119,6,1)]">';
-                html += '<p class="font-black text-amber-900 text-sm tracking-wide">📌 ติด ร <span class="text-xs">(' + rSum.rLabels.length + ' ช่อง)</span></p>';
-                html += '<p class="text-xs font-bold text-amber-900 mt-0.5 break-words">' + rSum.rLabels.map(function (n) { return escapeHtml(n); }).join(' · ') + '</p></div>';
-            } else if (rSum.scored > 0) {
+                html += '<p class="font-black text-amber-900 text-sm tracking-wide">📌 ติด ร</p>';
+                if (rSum.rLabels.length > 0) {
+                    html += '<p class="text-xs font-bold text-amber-900 mt-0.5 break-words">ช่องที่ยังไม่ผ่าน: ' + rSum.rLabels.map(function (n) { return escapeHtml(n); }).join(' · ') + '</p>';
+                }
+                html += '</div>';
+            } else if (rSum.rLabels.length === 0 && rSum.scored > 0) {
                 html += '<div class="bg-emerald-50 border-[3px] border-emerald-600 rounded-2xl px-4 py-2 mb-5 text-center"><p class="font-black text-emerald-800 text-sm tracking-wide">✅ ผ่านทุกช่องที่มีคะแนน (' + rSum.scored + ' ช่อง)</p></div>';
             }
             html += '<div class="' + gradeBoxClass + ' rounded-2xl p-4 mb-5 border-[4px] border-black shadow-[6px_6px_0_0_rgba(0,0,0,1)] relative overflow-hidden">';
@@ -2658,10 +2667,18 @@
                 else if(totalScore100 >= 60) { grade = "2"; gradeColor = "text-purple-600 bg-purple-100 rounded-lg px-2 border-2 border-purple-300"; }
                 else if(totalScore100 >= 55) { grade = "1.5"; gradeColor = "text-pink-600 bg-pink-100 rounded-lg px-2 border-2 border-pink-300"; }
                 else if(totalScore100 >= 50) { grade = "1"; gradeColor = "text-orange-600 bg-orange-100 rounded-lg px-2 border-2 border-orange-300"; }
-                // ติด ร: แสดงเกรดเป็น "ร" และเอาเมาส์ชี้เพื่อดูว่าช่องไหน
+                // ติด ร: ครูติ๊กในชีต → เกรดแสดง ร (คะแนนรวมยังเห็นเป็นตัวเลขไว้ให้ครูใช้ตัดสินใจ)
+                //        ยังไม่ติ๊ก แต่มีช่องที่ไม่ผ่าน → เตือน ⚠️ ให้ครูรู้ (ครูตัดสินเอง ระบบไม่ติ๊กให้)
                 const rSum = studentRSummary_(std);
-                const rTip = rSum.rLabels.length > 0 ? ('ติด ร: ' + rSum.rLabels.join(', ')) : '';
-                if (R_REPLACES_GRADE && rSum.rLabels.length > 0) { grade = "ร"; gradeColor = "text-amber-900 bg-amber-100 rounded-lg px-2 border-2 border-amber-500"; }
+                const rFlag = isRFlag_(std);
+                let rTip = '', rWarn = false;
+                if (rFlag) {
+                    grade = "ร"; gradeColor = "text-amber-900 bg-amber-100 rounded-lg px-2 border-2 border-amber-500";
+                    rTip = 'ติด ร (ติ๊กในชีต)' + (rSum.rLabels.length ? ' · ช่องที่ยังไม่ผ่าน: ' + rSum.rLabels.join(', ') : '');
+                } else if (rSum.rLabels.length > 0) {
+                    rWarn = true;
+                    rTip = 'มีช่องที่ยังไม่ผ่าน: ' + rSum.rLabels.join(', ') + ' (ยังไม่ได้ติ๊ก ร)';
+                }
                 let bgClass = idx % 2 === 0 ? 'bg-white' : 'bg-gray-50';
                 html += '<tr class="' + bgClass + ' border-b-2 border-gray-200 hover:bg-yellow-100 transition-colors">';
                 html += '<td class="py-2 px-2 text-center font-black text-black border-r-2 border-gray-200">' + escapeHtml(std.no) + '</td>';
@@ -2670,7 +2687,7 @@
                 html += '<td class="py-2 px-1 text-center font-bold text-gray-600 border-r-2 border-gray-200">' + scaledMid.toFixed(1) + '</td>';
                 html += '<td class="py-2 px-1 text-center font-bold text-gray-600 border-r-2 border-gray-200">' + scaledFin.toFixed(1) + '</td>';
                 html += '<td class="py-2 px-1 text-center font-black text-black border-r-2 border-gray-200 text-base">' + totalScore100 + (bonusPts > 0 ? '<span class="block text-[9px] font-bold text-emerald-600 leading-none">+' + bonusPts + ' พิเศษ</span>' : '') + '</td>';
-                html += '<td class="py-2 px-2 text-center font-black"><span class="' + gradeColor + ' inline-block shadow-sm"' + (rTip ? ' title="' + escapeHtml(rTip) + '"' : '') + '>' + grade + '</span></td></tr>';
+                html += '<td class="py-2 px-2 text-center font-black"><span class="' + gradeColor + ' inline-block shadow-sm"' + (rFlag && rTip ? ' title="' + escapeHtml(rTip) + '"' : '') + '>' + grade + '</span>' + (rWarn ? '<span class="ml-1 text-xs" title="' + escapeHtml(rTip) + '">⚠️</span>' : '') + '</td></tr>';
             });
             html += '</tbody></table></div>';
             html += '<button onclick="if(typeof Swal !== \'undefined\') Swal.close()" class="w-full mt-4 bg-black border-[4px] border-black text-white font-black py-3 rounded-2xl hover:-translate-y-1 shadow-[4px_4px_0_0_rgba(100,100,100,1)] active:translate-y-1 active:shadow-[0_0_0_0_rgba(100,100,100,1)] transition-all text-base tracking-widest uppercase">DISCONNECT</button>';
