@@ -2058,6 +2058,50 @@
         }
         /* การ์ดทางลัด 3 ใบบนจอกลาง: ลดขนาดหัวข้อไม่ให้ตัดบรรทัดเยอะ */
         @media (min-width: 900px) and (max-width: 1279px) { .qa-title { font-size: 1.3rem; } .qa-ico { width: 54px; height: 54px; font-size: 1.7rem; } .qa-num { font-size: 1.7rem; } }
+
+        /* ==== กล่องเกรดแบบจัดเต็ม (11 ต.ค. ค่ำ) — ลวดลายทั้งหมดเป็นภาพนิ่ง วาดครั้งเดียว ไม่กินเครื่อง ====
+           แฉกแสงจากวงแหวน + ลายทางเฉียงมุมขวา + คอนเฟตตีหลากสี + ริบบิ้น FINAL GRADE + เหรียญเกรดมีดาว + ข้อความในกล่องคำพูด */
+        .dt-hero { padding: 16px 16px 16px 14px; gap: 18px; min-height: 150px; }
+        .dt-rays { position: absolute; left: -187px; top: -187px; width: 520px; height: 520px; border-radius: 50%; pointer-events: none; z-index: 0;
+            background: radial-gradient(circle, rgba(255,255,255,.75) 0 14%, rgba(255,255,255,0) 46%),
+                        repeating-conic-gradient(rgba(255,255,255,.55) 0 5deg, rgba(255,255,255,0) 5deg 13deg); }
+        .dt-stripe { position: absolute; right: -30px; top: 0; bottom: 0; width: 46%; pointer-events: none; z-index: 0;
+            background: repeating-linear-gradient(-45deg, rgba(255,255,255,.22) 0 10px, rgba(255,255,255,0) 10px 22px);
+            -webkit-mask-image: linear-gradient(90deg, transparent, #000 45%); mask-image: linear-gradient(90deg, transparent, #000 45%); }
+        .dt-confetti { position: absolute; inset: 0; pointer-events: none; z-index: 0;
+            background:
+              radial-gradient(circle at 58% 14%, #f472b6 0 4px, transparent 4.5px), radial-gradient(circle at 92% 20%, #facc15 0 5px, transparent 5.5px),
+              radial-gradient(circle at 84% 82%, #60a5fa 0 4px, transparent 4.5px), radial-gradient(circle at 70% 90%, #a78bfa 0 3px, transparent 3.5px),
+              radial-gradient(circle at 97% 55%, #34d399 0 3.5px, transparent 4px), radial-gradient(circle at 46% 92%, #fb923c 0 3px, transparent 3.5px),
+              linear-gradient(35deg, transparent 47%, #ef4444 47% 53%, transparent 53%) 76% 10% / 14px 14px no-repeat,
+              linear-gradient(-30deg, transparent 46%, #3b82f6 46% 54%, transparent 54%) 95% 88% / 16px 16px no-repeat,
+              linear-gradient(60deg, transparent 46%, #eab308 46% 54%, transparent 54%) 62% 70% / 12px 12px no-repeat; }
+        .dt-hero .dt-ring { box-shadow: 4px 4px 0 0 #000, 0 0 0 7px rgba(255,255,255,.55), 0 0 0 10px #000; margin: 10px; }
+        .dt-hero .dt-ring::before { content: ''; position: absolute; inset: -3px; border-radius: 50%; pointer-events: none;
+            background: repeating-conic-gradient(rgba(0,0,0,.28) 0 1.5deg, transparent 1.5deg 10deg);
+            -webkit-mask: radial-gradient(circle, transparent 0 60px, #000 61px); mask: radial-gradient(circle, transparent 0 60px, #000 61px); }
+        .dt-eval { position: relative; display: inline-flex; align-items: center; gap: 6px; background: #0f172a; color: #fff !important; padding: 4px 18px 4px 12px;
+            font-size: .68rem; letter-spacing: .1em; white-space: nowrap; clip-path: polygon(0 0, 100% 0, calc(100% - 9px) 50%, 100% 100%, 0 100%); box-shadow: none; }
+        .dt-eval::after { content: ''; position: absolute; left: 0; bottom: -6px; border-top: 6px solid #000; border-left: 8px solid transparent; }
+        .dt-gwrap { position: relative; padding: 4px 12px 2px 0; }
+        .dt-gbox { position: relative; display: flex; flex-direction: column; align-items: center; min-width: 92px; padding: 4px 16px 6px;
+            background: radial-gradient(circle at 30% 20%, #fff 0 30%, rgba(255,255,255,.85) 60%), #fff; border: 4px solid #000; border-radius: 20px;
+            box-shadow: 4px 4px 0 0 #000, inset 0 -5px 0 rgba(0,0,0,.08); }
+        .dt-gbox::before { content: ''; position: absolute; inset: 4px; border: 2px dashed var(--rc); border-radius: 14px; opacity: .7; pointer-events: none; }
+        .dt-gbox small { font-size: .52rem; font-weight: 900; letter-spacing: .24em; color: #475569; margin-top: 2px; }
+        .dt-gbox span { font-size: 2.9rem; font-weight: 900; line-height: 1; text-shadow: 3px 3px 0 rgba(0,0,0,.12); }
+        .dt-star { position: absolute; z-index: 2; color: #facc15; text-shadow: 2px 2px 0 #000, -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000; line-height: 1; pointer-events: none; }
+        .dt-star.s1 { right: -2px; top: -8px; font-size: 1.5rem; transform: rotate(14deg); }
+        .dt-star.s2 { left: -10px; bottom: -6px; font-size: 1.1rem; transform: rotate(-12deg); }
+        .dt-star.s3 { right: 2px; bottom: 6px; font-size: .9rem; color: #fff; }
+        .dt-msg { position: relative; background: #fff; color: #0f172a !important; border: 3px solid #000; border-radius: 14px; padding: 6px 12px; box-shadow: 3px 3px 0 0 #000;
+            font-size: .78rem !important; font-weight: 800; margin-top: 6px; }
+        .dt-msg::before { content: ''; position: absolute; left: 18px; top: -11px; border-left: 9px solid transparent; border-right: 9px solid transparent; border-bottom: 11px solid #000; }
+        .dt-msg::after { content: ''; position: absolute; left: 21px; top: -6px; border-left: 6px solid transparent; border-right: 6px solid transparent; border-bottom: 7px solid #fff; }
+        /* เกรดต่ำ (กล่องโทนสงบ) — ลวดลายเบาลง ยังดูดีแต่ไม่ฉลองเกินจริง */
+        .grade-box-calm .dt-confetti { opacity: .45; }
+        .grade-box-calm .dt-rays { opacity: .7; }
+        @media (max-width: 380px) { .dt-hero { gap: 10px; padding: 12px 10px; } .dt-rays { left: -200px; top: -200px; } .dt-gbox { min-width: 74px; padding: 3px 10px 5px; } .dt-gbox span { font-size: 2.2rem; } .dt-hero .dt-ring { margin: 8px 4px 8px 6px; } }
 </style>
     <!-- ★ Tailwind CSS สำเร็จรูป (3.4.19) แทนตัวคอมไพล์สดแบบ CDN: ไม่ต้องคอมไพล์ในเบราว์เซอร์ทุกครั้งที่เปิดเว็บ/เปิดป๊อปอัป
          และไม่พึ่งเซิร์ฟเวอร์ภายนอก (เดิมถ้า cdn.tailwindcss.com ล่ม ทั้งหน้าจะไม่มีสไตล์)
@@ -3546,14 +3590,15 @@
                 (window.currentRoomName && !(ctx && ctx.data) ? '<span class="dt-chip" style="background:' + gradeTheme_(window.currentRoomName).grad + ';">ห้อง ม.' + escapeHtml(window.currentRoomName) + '</span>' : '') +
                 (ctx && ctx.badge ? '<span class="dt-chip dark">' + escapeHtml(ctx.badge) + '</span>' : '') + '</div>';
             // วงแหวนคะแนนรวม + เกรด
-            html += '<div class="dt-hero ' + gradeBoxClass + '">';
+            html += '<div class="dt-hero ' + gradeBoxClass + '" style="--rc:' + ringColor + ';"><span class="dt-rays" aria-hidden="true"></span><span class="dt-confetti" aria-hidden="true"></span><span class="dt-stripe" aria-hidden="true"></span>';
             if (grade === "4") {
                 html += '<span class="grade-spark" style="top:10%;left:6%;animation-delay:0s;">✦</span><span class="grade-spark" style="top:70%;left:40%;animation-delay:.6s;">✦</span><span class="grade-spark" style="top:16%;left:58%;animation-delay:1.2s;">✦</span>';
             }
             html += '<div class="dt-ring" style="--p:' + (rFlag ? 100 : totalPct).toFixed(1) + ';--rc:' + ringColor + ';"><div class="dt-ring-in"><small>TOTAL</small><b>' + (rFlag ? 'ร' : totalScore100) + '</b><i>/100</i></div></div>';
-            html += '<div class="dt-grade"><p class="dt-eval ' + gradeMsgClass + '">' + gradeIcon + ' FINAL GRADE</p>';
-            html += '<div class="dt-gbox"><span class="' + gradeTextClass + '">' + grade + '</span></div>';
-            html += '<p class="dt-msg ' + gradeMsgClass + '">' + gradeMsg + '</p></div></div>';
+            html += '<div class="dt-grade"><p class="dt-eval"><span aria-hidden="true">' + gradeIcon + '</span> FINAL GRADE</p>';
+            html += '<div class="dt-gwrap"><span class="dt-star s1" aria-hidden="true">★</span><span class="dt-star s2" aria-hidden="true">★</span><span class="dt-star s3" aria-hidden="true">✦</span>' +
+                '<div class="dt-gbox"><small>GRADE</small><span class="' + gradeTextClass + '">' + grade + '</span></div></div>';
+            html += '<p class="dt-msg">' + gradeMsg + '</p></div></div>';
             // แถบ 3 ส่วน
             const part = function(label, max, val, pct, c) {
                 return '<div class="dt-part"><div class="dt-part-top"><span>' + label + '</span><b>' + val.toFixed(1) + '<i>/' + max + '</i></b></div>' +
