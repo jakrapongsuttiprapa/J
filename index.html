@@ -1690,12 +1690,20 @@
         .dlx-sep span { font-size: .72rem; font-weight: 900; color: #fff; background: #991b1b; border: 2.5px solid #000; border-radius: 999px; padding: 2px 11px; }
         @media (max-width: 380px) { .dlx-count { width: 76px; } .dlx-count b { font-size: 2.1rem; } .cal-widget.dlx-cal { width: 56px; } .dlx-brand { gap: 10px; } }
 
-        /* จอมือถือ: แถวงานย้ายป้าย "อีก x วัน" ลงไปใต้ชื่องาน — ไม่งั้นชื่องานโดนบีบเหลือคำเดียวต่อบรรทัด */
-        @media (max-width: 440px) {
-            .row-new:not(.dlx-hero) { display: grid; grid-template-columns: auto minmax(0,1fr); column-gap: 10px; row-gap: 6px; align-items: start; }
-            .row-new:not(.dlx-hero) .mini-cal { grid-row: 1 / span 2; align-self: center; }
-            .row-new:not(.dlx-hero) .pill-new { grid-column: 2; justify-self: start; min-width: 0; padding: 3px 10px; font-size: .68rem; }
-        }
+        /* ป้ายนับวันแบบบล็อกตัวเลข ด้านขวาของแถวงาน */
+        .pill-new.dlx-cnt { width: auto; min-width: 66px; padding: 6px 8px 5px; border-radius: 14px; border: 3px solid #000; box-shadow: 3px 3px 0 0 #000;
+            display: flex; flex-direction: column; align-items: center; line-height: 1; align-self: stretch; justify-content: center; }
+        .pill-new.dlx-cnt b { font-size: 1.6rem; font-weight: 900; }
+        .pill-new.dlx-cnt small { font-size: .58rem; font-weight: 900; margin-top: 3px; white-space: nowrap; }
+        .pill-new.dlx-cnt.u-over { background: linear-gradient(160deg, #fecaca, #f87171); color: #7f1d1d; }
+        .pill-new.dlx-cnt.u-today { background: linear-gradient(160deg, #fdba74, #f97316); color: #000; }
+        .pill-new.dlx-cnt.u-soon { background: linear-gradient(160deg, #fde68a, #f59e0b); color: #000; }
+        .pill-new.dlx-cnt.u-week { background: linear-gradient(160deg, #fef08a, #eab308); color: #000; }
+        .pill-new.dlx-cnt.u-later { background: linear-gradient(160deg, #bbf7d0, #4ade80); color: #000; }
+        .pill-new.dlx-cnt.u-none { background: #e2e8f0; color: #0f172a; }
+        /* แถวงานที่เลยกำหนด: ลายทางเฉียงแดงจางๆ ให้ดูต่างจากงานที่ยังส่งทัน */
+        .row-new.u-over:not(.dlx-hero) { background: repeating-linear-gradient(-45deg, rgba(239,68,68,.07) 0 10px, rgba(239,68,68,0) 10px 20px), #fff7f7; }
+        @media (max-width: 380px) { .pill-new.dlx-cnt { min-width: 56px; } .pill-new.dlx-cnt b { font-size: 1.35rem; } }
 
         /* ==== HERO บนมือถือแบบกระชับ (11 ต.ค.) ====
            เดิมเรียงลงมาทีละชิ้น + รูปวงกลม 256px = การ์ดสูงเกือบ 2 หน้าจอ
@@ -4376,7 +4384,8 @@
                 if (desc) rowsHtml += '<p class="dlx-rdesc">' + escapeHtml(desc) + '</p>';
                 rowsHtml += '<p class="dlx-rmeta">' + roomDisplay + '</p>';
                 rowsHtml += '</div>';
-                rowsHtml += '<span class="pill-new ' + tier + '">' + urgencyText + '</span>';
+                // ★ (11 ต.ค.) ป้ายนับวันเป็นบล็อกตัวเลขใหญ่ทางขวา (เดิมเป็นแคปซูลยาวอยู่ใต้ชื่อ ทำให้ฝั่งขวาของการ์ดโล่ง)
+                rowsHtml += '<span class="pill-new dlx-cnt ' + tier + '" title="' + urgencyText + '" aria-label="' + urgencyText + '"><b>' + bigNum + '</b><small>' + bigUnit + '</small></span>';
                 rowsHtml += '</div>';
             });
 
