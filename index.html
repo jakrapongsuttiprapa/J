@@ -2978,9 +2978,10 @@
 
         /* โหมดเย็นเครื่อง: หยุดแอนิเมชัน (ค้างไว้ที่ท่าปัจจุบัน ไม่กระตุกกลับ) — ดูสคริปต์ท้ายไฟล์ */
         /* ไม่หยุดแอนิเมชัน "เด้งเข้า" ครั้งเดียวตอนโหลด (.animate-bounce-up / ปุ่มด่าน) ไม่งั้นการ์ดนอกจอจะค้างโปร่งใส */
-        html.calm .oat-main *:not(.animate-bounce-up):not(.st-node):not(.fb-flipin), html.calm .oat-main *::before, html.calm .oat-main *::after,
+        /* (5 พ.ย.) DEADLINE: แถวพลิกเข้า / แสงวาบบนตั๋ว / เครื่องบินบินครั้งเดียว / ตัวเลขนาฬิกาพลิก = เล่นครั้งเดียวจบ จึงไม่หยุดกลางทาง (ไม่งั้นแถวจะค้างตะแคงมองไม่เห็น) */
+        html.calm .oat-main *:not(.animate-bounce-up):not(.st-node):not(.fb-flipin):not(.fb-in):not(.fb-shine):not(.fb-plane):not(.fb-tick), html.calm .oat-main *::before, html.calm .oat-main *::after,
         html.calm .marquee-lights i,
-        .anim-off *:not(.animate-bounce-up):not(.st-node):not(.fb-flipin), .anim-off *::before, .anim-off *::after { animation-play-state: paused !important; }
+        .anim-off *:not(.animate-bounce-up):not(.st-node):not(.fb-flipin):not(.fb-in):not(.fb-shine):not(.fb-plane):not(.fb-tick), .anim-off *::before, .anim-off *::after { animation-play-state: paused !important; }
 
 
         /* ==== กล่องเกรดแบบจัดเต็ม (11 ต.ค. ค่ำ) — ลวดลายทั้งหมดเป็นภาพนิ่ง วาดครั้งเดียว ไม่กินเครื่อง ====
@@ -3346,7 +3347,7 @@
             -webkit-mask-image: radial-gradient(circle at 100% 0, #000 0, transparent 66%); mask-image: radial-gradient(circle at 100% 0, #000 0, transparent 66%); }
         .fb-route { position: absolute; z-index: 0; right: 92px; top: 8px; width: 300px; height: 120px; pointer-events: none; overflow: visible; }
         .fb-route-line { fill: none; stroke: rgba(15,23,42,.35); stroke-width: 3; stroke-dasharray: 2 9; stroke-linecap: round; }
-        .fb-route-plane { fill: rgba(15,23,42,.45); }
+        .fb-route-plane { fill: #0f172a; }   /* (5 พ.ย.) เครื่องบินทึบ เห็นชัดตอนบินตามเส้นประ */
 
         /* ---- ป้ายหัว ---- */
         .fb-head { position: relative; z-index: 2; display: flex; align-items: center; gap: 14px; }
@@ -3508,6 +3509,176 @@
             .fb-next-main { gap: 9px; } .fb-d.big { width: 64px; height: 56px; } .fb-d.big b { font-size: 1.05rem; }
         }
         @media (prefers-reduced-motion: reduce) { .fb-row.u-today .fb-led, .fb-flipin { animation: none; } }
+        /* =====================================================================
+           ★ (5 พ.ย.) DEADLINE 2.0 — ครูขอ "สวยกว่านี้ วันส่ง / ระดับ ดูชัด เข้าใจง่าย + แอนิเมชันสวยๆ"
+             ① ปุ่มเลือกดูตามระดับชั้น สีประจำชั้นเดียวกับวงล้อ (ม.4 ส้ม / ม.5 เขียว / ม.6 ชมพู) + จำนวนงาน
+             ② งานถัดไป = ตั๋วขึ้นเครื่อง: ชื่องานตัวใหญ่ · ช่องวันส่ง / ห้อง / สถานะ · ต้นขั้วสีตามความเร่งด่วน "อีก N วัน" + บาร์โค้ด
+             ③ แถวเที่ยวบิน: ป้ายวันที่แบบปฏิทินฉีก (มีวันในสัปดาห์) · ป้ายห้องสีประจำชั้น · สถานะบอกระดับเป็นคำไทย · ป้ายนับ "อีก N วัน"
+             แอนิเมชัน — ขยับแค่ transform / opacity ไม่มี blur / filter / blend:
+               เล่นครั้งเดียว: เครื่องบินบินตามเส้นประตอนป้ายเข้าจอ · แถวพลิกลงมาทีละแถวแบบป้ายสนามบิน · ตัวเลขพลิก · แสงวาบบนตั๋ว · เลขนาฬิกาพลิกทุกนาที
+               วนต่อเนื่อง (หยุดเองตอนอยู่นอกจอ / เครื่องนิ่ง): ไฟ LED งานวันนี้ · ไฟหายใจช้าๆ งานภายใน 3 วัน · ขอบเรืองป้ายนับงานวันนี้
+           ===================================================================== */
+        /* ---- ① ปุ่มเลือกระดับชั้น ---- */
+        .fb-gates { display: flex; flex-wrap: wrap; gap: 7px; margin: 2px 0 10px; }
+        .fb-gates[hidden] { display: none; }
+        .fb-gate { --gb: #fde047; display: inline-flex; align-items: center; justify-content: center; gap: 6px; min-height: 34px; padding: 3px 5px 3px 12px;
+            color: var(--gb); background: #111a2e; border: 2.5px solid #000; border-radius: 999px; box-shadow: inset 0 0 0 2px var(--gb), 0 3px 0 0 #000;
+            font-size: .76rem; font-weight: 900; letter-spacing: .02em; line-height: 1; white-space: nowrap; cursor: pointer; transition: transform .12s ease, box-shadow .12s ease, background-color .12s ease; }
+        .fb-gate.g4 { --gb: #fdba74; } .fb-gate.g5 { --gb: #86efac; } .fb-gate.g6 { --gb: #f9a8d4; }
+        .fb-gate b { min-width: 22px; padding: 2px 6px; font-size: .68rem; line-height: 1.2; text-align: center; color: #0f172a; background: var(--gb); border-radius: 999px; }
+        .fb-gate[aria-pressed="true"] { color: #0f172a; background: var(--gb); box-shadow: 0 0 0 2px #0b1222, 0 0 0 4px var(--gb), 0 3px 0 4px #000; transform: translateY(-1px); }
+        .fb-gate[aria-pressed="true"] b { color: #fff; background: #0f172a; }
+        .fb-gate.zero:not([aria-pressed="true"]) { color: #94a3b8; box-shadow: inset 0 0 0 2px #334155, 0 3px 0 0 #000; }
+        .fb-gate.zero:not([aria-pressed="true"]) b { color: #cbd5e1; background: #334155; }
+        @media (hover: hover) { .fb-gate:hover { transform: translateY(-2px); } }
+        .fb-gate:active { transform: translateY(2px); box-shadow: inset 0 0 0 2px var(--gb), 0 0 0 0 #000; }
+        .fb-gate:focus-visible { outline: 3px solid #fde047; outline-offset: 3px; }
+        /* หัวคอลัมน์ (วันส่ง / FLIGHT / เหลือเวลา) ไม่ต้องใช้แล้ว: ป้ายวันที่และป้ายนับบอกตัวเองชัดแล้ว — ซ่อนไว้ ประหยัดที่บนมือถือ */
+        .fb-board .fb-cols { display: none; }
+
+        /* ---- ③ แถวเที่ยวบิน ---- */
+        .fb-cols, .fb-row { grid-template-columns: 54px minmax(0,1fr) 68px; }
+        .fb-row.u-today { --tcr: 248,113,113; } .fb-row.u-soon { --tcr: 251,146,60; } .fb-row.u-week { --tcr: 253,224,71; }
+        .fb-row.u-later { --tcr: 74,222,128; } .fb-row.u-none { --tcr: 148,163,184; } .fb-row.u-over { --tcr: 252,165,165; }
+        .fb-row:not(.fb-next) { padding: 7px 6px 7px 9px; background: linear-gradient(90deg, rgba(var(--tcr),.13) 0, rgba(var(--tcr),0) 46%), rgba(255,255,255,.04); border-color: rgba(255,255,255,.09); }
+        .fb-row.u-over:not(.fb-next) { background: repeating-linear-gradient(-45deg, rgba(248,113,113,.07) 0 8px, rgba(248,113,113,0) 8px 16px), rgba(255,255,255,.03); }
+        /* ป้ายวันที่ = ปฏิทินฉีก: แถบหัวบอกวันในสัปดาห์ + เลขวันตัวใหญ่ + เดือน */
+        .fb-date { height: auto; min-height: 62px; justify-content: flex-start; padding: 0 0 6px; overflow: hidden; }
+        .fb-date::after { top: calc(50% + 8px); }
+        .fb-date i { align-self: stretch; display: block; margin-bottom: 5px; padding: 2px 2px 1px; font-style: normal; font-size: .56rem; font-weight: 900; line-height: 1.3; letter-spacing: .02em;
+            text-align: center; white-space: nowrap; color: #0f172a; background: linear-gradient(180deg, #ffffff 0%, #e2e8f0 100%); border-bottom: 2px solid #000; }
+        .fb-date b { font-size: 1.42rem; }
+        .fb-date small { margin-top: 4px; font-size: .6rem; }
+        /* ป้ายนับ: "อีก / 27 / วัน" (วันนี้ = "ส่ง / วันนี้" บนป้ายแดง · เลยกำหนด = "เลย / 3 / วัน" · ไม่ระบุวัน = "TBA / รอวัน") */
+        .fb-d { height: auto; min-height: 62px; gap: 2px; padding: 4px 2px 5px; }
+        .fb-d small { font-size: .58rem; font-weight: 800; line-height: 1.1; letter-spacing: .03em; color: #cbd5e1; }
+        .fb-d b { font-size: 1.5rem; line-height: 1; }
+        .fb-d.long b { font-size: 1rem; }
+        .fb-row.u-today .fb-d small { color: #fff; }
+        .fb-row.u-over .fb-d b { color: #fca5a5; }
+        /* งานวันนี้: ขอบเรืองรอบป้ายนับ (วนช้าๆ เฉพาะตอนอยู่ในจอ) */
+        .fb-row:not(.fb-next).u-today .fb-d::before { content: ''; position: absolute; inset: 0; z-index: -1; border-radius: 6px; pointer-events: none;
+            box-shadow: 0 0 0 5px #0b1222, 0 0 0 7px #f87171, 0 0 18px 7px rgba(248,113,113,.7); opacity: .35; }
+        .fb-row:not(.fb-next).u-today .fb-d { z-index: 0; }
+        /* ป้ายห้อง = สีประจำชั้น (ตัวหนังสือดำ อ่านชัดบนทุกสี) · "ทุกห้อง" = สามสีของทั้งสามชั้น */
+        .fb-rmeta { gap: 5px 6px; margin-top: 6px; }
+        .fb-lv { display: inline-flex; align-items: center; padding: 1px 8px; font-size: .68rem; font-weight: 900; line-height: 1.45; white-space: nowrap; color: #0f172a;
+            background: #e2e8f0; border: 1.5px solid #000; border-radius: 999px; box-shadow: 0 2px 0 0 rgba(0,0,0,.6); }
+        .fb-lv.l4 { background: #fdba74; } .fb-lv.l5 { background: #86efac; } .fb-lv.l6 { background: #f9a8d4; }
+        .fb-lv.all { background: linear-gradient(90deg, #fdba74 0 34%, #86efac 34% 67%, #f9a8d4 67%); }
+        .fb-lv i { font-style: normal; margin-right: 4px; }
+        /* สถานะ = ป้ายไฟ: คำสนามบิน + คำไทยบอกระดับความเร่งด่วน */
+        .fb-st { padding: 1px 9px 1px 7px; line-height: 1.5; background: rgba(2,6,23,.55); border: 1.5px solid rgba(var(--tcr),.75); border-radius: 999px; }
+        .fb-rtitle { font-size: .94rem; }
+        .fb-end { flex-shrink: 0; margin: 4px 0 2px; padding: 8px 0 2px; text-align: center; color: #94a3b8; font-size: .62rem; font-weight: 900; letter-spacing: .14em; border-top: 2px dashed #1e293b; }
+
+        /* ---- ② งานถัดไป = ตั๋วขึ้นเครื่อง ---- */
+        .fb-row.fb-next { padding: 0; background: none; border: 0; }
+        .fb-row.fb-next::before { display: none; }
+        .fb-row.fb-next.u-today { --sb: #dc2626; --sf: #ffffff; } .fb-row.fb-next.u-soon { --sb: #fb923c; } .fb-row.fb-next.u-week { --sb: #fde047; }
+        .fb-row.fb-next.u-later { --sb: #4ade80; } .fb-row.fb-next.u-none { --sb: #cbd5e1; }
+        .fb-pass { position: relative; overflow: hidden; display: grid; grid-template-columns: minmax(0,1fr) 118px; color: #0f172a;
+            background: radial-gradient(circle, rgba(15,23,42,.07) 1px, rgba(15,23,42,0) 1.5px) 0 0 / 12px 12px, linear-gradient(180deg, #fffdf5 0%, #fef3c7 100%);
+            border: 3px solid #000; border-radius: 16px; box-shadow: 0 0 0 2px rgba(253,224,71,.55), 4px 5px 0 2px #000; }
+        .fb-pass-main { position: relative; min-width: 0; padding: 10px 12px 12px 14px; }
+        .fb-pass .fb-next-top { margin-bottom: 7px; }
+        .fb-pass .fb-htitle { color: #0f172a; font-size: 1.24rem; line-height: 1.25; }
+        .fb-pass .fb-rdesc { margin-top: 2px; color: #475569; font-size: .74rem; white-space: normal; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; }
+        .fb-pf { display: flex; flex-wrap: wrap; align-items: flex-start; gap: 8px 16px; margin-top: 9px; padding-top: 9px; border-top: 2px dashed rgba(15,23,42,.28); }
+        .fb-pf p { display: flex; flex-direction: column; gap: 3px; min-width: 0; }
+        .fb-pf small { font-size: .56rem; font-weight: 900; letter-spacing: .14em; color: #475569; white-space: nowrap; }
+        .fb-pf b { font-size: .9rem; font-weight: 900; line-height: 1.25; color: #0f172a; white-space: nowrap; }
+        .fb-pf .fb-lvs { display: flex; flex-wrap: wrap; gap: 4px; }
+        .fb-pass .fb-st { color: var(--tc); background: #0f172a; border-color: #000; }
+        /* ต้นขั้ว: สีตามความเร่งด่วน + รอยปรุ (เส้นประ + รอยเจาะครึ่งวงกลมบน-ล่าง) + บาร์โค้ด */
+        .fb-pass-stub { position: relative; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 9px; padding: 12px 6px 12px 9px;
+            background: radial-gradient(circle, rgba(255,255,255,.22) 1px, rgba(255,255,255,0) 1.6px) 0 0 / 11px 11px, var(--sb, #4ade80); border-left: 3px dashed #000; }
+        .fb-pass-stub::before, .fb-pass-stub::after { content: ''; position: absolute; left: -15px; width: 22px; height: 22px; border-radius: 50%; background: #0b1222; border: 3px solid #000; }
+        .fb-pass-stub::before { top: -15px; } .fb-pass-stub::after { bottom: -15px; }
+        .fb-row.fb-next .fb-d { width: auto; height: auto; min-height: 0; padding: 0; gap: 3px; color: var(--sf, #0f172a); background: none; border: 0; border-radius: 0; perspective: 320px; }
+        .fb-row.fb-next .fb-d::after { display: none; }
+        .fb-row.fb-next .fb-d small { color: var(--sf, #0f172a); font-size: .74rem; font-weight: 900; letter-spacing: .06em; }
+        .fb-row.fb-next .fb-d b { font-size: 2.5rem; text-shadow: 0 3px 0 rgba(0,0,0,.18); }
+        .fb-row.fb-next .fb-d.long b { font-size: 1.65rem; }
+        .fb-code { display: block; width: 76px; height: 20px; opacity: .85;
+            background: repeating-linear-gradient(90deg, #0f172a 0 2px, rgba(15,23,42,0) 2px 4px, #0f172a 4px 5px, rgba(15,23,42,0) 5px 7px, #0f172a 7px 10px, rgba(15,23,42,0) 10px 12px, #0f172a 12px 13px, rgba(15,23,42,0) 13px 16px); }
+        .fb-shine { position: absolute; top: 0; bottom: 0; left: 0; width: 36%; z-index: 2; pointer-events: none; transform: translateX(-150%) skewX(-16deg);
+            background: linear-gradient(100deg, rgba(255,255,255,0) 0%, rgba(255,255,255,.7) 50%, rgba(255,255,255,0) 100%); }
+
+        /* ---- แอนิเมชัน ---- */
+        /* เครื่องบินบินตามเส้นประครั้งเดียวตอนป้ายเข้าจอ (เลื่อน + หมุนตามความโค้งของเส้นทาง แล้วจอดที่เดิม) */
+        .fb-plane { transform-box: fill-box; transform-origin: 50% 50%; }
+        @keyframes fbFly {
+            0%   { opacity: 0; transform: translate(-262px, 94px) rotate(27deg) scale(.7); }
+            15%  { opacity: 1; transform: translate(-224px, 90px) rotate(21deg) scale(.82); }
+            30%  { transform: translate(-187px, 82px) rotate(15deg) scale(.9); }
+            45%  { transform: translate(-149px, 70px) rotate(10deg) scale(.95); }
+            60%  { transform: translate(-110px, 54px) rotate(7deg); }
+            75%  { transform: translate(-70px, 36px) rotate(4deg); }
+            90%  { transform: translate(-29px, 15px) rotate(2deg); }
+            100% { opacity: 1; transform: none; }
+        }
+        .fb-card.fb-fly .fb-plane { animation: fbFly 2.6s linear 1 backwards; }
+        /* กระดานนอกจอ: แถวรอไว้ (โปร่ง) แล้วค่อยพลิกลงมาตอนเลื่อนมาเจอ */
+        .fb-board.fb-wait .fb-in { opacity: 0; }
+        .fb-flipin { animation: none; }
+        @keyframes fbRowIn { 0% { opacity: 0; transform: perspective(800px) rotateX(-78deg); } 55% { opacity: 1; } 100% { opacity: 1; transform: perspective(800px) rotateX(0deg); } }
+        .fb-board.fb-play .fb-in { transform-origin: 50% 0; animation: fbRowIn .52s cubic-bezier(.25,.9,.35,1.12) backwards; animation-delay: calc(var(--i, 0) * 65ms); }
+        .fb-board.fb-play .fb-flipin { animation: fbFlip .6s cubic-bezier(.3,1.35,.5,1) backwards; animation-delay: calc(var(--i, 0) * 65ms + .32s); }
+        @keyframes fbShine { from { transform: translateX(-150%) skewX(-16deg); } to { transform: translateX(330%) skewX(-16deg); } }
+        .fb-board.fb-play .fb-shine { animation: fbShine 1.15s cubic-bezier(.3,.6,.4,1) .62s 1 backwards; }
+        /* เลขนาฬิกาเปลี่ยน → แผ่นป้ายพลิกลงมาครั้งเดียว */
+        @keyframes fbTick { from { transform: perspective(300px) rotateX(-88deg); } to { transform: perspective(300px) rotateX(0deg); } }
+        .fb-ctime.fb-tick { transform-origin: 50% 0; animation: fbTick .45s cubic-bezier(.3,1.3,.5,1) 1; }
+        /* วนต่อเนื่อง (หยุดเองนอกจอ / เครื่องนิ่ง): ไฟหายใจงานภายใน 3 วัน + ขอบเรืองป้ายนับงานวันนี้ */
+        @keyframes fbBreath { from { opacity: 1; } to { opacity: .3; } }
+        .fb-row.u-soon .fb-led { animation: fbBreath 1.6s ease-in-out infinite alternate; }
+        @keyframes fbGlow { from { opacity: .3; } to { opacity: 1; } }
+        .fb-row:not(.fb-next).u-today .fb-d::before { animation: fbGlow 1.1s ease-in-out infinite alternate; }
+
+        /* ---- ขนาดจอ ---- */
+        @media (max-width: 767px) {
+            .fb-cols, .fb-row { grid-template-columns: 48px minmax(0,1fr) 60px; gap: 8px; }
+            .fb-date { min-height: 58px; } .fb-date b { font-size: 1.26rem; } .fb-date i { font-size: .52rem; }
+            .fb-d { min-height: 58px; } .fb-d b { font-size: 1.28rem; } .fb-d.long b { font-size: .9rem; }
+            .fb-rtitle { font-size: .88rem; }
+            .fb-pass { grid-template-columns: minmax(0,1fr) 96px; }
+            .fb-pass .fb-htitle { font-size: 1.08rem; }
+            .fb-row.fb-next .fb-d b { font-size: 2.05rem; } .fb-row.fb-next .fb-d.long b { font-size: 1.35rem; }
+            .fb-code { width: 64px; height: 17px; }
+            .fb-pf { gap: 7px 12px; }
+        }
+        @media (max-width: 420px) {
+            .fb-gates { display: grid; grid-template-columns: 1.35fr repeat(3, 1fr); gap: 5px; }
+            .fb-gate { min-height: 36px; padding: 3px 4px 3px 8px; gap: 4px; font-size: .7rem; }
+            .fb-gate b { min-width: 18px; padding: 2px 4px; font-size: .64rem; }
+            .fb-pass-main { padding: 9px 10px 11px 12px; }
+            .fb-pass .fb-rdesc { font-size: .7rem; }
+        }
+        @media (max-width: 380px) {
+            .fb-row:not(.fb-next) .fb-st-en, .fb-tag-en { display: none; }
+            .fb-row.fb-next .fb-st { white-space: normal; border-radius: 10px; }
+            .fb-pf b { white-space: normal; }
+        }
+        @media (max-width: 360px) {
+            .fb-gates { grid-template-columns: auto repeat(3, minmax(0,1fr)); gap: 4px; }
+            .fb-gate { padding: 3px 3px 3px 7px; gap: 3px; font-size: .66rem; letter-spacing: 0; }
+            .fb-gate b { min-width: 16px; padding: 2px 3px; font-size: .6rem; }
+            .fb-row.fb-next .fb-st-en { display: none; }
+            .fb-cols, .fb-row { grid-template-columns: 44px minmax(0,1fr) 54px; gap: 7px; }
+            .fb-date b { font-size: 1.12rem; } .fb-date i { font-size: .56rem; letter-spacing: 0; }
+            .fb-d b { font-size: 1.12rem; } .fb-d.long b { font-size: .8rem; } .fb-d small { font-size: .58rem; letter-spacing: 0; }
+            .fb-gate span[aria-hidden] { display: none; }
+            .fb-pass { grid-template-columns: minmax(0,1fr) 82px; }
+            .fb-row.fb-next .fb-d b { font-size: 1.75rem; } .fb-row.fb-next .fb-d.long b { font-size: 1.15rem; }
+            .fb-code { width: 54px; }
+        }
+        @media (pointer: coarse) { .fb-gate { min-height: 40px; } }
+        @media (prefers-reduced-motion: reduce) {
+            .fb-card.fb-fly .fb-plane, .fb-board.fb-play .fb-in, .fb-board.fb-play .fb-flipin, .fb-board.fb-play .fb-shine, .fb-ctime.fb-tick,
+            .fb-row.u-soon .fb-led, .fb-row:not(.fb-next).u-today .fb-d::before { animation: none; }
+            .fb-board.fb-wait .fb-in { opacity: 1; }
+        }
         /* =====================================================================
            ★ (13 ต.ค.) RANDOMIZER แบบ "SPIN THE WHEEL" — วงล้อเกมโชว์
              วงล้อ 12 ช่อง = 12 ห้อง (ม.4 ส้ม / ม.5 เขียว / ม.6 ชมพู) + ขอบกรมท่ามีหลอดไฟ + เข็มชี้สีแดง + ปุ่ม SPIN ตรงกลาง
@@ -5014,7 +5185,7 @@
                  นับถอยหลังแบบ D-DAY / D-3 / +5 บนป้ายพลิก — ลวดลายทั้งหมดเป็นภาพนิ่ง ของที่ขยับมีแค่ไฟกะพริบของงานที่ต้องส่งวันนี้ -->
             <div class="fb-card animate-bounce-up delay-400">
                 <i class="fb-dots" aria-hidden="true"></i>
-                <svg class="fb-route" viewBox="0 0 300 120" aria-hidden="true" focusable="false"><path class="fb-route-line" d="M6 112 C 90 108, 170 70, 268 18"/><path class="fb-route-plane" transform="translate(262 4) rotate(60 12 12)" d="M21 16v-2l-8-5V3.5c0-.83-.67-1.5-1.5-1.5S10 2.67 10 3.5V9l-8 5v2l8-2.5V19l-2 1.5V22l3.5-1 3.5 1v-1.5L13 19v-5.5l8 2.5z"/></svg>
+                <svg class="fb-route" viewBox="0 0 300 120" aria-hidden="true" focusable="false"><path class="fb-route-line" d="M6 112 C 90 108, 170 70, 268 18"/><g class="fb-plane"><path class="fb-route-plane" transform="translate(262 4) rotate(60 12 12)" d="M21 16v-2l-8-5V3.5c0-.83-.67-1.5-1.5-1.5S10 2.67 10 3.5V9l-8 5v2l8-2.5V19l-2 1.5V22l3.5-1 3.5 1v-1.5L13 19v-5.5l8 2.5z"/></g></svg>
                 <div class="fb-head">
                     <span class="fb-pict" aria-hidden="true"><svg viewBox="0 0 24 24" focusable="false"><path d="M21 16v-2l-8-5V3.5c0-.83-.67-1.5-1.5-1.5S10 2.67 10 3.5V9l-8 5v2l8-2.5V19l-2 1.5V22l3.5-1 3.5 1v-1.5L13 19v-5.5l8 2.5z"/></svg></span>
                     <div class="fb-titles">
@@ -5033,7 +5204,9 @@
                     <button type="button" onclick="openDeadlineAdmin()" class="fb-admin" aria-label="จัดการ Deadline (ครู)">🍁 K.OAT</button>
                 </div>
                 <div class="fb-board">
-                    <div class="fb-cols" aria-hidden="true"><span>DATE</span><span>FLIGHT · งาน / ห้อง</span><span>D-DAY</span></div>
+                    <!-- (5 พ.ย.) ปุ่มเลือกดูตามระดับชั้น (สคริปต์ fbGates_ เติมจำนวนงานให้) — ซ่อนไว้จนกว่าจะมีข้อมูล -->
+                    <div class="fb-gates" id="fbGates" role="group" aria-label="เลือกดูกำหนดส่งตามระดับชั้น" hidden></div>
+                    <div class="fb-cols" aria-hidden="true"><span>วันส่ง</span><span>FLIGHT · งาน / ห้อง</span><span>เหลือเวลา</span></div>
                     <div id="deadlineBoard" class="dl-board fb-list" role="list" aria-label="รายการกำหนดส่งงาน">
                         <div class="fb-msg"><b class="fb-load">⏳ LOADING</b><span>กำลังโหลดตารางส่งงาน...</span></div>
                     </div>
@@ -7726,6 +7899,100 @@
             '</div>';
         }
 
+        // ★ (5 พ.ย.) DEADLINE 2.0 — ครูขอ "วันส่ง / ระดับ ดูชัด เข้าใจง่าย + แอนิเมชันสวยๆ"
+        //   ① ปุ่มเลือกดูตามระดับชั้น (ทั้งหมด / ม.4 / ม.5 / ม.6 + จำนวนงาน) — ไม่บันทึกค่า เปิดเว็บใหม่ = ทั้งหมดเสมอ (จอโปรเจกเตอร์ในห้องจะไม่ค้างที่ชั้นเดียว)
+        //   ② งานถัดไป = ตั๋วขึ้นเครื่อง: ชื่องานตัวใหญ่ + ช่อง วันส่ง / ห้อง / สถานะ + ต้นขั้วสีตามความเร่งด่วน "อีก N วัน"
+        //   ③ แถวเที่ยวบิน: ป้ายวันที่มีวันในสัปดาห์ · ป้ายห้องสีประจำชั้น (ม.4 ส้ม / ม.5 เขียว / ม.6 ชมพู แบบวงล้อ) · สถานะเป็นคำไทยบอกระดับความเร่งด่วน · ป้ายนับ "อีก N วัน"
+        //   ตรรกะเรียงลำดับ / นับงานด่วน / ป้ายแดงบนนาฬิกา เหมือนเดิมทุกอย่าง — คงคลาส row-new + u-* / sum-row / sum-chip (ชุดทดสอบและโค้ดส่วนอื่นอ้างถึง)
+        var fbData_ = null, fbLevel_ = 'all';
+        var FB_DAY_ = ['อาทิตย์', 'จันทร์', 'อังคาร', 'พุธ', 'พฤหัส', 'ศุกร์', 'เสาร์'];
+
+        // ห้องที่ครูเลือก ("ทุกห้อง" หรือ "4/1,4/2,6/3") → ระดับชั้นที่เกี่ยวข้อง + ป้ายห้องสีประจำชั้น (ห้องในชั้นเดียวกันรวมเป็นป้ายเดียว / ครบ 4 ห้อง = "ม.4 ทุกห้อง")
+        function fbRooms_(rooms) {
+            var raw = String(rooms == null ? '' : rooms).trim();
+            if (!raw || raw === 'ทุกห้อง') return { all: true, lv: ['4', '5', '6'], html: '<span class="fb-lv all"><i aria-hidden="true">🌐</i>ทุกห้อง</span>' };
+            var by = {}, other = [], all = false;
+            raw.split(',').forEach(function (r) {
+                r = r.trim().replace(/^ม\.\s*/, '');
+                if (!r) return;
+                if (r === 'ทุกห้อง') { all = true; return; }
+                var m = /^([456])\s*\/\s*(\d{1,2})$/.exec(r);
+                if (m) { (by[m[1]] = by[m[1]] || []).push(m[2]); } else { other.push(r); }
+            });
+            if (all) return fbRooms_('ทุกห้อง');
+            var html = '', lv = [];
+            ['4', '5', '6'].forEach(function (g) {
+                var ns = by[g];
+                if (!ns) return;
+                lv.push(g);
+                ns = ns.filter(function (n, i) { return ns.indexOf(n) === i; }).sort(function (a, b) { return a - b; });
+                html += '<span class="fb-lv l' + g + '">ม.' + g + (ns.length >= 4 ? ' ทุกห้อง' : '/' + ns.join(', ' + g + '/')) + '</span>';
+            });
+            other.forEach(function (o) { html += '<span class="fb-lv">ม.' + escapeHtml(o) + '</span>'; });
+            return { all: false, lv: lv, html: html };
+        }
+        function fbHasLevel_(d, lv) { if (lv === 'all') return true; var r = fbRooms_(d.rooms); return r.all || r.lv.indexOf(lv) !== -1; }
+
+        // ปุ่มเลือกระดับชั้น: นับงานของแต่ละชั้น (งาน "ทุกห้อง" นับให้ทุกชั้น) — วาดใหม่เฉพาะตอนข้อมูลเปลี่ยน กดเลือกแล้วแค่สลับสถานะปุ่ม (โฟกัสคีย์บอร์ดไม่หลุด)
+        function fbGates_() {
+            var box = document.getElementById('fbGates');
+            if (!box) return;
+            if (!fbData_ || !fbData_.length) { box.hidden = true; box.innerHTML = ''; return; }
+            var h = '';
+            [['all', 'ทั้งหมด', '✈ '], ['4', 'ม.4', ''], ['5', 'ม.5', ''], ['6', 'ม.6', '']].forEach(function (x) {
+                var n = fbData_.filter(function (d) { return fbHasLevel_(d, x[0]); }).length;
+                h += '<button type="button" class="fb-gate g' + x[0] + (n ? '' : ' zero') + '" data-lv="' + x[0] + '" aria-pressed="' + (fbLevel_ === x[0]) + '" aria-label="' + x[1] + ' ' + n + ' งาน">' +
+                    (x[2] ? '<span aria-hidden="true">' + x[2] + '</span>' : '') + x[1] + ' <b>' + n + '</b></button>';
+            });
+            box.innerHTML = h;
+            box.hidden = false;
+        }
+        window.fbSetLevel = function (lv) {
+            fbLevel_ = (lv === '4' || lv === '5' || lv === '6') ? lv : 'all';
+            document.querySelectorAll('#fbGates .fb-gate').forEach(function (b) { b.setAttribute('aria-pressed', String(b.getAttribute('data-lv') === fbLevel_)); });
+            var list = document.getElementById('deadlineBoard');
+            if (list) list.scrollTop = 0;
+            fbRenderList_();
+        };
+        document.addEventListener('click', function (e) {
+            var g = e.target && e.target.closest ? e.target.closest('#fbGates .fb-gate') : null;
+            if (g) window.fbSetLevel(g.getAttribute('data-lv'));
+        });
+
+        // แอนิเมชันเปิดกระดาน: แถวพลิกลงมาทีละแถว + ตัวเลขพลิก + แสงวาบบนตั๋ว — เล่นตอนกระดานอยู่ในจอเท่านั้น
+        //   (มือถือ: ข้อมูลมาตอนกระดานยังอยู่ล่างจอ → รอไว้ก่อน แล้วค่อยเล่นตอนเลื่อนมาเจอ ไม่เล่นทิ้งไว้นอกจอ)
+        //   เครื่องตั้ง "ลดการเคลื่อนไหว" → ไม่เล่นเลย แถวขึ้นนิ่งๆ ทันที
+        var fbSeen_ = !('IntersectionObserver' in window);
+        function fbReduced_() { return !!(window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches); }
+        function fbPlay_() {
+            var bd = document.querySelector('.fb-board');
+            if (!bd) return;
+            bd.classList.remove('fb-play', 'fb-wait');
+            if (fbReduced_()) return;
+            if (fbSeen_) { void bd.offsetWidth; bd.classList.add('fb-play'); }
+            else bd.classList.add('fb-wait');
+        }
+        (function () {
+            var card = document.querySelector('.fb-card'), bd = document.querySelector('.fb-board');
+            if (!card || !bd || !('IntersectionObserver' in window)) return;
+            new IntersectionObserver(function (es) {
+                es.forEach(function (e) {
+                    fbSeen_ = e.isIntersecting;
+                    if (e.isIntersecting && bd.classList.contains('fb-wait')) { bd.classList.remove('fb-wait'); void bd.offsetWidth; bd.classList.add('fb-play'); }
+                });
+            }, { threshold: 0.2 }).observe(bd);
+            // เครื่องบินบินตามเส้นทางประครั้งเดียว ตอนป้ายเข้ามาในจอครั้งแรก
+            var flown = false;
+            var io = new IntersectionObserver(function (es) {
+                es.forEach(function (e) {
+                    if (!e.isIntersecting || flown) return;
+                    flown = true; io.disconnect();
+                    if (!fbReduced_()) card.classList.add('fb-fly');
+                });
+            }, { threshold: 0.35 });
+            io.observe(card);
+        })();
+
         function renderDeadlineBoard(deadlines) {
             const board = document.getElementById('deadlineBoard');
             if (!board) return;
@@ -7737,9 +8004,29 @@
             if (calMonthEl) calMonthEl.textContent = today.toLocaleDateString('th-TH', { month: 'short' });
             if (calDayEl) calDayEl.textContent = today.getDate();
 
-            if (!deadlines || deadlines.length === 0) {
+            fbData_ = Array.isArray(deadlines) ? deadlines : [];
+            fbGates_();
+            if (!fbData_.length) {
                 board.innerHTML = fbEmptyHtml_();
                 updateDeadlineUrgentBadge_(0);
+                fbPlay_();
+                return;
+            }
+            // ★ ป้ายแดงบนนาฬิกา = งานที่เกิน/วันนี้/ใกล้ถึงใน 3 วัน ของทุกชั้น (ไม่ขึ้นกับปุ่มเลือกชั้น)
+            updateDeadlineUrgentBadge_(fbData_.filter(function (d) { const dd = parseDateLocal(d.dueDate); return dd && Math.floor((dd - today) / 86400000) <= 3; }).length);
+            fbRenderList_();
+        }
+
+        function fbRenderList_() {
+            const board = document.getElementById('deadlineBoard');
+            if (!board || !fbData_) return;
+            if (!fbData_.length) return;
+            const today = new Date(); today.setHours(0, 0, 0, 0);
+            const lv = fbLevel_;
+            const list = fbData_.filter(function (d) { return fbHasLevel_(d, lv); });
+            if (!list.length) {
+                board.innerHTML = '<div class="fb-msg good fb-in" style="--i:0"><b>✅ ม.' + lv + ' ไม่มีงานค้างส่ง</b><span>แตะ "ทั้งหมด" เพื่อดูงานของทุกระดับชั้น</span></div>';
+                fbPlay_();
                 return;
             }
 
@@ -7747,7 +8034,7 @@
             //   ส่วนงานที่ "เลยกำหนดแล้ว" ดันไปไว้ท้ายสุด — นักเรียนจะได้เห็นงานที่ยังส่งทันก่อน
             //   ภายในแต่ละกลุ่มเรียงตามวันที่ (ใกล้ถึงก่อน) ส่วนงานที่ไม่ได้ระบุวันจะอยู่ท้ายกลุ่มแรก
             //   ใช้ slice() ก่อน sort เพื่อไม่ไปแก้ลำดับของ array ต้นฉบับที่ส่งมาจากเซิร์ฟเวอร์
-            const sorted = deadlines.slice().sort(function(a, b) {
+            const sorted = list.slice().sort(function(a, b) {
                 const da = parseDateLocal(a.dueDate);
                 const db = parseDateLocal(b.dueDate);
                 const aOver = (da && da < today) ? 1 : 0;
@@ -7759,33 +8046,35 @@
                 return da - db;                               // วันใกล้ถึงก่อน
             });
 
-            // ★ (13 ต.ค.) หน้าตาแบบ "DEPARTURES BOARD" — ตรรกะการเรียง/นับเหมือนเดิมทุกอย่าง เปลี่ยนแค่หน้าตา
-            //   งานถัดไป (งานแรกที่ยังไม่เลยกำหนด) = แถวใหญ่ NEXT DEPARTURE / งานอื่น = แถวตารางบิน / งานที่เลยกำหนดอยู่ใต้แถบ DELAYED
-            //   ★ คงชื่อคลาส row-new + u-* / sum-row / sum-chip ไว้ (ชุดทดสอบและโค้ดส่วนอื่นอ้างถึง)
             let rowsHtml = '';
-            let urgentCount = 0;   // ★ นับงานที่เกิน/วันนี้/ใกล้ถึงใน 3 วัน ไว้โชว์เป็นป้ายตัวเลขแดงบนนาฬิกา
-            let overdueN = 0, todayN = 0, soonN = 0; // ★ นับแยกไว้โชว์เป็นแถบสรุปสถานะด้านบนรายการ
-            let heroDone = false, overHeadDone = false;
+            let overdueN = 0, todayN = 0, soonN = 0; // ★ นับแยกไว้โชว์เป็นแถบสรุปสถานะด้านบนรายการ (ตามชั้นที่เลือกอยู่)
+            let heroDone = false, overHeadDone = false, k = 0;
             const overTotal = sorted.filter(function(d) { const dd = parseDateLocal(d.dueDate); return dd && dd < today; }).length;
-            sorted.forEach(function(d, i) {
+            sorted.forEach(function(d) {
                 const dueDate = parseDateLocal(d.dueDate);
                 const days    = dueDate ? Math.floor((dueDate - today) / 86400000) : null;
-                if (days !== null && days <= 3) { urgentCount++; }
 
-                let tier, urgencyText, dLabel, stEn, stTh;
-                if (days === null)  { tier = 'u-none';  urgencyText = 'ไม่ระบุวัน'; dLabel = 'TBA'; stEn = 'TBA'; stTh = 'ยังไม่ระบุวันส่ง'; }
-                else if (days < 0)  { tier = 'u-over';  urgencyText = 'เกิน ' + Math.abs(days) + ' วัน'; overdueN++; dLabel = '+' + Math.abs(days); stEn = 'DELAYED'; stTh = 'เลยกำหนด ' + Math.abs(days) + ' วัน'; }
-                else if (days === 0){ tier = 'u-today'; urgencyText = 'ส่งวันนี้ 🔥'; todayN++; dLabel = 'D-DAY'; stEn = 'FINAL CALL'; stTh = 'ส่งวันนี้!'; }
-                else if (days <= 3) { tier = 'u-soon';  urgencyText = 'อีก ' + days + ' วัน'; soonN++; dLabel = 'D-' + days; stEn = 'BOARDING'; stTh = 'อีก ' + days + ' วัน'; }
-                else if (days <= 7) { tier = 'u-week';  urgencyText = 'อีก ' + days + ' วัน'; dLabel = 'D-' + days; stEn = 'ON TIME'; stTh = 'อีก ' + days + ' วัน'; }
-                else                { tier = 'u-later'; urgencyText = 'อีก ' + days + ' วัน'; dLabel = 'D-' + days; stEn = 'SCHEDULED'; stTh = 'อีก ' + days + ' วัน'; }
+                // ระดับความเร่งด่วน: สี (ไฟ / แถบซ้าย / ป้ายนับ / ต้นขั้วตั๋ว) + คำสนามบิน + คำไทยที่บอกระดับ
+                let tier, urgencyText, top, big, bot, stEn, stTh;
+                if (days === null)  { tier = 'u-none';  urgencyText = 'ไม่ระบุวัน';                  top = '';    big = 'TBA';   bot = 'รอวัน'; stEn = 'TBA';        stTh = 'ยังไม่ระบุวันส่ง'; }
+                else if (days < 0)  { tier = 'u-over';  urgencyText = 'เกิน ' + Math.abs(days) + ' วัน'; overdueN++; top = 'เลย'; big = String(Math.abs(days)); bot = 'วัน'; stEn = 'DELAYED'; stTh = 'เลยกำหนดแล้ว'; }
+                else if (days === 0){ tier = 'u-today'; urgencyText = 'ส่งวันนี้ 🔥'; todayN++;          top = 'ส่ง'; big = 'วันนี้'; bot = '';    stEn = 'FINAL CALL'; stTh = 'ส่งวันนี้!'; }
+                else if (days <= 3) { tier = 'u-soon';  urgencyText = 'อีก ' + days + ' วัน'; soonN++;     top = 'อีก'; big = String(days); bot = 'วัน'; stEn = 'BOARDING';   stTh = 'ภายใน 3 วัน'; }
+                else if (days <= 7) { tier = 'u-week';  urgencyText = 'อีก ' + days + ' วัน';             top = 'อีก'; big = String(days); bot = 'วัน'; stEn = 'ON TIME';    stTh = 'ภายใน 7 วัน'; }
+                else                { tier = 'u-later'; urgencyText = 'อีก ' + days + ' วัน';             top = 'อีก'; big = String(days); bot = 'วัน'; stEn = 'SCHEDULED';  stTh = 'ยังมีเวลา'; }
 
                 const displayDate = dueDate
-                    ? dueDate.toLocaleDateString('th-TH', { weekday: 'short', day: 'numeric', month: 'short', year: '2-digit' })
+                    ? FB_DAY_[dueDate.getDay()] + ' ' + dueDate.toLocaleDateString('th-TH', { day: 'numeric', month: 'short', year: '2-digit' })
                     : 'ยังไม่ระบุวันส่ง';
-                const roomDisplay = d.rooms === 'ทุกห้อง' ? '🌐 ทุกห้อง' : '🏫 ม.' + escapeHtml(d.rooms);
+                const rooms = fbRooms_(d.rooms);
                 const desc = (d.description && d.description.trim() && d.description.trim() !== String(d.title).trim()) ? d.description.trim() : '';
-                const status = '<span class="fb-st"><i class="fb-led"></i>' + stEn + ' · ' + stTh + '</span>';
+                const status = '<span class="fb-st"><i class="fb-led"></i><span class="fb-st-en">' + stEn + ' · </span>' + stTh + '</span>';   // จอแคบ: ซ่อนคำสนามบิน เหลือคำไทยบอกระดับ
+                const anim = k < 10 ? ' fb-in' : '';                     // แถวแรกๆ พลิกลงมาทีละแถว (แถวที่เกินจากนี้อยู่ล่างกระดาน ต้องเลื่อนดูอยู่แล้ว)
+                const at = ' style="--i:' + Math.min(k, 10) + '"';
+                const dTile = function (cls) {
+                    return '<span class="fb-d' + cls + '" role="img" title="' + urgencyText + ' · ' + displayDate + '" aria-label="' + urgencyText + ' (' + displayDate + ')">' +
+                        (top ? '<small>' + top + '</small>' : '') + '<b class="fb-flipin" style="--i:' + Math.min(k, 10) + '">' + big + '</b>' + (bot ? '<small>' + bot + '</small>' : '') + '</span>';
+                };
 
                 if (tier === 'u-over' && !overHeadDone) {
                     overHeadDone = true;
@@ -7795,25 +8084,33 @@
                 }
                 if (!heroDone && tier !== 'u-over') {
                     heroDone = true;
-                    rowsHtml += '<div class="row-new fb-row fb-next ' + tier + '" role="listitem">' +
-                        '<div class="fb-next-top"><span class="fb-next-tag">⚡ NEXT DEPARTURE · งานถัดไป</span>' + status + '</div>' +
-                        '<div class="fb-next-main">' +
-                            '<span class="fb-d big" title="' + urgencyText + '" aria-label="' + urgencyText + '"><b class="fb-flipin" style="--i:0">' + dLabel + '</b></span>' +
-                            '<div class="fb-info"><p class="fb-htitle">' + escapeHtml(d.title) + '</p>' +
-                                (desc ? '<p class="fb-rdesc">' + escapeHtml(desc) + '</p>' : '') +
-                                '<p class="fb-rmeta"><span class="fb-room">🗓️ ' + displayDate + '</span><span class="fb-room">' + roomDisplay + '</span></p></div>' +
+                    // งานถัดไป = ตั๋วขึ้นเครื่อง
+                    rowsHtml += '<div class="row-new fb-row fb-next ' + tier + anim + '" role="listitem"' + at + '>' +
+                        '<div class="fb-pass"><div class="fb-pass-main">' +
+                            '<div class="fb-next-top"><span class="fb-next-tag">⚡ <span class="fb-tag-en">NEXT DEPARTURE · </span>งานถัดไป</span></div>' +
+                            '<p class="fb-htitle">' + escapeHtml(d.title) + '</p>' +
+                            (desc ? '<p class="fb-rdesc">' + escapeHtml(desc) + '</p>' : '') +
+                            '<div class="fb-pf">' +
+                                '<p><small>วันส่ง · DATE</small><b>' + displayDate + '</b></p>' +
+                                '<p><small>ห้อง · GATE</small><span class="fb-lvs">' + rooms.html + '</span></p>' +
+                                '<p class="fb-pf-st"><small>สถานะ · STATUS</small>' + status + '</p>' +
+                            '</div></div>' +
+                            '<div class="fb-pass-stub">' + dTile(' big' + (big.length >= 3 && isNaN(+big) ? ' long' : '')) + '<i class="fb-code" aria-hidden="true"></i></div>' +
+                            '<i class="fb-shine" aria-hidden="true"></i>' +
                         '</div></div>';
+                    k++;
                     return;
                 }
-                rowsHtml += '<div class="row-new fb-row ' + tier + '" role="listitem">' +
+                rowsHtml += '<div class="row-new fb-row ' + tier + anim + '" role="listitem"' + at + '>' +
                     '<div class="fb-date" aria-hidden="true">' +
-                        (dueDate ? '<b>' + dueDate.getDate() + '</b><small>' + dueDate.toLocaleDateString('th-TH', { month: 'short' }) + '</small>'
-                                 : '<b>?</b><small>TBA</small>') + '</div>' +
+                        (dueDate ? '<i>' + FB_DAY_[dueDate.getDay()] + '</i><b>' + dueDate.getDate() + '</b><small>' + dueDate.toLocaleDateString('th-TH', { month: 'short' }) + '</small>'
+                                 : '<i>ยังไม่</i><b>?</b><small>ระบุ</small>') + '</div>' +
                     '<div class="fb-info"><p class="fb-rtitle">' + escapeHtml(d.title) + '</p>' +
                         (desc ? '<p class="fb-rdesc">' + escapeHtml(desc) + '</p>' : '') +
-                        '<p class="fb-rmeta"><span class="fb-room">' + roomDisplay + '</span>' + status + '</p></div>' +
-                    '<span class="fb-d' + (dLabel.length >= 5 ? ' long' : '') + '" title="' + urgencyText + ' · ' + displayDate + '" aria-label="' + urgencyText + ' (' + displayDate + ')"><b class="fb-flipin" style="--i:' + Math.min(i, 12) + '">' + dLabel + '</b></span>' +
+                        '<p class="fb-rmeta">' + rooms.html + status + '</p></div>' +
+                    dTile((big.length >= 3 && isNaN(+big)) || big.length >= 4 ? ' long' : '') +
                 '</div>';
+                k++;
             });
 
             // ★ แถบสรุปสถานะ — โผล่เฉพาะหมวดที่มีจริง ไม่โชว์ "เกินกำหนด 0" ให้รกตาเปล่าๆ
@@ -7822,8 +8119,10 @@
             if (soonN > 0)    sumHtml += '<span class="sum-chip s-soon"><span class="sum-dot"></span>ใกล้ถึง ' + soonN + '</span>';
             if (overdueN > 0) sumHtml += '<span class="sum-chip s-over"><span class="sum-dot"></span>เกินกำหนด ' + overdueN + '</span>';
 
+            // ท้ายกระดาน: บอกชัดๆ ว่าหมดรายการแล้ว (จอคอมงานน้อยจะไม่เหลือที่ดำโล่งเฉยๆ)
+            rowsHtml += '<p class="fb-end" role="presentation">✈ END OF DEPARTURES · หมดรายการ ' + list.length + ' งาน</p>';
             board.innerHTML = (sumHtml ? '<div class="sum-row">' + sumHtml + '</div>' : '') + rowsHtml;
-            updateDeadlineUrgentBadge_(urgentCount);
+            fbPlay_();
         }
 
         // ★ ป้ายตัวเลขสีแดงบนไอคอน 📅 บอกจำนวนงานที่เกิน/วันนี้/ใกล้ถึงใน 3 วัน โดยไม่ต้องเปิดดูรายการก่อน
@@ -7844,7 +8143,14 @@
             function tick() {
                 var d = new Date();
                 var t = document.getElementById('fbClock');
-                if (t) t.textContent = ('0' + d.getHours()).slice(-2) + ':' + ('0' + d.getMinutes()).slice(-2);
+                if (t) {
+                    var hm = ('0' + d.getHours()).slice(-2) + ':' + ('0' + d.getMinutes()).slice(-2);
+                    // (5 พ.ย.) ตัวเลขเปลี่ยน → แผ่นป้ายพลิกลงมาหนึ่งครั้งแบบป้ายสนามบิน (ครั้งเดียวต่อนาที ไม่วนค้าง)
+                    if (t.textContent !== hm && t.textContent !== '--:--' && !(window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches)) {
+                        t.classList.remove('fb-tick'); void t.offsetWidth; t.classList.add('fb-tick');
+                    }
+                    t.textContent = hm;
+                }
                 var dd = document.getElementById('deadlineCalDay'), mm = document.getElementById('deadlineCalMonth');
                 if (dd) dd.textContent = d.getDate();
                 if (mm) mm.textContent = d.toLocaleDateString('th-TH', { month: 'short' });
