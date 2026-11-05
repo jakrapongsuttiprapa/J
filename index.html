@@ -2979,9 +2979,9 @@
         /* โหมดเย็นเครื่อง: หยุดแอนิเมชัน (ค้างไว้ที่ท่าปัจจุบัน ไม่กระตุกกลับ) — ดูสคริปต์ท้ายไฟล์ */
         /* ไม่หยุดแอนิเมชัน "เด้งเข้า" ครั้งเดียวตอนโหลด (.animate-bounce-up / ปุ่มด่าน) ไม่งั้นการ์ดนอกจอจะค้างโปร่งใส */
         /* (5 พ.ย.) DEADLINE: แถวพลิกเข้า / แสงวาบบนตั๋ว / เครื่องบินบินครั้งเดียว / ตัวเลขนาฬิกาพลิก = เล่นครั้งเดียวจบ จึงไม่หยุดกลางทาง (ไม่งั้นแถวจะค้างตะแคงมองไม่เห็น) */
-        html.calm .oat-main *:not(.animate-bounce-up):not(.st-node):not(.fb-flipin):not(.fb-in):not(.fb-shine):not(.fb-plane):not(.fb-tick):not(.hx-in), html.calm .oat-main *::before, html.calm .oat-main *::after,
+        html.calm .oat-main *:not(.animate-bounce-up):not(.st-node):not(.fb-flipin):not(.fb-in):not(.fb-shine):not(.fb-plane):not(.fb-tick):not(.hx-in):not(.qz-in):not(.lk-in), html.calm .oat-main *::before, html.calm .oat-main *::after,
         html.calm .marquee-lights i,
-        .anim-off *:not(.animate-bounce-up):not(.st-node):not(.fb-flipin):not(.fb-in):not(.fb-shine):not(.fb-plane):not(.fb-tick):not(.hx-in), .anim-off *::before, .anim-off *::after { animation-play-state: paused !important; }
+        .anim-off *:not(.animate-bounce-up):not(.st-node):not(.fb-flipin):not(.fb-in):not(.fb-shine):not(.fb-plane):not(.fb-tick):not(.hx-in):not(.qz-in):not(.lk-in), .anim-off *::before, .anim-off *::after { animation-play-state: paused !important; }
 
 
         /* ==== กล่องเกรดแบบจัดเต็ม (11 ต.ค. ค่ำ) — ลวดลายทั้งหมดเป็นภาพนิ่ง วาดครั้งเดียว ไม่กินเครื่อง ====
@@ -5116,6 +5116,183 @@
         .rs-pop .sl-badge small { font-size: .64rem; }
         @media (max-width: 360px) { .rs-lvl { width: 52px; } .rs-lvl i { font-size: .56rem; letter-spacing: 0; } .rs-pop .sl-badge small { font-size: .6rem; } .hx-oat { font-size: .56rem; } }
         .ta-row:not(.dl) .ta-name > b { white-space: normal; overflow-wrap: anywhere; display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 2; overflow: hidden; }
+        /* =====================================================================
+           ★ (5 พ.ย.) UI ชุดอลังการ รอบ 3 — ① แถบเมนู "GOLDEN MARQUEE" + ริบบิ้นตัววิ่งขอบทอง
+             แถบเมนู (จอคอม/แท็บเล็ต): พื้นฟ้าคืนกรมท่าโรยดาว + ขอบทองด้านใน + ไฟประดับเป็นจุดทองแถวล่าง (ภาพนิ่ง)
+               ชื่อ I AM ตัวทองนูน · ตราโลโก้ = เหรียญทอง · ลิงก์ = ป้ายลูกอมสีประจำโซน (เดิมขาวล้วน) · โซนที่กำลังดู = สีเต็ม + วงทอง
+             ปุ่ม ☰ / 🛠️: ทรงเดิม ขนาดเดิม (ครูเคยบอกว่าปุ่มใหญ่ไม่เข้ากับการ์ด) เพิ่มแค่วงทองให้เข้าชุดตราโรงเรียนบนการ์ดแรก
+             ★ แถบเมนูอยู่นอก .oat-main (โหมดเย็นเครื่องไม่หยุดให้) จึงไม่มีอะไรขยับวนเลย — ภาพนิ่งล้วน + hover เดิม
+             ริบบิ้นตัววิ่ง: ขอบทองด้านใน + ตะเข็บทอง + ปุ่มหัวท้ายเป็นเหรียญทอง/ม่วงขอบทอง (ตัววิ่งเดิม ไม่เพิ่มแอนิเมชัน)
+           ===================================================================== */
+        .nav-pill { background: radial-gradient(circle, rgba(255,255,255,.55) 1px, rgba(255,255,255,0) 1.6px) 0 0 / 23px 19px,
+                                radial-gradient(circle, rgba(253,224,71,.5) 1.1px, rgba(253,224,71,0) 1.8px) 11px 7px / 41px 33px,
+                                radial-gradient(ellipse 40% 140% at 50% 0%, rgba(129,140,248,.35), rgba(129,140,248,0) 70%),
+                                linear-gradient(135deg, #0b1030 0%, #1e1b4b 48%, #312e81 100%);
+            box-shadow: inset 0 0 0 2px #fbbf24, inset 0 0 0 4px rgba(0,0,0,.45), 6px 6px 0 0 #000, 0 0 26px rgba(99,102,241,.3); }
+        /* ไฟประดับจุดทองแถวล่างในแคปซูล (ภาพนิ่ง ไม่กะพริบ) */
+        .nav-pill::after { content: ''; position: absolute; left: 30px; right: 30px; bottom: 6px; height: 6px; pointer-events: none; opacity: .75;
+            background: radial-gradient(circle, #fffbe6 0 1.2px, #fde047 1.6px 2.2px, rgba(253,224,71,0) 2.8px) 0 50% / 16px 6px repeat-x; }
+        .nav-word { color: #fde68a; text-shadow: 0 1px 0 #b45309, 0 2px 0 #92400e, 0 3px 0 #000, 0 0 12px rgba(253,224,71,.35); }
+        .nav-accent { color: #fff; text-shadow: 2px 2px 0 #db2777, 3px 3px 0 #000, -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000; }
+        .nav-logo { background: radial-gradient(circle at 34% 28%, #fffbe6 0 20%, #fde047 50%, #f59e0b 100%); border-radius: 50%; transform: none;
+            box-shadow: 0 0 0 2.5px #fde68a, 0 0 0 4.5px #000, 3px 3px 0 4.5px #000; }
+        .nav-link { background: linear-gradient(180deg, #ffffff 0%, #ffffff 46%, var(--nc) 150%); border-color: #000; box-shadow: 2px 2px 0 0 #000, inset 0 -2px 0 rgba(15,23,42,.08); }
+        .nav-link span { display: inline-flex; align-items: center; justify-content: center; width: 22px; height: 22px; margin-left: -4px; border-radius: 50%;
+            background: var(--nc); border: 2px solid #000; font-size: .78rem; }
+        @media (hover: hover) { .nav-link:hover { background: var(--nc); box-shadow: 3px 4px 0 0 #000, 0 0 14px rgba(255,255,255,.35); } }
+        .nav-link.on { background: var(--nc); box-shadow: 0 0 0 2.5px #fde047, 3px 3px 0 2.5px #000, 0 0 16px rgba(253,224,71,.45); }
+        .nav-link.on span { background: #fff; }
+        .nav-link:focus-visible { outline: 3px solid #fde047; outline-offset: 4px; }
+        .nav-pill .nav-pill-btn.nb-stu, .nav-pill .nav-pill-btn.nb-tch { box-shadow: 0 0 0 2.5px #fbbf24, 3px 3px 0 2.5px #000 !important; }
+        @media (hover: hover) { .nav-pill .nav-pill-btn.nb-stu:hover, .nav-pill .nav-pill-btn.nb-tch:hover { box-shadow: 0 0 0 2.5px #fbbf24, 4px 5px 0 2.5px #000 !important; } }
+        .nav-pill .nav-pill-btn.nb-stu:active, .nav-pill .nav-pill-btn.nb-tch:active { box-shadow: 0 0 0 2.5px #fbbf24 !important; }
+        .nav-pill .nav-pill-btn:focus-visible { outline-color: #fde047; }
+        .nav-prog { bottom: -5px; height: 5px; background: rgba(2,6,23,.55); }
+        /* มือถือ: ปุ่มลอยวงกลมขนาดเดิม + วงทองชุดเดียวกับตราโรงเรียนบนการ์ดแรก */
+        .nav-glass-btn.nb-stu, .nav-glass-btn.nb-tch { box-shadow: 0 0 0 2.5px #fbbf24, 3px 3px 0 2.5px #000 !important; }
+        .nav-glass-btn.nb-stu:active, .nav-glass-btn.nb-tch:active { box-shadow: 0 0 0 2.5px #fbbf24, 1px 1px 0 2.5px #000 !important; }
+        .nav-glass-btn.nb-stu:focus-visible, .nav-glass-btn.nb-tch:focus-visible { box-shadow: 0 0 0 2.5px #fbbf24, 3px 3px 0 2.5px #000, 0 0 0 5.5px #fff !important; }
+        @media (max-width: 1023px) { .nav-link span { margin-left: 0; } }
+
+        /* ---- ริบบิ้นตัววิ่ง: ผ้าซาตินกรมท่าขอบทอง ---- */
+        .tk-front { background: linear-gradient(180deg, rgba(255,255,255,.18), rgba(255,255,255,0) 55%),
+                                radial-gradient(circle, rgba(255,255,255,.13) 1.2px, rgba(255,255,255,0) 1.7px) 0 0 / 12px 12px,
+                                linear-gradient(180deg, #312e81 0%, #1e1b4b 55%, #17123d 100%);
+            box-shadow: inset 0 0 0 2px rgba(251,191,36,.95), inset 0 0 0 4px rgba(0,0,0,.35), 5px 5px 0 0 #000; }
+        .tk-front .tk-in::after { top: 6px; bottom: 6px; border-top-color: rgba(253,224,71,.45); border-bottom-color: rgba(253,224,71,.45); }
+        .tk-cap { border-width: 3px; }
+        .tk-cap.cap-l { background: radial-gradient(circle at 34% 28%, #fffbe6 0 20%, #fde047 50%, #f59e0b 100%); box-shadow: 0 0 0 2.5px #fde68a, 3px 3px 0 2.5px #000, 0 0 16px rgba(253,224,71,.5); }
+        .tk-cap.cap-r { background: radial-gradient(circle at 34% 28%, #c4b5fd 0 18%, #7c3aed 58%, #4c1d95 100%); box-shadow: 0 0 0 2.5px #fbbf24, 3px 3px 0 2.5px #000, 0 0 16px rgba(167,139,250,.55); }
+
+        /* ==========================================================================
+           ★ (5 พ.ย.) UI ชุดอลังการ รอบ 3 — ② โซน QUIZ "ARCADE GRAND"
+           ห้องเกมเดิม + มุมทองฝังพลอย (ชุดเดียวกับการ์ดแนะนำตัว) + แฉกแสงชมพู/ฟ้าหลังป้าย + สายฟ้าทอง 2 ข้างป้าย
+           + HUD แบบตู้เกม (1UP ♥♥♥ / HI-SCORE 100) + ตู้มีมิติ (ขอบซ้ายสะท้อนแสง ขอบขวาเงา) + แถวหลอดไฟบนป้ายตู้
+           + ปุ่ม PLAY มันวาว + แผงหยอดเหรียญ + ป้าย FREE PLAY ขอบทอง — ลวดลายทั้งหมดเป็นภาพนิ่ง วาดครั้งเดียว
+           เปิดเครื่อง (ครั้งเดียว ตอนเลื่อนมาถึง): ป้ายนีออนกะพริบติด → จอ CRT ทีละตู้ "เปิด" จากเส้นแสงกลางจอ
+             ใช้ transform/opacity ล้วน · คลาส .qz-in อยู่ในรายการยกเว้นของโหมดเย็นเครื่อง/นอกจอ จึงไม่ค้างกลางทาง
+             ตั้งค่า "ลดการเคลื่อนไหว" / ไม่มีสคริปต์ = ไม่เล่น (จอเปิดอยู่แล้วตั้งแต่แรก)
+           ========================================================================== */
+        .qz-hall { box-shadow: 10px 10px 0 0 #000, 0 0 56px rgba(217,70,239,.34); }
+        .qz-corners { position: absolute; z-index: 3; inset: 12px; pointer-events: none;
+            background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 60 60'%3E%3Cg %3E%3Cg fill='none' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M4 46V14Q4 4 14 4H46' stroke='%23000' stroke-width='7'/%3E%3Cpath d='M4 46V14Q4 4 14 4H46' stroke='%23fbbf24' stroke-width='3.6'/%3E%3Cpath d='M12 34Q12 12 34 12' stroke='%23000' stroke-width='5'/%3E%3Cpath d='M12 34Q12 12 34 12' stroke='%23fde68a' stroke-width='2.2'/%3E%3Cpath d='M46 4Q54 4 54 10Q54 16 48 15' stroke='%23000' stroke-width='5'/%3E%3Cpath d='M46 4Q54 4 54 10Q54 16 48 15' stroke='%23fbbf24' stroke-width='2.4'/%3E%3Cpath d='M4 46Q4 54 10 54Q16 54 15 48' stroke='%23000' stroke-width='5'/%3E%3Cpath d='M4 46Q4 54 10 54Q16 54 15 48' stroke='%23fbbf24' stroke-width='2.4'/%3E%3C/g%3E%3Ccircle cx='13' cy='13' r='6' fill='%23ec4899' stroke='%23000' stroke-width='2.4'/%3E%3Ccircle cx='11.4' cy='11.4' r='1.8' fill='%23fff' fill-opacity='.85'/%3E%3C/g%3E%3C/svg%3E") 0 0 / 46px 46px no-repeat, url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 60 60'%3E%3Cg transform='translate(60 0) scale(-1 1)'%3E%3Cg fill='none' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M4 46V14Q4 4 14 4H46' stroke='%23000' stroke-width='7'/%3E%3Cpath d='M4 46V14Q4 4 14 4H46' stroke='%23fbbf24' stroke-width='3.6'/%3E%3Cpath d='M12 34Q12 12 34 12' stroke='%23000' stroke-width='5'/%3E%3Cpath d='M12 34Q12 12 34 12' stroke='%23fde68a' stroke-width='2.2'/%3E%3Cpath d='M46 4Q54 4 54 10Q54 16 48 15' stroke='%23000' stroke-width='5'/%3E%3Cpath d='M46 4Q54 4 54 10Q54 16 48 15' stroke='%23fbbf24' stroke-width='2.4'/%3E%3Cpath d='M4 46Q4 54 10 54Q16 54 15 48' stroke='%23000' stroke-width='5'/%3E%3Cpath d='M4 46Q4 54 10 54Q16 54 15 48' stroke='%23fbbf24' stroke-width='2.4'/%3E%3C/g%3E%3Ccircle cx='13' cy='13' r='6' fill='%23ec4899' stroke='%23000' stroke-width='2.4'/%3E%3Ccircle cx='11.4' cy='11.4' r='1.8' fill='%23fff' fill-opacity='.85'/%3E%3C/g%3E%3C/svg%3E") 100% 0 / 46px 46px no-repeat, url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 60 60'%3E%3Cg transform='translate(0 60) scale(1 -1)'%3E%3Cg fill='none' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M4 46V14Q4 4 14 4H46' stroke='%23000' stroke-width='7'/%3E%3Cpath d='M4 46V14Q4 4 14 4H46' stroke='%23fbbf24' stroke-width='3.6'/%3E%3Cpath d='M12 34Q12 12 34 12' stroke='%23000' stroke-width='5'/%3E%3Cpath d='M12 34Q12 12 34 12' stroke='%23fde68a' stroke-width='2.2'/%3E%3Cpath d='M46 4Q54 4 54 10Q54 16 48 15' stroke='%23000' stroke-width='5'/%3E%3Cpath d='M46 4Q54 4 54 10Q54 16 48 15' stroke='%23fbbf24' stroke-width='2.4'/%3E%3Cpath d='M4 46Q4 54 10 54Q16 54 15 48' stroke='%23000' stroke-width='5'/%3E%3Cpath d='M4 46Q4 54 10 54Q16 54 15 48' stroke='%23fbbf24' stroke-width='2.4'/%3E%3C/g%3E%3Ccircle cx='13' cy='13' r='6' fill='%23ec4899' stroke='%23000' stroke-width='2.4'/%3E%3Ccircle cx='11.4' cy='11.4' r='1.8' fill='%23fff' fill-opacity='.85'/%3E%3C/g%3E%3C/svg%3E") 0 100% / 46px 46px no-repeat, url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 60 60'%3E%3Cg transform='translate(60 60) scale(-1 -1)'%3E%3Cg fill='none' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M4 46V14Q4 4 14 4H46' stroke='%23000' stroke-width='7'/%3E%3Cpath d='M4 46V14Q4 4 14 4H46' stroke='%23fbbf24' stroke-width='3.6'/%3E%3Cpath d='M12 34Q12 12 34 12' stroke='%23000' stroke-width='5'/%3E%3Cpath d='M12 34Q12 12 34 12' stroke='%23fde68a' stroke-width='2.2'/%3E%3Cpath d='M46 4Q54 4 54 10Q54 16 48 15' stroke='%23000' stroke-width='5'/%3E%3Cpath d='M46 4Q54 4 54 10Q54 16 48 15' stroke='%23fbbf24' stroke-width='2.4'/%3E%3Cpath d='M4 46Q4 54 10 54Q16 54 15 48' stroke='%23000' stroke-width='5'/%3E%3Cpath d='M4 46Q4 54 10 54Q16 54 15 48' stroke='%23fbbf24' stroke-width='2.4'/%3E%3C/g%3E%3Ccircle cx='13' cy='13' r='6' fill='%23ec4899' stroke='%23000' stroke-width='2.4'/%3E%3Ccircle cx='11.4' cy='11.4' r='1.8' fill='%23fff' fill-opacity='.85'/%3E%3C/g%3E%3C/svg%3E") 100% 100% / 46px 46px no-repeat; }
+        /* แฉกแสงหลังป้าย (ภาพนิ่ง) — อยู่หลังป้ายเสมอ (z-index ติดลบในกลุ่มหัวโซน) จางออกเป็นวงกลม */
+        .qz-sign::before { content: ''; position: absolute; z-index: -1; left: 50%; top: 50%; width: 1200px; height: 1200px; margin: -600px 0 0 -600px; pointer-events: none; border-radius: 50%;
+            background: repeating-conic-gradient(from -3deg, rgba(255,43,214,.22) 0deg 6deg, rgba(255,43,214,0) 6deg 15deg, rgba(34,211,238,.17) 15deg 21deg, rgba(34,211,238,0) 21deg 30deg);
+            -webkit-mask-image: radial-gradient(circle, #000 0 12%, rgba(0,0,0,.55) 28%, rgba(0,0,0,0) 50%); mask-image: radial-gradient(circle, #000 0 12%, rgba(0,0,0,.55) 28%, rgba(0,0,0,0) 50%); }
+        /* สายฟ้าทอง 2 ข้างป้าย (จอกว้างเท่านั้น) */
+        .qz-sign::after { content: ''; position: absolute; top: 50%; left: -58px; right: -58px; height: 68px; margin-top: -34px; pointer-events: none;
+            background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 48'%3E%3Cpath d='M18 2L4 26H13L9 44L26 17H16L21 2Z' fill='%23000' transform='translate(2.5 2.5)'/%3E%3Cpath d='M18 2L4 26H13L9 44L26 17H16L21 2Z' fill='%23fde047' stroke='%23000' stroke-width='2.4' stroke-linejoin='round'/%3E%3Cpath d='M17.4 6L8.6 22' stroke='%23fff' stroke-width='1.8' stroke-linecap='round' stroke-opacity='.85'/%3E%3C/svg%3E") 0 50% / 41px 66px no-repeat,
+                        url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 48'%3E%3Cpath d='M10 2L24 26H15L19 44L2 17H12L7 2Z' fill='%23000' transform='translate(2.5 2.5)'/%3E%3Cpath d='M10 2L24 26H15L19 44L2 17H12L7 2Z' fill='%23fde047' stroke='%23000' stroke-width='2.4' stroke-linejoin='round'/%3E%3Cpath d='M10.6 6L19.4 22' stroke='%23fff' stroke-width='1.8' stroke-linecap='round' stroke-opacity='.85'/%3E%3C/svg%3E") 100% 50% / 41px 66px no-repeat; }
+        /* ป้ายนีออน: ขอบทองสองเฉด (ทองอ่อน → ทองเข้ม → ดำ) ดูเป็นกรอบโลหะ */
+        .qz-sign { background: radial-gradient(ellipse at 50% 100%, rgba(217,70,239,.3), rgba(217,70,239,0) 70%), linear-gradient(180deg, #170a36 0%, #0b0620 62%);
+            box-shadow: 0 0 0 3px #fde047, 0 0 0 5px #b45309, 0 0 0 8px #000, 8px 9px 0 8px #000, 0 0 50px 8px rgba(255,43,214,.38); }
+        .qz-sub { box-shadow: 0 0 0 2.5px #fbbf24, 3px 3px 0 2.5px #000; }
+        /* HUD แบบตู้เกม (ตกแต่ง) */
+        .qz-hud { position: absolute; z-index: 3; top: 36px; left: 76px; right: 76px; display: flex; justify-content: space-between; align-items: flex-start; pointer-events: none; font-weight: 900; line-height: 1; }
+        .qz-hud > span { display: flex; flex-direction: column; gap: 8px; }
+        .qz-hud-l { align-items: flex-start; } .qz-hud-r { align-items: flex-end; }
+        .qz-hud b { font-size: .9rem; letter-spacing: .24em; white-space: nowrap; }
+        .qz-hud-l b { color: #ffa3f1; text-shadow: 0 0 8px rgba(255,43,214,.95), 2px 2px 0 #000; }
+        .qz-hud-r b { color: #a5f3fc; text-shadow: 0 0 8px rgba(34,211,238,.95), 2px 2px 0 #000; }
+        .qz-hud em { font-style: normal; font-size: 1.5rem; letter-spacing: .16em; color: #fde047; text-shadow: 0 0 10px rgba(253,224,71,.6), 2px 2px 0 #000; }
+        .qz-lives { display: block; width: 90px; height: 23px;
+            background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 26 20' shape-rendering='crispEdges'%3E%3Cpath d='M3 0H9V3H12V0H18V3H21V9H18V12H15V15H12V18H9V15H6V12H3V9H0V3H3Z' fill='%23000' transform='translate(2 2)'/%3E%3Cpath d='M3 0H9V3H12V0H18V3H21V9H18V12H15V15H12V18H9V15H6V12H3V9H0V3H3Z' fill='%23ff3ec9'/%3E%3Cpath d='M3 3H6V6H3Z' fill='%23fff'/%3E%3C/svg%3E") 0 0 / 30px 23px repeat-x; }
+        /* ---- ตู้เกม: มีมิติ (ขอบซ้ายสะท้อนแสง ขอบขวาเงา) ---- */
+        .qz-tile { box-shadow: 10px 10px 0 0 rgba(0,0,0,1), 0 0 46px rgba(var(--rgb), .45), inset 7px 0 0 rgba(255,255,255,.2), inset -7px 0 0 rgba(0,0,0,.22); }
+        @media (hover: hover) { .qz-tile:hover { box-shadow: 14px 14px 0 0 rgba(0,0,0,1), 0 0 60px rgba(var(--rgb), .6), inset 7px 0 0 rgba(255,255,255,.2), inset -7px 0 0 rgba(0,0,0,.22); } }
+        .qz-tile:active { box-shadow: 3px 3px 0 0 rgba(0,0,0,1), 0 0 30px rgba(var(--rgb), .4), inset 7px 0 0 rgba(255,255,255,.2), inset -7px 0 0 rgba(0,0,0,.22); }
+        /* ป้ายบนตู้: แถวหลอดไฟด้านบน + เงามันวาว */
+        .qz-marq { padding-top: 14px;
+            background: radial-gradient(circle, #fff7c2 0 1.3px, #fde047 1.8px 2.4px, rgba(253,224,71,0) 3px) 50% 3px / 14px 7px repeat-x,
+                        linear-gradient(180deg, rgba(255,255,255,.14), rgba(255,255,255,0) 55%),
+                        radial-gradient(circle at 12px 58%, #fde047 0 3px, #000 3.5px 4.5px, transparent 5px), radial-gradient(circle at calc(100% - 12px) 58%, #fde047 0 3px, #000 3.5px 4.5px, transparent 5px),
+                        radial-gradient(ellipse at 50% 130%, rgba(var(--rgb), .6), rgba(var(--rgb), 0) 70%), #0b0620; }
+        /* จอ: กรอบจอสว่างรอบนอก (bezel) */
+        .qz-screen { box-shadow: inset 0 0 0 3px #2b1659, inset 0 0 22px rgba(0,0,0,.85), 0 0 0 3px rgba(255,255,255,.24), 0 0 0 6px rgba(0,0,0,.28); }
+        /* ปุ่ม PLAY มันวาว */
+        .qz-play { background: linear-gradient(180deg, rgba(255,255,255,.62) 0%, rgba(255,255,255,.12) 52%, rgba(255,255,255,0) 53%), var(--pl); box-shadow: 0 4px 0 0 #000, inset 0 -3px 0 rgba(0,0,0,.16); }
+        .qz-tile:active .qz-play { transform: translateY(2px); box-shadow: 0 2px 0 0 #000, inset 0 -3px 0 rgba(0,0,0,.16); }
+        /* ป้าย FREE PLAY = แผ่นป้ายขอบทอง */
+        .qz-credit { width: fit-content; margin: 20px auto 0; padding: 5px 18px 4px; background: #0b0620; border: 2px solid #000; border-radius: 999px; box-shadow: 0 0 0 2px rgba(251,191,36,.9), 3px 3px 0 2px #000; }
+        /* ---- เปิดเครื่อง (ครั้งเดียว) ---- */
+        .qz-crt { position: absolute; z-index: 4; inset: 0; pointer-events: none; opacity: 0; }
+        .qz-crt::before, .qz-crt::after { content: ''; position: absolute; left: 0; right: 0; height: 51%; background: #07021a; }
+        .qz-crt::before { top: 0; box-shadow: 0 2px 0 #fff, 0 2px 12px 2px rgba(255,255,255,.7); }
+        .qz-crt::after { bottom: 0; box-shadow: 0 -2px 0 #fff, 0 -2px 12px 2px rgba(255,255,255,.7); }
+        .qz-tile.qz-off .qz-crt { opacity: 1; }
+        .qz-head.qz-off .qz-title .n1, .qz-head.qz-off .qz-title .n2 { opacity: .14; }
+        @media (prefers-reduced-motion: no-preference) {
+            .qz-tile.qz-boot .qz-crt { animation: qzCrtFade 1s linear var(--bd, 0s) 1 both; }
+            .qz-tile.qz-boot .qz-crt::before { animation: qzCrtUp 1s cubic-bezier(.55,0,.25,1) var(--bd, 0s) 1 both; }
+            .qz-tile.qz-boot .qz-crt::after { animation: qzCrtDn 1s cubic-bezier(.55,0,.25,1) var(--bd, 0s) 1 both; }
+            .qz-head.qz-boot .qz-title .n1 { animation: qzNeonOn .9s steps(1, end) .05s 1 both; }
+            .qz-head.qz-boot .qz-title .n2 { animation: qzNeonOn .9s steps(1, end) .4s 1 both; }
+        }
+        @keyframes qzCrtFade { 0%, 72% { opacity: 1; } 100% { opacity: 0; } }
+        @keyframes qzCrtUp { 0%, 26% { transform: none; } 100% { transform: translateY(-104%); } }
+        @keyframes qzCrtDn { 0%, 26% { transform: none; } 100% { transform: translateY(104%); } }
+        @keyframes qzNeonOn { 0% { opacity: .14; } 10% { opacity: 1; } 18% { opacity: .2; } 30% { opacity: 1; } 38% { opacity: .4; } 55%, 100% { opacity: 1; } }
+        /* ม่านจอเป็น ::before/::after จึงต้องบอกให้เล่นต่อแม้อยู่ในโหมดเย็นเครื่อง/นอกจอ (ไม่งั้นจอจะค้างครึ่งเปิด) */
+        html.calm .oat-main .qz-crt::before, html.calm .oat-main .qz-crt::after, .anim-off .qz-crt::before, .anim-off .qz-crt::after { animation-play-state: running !important; }
+        @media (min-width: 1024px) {
+            .qz-marq { padding-top: 16px; }
+            .qz-slot { align-self: center; gap: 12px; padding: 6px 12px; background: linear-gradient(180deg, #2a1660, #120830); border: 3px solid #000; border-radius: 10px; box-shadow: inset 0 0 0 1.5px rgba(255,255,255,.12), 0 3px 0 #000; }
+            .qz-slot::before, .qz-slot::after { box-shadow: inset 0 0 0 2px rgba(255,255,255,.12), 0 0 10px rgba(251,146,60,.6); }
+        }
+        /* จอเล็กกว่า 1024: HUD เป็นแถบบนสุดเหนือป้าย (ไม่ชนป้าย/สายฟ้า) */
+        @media (max-width: 1023px) {
+            .qz-hud { position: relative; top: auto; left: auto; right: auto; margin: 0 46px 16px; align-items: center; }
+            .qz-hud > span { flex-direction: row; align-items: center; gap: 9px; }
+            .qz-hud b { font-size: .74rem; letter-spacing: .2em; }
+            .qz-hud em { font-size: 1.1rem; letter-spacing: .12em; }
+            .qz-lives { width: 69px; height: 18px; background-size: 23.4px 18px; }
+        }
+        @media (max-width: 767px) {
+            .qz-hall { box-shadow: 8px 8px 0 0 #000, 0 0 40px rgba(217,70,239,.32); }
+            .qz-corners { inset: 10px; background-size: 32px 32px, 32px 32px, 32px 32px, 32px 32px; }
+            .qz-sign { box-shadow: 0 0 0 2.5px #fde047, 0 0 0 4px #b45309, 0 0 0 6px #000, 6px 7px 0 6px #000, 0 0 36px 5px rgba(255,43,214,.36); }
+            .qz-hud { margin: 0 34px 14px; }
+            .qz-hud > span { gap: 7px; }
+            .qz-hud b { font-size: .6rem; letter-spacing: .16em; }
+            .qz-hud em { font-size: .88rem; letter-spacing: .1em; }
+            .qz-lives { width: 54px; height: 14px; background-size: 18.2px 14px; }
+            .qz-tile { box-shadow: 10px 10px 0 0 rgba(0,0,0,1), 0 0 46px rgba(var(--rgb), .45), inset 5px 0 0 rgba(255,255,255,.2), inset -5px 0 0 rgba(0,0,0,.22); }
+            .qz-tile:active { box-shadow: 3px 3px 0 0 rgba(0,0,0,1), 0 0 30px rgba(var(--rgb), .4), inset 5px 0 0 rgba(255,255,255,.2), inset -5px 0 0 rgba(0,0,0,.22); }
+            .qz-marq { padding-top: 13px; }
+            .qz-credit { margin-top: 16px; padding: 4px 14px 3px; }
+        }
+        @media (max-width: 599px) { .qz-sign::after { display: none; } }
+        @media (max-width: 360px) { .qz-hud { margin: 0 32px 12px; } .qz-lives { width: 36px; } .qz-hud b { letter-spacing: .12em; }
+            .qz-credit { letter-spacing: .18em; padding: 4px 12px 3px; } }
+
+        /* ==========================================================================
+           ★ (5 พ.ย.) UI ชุดอลังการ รอบ 3 — ③ STUDENT HUB "ROYAL HALL"
+           ห้องโถงเดิม + มงกุฎทองฝังพลอยบนป้าย + ตู้ล็อกเกอร์ขอบทอง (ชุดเดียวกับปุ่มแถบเมนู)
+           ครั้งแรกที่เลื่อนมาถึง (เล่นครั้งเดียว ไม่วน): แสงวาบผ่านป้าย → ประตูตู้แง้มทักทายทีละตู้ แล้วปิดกลับ
+             transform ล้วน · คลาส .lk-in อยู่ในรายการยกเว้นของโหมดเย็นเครื่อง/นอกจอ · ลดการเคลื่อนไหว = ไม่เล่น
+           ========================================================================== */
+        .lk-crown { position: absolute; z-index: 3; left: 50%; top: -44px; width: 80px; height: 58px; margin-left: -40px; pointer-events: none;
+            background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 86 62'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='0' y2='1'%3E%3Cstop offset='0' stop-color='%23fff6c8'/%3E%3Cstop offset='.45' stop-color='%23fbbf24'/%3E%3Cstop offset='1' stop-color='%23d97706'/%3E%3C/linearGradient%3E%3C/defs%3E%3Cg transform='translate(3 3)'%3E%3Cpath d='M11 43L6 16L25 30L42 8L59 30L78 16L73 43Z' fill='%23000'/%3E%3Crect x='10' y='41' width='64' height='13' rx='3' fill='%23000'/%3E%3C/g%3E%3Cpath d='M11 43L6 16L25 30L42 8L59 30L78 16L73 43Z' fill='url(%23g)' stroke='%23000' stroke-width='2.6' stroke-linejoin='round'/%3E%3Cpath d='M15 39L12 24' stroke='%23fff' stroke-width='2.2' stroke-linecap='round' stroke-opacity='.75'/%3E%3Cpath d='M42 16V36' stroke='%23b45309' stroke-width='1.6' stroke-linecap='round' stroke-opacity='.55'/%3E%3Crect x='10' y='41' width='64' height='13' rx='3' fill='url(%23g)' stroke='%23000' stroke-width='2.6'/%3E%3Ccircle cx='6' cy='16' r='4.4' fill='%23f472b6' stroke='%23000' stroke-width='2'/%3E%3Ccircle cx='42' cy='8' r='5' fill='%2360a5fa' stroke='%23000' stroke-width='2'/%3E%3Ccircle cx='78' cy='16' r='4.4' fill='%23f472b6' stroke='%23000' stroke-width='2'/%3E%3Ccircle cx='27' cy='47.5' r='3.2' fill='%2334d399' stroke='%23000' stroke-width='1.6'/%3E%3Ccircle cx='42' cy='47.5' r='3.9' fill='%23ef4444' stroke='%23000' stroke-width='1.6'/%3E%3Ccircle cx='57' cy='47.5' r='3.2' fill='%2334d399' stroke='%23000' stroke-width='1.6'/%3E%3Ccircle cx='40.6' cy='6.4' r='1.4' fill='%23fff' fill-opacity='.9'/%3E%3C/svg%3E") 0 0 / 100% 100% no-repeat; }
+        .lk-glint { position: absolute; z-index: 2; inset: 0; border-radius: 16px; overflow: hidden; pointer-events: none; }
+        .lk-glint i { position: absolute; top: -10%; bottom: -10%; left: 0; width: 18%; opacity: 0;
+            background: linear-gradient(100deg, rgba(255,255,255,0) 0%, rgba(255,255,255,.5) 50%, rgba(255,255,255,0) 100%); }
+        .lk-hall .qa-card { box-shadow: 0 0 0 2.5px #fbbf24, 10px 10px 0 0 #000, 0 0 40px 6px rgba(var(--qg),.5); }
+        @media (prefers-reduced-motion: no-preference) {
+            .lk-sign.lk-shine .lk-glint i { animation: lkGlint 1.2s cubic-bezier(.4,0,.2,1) .1s 1 both; }
+            .qa-card.lk-peek { z-index: 5; }
+            .qa-card.lk-peek .lk-door { animation: lkPeek 1.15s cubic-bezier(.45,0,.3,1) var(--pd, 0s) 1 both; }
+        }
+        @keyframes lkGlint { from { opacity: 1; transform: translateX(-140%) skewX(-18deg); } to { opacity: 1; transform: translateX(640%) skewX(-18deg); } }
+        @keyframes lkPeek { 0% { transform: perspective(900px) rotateY(0deg); } 36%, 60% { transform: perspective(900px) rotateY(-34deg); } 100% { transform: perspective(900px) rotateY(0deg); } }
+        @media (max-width: 767px) {
+            .lk-hall .hb-head { padding-top: 58px; }
+            .lk-crown { top: -32px; width: 56px; height: 40px; margin-left: -28px; }
+            .lk-hall .qa-card { box-shadow: 0 0 0 2.5px #fbbf24, 10px 10px 0 0 #000, 0 0 30px 4px rgba(var(--qg),.5); }
+        }
+        @media (min-width: 768px) and (max-width: 1023px) { .lk-crown { top: -34px; width: 64px; height: 46px; margin-left: -32px; } }
+        @media (min-width: 1024px) { .lk-hall .hb-head { padding-top: 68px; } }
+
 </style>
     <!-- ★ Tailwind CSS สำเร็จรูป (3.4.19) แทนตัวคอมไพล์สดแบบ CDN: ไม่ต้องคอมไพล์ในเบราว์เซอร์ทุกครั้งที่เปิดเว็บ/เปิดป๊อปอัป
          และไม่พึ่งเซิร์ฟเวอร์ภายนอก (เดิมถ้า cdn.tailwindcss.com ล่ม ทั้งหน้าจะไม่มีสไตล์)
@@ -5497,11 +5674,13 @@
             <i class="qz-spot l" aria-hidden="true"></i>
             <i class="qz-spot r" aria-hidden="true"></i>
             <i class="qz-floor" aria-hidden="true"></i>
+            <i class="qz-corners" aria-hidden="true"></i>
+            <div class="qz-hud" aria-hidden="true"><span class="qz-hud-l"><b>1UP</b><i class="qz-lives"></i></span><span class="qz-hud-r"><b>HI-SCORE</b><em>100</em></span></div>
             <div class="qz-head">
                 <div class="qz-sign">
                     <i class="qz-bulbs" aria-hidden="true"></i>
                     <span class="qz-kick">★ INSERT COIN ★</span>
-                    <h2 class="qz-title font-black"><span class="n1">QUIZ</span> <span class="n2">ZONE</span></h2>
+                    <h2 class="qz-title font-black"><span class="n1 qz-in">QUIZ</span> <span class="n2 qz-in">ZONE</span></h2>
                 </div>
                 <p class="qz-sub">🎯 เลือกระดับชั้นแล้วเข้าไปทำควิซ / เล่นเกม</p>
             </div>
@@ -5512,6 +5691,7 @@
                         <span class="qz-ico" aria-hidden="true">👾</span>
                         <span class="qz-big">ม.4</span>
                         <span class="qz-small">สอบย่อย ม.4</span>
+                        <i class="qz-crt qz-in" aria-hidden="true"></i>
                     </span>
                     <span class="qz-deck" aria-hidden="true"></span>
                     <span class="qz-play">PLAY <span class="qz-tri" aria-hidden="true"></span></span>
@@ -5523,6 +5703,7 @@
                         <span class="qz-ico" aria-hidden="true">🚀</span>
                         <span class="qz-big">ม.5</span>
                         <span class="qz-small">สอบย่อย ม.5</span>
+                        <i class="qz-crt qz-in" aria-hidden="true"></i>
                     </span>
                     <span class="qz-deck" aria-hidden="true"></span>
                     <span class="qz-play">PLAY <span class="qz-tri" aria-hidden="true"></span></span>
@@ -5534,6 +5715,7 @@
                         <span class="qz-ico" aria-hidden="true">⚔️</span>
                         <span class="qz-big">ม.6</span>
                         <span class="qz-small">สอบย่อย ม.6</span>
+                        <i class="qz-crt qz-in" aria-hidden="true"></i>
                     </span>
                     <span class="qz-deck" aria-hidden="true"></span>
                     <span class="qz-play">PLAY <span class="qz-tri" aria-hidden="true"></span></span>
@@ -5545,6 +5727,7 @@
                         <span class="qz-ico" aria-hidden="true">🧩</span>
                         <span class="qz-big">เกม</span>
                         <span class="qz-small">เกม &amp; แบบฝึก</span>
+                        <i class="qz-crt qz-in" aria-hidden="true"></i>
                     </span>
                     <span class="qz-deck" aria-hidden="true"></span>
                     <span class="qz-play">PLAY <span class="qz-tri" aria-hidden="true"></span></span>
@@ -5573,6 +5756,8 @@
                     <h2 class="hb-title font-black" data-text="STUDENT HUB">STUDENT HUB</h2>
                     <svg class="lk-laurel l" viewBox="0 0 64 128" aria-hidden="true" focusable="false"><defs><linearGradient id="lkGoldL" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#fff3b0"/><stop offset=".5" stop-color="#fbbf24"/><stop offset="1" stop-color="#b45309"/></linearGradient></defs><g fill="none" stroke="#000" stroke-width="3" stroke-linecap="round"><path d="M51.8 126.2 L48.7 124.6 L45.6 122.9 L42.7 120.9 L39.8 118.9 L37.1 116.6 L34.5 114.2 L32.1 111.7 L29.8 109.0 L27.7 106.2 L25.7 103.3 L23.9 100.3 L22.3 97.2 L20.8 94.0 L19.6 90.7 L18.5 87.3 L17.6 83.9 L16.9 80.5 L16.4 77.0 L16.1 73.5 L16.0 70.0 L16.1 66.5 L16.4 63.0 L16.9 59.5 L17.6 56.1 L18.5 52.7 L19.6 49.3 L20.8 46.0 L22.3 42.8 L23.9 39.7 L25.7 36.7 L27.7 33.8 L29.8 31.0 L32.1 28.3 L34.5 25.8 L37.1 23.4 L39.8 21.1 L42.7 19.1 L45.6 17.1 L48.7 15.4 L51.8 13.8"/></g><g fill="url(#lkGoldL)" stroke="#000" stroke-width="1.6"><ellipse cx="38.8" cy="124.3" rx="10.7" ry="4.5" transform="rotate(-182 38.8 124.3)"/><ellipse cx="44.6" cy="116.2" rx="10.7" ry="4.5" transform="rotate(-106 44.6 116.2)"/><ellipse cx="23.9" cy="109.5" rx="10.1" ry="4.2" transform="rotate(-164 23.9 109.5)"/><ellipse cx="32.0" cy="103.6" rx="10.1" ry="4.2" transform="rotate(-88 32.0 103.6)"/><ellipse cx="14.3" cy="90.8" rx="9.6" ry="4.0" transform="rotate(-146 14.3 90.8)"/><ellipse cx="23.8" cy="87.7" rx="9.6" ry="4.0" transform="rotate(-70 23.8 87.7)"/><ellipse cx="11.0" cy="70.0" rx="9.1" ry="3.8" transform="rotate(-128 11.0 70.0)"/><ellipse cx="21.0" cy="70.0" rx="9.1" ry="3.8" transform="rotate(-52 21.0 70.0)"/><ellipse cx="14.3" cy="49.2" rx="8.5" ry="3.6" transform="rotate(-110 14.3 49.2)"/><ellipse cx="23.8" cy="52.3" rx="8.5" ry="3.6" transform="rotate(-34 23.8 52.3)"/><ellipse cx="23.9" cy="30.5" rx="8.0" ry="3.3" transform="rotate(-92 23.9 30.5)"/><ellipse cx="32.0" cy="36.4" rx="8.0" ry="3.3" transform="rotate(-16 32.0 36.4)"/><ellipse cx="38.8" cy="15.7" rx="7.5" ry="3.1" transform="rotate(-74 38.8 15.7)"/><ellipse cx="44.6" cy="23.8" rx="7.5" ry="3.1" transform="rotate(2 44.6 23.8)"/></g></svg>
                     <svg class="lk-laurel r" viewBox="0 0 64 128" aria-hidden="true" focusable="false"><defs><linearGradient id="lkGoldR" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#fff3b0"/><stop offset=".5" stop-color="#fbbf24"/><stop offset="1" stop-color="#b45309"/></linearGradient></defs><g fill="none" stroke="#000" stroke-width="3" stroke-linecap="round"><path d="M51.8 126.2 L48.7 124.6 L45.6 122.9 L42.7 120.9 L39.8 118.9 L37.1 116.6 L34.5 114.2 L32.1 111.7 L29.8 109.0 L27.7 106.2 L25.7 103.3 L23.9 100.3 L22.3 97.2 L20.8 94.0 L19.6 90.7 L18.5 87.3 L17.6 83.9 L16.9 80.5 L16.4 77.0 L16.1 73.5 L16.0 70.0 L16.1 66.5 L16.4 63.0 L16.9 59.5 L17.6 56.1 L18.5 52.7 L19.6 49.3 L20.8 46.0 L22.3 42.8 L23.9 39.7 L25.7 36.7 L27.7 33.8 L29.8 31.0 L32.1 28.3 L34.5 25.8 L37.1 23.4 L39.8 21.1 L42.7 19.1 L45.6 17.1 L48.7 15.4 L51.8 13.8"/></g><g fill="url(#lkGoldR)" stroke="#000" stroke-width="1.6"><ellipse cx="38.8" cy="124.3" rx="10.7" ry="4.5" transform="rotate(-182 38.8 124.3)"/><ellipse cx="44.6" cy="116.2" rx="10.7" ry="4.5" transform="rotate(-106 44.6 116.2)"/><ellipse cx="23.9" cy="109.5" rx="10.1" ry="4.2" transform="rotate(-164 23.9 109.5)"/><ellipse cx="32.0" cy="103.6" rx="10.1" ry="4.2" transform="rotate(-88 32.0 103.6)"/><ellipse cx="14.3" cy="90.8" rx="9.6" ry="4.0" transform="rotate(-146 14.3 90.8)"/><ellipse cx="23.8" cy="87.7" rx="9.6" ry="4.0" transform="rotate(-70 23.8 87.7)"/><ellipse cx="11.0" cy="70.0" rx="9.1" ry="3.8" transform="rotate(-128 11.0 70.0)"/><ellipse cx="21.0" cy="70.0" rx="9.1" ry="3.8" transform="rotate(-52 21.0 70.0)"/><ellipse cx="14.3" cy="49.2" rx="8.5" ry="3.6" transform="rotate(-110 14.3 49.2)"/><ellipse cx="23.8" cy="52.3" rx="8.5" ry="3.6" transform="rotate(-34 23.8 52.3)"/><ellipse cx="23.9" cy="30.5" rx="8.0" ry="3.3" transform="rotate(-92 23.9 30.5)"/><ellipse cx="32.0" cy="36.4" rx="8.0" ry="3.3" transform="rotate(-16 32.0 36.4)"/><ellipse cx="38.8" cy="15.7" rx="7.5" ry="3.1" transform="rotate(-74 38.8 15.7)"/><ellipse cx="44.6" cy="23.8" rx="7.5" ry="3.1" transform="rotate(2 44.6 23.8)"/></g></svg>
+                    <i class="lk-crown" aria-hidden="true"></i>
+                    <i class="lk-glint" aria-hidden="true"><i class="lk-in"></i></i>
                 </div>
                 <p class="hb-sub">📚 เอกสาร · เช็กสถานะ · เกรด · ระเบียบ · ผลงาน</p>
             </div>
@@ -5580,7 +5765,7 @@
               <div class="qa-grid">
                 <button type="button" onclick="showDownloadFolders()" class="qa-card qa-blue" style="--i:0;">
                     <span class="lk-item" aria-hidden="true">📚</span>
-                    <span class="lk-door">
+                    <span class="lk-door lk-in">
                         <span class="lk-vent" aria-hidden="true"></span>
                         <span class="qa-num" aria-hidden="true">01</span>
                         <span class="qa-top">
@@ -5593,7 +5778,7 @@
                 </button>
                 <button type="button" onclick="checkStudentStatus()" class="qa-card qa-red" style="--i:1;">
                     <span class="lk-item" aria-hidden="true">🚨</span>
-                    <span class="lk-door">
+                    <span class="lk-door lk-in">
                         <span class="lk-vent" aria-hidden="true"></span>
                         <span class="qa-num" aria-hidden="true">02</span>
                         <span class="qa-top">
@@ -5606,7 +5791,7 @@
                 </button>
                 <a href="https://sccl.gsbschool.ac.th/LC2/SDC.php?" target="_blank" rel="noopener" class="qa-card qa-purple" style="--i:2;">
                     <span class="lk-item" aria-hidden="true">🎓</span>
-                    <span class="lk-door">
+                    <span class="lk-door lk-in">
                         <span class="lk-vent" aria-hidden="true"></span>
                         <span class="qa-num" aria-hidden="true">03</span>
                         <span class="qa-top">
@@ -5621,7 +5806,7 @@
               <div class="qa-grid qa-grid2">
                 <a href="https://oomsin.mynameisoat.com" target="_blank" rel="noopener" class="qa-card qa-green" style="--i:0;">
                     <span class="lk-item" aria-hidden="true">👕</span>
-                    <span class="lk-door">
+                    <span class="lk-door lk-in">
                         <span class="lk-vent" aria-hidden="true"></span>
                         <span class="qa-num" aria-hidden="true">04</span>
                         <span class="qa-top">
@@ -5634,7 +5819,7 @@
                 </a>
                 <a href="https://script.google.com/macros/s/AKfycbwAvihdYXdxWWgcwOCOZvBQbsmDA1VLHCwW5wDuQ59QSZmr4QiEa7hym76HjsaZi8sZTA/exec" target="_blank" rel="noopener" class="qa-card qa-orange" style="--i:1;">
                     <span class="lk-item" aria-hidden="true">🏆</span>
-                    <span class="lk-door">
+                    <span class="lk-door lk-in">
                         <span class="lk-vent" aria-hidden="true"></span>
                         <span class="qa-num" aria-hidden="true">05</span>
                         <span class="qa-top">
@@ -9019,6 +9204,25 @@
                 });
             } catch (e) {}
         };
+        // ★ (5 พ.ย.) เปิด/รีเฟรชหน้า: เบราว์เซอร์คืนตำแหน่งเลื่อนเดิมให้เอง — ถ้าค้างไว้แค่นิดเดียว (ยังอยู่ในการ์ดแรก)
+        //   การ์ดแรกจะมุดชิดใต้แถบเมนู (เช่น รีเฟรชตอนเลื่อนลงมา 35px → ช่องว่างใต้แถบเหลือ 5px) → พากลับขึ้นบนสุดแทน
+        //   ได้ช่องว่างใต้แถบเมนูเท่าเดิม + เห็นจังหวะเปิดฉากเต็มๆ / ถ้าเลื่อนลงไปไกลแล้ว (เช่น ดูตารางเรียนอยู่) คงตำแหน่งเดิม
+        //   คนเลื่อน/แตะ/กดปุ่มเองระหว่างโหลด = ไม่ยุ่ง / ลิงก์ที่มี #ปลายทาง = ไม่ยุ่ง
+        (function () {
+            if (location.hash) return;
+            var touched = false;
+            function mark() { touched = true; }
+            ['wheel', 'touchmove', 'keydown', 'pointerdown'].forEach(function (ev) { window.addEventListener(ev, mark, { passive: true, once: true }); });
+            function snap() {
+                if (touched) return;
+                var y = window.pageYOffset || document.documentElement.scrollTop || 0;
+                var hx = document.querySelector('.hx');
+                var lim = hx ? Math.max(120, hx.offsetHeight * 0.5 + 40) : 200;   // ประมาณครึ่งการ์ดแรก
+                if (y > 0 && y < lim) { try { window.scrollTo({ top: 0, behavior: 'instant' }); } catch (e) { window.scrollTo(0, 0); } }
+            }
+            window.addEventListener('load', function () { snap(); setTimeout(snap, 150); setTimeout(snap, 600); });
+            window.addEventListener('pageshow', function (e) { if (e.persisted) snap(); });
+        })();
         window.goSec_ = function (id) {
             var reduce = false;
             try { reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches; } catch (e) {}
@@ -9096,6 +9300,74 @@
     </script>
 
     <script>
+        // ★ (5 พ.ย.) โซน QUIZ "เปิดเครื่อง" ครั้งเดียวตอนเลื่อนมาถึง: ป้ายนีออนกะพริบติด → จอตู้เกมเปิดทีละตู้ (เส้นแสงกลางจอแยกออกบน-ล่าง)
+        //   ไม่มี IntersectionObserver / ตั้งค่าลดการเคลื่อนไหว → ไม่ทำอะไรเลย (จอเปิดอยู่แล้วตั้งแต่แรก)
+        //   เล่นจบแล้วถอดคลาสออก กลับเป็นภาพนิ่งปกติ (สำรองด้วยตัวจับเวลา เผื่อเหตุการณ์จบแอนิเมชันไม่มา)
+        (function () {
+            var hall = document.querySelector('#sec-quiz .qz-hall');
+            if (!hall || !('IntersectionObserver' in window)) return;
+            if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+            var head = hall.querySelector('.qz-head');
+            var els = [head].concat([].slice.call(hall.querySelectorAll('.qz-tile'))).filter(Boolean);
+            function done(el) {
+                if (!el.classList.contains('qz-boot')) return;
+                el.classList.remove('qz-off', 'qz-boot'); el.style.removeProperty('--bd');
+            }
+            function boot(el, ms) {
+                el.style.setProperty('--bd', (ms / 1000) + 's');
+                el.classList.add('qz-boot');
+                var last = el === head ? el.querySelector('.qz-title .n2') : el.querySelector('.qz-crt');
+                if (last) last.addEventListener('animationend', function end(e) {
+                    if (e.target !== last || e.pseudoElement) return;
+                    last.removeEventListener('animationend', end); done(el);
+                });
+                setTimeout(function () { done(el); }, ms + 2600);
+            }
+            els.forEach(function (el) { el.classList.add('qz-off'); });
+            var io = new IntersectionObserver(function (entries) {
+                var on = entries.filter(function (e) { return e.isIntersecting; });
+                on.sort(function (a, b) { return (a.boundingClientRect.top - b.boundingClientRect.top) || (a.boundingClientRect.left - b.boundingClientRect.left); });
+                var n = 0;
+                on.forEach(function (e) {
+                    io.unobserve(e.target);
+                    boot(e.target, e.target === head ? 0 : 150 + 140 * n++);
+                });
+            }, { threshold: 0.35 });
+            els.forEach(function (el) { io.observe(el); });
+        })();
+
+        // ★ (5 พ.ย.) STUDENT HUB ครั้งแรกที่เลื่อนมาถึง: แสงวาบผ่านป้าย → ประตูตู้แง้มทักทายทีละตู้แล้วปิดกลับ (เล่นครั้งเดียว ไม่วน)
+        //   ไม่มี IntersectionObserver / ตั้งค่าลดการเคลื่อนไหว → ไม่ทำอะไร · เล่นจบถอดคลาสออก (ประตูกลับมาเปิดตามเมาส์ได้ตามปกติ)
+        (function () {
+            var hall = document.getElementById('sec-links');
+            if (!hall || !('IntersectionObserver' in window)) return;
+            if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+            var sign = hall.querySelector('.lk-sign');
+            var els = [sign].concat([].slice.call(hall.querySelectorAll('.qa-card'))).filter(Boolean);
+            function play(el, cls, ms, sel) {
+                var tgt = el.querySelector(sel);
+                function done() { el.classList.remove(cls); el.style.removeProperty('--pd'); }
+                el.style.setProperty('--pd', (ms / 1000) + 's');
+                el.classList.add(cls);
+                if (tgt) tgt.addEventListener('animationend', function end(e) {
+                    if (e.target !== tgt || e.pseudoElement) return;
+                    tgt.removeEventListener('animationend', end); done();
+                });
+                setTimeout(done, ms + 2400);
+            }
+            var io = new IntersectionObserver(function (entries) {
+                var on = entries.filter(function (e) { return e.isIntersecting; });
+                on.sort(function (a, b) { return (a.boundingClientRect.top - b.boundingClientRect.top) || (a.boundingClientRect.left - b.boundingClientRect.left); });
+                var n = 0;
+                on.forEach(function (e) {
+                    io.unobserve(e.target);
+                    if (e.target === sign) play(sign, 'lk-shine', 0, '.lk-glint i');
+                    else play(e.target, 'lk-peek', 120 * n++, '.lk-door');
+                });
+            }, { threshold: 0.5 });
+            els.forEach(function (el) { io.observe(el); });
+        })();
+
         // ★ (11 ต.ค.) โหมดเย็นเครื่อง สำหรับ MacBook Intel ที่ร้อนง่าย
         //   แอนิเมชันตกแต่งที่วนไม่รู้จบ (ไฟวิ่ง แสงหมุน ดาวกะพริบ ฯลฯ) ทำให้การ์ดจอต้องวาดภาพใหม่ 60 ครั้งต่อวินาทีตลอดเวลา
         //   1) การ์ดที่อยู่นอกจอ → หยุดแอนิเมชันข้างในการ์ดนั้น (มองไม่เห็นอยู่แล้ว)
