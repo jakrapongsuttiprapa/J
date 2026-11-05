@@ -2979,9 +2979,9 @@
         /* โหมดเย็นเครื่อง: หยุดแอนิเมชัน (ค้างไว้ที่ท่าปัจจุบัน ไม่กระตุกกลับ) — ดูสคริปต์ท้ายไฟล์ */
         /* ไม่หยุดแอนิเมชัน "เด้งเข้า" ครั้งเดียวตอนโหลด (.animate-bounce-up / ปุ่มด่าน) ไม่งั้นการ์ดนอกจอจะค้างโปร่งใส */
         /* (5 พ.ย.) DEADLINE: แถวพลิกเข้า / แสงวาบบนตั๋ว / เครื่องบินบินครั้งเดียว / ตัวเลขนาฬิกาพลิก = เล่นครั้งเดียวจบ จึงไม่หยุดกลางทาง (ไม่งั้นแถวจะค้างตะแคงมองไม่เห็น) */
-        html.calm .oat-main *:not(.animate-bounce-up):not(.st-node):not(.fb-flipin):not(.fb-in):not(.fb-shine):not(.fb-plane):not(.fb-tick), html.calm .oat-main *::before, html.calm .oat-main *::after,
+        html.calm .oat-main *:not(.animate-bounce-up):not(.st-node):not(.fb-flipin):not(.fb-in):not(.fb-shine):not(.fb-plane):not(.fb-tick):not(.hx-in), html.calm .oat-main *::before, html.calm .oat-main *::after,
         html.calm .marquee-lights i,
-        .anim-off *:not(.animate-bounce-up):not(.st-node):not(.fb-flipin):not(.fb-in):not(.fb-shine):not(.fb-plane):not(.fb-tick), .anim-off *::before, .anim-off *::after { animation-play-state: paused !important; }
+        .anim-off *:not(.animate-bounce-up):not(.st-node):not(.fb-flipin):not(.fb-in):not(.fb-shine):not(.fb-plane):not(.fb-tick):not(.hx-in), .anim-off *::before, .anim-off *::after { animation-play-state: paused !important; }
 
 
         /* ==== กล่องเกรดแบบจัดเต็ม (11 ต.ค. ค่ำ) — ลวดลายทั้งหมดเป็นภาพนิ่ง วาดครั้งเดียว ไม่กินเครื่อง ====
@@ -4671,6 +4671,72 @@
         }
         @media (max-width: 360px) { .hx-tag i { width: 17px; height: 17px; font-size: .6rem; } }
 
+        /* =====================================================================
+           ★ (5 พ.ย.) การ์ดแนะนำตัว (HERO) ชุดอลังการ — ครูขอ "สวยกว่านี้" (รูป / ชื่อ / ข้อความเดิมทุกตัว)
+             ตรา = เหรียญทอง: ขอบทองรอบตราวงกลม + วงทองรอบรูป / HELLO = ตัวขาวมุก · HUMAN! = ตัวทองไล่แสง (ขอบดำ 3 มิติเดิม)
+             ริบบิ้นชื่อ: ขอบทอง + ตะเข็บเย็บ / แท็ก: เคลือบเงา / พื้น: ลำแสงสปอตไลต์จากมุมขวาบน + ตัว ENGLISH จางชัดขึ้นนิด
+             เปิดฉาก (เล่นครั้งเดียวตอนโหลดหน้า ~2 วิ แล้วนิ่ง): ตราหมุนเข้า → ป้ายบนตกลงมา → HELLO / HUMAN! เด้งขึ้นทีละคำ → มือโบก
+               → ริบบิ้นชื่อคลี่ออก → แท็กลอยขึ้นทีละอัน → สติกเกอร์ ม.4–6 / I AM OAT! แปะลงมา → แสงวาบกวาดทั้งการ์ด
+             ทุกอย่างขยับแค่ transform / opacity ไม่มี blur / filter / blend · ตั้งลดการเคลื่อนไหว = ขึ้นนิ่งทันที
+           ===================================================================== */
+        .hx-disc { box-shadow: 0 0 0 4px #fbbf24, 0 0 0 7px #000, 9px 9px 0 7px #000; }
+        .hx-frame { box-shadow: 0 0 0 4px #fff, 0 0 0 7px #fbbf24, 0 0 0 10px #000; }
+        .hx-title .t1, .hx-title .t2 { position: relative; }
+        .hx-title .t1::after, .hx-title .t2::after { content: attr(data-text); content: attr(data-text) / ""; position: absolute; left: 0; top: 0; color: transparent; text-shadow: none;
+            pointer-events: none; -webkit-background-clip: text; background-clip: text; }
+        .hx-title .t1::after { background-image: linear-gradient(180deg, #ffffff 0%, #ffffff 50%, #ede9fe 74%, #fbcfe8 100%); }
+        .hx-title .t2::after { background-image: linear-gradient(180deg, #fffbe6 0%, #fde68a 30%, #facc15 56%, #f59e0b 82%, #fde047 100%); }
+        .hx-name-in { box-shadow: inset 0 0 0 2px rgba(251,191,36,.95), inset 0 3px 0 2px rgba(255,255,255,.12), 5px 5px 0 0 #000; }
+        .hx-name-in::after { content: ''; position: absolute; inset: 5px; pointer-events: none; border: 1.5px dashed rgba(253,230,138,.55); border-radius: 4px; }
+        .hx-name .tl, .hx-name .tr { background: linear-gradient(180deg, #4f46e5 0%, #3730a3 100%); }
+        .hx-tag { background-image: linear-gradient(180deg, rgba(255,255,255,.5) 0%, rgba(255,255,255,0) 62%); }
+        .hx-tag.g1 { --r: -1.4deg; } .hx-tag.g2 { --r: .9deg; } .hx-tag.g3 { --r: -.7deg; }
+        .hx-word { color: rgba(255,255,255,.32); -webkit-text-stroke-color: rgba(30,27,75,.16); }
+        /* มุมการ์ด 4 มุม = ลายทองฝังพลอย (ชุดเดียวกับกรอบการ์ดผู้เล่น) + สปอตไลต์นุ่มๆ หลังหัวข้อ */
+        .hx-corners { position: absolute; z-index: 3; inset: 24px; pointer-events: none;
+            background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 60 60'%3E%3Cg %3E%3Cg fill='none' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M4 46V14Q4 4 14 4H46' stroke='%23000' stroke-width='7'/%3E%3Cpath d='M4 46V14Q4 4 14 4H46' stroke='%23fbbf24' stroke-width='3.6'/%3E%3Cpath d='M12 34Q12 12 34 12' stroke='%23000' stroke-width='5'/%3E%3Cpath d='M12 34Q12 12 34 12' stroke='%23fde68a' stroke-width='2.2'/%3E%3Cpath d='M46 4Q54 4 54 10Q54 16 48 15' stroke='%23000' stroke-width='5'/%3E%3Cpath d='M46 4Q54 4 54 10Q54 16 48 15' stroke='%23fbbf24' stroke-width='2.4'/%3E%3Cpath d='M4 46Q4 54 10 54Q16 54 15 48' stroke='%23000' stroke-width='5'/%3E%3Cpath d='M4 46Q4 54 10 54Q16 54 15 48' stroke='%23fbbf24' stroke-width='2.4'/%3E%3C/g%3E%3Ccircle cx='13' cy='13' r='6' fill='%23ec4899' stroke='%23000' stroke-width='2.4'/%3E%3Ccircle cx='11.4' cy='11.4' r='1.8' fill='%23fff' fill-opacity='.85'/%3E%3C/g%3E%3C/svg%3E") 0 0 / 48px 48px no-repeat, url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 60 60'%3E%3Cg transform='translate(60 0) scale(-1 1)'%3E%3Cg fill='none' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M4 46V14Q4 4 14 4H46' stroke='%23000' stroke-width='7'/%3E%3Cpath d='M4 46V14Q4 4 14 4H46' stroke='%23fbbf24' stroke-width='3.6'/%3E%3Cpath d='M12 34Q12 12 34 12' stroke='%23000' stroke-width='5'/%3E%3Cpath d='M12 34Q12 12 34 12' stroke='%23fde68a' stroke-width='2.2'/%3E%3Cpath d='M46 4Q54 4 54 10Q54 16 48 15' stroke='%23000' stroke-width='5'/%3E%3Cpath d='M46 4Q54 4 54 10Q54 16 48 15' stroke='%23fbbf24' stroke-width='2.4'/%3E%3Cpath d='M4 46Q4 54 10 54Q16 54 15 48' stroke='%23000' stroke-width='5'/%3E%3Cpath d='M4 46Q4 54 10 54Q16 54 15 48' stroke='%23fbbf24' stroke-width='2.4'/%3E%3C/g%3E%3Ccircle cx='13' cy='13' r='6' fill='%23ec4899' stroke='%23000' stroke-width='2.4'/%3E%3Ccircle cx='11.4' cy='11.4' r='1.8' fill='%23fff' fill-opacity='.85'/%3E%3C/g%3E%3C/svg%3E") 100% 0 / 48px 48px no-repeat,
+                        url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 60 60'%3E%3Cg transform='translate(0 60) scale(1 -1)'%3E%3Cg fill='none' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M4 46V14Q4 4 14 4H46' stroke='%23000' stroke-width='7'/%3E%3Cpath d='M4 46V14Q4 4 14 4H46' stroke='%23fbbf24' stroke-width='3.6'/%3E%3Cpath d='M12 34Q12 12 34 12' stroke='%23000' stroke-width='5'/%3E%3Cpath d='M12 34Q12 12 34 12' stroke='%23fde68a' stroke-width='2.2'/%3E%3Cpath d='M46 4Q54 4 54 10Q54 16 48 15' stroke='%23000' stroke-width='5'/%3E%3Cpath d='M46 4Q54 4 54 10Q54 16 48 15' stroke='%23fbbf24' stroke-width='2.4'/%3E%3Cpath d='M4 46Q4 54 10 54Q16 54 15 48' stroke='%23000' stroke-width='5'/%3E%3Cpath d='M4 46Q4 54 10 54Q16 54 15 48' stroke='%23fbbf24' stroke-width='2.4'/%3E%3C/g%3E%3Ccircle cx='13' cy='13' r='6' fill='%23ec4899' stroke='%23000' stroke-width='2.4'/%3E%3Ccircle cx='11.4' cy='11.4' r='1.8' fill='%23fff' fill-opacity='.85'/%3E%3C/g%3E%3C/svg%3E") 0 100% / 48px 48px no-repeat, url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 60 60'%3E%3Cg transform='translate(60 60) scale(-1 -1)'%3E%3Cg fill='none' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M4 46V14Q4 4 14 4H46' stroke='%23000' stroke-width='7'/%3E%3Cpath d='M4 46V14Q4 4 14 4H46' stroke='%23fbbf24' stroke-width='3.6'/%3E%3Cpath d='M12 34Q12 12 34 12' stroke='%23000' stroke-width='5'/%3E%3Cpath d='M12 34Q12 12 34 12' stroke='%23fde68a' stroke-width='2.2'/%3E%3Cpath d='M46 4Q54 4 54 10Q54 16 48 15' stroke='%23000' stroke-width='5'/%3E%3Cpath d='M46 4Q54 4 54 10Q54 16 48 15' stroke='%23fbbf24' stroke-width='2.4'/%3E%3Cpath d='M4 46Q4 54 10 54Q16 54 15 48' stroke='%23000' stroke-width='5'/%3E%3Cpath d='M4 46Q4 54 10 54Q16 54 15 48' stroke='%23fbbf24' stroke-width='2.4'/%3E%3C/g%3E%3Ccircle cx='13' cy='13' r='6' fill='%23ec4899' stroke='%23000' stroke-width='2.4'/%3E%3Ccircle cx='11.4' cy='11.4' r='1.8' fill='%23fff' fill-opacity='.85'/%3E%3C/g%3E%3C/svg%3E") 100% 100% / 48px 48px no-repeat; }
+        .hx-logo { box-shadow: 0 0 0 3px #fbbf24, 0 0 0 6px #000, 5px 5px 0 6px #000; }
+        @media (max-width: 767px) {
+            .hx-corners { inset: 15px; background-size: 30px 30px, 30px 30px, 30px 30px, 30px 30px; }
+            .hx-logo { box-shadow: 0 0 0 2.5px #fbbf24, 0 0 0 4.5px #000, 3px 3px 0 4.5px #000; }
+        }
+        .hx-beams { position: absolute; z-index: 1; inset: 0; pointer-events: none;
+            background: radial-gradient(ellipse 34% 46% at 64% 42%, rgba(255,255,255,.55), rgba(255,255,255,0) 72%),
+                        conic-gradient(from 198deg at 100% 0%, rgba(255,255,255,0) 0deg, rgba(255,255,255,.5) 6deg, rgba(255,255,255,0) 13deg, rgba(255,255,255,0) 21deg,
+                rgba(255,255,255,.38) 28deg, rgba(255,255,255,0) 35deg, rgba(255,255,255,0) 43deg, rgba(255,255,255,.3) 49deg, rgba(255,255,255,0) 56deg); }
+        .hx-sheen { position: absolute; z-index: 19; top: -10%; bottom: -10%; left: 0; width: 16%; pointer-events: none; transform: translateX(-180%) skewX(-18deg);
+            background: linear-gradient(100deg, rgba(255,255,255,0) 0%, rgba(255,255,255,.6) 50%, rgba(255,255,255,0) 100%); }
+        @media (max-width: 767px) {
+            .hx-disc { box-shadow: 0 0 0 3px #fbbf24, 0 0 0 5px #000, 6px 6px 0 5px #000; }
+            .hx-frame { box-shadow: 0 0 0 2.5px #fff, 0 0 0 4.5px #fbbf24, 0 0 0 6.5px #000; }
+            .hx-name-in { box-shadow: inset 0 0 0 1.5px rgba(251,191,36,.95), 4px 4px 0 0 #000; }
+            .hx-name-in::after { inset: 3.5px; border-width: 1px; }
+            .hx-sheen { width: 24%; }
+        }
+        /* ---- เปิดฉาก (ครั้งเดียว) — คลาส .hx-in อยู่ในรายการยกเว้นของโหมดเย็นเครื่อง/นอกจอ จึงไม่ค้างกลางทาง ---- */
+        @keyframes hxMedal { 0% { opacity: 0; transform: scale(.45) rotate(-28deg); } 65% { opacity: 1; transform: scale(1.06) rotate(4deg); } 100% { opacity: 1; transform: none; } }
+        @keyframes hxDrop { from { opacity: 0; transform: translateY(-16px) scale(.85); } to { opacity: 1; transform: none; } }
+        @keyframes hxPop { 0% { opacity: 0; transform: scale(.35) translateY(12px); } 62% { opacity: 1; transform: scale(1.1) translateY(-2px); } 100% { opacity: 1; transform: none; } }
+        @keyframes hxSlap { 0% { opacity: 0; transform: scale(2.1) rotate(var(--r0, -40deg)); } 70% { opacity: 1; transform: scale(.94) rotate(var(--r, 0deg)); } 100% { opacity: 1; transform: rotate(var(--r, 0deg)); } }
+        @keyframes hxUnfurl { 0% { opacity: 0; transform: rotate(-1.5deg) scaleX(.08); } 55% { opacity: 1; } 100% { opacity: 1; transform: rotate(-1.5deg) scaleX(1); } }
+        @keyframes hxRise { from { opacity: 0; transform: translateY(18px) rotate(var(--r, 0deg)); } to { opacity: 1; transform: rotate(var(--r, 0deg)); } }
+        @keyframes hxSheen { from { transform: translateX(-180%) skewX(-18deg); } to { transform: translateX(760%) skewX(-18deg); } }
+        @media (prefers-reduced-motion: no-preference) {
+            .hx-disc.hx-in, .hx-frame.hx-in, .hx-orbit.hx-in { animation: hxMedal .8s cubic-bezier(.2,.9,.3,1.1) .3s backwards; }
+            .hx-top > .hx-in { animation: hxDrop .45s cubic-bezier(.3,1.3,.5,1) backwards; }
+            .hx-top > .hx-logo { animation-delay: .35s; } .hx-top > .welcome-pill { animation-delay: .45s; } .hx-top > .live-badge { animation-delay: .55s; }
+            .hx-title .t1.hx-in { animation: hxPop .55s cubic-bezier(.3,1.3,.5,1) .55s backwards; }
+            .hx-title .t2.hx-in { animation: hxPop .55s cubic-bezier(.3,1.3,.5,1) .72s backwards; }
+            .hx-title .wave-hand { animation: hxPop .5s cubic-bezier(.3,1.3,.5,1) .9s backwards, waveHand 2.8s ease-in-out 1.45s infinite; }
+            .hx-name.hx-in { transform-origin: 0 50%; animation: hxUnfurl .6s cubic-bezier(.25,.9,.3,1.05) 1s backwards; }
+            .hx-tag.hx-in { animation: hxRise .45s cubic-bezier(.3,1.3,.5,1) backwards; }
+            .hx-tag.g1.hx-in { animation-delay: 1.2s; } .hx-tag.g2.hx-in { animation-delay: 1.3s; } .hx-tag.g3.hx-in { animation-delay: 1.4s; }
+            .hx-star.hx-in { --r0: -60deg; --r: -12deg; animation: hxSlap .5s cubic-bezier(.3,1.4,.5,1) 1.2s backwards; }
+            .hx-oat.hx-in { --r0: 24deg; --r: -9deg; animation: hxSlap .5s cubic-bezier(.3,1.4,.5,1) 1.35s backwards; }
+            .hx-sheen.hx-in { animation: hxSheen 1.4s cubic-bezier(.4,.1,.3,1) 1.75s 1 backwards; }
+        }
+
         /* ---- (21 ต.ค.) แถบเครดิตท้ายเว็บ = โต๊ะครูหน้ากระดานดำ (ภาพนิ่งทั้งหมด) ---- */
         .ft-bar { position: relative; margin-top: 20px; display: flex; flex-direction: column; align-items: center; gap: 18px; padding: 24px 16px 34px; text-align: center;
             background: repeating-linear-gradient(176deg, rgba(0,0,0,.09) 0 2px, rgba(0,0,0,0) 2px 11px, rgba(255,255,255,.07) 11px 13px, rgba(0,0,0,0) 13px 24px),
@@ -5107,6 +5173,9 @@
             <i class="hx-dots d2" aria-hidden="true"></i>
             <span class="hx-word" aria-hidden="true">ENGLISH</span>
             <i class="hx-confetti" aria-hidden="true"></i>
+            <i class="hx-beams" aria-hidden="true"></i>
+            <i class="hx-corners" aria-hidden="true"></i>
+            <i class="hx-sheen hx-in" aria-hidden="true"></i>
             <span class="hero-spark" style="top:16%;left:44%;animation-delay:0s;"></span>
             <span class="hero-spark" style="top:12%;left:93%;animation-delay:.8s;"></span>
             <span class="hero-spark" style="top:84%;left:40%;animation-delay:1.6s;"></span>
@@ -5114,33 +5183,33 @@
             <div class="hx-grid">
                 <div class="hx-photo">
                     <i class="hx-burst" aria-hidden="true"></i>
-                    <div class="hx-disc" aria-hidden="true">
+                    <div class="hx-disc hx-in" aria-hidden="true">
                         <div class="hx-ring"><svg viewBox="0 0 200 200" focusable="false">
                             <defs><path id="hxRingPath" d="M 16,100 a 84,84 0 1,1 168,0 a 84,84 0 1,1 -168,0"/></defs>
                             <circle cx="100" cy="100" r="96" class="hx-ring-dash"/>
                             <text><textPath href="#hxRingPath" textLength="522" lengthAdjust="spacing">★ ENGLISH TEACHER ★ GSB SCHOOL ★ I AM OAT</textPath></text>
                         </svg></div>
                     </div>
-                    <i class="hx-orbit" aria-hidden="true"></i>
-                    <div class="hx-frame">
+                    <i class="hx-orbit hx-in" aria-hidden="true"></i>
+                    <div class="hx-frame hx-in">
                         <img src="https://i.postimg.cc/pVj2q08J/Chat-GPT-Image-May-23-2026-at-09-32-41-PM.png" data-img-slot="photo" onerror="if(!window.hubImgErr_||!hubImgErr_(this)){this.onerror=null;this.src='data:image/svg+xml,%3Csvg%20xmlns=%27http://www.w3.org/2000/svg%27%20width=%27400%27%20height=%27400%27%20viewBox=%270%200%20400%20400%27%3E%3Cdefs%3E%3ClinearGradient%20id=%27g%27%20x1=%270%27%20y1=%270%27%20x2=%271%27%20y2=%271%27%3E%3Cstop%20offset=%270%27%20stop-color=%27%234338ca%27/%3E%3Cstop%20offset=%271%27%20stop-color=%27%231e1b4b%27/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect%20width=%27400%27%20height=%27400%27%20fill=%27url%28%23g%29%27/%3E%3Cg%20fill=%27none%27%20stroke=%27%23ffffff%27%20stroke-opacity=%27.12%27%20stroke-width=%2718%27%3E%3Ccircle%20cx=%27200%27%20cy=%27200%27%20r=%27120%27/%3E%3Ccircle%20cx=%27200%27%20cy=%27200%27%20r=%27170%27/%3E%3C/g%3E%3Ctext%20x=%27200%27%20y=%27228%27%20font-family=%27Arial%20Black,Arial,Helvetica,sans-serif%27%20font-weight=%27900%27%20font-size=%27118%27%20text-anchor=%27middle%27%20fill=%27%23fde047%27%20stroke=%27%23000%27%20stroke-width=%2710%27%20paint-order=%27stroke%27%3EOAT%3C/text%3E%3Ctext%20x=%27200%27%20y=%27290%27%20font-family=%27Arial,Helvetica,sans-serif%27%20font-weight=%27700%27%20font-size=%2726%27%20letter-spacing=%275%27%20text-anchor=%27middle%27%20fill=%27%23ffffff%27%3EENGLISH%20TEACHER%3C/text%3E%3C/svg%3E'}" alt="ครูจักรพงษ์ สุทธิประภา (ครูโอ๊ต)" decoding="async" fetchpriority="high" oncontextmenu="return false;" draggable="false">
                         <i class="hx-shield" aria-hidden="true"></i>
                     </div>
-                    <span class="hx-star" aria-hidden="true"><b>ม.4–6</b></span>
-                    <span class="hx-oat">I AM OAT! 🇬🇧 🇹🇭</span>
+                    <span class="hx-star hx-in" aria-hidden="true"><b>ม.4–6</b></span>
+                    <span class="hx-oat hx-in">I AM OAT! 🇬🇧 🇹🇭</span>
                 </div>
                 <div class="hx-text">
                     <div class="hx-top">
-                        <span class="hx-logo"><img src="https://i.postimg.cc/ydtX6mMS/logo.png" alt="ตราโรงเรียนธนาคารออมสิน" decoding="async" data-img-slot="logo" onerror="if(!window.hubImgErr_||!hubImgErr_(this)){this.onerror=null;this.src='data:image/svg+xml,%3Csvg%20xmlns=%27http://www.w3.org/2000/svg%27%20width=%27120%27%20height=%27120%27%20viewBox=%270%200%20120%20120%27%3E%3Ccircle%20cx=%2760%27%20cy=%2760%27%20r=%2760%27%20fill=%27%23ffffff%27/%3E%3Ctext%20x=%2760%27%20y=%2764%27%20font-size=%2764%27%20text-anchor=%27middle%27%20dominant-baseline=%27middle%27%3E%F0%9F%8F%AB%3C/text%3E%3C/svg%3E'}"></span>
-                        <span class="welcome-pill">WELCOME 🏀</span>
-                        <span class="live-badge"><i class="live-dot"></i>ONLINE NOW</span>
+                        <span class="hx-logo hx-in"><img src="https://i.postimg.cc/ydtX6mMS/logo.png" alt="ตราโรงเรียนธนาคารออมสิน" decoding="async" data-img-slot="logo" onerror="if(!window.hubImgErr_||!hubImgErr_(this)){this.onerror=null;this.src='data:image/svg+xml,%3Csvg%20xmlns=%27http://www.w3.org/2000/svg%27%20width=%27120%27%20height=%27120%27%20viewBox=%270%200%20120%20120%27%3E%3Ccircle%20cx=%2760%27%20cy=%2760%27%20r=%2760%27%20fill=%27%23ffffff%27/%3E%3Ctext%20x=%2760%27%20y=%2764%27%20font-size=%2764%27%20text-anchor=%27middle%27%20dominant-baseline=%27middle%27%3E%F0%9F%8F%AB%3C/text%3E%3C/svg%3E'}"></span>
+                        <span class="welcome-pill hx-in">WELCOME 🏀</span>
+                        <span class="live-badge hx-in"><i class="live-dot"></i>ONLINE NOW</span>
                     </div>
-                    <h1 class="hx-title"><span class="t1">HELLO</span> <span class="t2">HUMAN!</span><span class="wave-hand" aria-hidden="true">👋</span></h1>
-                    <div class="hx-name"><i class="tl" aria-hidden="true"></i><i class="tr" aria-hidden="true"></i><span class="hx-name-in">T.JAKRAPONG SUTTIPRAPA <span class="hx-flag" aria-hidden="true">🇬🇧</span></span></div>
+                    <h1 class="hx-title"><span class="t1 hx-in" data-text="HELLO">HELLO</span> <span class="t2 hx-in" data-text="HUMAN!">HUMAN!</span><span class="wave-hand" aria-hidden="true">👋</span></h1>
+                    <div class="hx-name hx-in"><i class="tl" aria-hidden="true"></i><i class="tr" aria-hidden="true"></i><span class="hx-name-in">T.JAKRAPONG SUTTIPRAPA <span class="hx-flag" aria-hidden="true">🇬🇧</span></span></div>
                     <div class="hx-tags">
-                        <span class="hx-tag g1"><i aria-hidden="true">📡</i>ภาษาต่างประเทศ</span>
-                        <span class="hx-tag g2"><i aria-hidden="true">🏫</i>ร.ร. ธนาคารออมสิน</span>
-                        <span class="hx-tag g3"><i aria-hidden="true">💻</i>หัวหน้าวิชาการมัธยมปลาย</span>
+                        <span class="hx-tag g1 hx-in"><i aria-hidden="true">📡</i>ภาษาต่างประเทศ</span>
+                        <span class="hx-tag g2 hx-in"><i aria-hidden="true">🏫</i>ร.ร. ธนาคารออมสิน</span>
+                        <span class="hx-tag g3 hx-in"><i aria-hidden="true">💻</i>หัวหน้าวิชาการมัธยมปลาย</span>
                     </div>
                 </div>
             </div>
