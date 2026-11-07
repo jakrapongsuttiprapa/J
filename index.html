@@ -5293,6 +5293,111 @@
         @media (min-width: 768px) and (max-width: 1023px) { .lk-crown { top: -34px; width: 64px; height: 46px; margin-left: -32px; } }
         @media (min-width: 1024px) { .lk-hall .hb-head { padding-top: 68px; } }
 
+        /* ==========================================================================
+           ★ (7 พ.ย.) เมนูครู 🛠️ = "PRO TOOLBOX" — ครูบอกว่าจืด อยากให้อลังการ สวย น่าใช้ (ปุ่ม 5 อัน/คำสั่ง/ข้อความเดิมทั้งหมด)
+             ฝา = สีแดงเคลือบเงาแบบสีรถ (แสงสะท้อน + เส้นทองคู่ + คิ้วโครเมียมขอบล่าง) + ประกายดาว — ชุดเดียวกับแผง TEACHER TOOLS บนจอคอม
+             หูหิ้ว (มีขายึด) / ตัวล็อก (มีรูกุญแจ) = โครเมียม · ป้ายชื่อ = แผ่นดำเงา ขอบโครเมียม น็อต 4 มุม ตัวอักษรโครเมียมนูน (อีโมจิแยกไว้)
+             ภายในกล่อง = แผ่นเหล็กลายตาข้าวสีกันเมทัล + รางไฟ LED ฟ้าใต้ฝา + ขอบทองด้านใน
+             ลิ้นชัก = สีเคลือบเงา ขอบโครเมียม แสงเรืองสีลิ้นชัก · เหรียญไอคอนขอบโครเมียม · ป้ายชื่อขอบเงิน + ไฟสถานะเขียว · ปุ่มลูกศรเหรียญทอง · มือจับโครเมียม
+             เปิดเมนู (ครั้งเดียว): แสงวาบผ่านป้ายชื่อ + ลิ้นชักเลื่อนออกมาทีละอัน — transform/opacity ล้วน · ตั้ง "ลดการเคลื่อนไหว" = นิ่ง
+             หน้าต่างฝั่งครูอื่นๆ (.tp-pop: Upload / Override / จัดการ Quiz-Deadline / ฟอร์ม / ภาพรวม) ใช้ฝา/ฮาร์ดแวร์/ป้ายชุดเดียวกัน
+           ========================================================================== */
+        /* ---- ฝากล่อง (เมนูครู + หน้าต่างฝั่งครู) ---- */
+        .swal2-container .mn-tch .swal2-title, .swal2-container .tp-pop .swal2-title {
+            box-shadow: inset 0 -6px 0 #cbd5e1, inset 0 -8px 0 #f8fafc, inset 0 -10px 0 rgba(0,0,0,.4);
+            background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20'%3E%3Cpath d='M10 1C11.1 7.6 12.4 8.9 19 10C12.4 11.1 11.1 12.4 10 19C8.9 12.4 7.6 11.1 1 10C7.6 8.9 8.9 7.6 10 1Z' fill='%23fff' stroke='%23000' stroke-width='1.4' stroke-linejoin='round'/%3E%3C/svg%3E") 9% 30% / 17px 17px no-repeat, url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20'%3E%3Cpath d='M10 1C11.1 7.6 12.4 8.9 19 10C12.4 11.1 11.1 12.4 10 19C8.9 12.4 7.6 11.1 1 10C7.6 8.9 8.9 7.6 10 1Z' fill='%23fde047' stroke='%23000' stroke-width='1.4' stroke-linejoin='round'/%3E%3C/svg%3E") 17% 68% / 11px 11px no-repeat,
+                        url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20'%3E%3Cpath d='M10 1C11.1 7.6 12.4 8.9 19 10C12.4 11.1 11.1 12.4 10 19C8.9 12.4 7.6 11.1 1 10C7.6 8.9 8.9 7.6 10 1Z' fill='%23fde047' stroke='%23000' stroke-width='1.4' stroke-linejoin='round'/%3E%3C/svg%3E") 87% 74% / 15px 15px no-repeat, url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20'%3E%3Cpath d='M10 1C11.1 7.6 12.4 8.9 19 10C12.4 11.1 11.1 12.4 10 19C8.9 12.4 7.6 11.1 1 10C7.6 8.9 8.9 7.6 10 1Z' fill='%23fff' stroke='%23000' stroke-width='1.4' stroke-linejoin='round'/%3E%3C/svg%3E") 94% 52% / 9px 9px no-repeat,
+                        linear-gradient(180deg, rgba(255,255,255,.6) 0 3px, rgba(255,255,255,.2) 3px 7px, rgba(255,255,255,0) 8px),
+                        radial-gradient(ellipse 62% 75% at 50% -22%, rgba(255,255,255,.4), rgba(255,255,255,0) 70%),
+                        linear-gradient(103deg, rgba(255,255,255,0) 0 14%, rgba(255,255,255,.17) 14.5% 18%, rgba(255,255,255,0) 18.5% 20%, rgba(255,255,255,.11) 20.5% 21.5%, rgba(255,255,255,0) 22%),
+                        linear-gradient(180deg, rgba(0,0,0,0) calc(100% - 17px), #fcd34d calc(100% - 17px) calc(100% - 15px), rgba(0,0,0,0) calc(100% - 15px) calc(100% - 13px), #fcd34d calc(100% - 13px) calc(100% - 12px), rgba(0,0,0,0) calc(100% - 12px)),
+                        repeating-linear-gradient(90deg, rgba(255,255,255,.035) 0 2px, rgba(255,255,255,0) 2px 6px),
+                        linear-gradient(180deg, #ff505a 0%, #ef4444 20%, #e3172c 40%, #b10f20 74%, #6e0912 100%) !important; }
+        /* หูหิ้วโครเมียม + ขายึด */
+        .mn-tch .tb-handle, .tp-pop .tb-handle { top: 10px; height: 19px; box-shadow: 0 4px 0 0 rgba(0,0,0,.45);
+            background: repeating-linear-gradient(90deg, rgba(0,0,0,.12) 0 2px, rgba(0,0,0,0) 2px 9px), linear-gradient(180deg, #ffffff 0%, #cbd5e1 34%, #64748b 54%, #e2e8f0 74%, #94a3b8 100%); }
+        .mn-tch .tb-handle::before, .mn-tch .tb-handle::after, .tp-pop .tb-handle::before, .tp-pop .tb-handle::after { content: ''; position: absolute; top: calc(100% - 1px); width: 14px; height: 10px;
+            border: 3px solid #000; border-top: 0; border-radius: 0 0 4px 4px; background: linear-gradient(90deg, #94a3b8, #f8fafc 45%, #64748b); }
+        .mn-tch .tb-handle::before, .tp-pop .tb-handle::before { left: 12px; } .mn-tch .tb-handle::after, .tp-pop .tb-handle::after { right: 12px; }
+        /* ตัวล็อกโครเมียมมีรูกุญแจ */
+        .mn-tch .tb-latch, .tp-pop .tb-latch { width: 40px; height: 26px; bottom: -7px; border-radius: 7px 7px 4px 4px; box-shadow: 2px 3px 0 0 rgba(0,0,0,.45);
+            background: radial-gradient(circle at 50% 42%, #111827 0 3px, rgba(0,0,0,0) 3.5px), linear-gradient(#111827, #111827) 50% 66% / 2px 6px no-repeat,
+                        linear-gradient(180deg, #ffffff 0%, #cbd5e1 40%, #64748b 62%, #e2e8f0 100%); }
+        /* ป้ายชื่อแผ่นดำเงา ขอบโครเมียม + น็อต 4 มุม */
+        .mn-tch .tb-plate, .tp-pop .tb-plate { border-radius: 12px;
+            background: radial-gradient(circle at 10px 10px, #f8fafc 0 2.2px, #475569 2.7px 3.4px, rgba(0,0,0,0) 3.8px), radial-gradient(circle at calc(100% - 10px) 10px, #f8fafc 0 2.2px, #475569 2.7px 3.4px, rgba(0,0,0,0) 3.8px),
+                        radial-gradient(circle at 10px calc(100% - 10px), #f8fafc 0 2.2px, #475569 2.7px 3.4px, rgba(0,0,0,0) 3.8px), radial-gradient(circle at calc(100% - 10px) calc(100% - 10px), #f8fafc 0 2.2px, #475569 2.7px 3.4px, rgba(0,0,0,0) 3.8px),
+                        radial-gradient(ellipse 85% 65% at 50% -8%, rgba(255,255,255,.26), rgba(255,255,255,0) 70%),
+                        linear-gradient(180deg, #273244 0%, #0f172a 58%, #020617 100%);
+            box-shadow: inset 0 0 0 3px #e5e7eb, inset 0 0 0 5px #6b7280, inset 0 0 0 6px #000, 4px 4px 0 0 #000, 0 0 30px rgba(255,255,255,.26); }
+        .mn-tch .tb-plate { padding: 11px 30px 12px; }
+        .tp-pop .tb-plate { padding: 10px 26px 11px; }
+        .tp-pop .tp-ttl { color: #f8fafc; text-shadow: 0 2px 0 #000, 0 0 12px rgba(255,255,255,.25); }
+        /* ชื่อเมนู: อีโมจิ + ตัวอักษรโครเมียมนูน (ตัวจริง = เนื้อนูนสีเทาเข้ม / ::after = หน้าเงินไล่สี วางทับตำแหน่งเดียวกัน) */
+        .mn-tch .tb-ttl { display: flex; align-items: center; justify-content: center; gap: 9px; color: #f8fafc; text-shadow: none; }
+        .mn-tch .tb-emo { font-style: normal; font-size: .9em; line-height: 1; }
+        .mn-tch .tb-name { position: relative; font-weight: 900; color: #64748b; text-shadow: 0 1px 0 #64748b, 0 2px 0 #475569, 0 3px 0 #334155, 0 4px 0 #000, 3px 6px 0 rgba(0,0,0,.5); }
+        .mn-tch .tb-name::after { content: attr(data-text); content: attr(data-text) / ""; position: absolute; left: 0; right: 0; top: 0; color: transparent; text-shadow: none; -webkit-text-stroke: .8px #000;
+            background: linear-gradient(180deg, #ffffff 0%, #f1f5f9 30%, #94a3b8 52%, #e2e8f0 68%, #ffffff 86%, #cbd5e1 100%); -webkit-background-clip: text; background-clip: text; }
+        /* แสงวาบผ่านป้าย (เล่นครั้งเดียวตอนเปิด) */
+        .tb-glint { position: absolute; inset: 0; border-radius: inherit; overflow: hidden; pointer-events: none; }
+        .tb-glint i { position: absolute; top: -20%; bottom: -20%; left: 0; width: 22%; opacity: 0;
+            background: linear-gradient(100deg, rgba(255,255,255,0) 0%, rgba(255,255,255,.55) 50%, rgba(255,255,255,0) 100%); }
+        .mn-tch .tb-tag, .tp-pop .tb-tag { box-shadow: 3px 3px 0 0 #000, 0 0 16px rgba(253,224,71,.45); }
+        .mn-tch .tb-tag { margin-top: 14px; }
+        /* ปุ่มปิด = ปุ่มโครเมียม */
+        .swal2-container .mn-tch .swal2-close, .swal2-container .tp-pop .swal2-close { background: radial-gradient(circle at 35% 28%, #ffffff 0 32%, #e2e8f0 56%, #94a3b8 100%); color: #0f172a; }
+        .swal2-container .mn-tch .swal2-close:hover, .swal2-container .tp-pop .swal2-close:hover { background: #fde047; color: #000; }
+
+        /* ---- ภายในกล่อง (เมนูครู): แผ่นเหล็กลายตาข้าวสีกันเมทัล + รางไฟ LED + ขอบทอง ---- */
+        .swal2-container .swal2-popup.mn-tch { padding-bottom: 22px !important; box-shadow: 12px 12px 0 0 #000, 0 0 64px rgba(239,68,68,.38);
+            background: radial-gradient(ellipse 85% 260px at 50% 150px, rgba(34,211,238,.16), rgba(34,211,238,0) 70%),
+                        linear-gradient(45deg, rgba(255,255,255,0) 42%, rgba(255,255,255,.16) 42% 50%, rgba(0,0,0,.22) 50% 58%, rgba(255,255,255,0) 58%) 0 0 / 16px 16px,
+                        linear-gradient(-45deg, rgba(255,255,255,0) 42%, rgba(255,255,255,.16) 42% 50%, rgba(0,0,0,.22) 50% 58%, rgba(255,255,255,0) 58%) 8px 8px / 16px 16px,
+                        linear-gradient(180deg, #4b5563 0%, #374151 42%, #1f2937 100%) !important; }
+        .swal2-container .mn-tch .swal2-html-container { position: relative; z-index: 1; margin-top: 24px !important; }
+        .swal2-container .mn-tch .swal2-html-container::before { content: ''; position: absolute; z-index: -1; left: 7px; right: 7px; top: -12px; bottom: -13px; pointer-events: none;
+            border: 2px solid rgba(251,191,36,.75); border-radius: 14px 14px 26px 26px; box-shadow: 0 0 0 1.5px rgba(0,0,0,.5), inset 0 0 0 1.5px rgba(0,0,0,.5); }
+        .mn-tch .mn-grid { position: relative; gap: 12px; }
+        .mn-tch .mn-grid::before { content: ''; position: absolute; left: 4px; right: 6px; top: -15px; height: 9px; border: 2px solid #000; border-radius: 999px; pointer-events: none;
+            background: linear-gradient(180deg, #0b1220 0 2px, #22d3ee 2px 3px, #ecfeff 3px 4px, #22d3ee 4px 5px, #0b1220 5px);
+            box-shadow: 0 0 8px #22d3ee, 0 0 20px rgba(34,211,238,.7), 0 0 36px rgba(34,211,238,.35); }
+
+        /* ---- ลิ้นชัก ---- */
+        .mn-tch .mn-tile, .mn-tch .mn-wide {
+            box-shadow: 5px 5px 0 0 #000, 0 0 20px rgba(var(--gg, 255,255,255), .45), inset 0 0 0 2px rgba(255,255,255,.5), inset 0 0 0 4px rgba(0,0,0,.15);
+            background: linear-gradient(112deg, rgba(255,255,255,.42) 0 7%, rgba(255,255,255,.12) 7.5% 12%, rgba(255,255,255,0) 12.5%),
+                        linear-gradient(180deg, rgba(255,255,255,.4) 0 3px, rgba(255,255,255,.14) 3px 44%, rgba(255,255,255,0) 45%),
+                        linear-gradient(180deg, var(--g1) 0%, var(--g2) 100%); }
+        @media (hover: hover) { .mn-tch .mn-tile:hover { transform: translateX(6px); box-shadow: 5px 5px 0 0 #000, 0 0 30px rgba(var(--gg, 255,255,255), .7), inset 0 0 0 2px rgba(255,255,255,.5), inset 0 0 0 4px rgba(0,0,0,.15); } }
+        .mn-tch .mn-tile:active { transform: translate(4px,4px); box-shadow: 0 0 0 0 #000, 0 0 14px rgba(var(--gg, 255,255,255), .5), inset 0 0 0 2px rgba(255,255,255,.5); }
+        .mn-tch .mn-ico { background: radial-gradient(circle at 35% 28%, #fff 0 45%, #eef2f7 72%, #d6dde8 100%); box-shadow: 0 0 0 3px #e5e7eb, 0 0 0 5px #000, 4px 5px 0 4px rgba(0,0,0,.8); }
+        .mn-tch .mn-txt, .mn-tch .mn-wide .mn-txt { position: relative; box-shadow: 0 0 0 3px #cbd5e1, 0 0 0 4.5px #000, inset 0 2px 0 rgba(255,255,255,.9), inset 0 -3px 0 rgba(15,23,42,.06); }
+        .mn-tch .mn-txt::after { content: ''; position: absolute; top: 7px; right: 8px; width: 8px; height: 8px; border-radius: 50%; border: 1.5px solid #000; pointer-events: none;
+            background: radial-gradient(circle at 35% 30%, #f0fdf4 0 25%, #4ade80 55%, #15803d 100%); box-shadow: 0 0 7px rgba(74,222,128,.95); }
+        .mn-tch .mn-arrow { border: 2.5px solid #000; background: radial-gradient(circle at 35% 30%, #fffbe0 0 18%, #fde047 46%, #f59e0b 100%);
+            box-shadow: 2px 2px 0 0 #000, 0 0 12px rgba(253,224,71,.65); }
+        .mn-tch .mn-arrow::after { border-left-color: #0f172a; }
+        .mn-tch .tb-pull { height: 11px; background: linear-gradient(180deg, #ffffff 0%, #e2e8f0 35%, #64748b 62%, #cbd5e1 100%); box-shadow: 0 2px 0 rgba(0,0,0,.4); }
+        /* เปิดเมนู: ลิ้นชักเลื่อนออกมาทีละอัน + แสงวาบผ่านป้ายชื่อ (ครั้งเดียว) */
+        @media (prefers-reduced-motion: no-preference) {
+            .mn-tch .mn-tile { animation: tbDrawer .5s cubic-bezier(.22,1.25,.36,1) backwards; animation-delay: calc(var(--i) * 55ms + .1s); }
+            .mn-tch .tb-glint i { animation: tbGlint 1.1s cubic-bezier(.4,0,.2,1) .3s 1 backwards; }
+        }
+        @keyframes tbDrawer { from { opacity: 0; transform: translateX(-34px); } 55% { opacity: 1; } }
+        @keyframes tbGlint { from { opacity: 1; transform: translateX(-130%) skewX(-18deg); } to { opacity: 1; transform: translateX(560%) skewX(-18deg); } }
+        @media (max-width: 360px) { .mn-tch .tb-plate { padding: 9px 20px 10px; } .mn-tch .tb-ttl { gap: 7px; } .mn-tch .mn-txt::after { top: 5px; right: 6px; width: 7px; height: 7px; } }
+        /* จอเตี้ย (iPhone SE / มือถือแนวนอน): บีบให้เมนูครูพอดีจอเหมือนเดิม */
+        @media (max-height: 740px) {
+            .swal2-container .swal2-popup.mn-tch { padding-bottom: 12px !important; }
+            .swal2-container .mn-tch .swal2-html-container { margin-top: 15px !important; }
+            .swal2-container .mn-tch .swal2-html-container::before { top: -7px; bottom: -7px; }
+            .mn-tch .mn-grid { gap: 8px; } .mn-tch .mn-grid::before { top: -11px; height: 8px; }
+            .mn-tch .tb-plate { padding: 8px 24px 9px; } .mn-tch .tb-tag { margin-top: 8px; }
+            .mn-tch .tb-handle::before, .mn-tch .tb-handle::after { height: 6px; }
+        }
+        @media (max-height: 740px) and (max-width: 360px) { .mn-tch .tb-plate { padding: 7px 16px 8px; } }
+
 </style>
     <!-- ★ Tailwind CSS สำเร็จรูป (3.4.19) แทนตัวคอมไพล์สดแบบ CDN: ไม่ต้องคอมไพล์ในเบราว์เซอร์ทุกครั้งที่เปิดเว็บ/เปิดป๊อปอัป
          และไม่พึ่งเซิร์ฟเวอร์ภายนอก (เดิมถ้า cdn.tailwindcss.com ล่ม ทั้งหน้าจะไม่มีสไตล์)
@@ -6682,7 +6787,7 @@
             if (theme === 'stu' && !o.wide) body = '<span class="gc-grip" aria-hidden="true"></span><span class="gc-label">' + body + '</span><span class="gc-pins" aria-hidden="true"></span>';
             if (theme === 'tch') body += '<span class="tb-pull" aria-hidden="true"></span>';
             return '<button type="button" onclick="if(typeof Swal!==\'undefined\') Swal.close(); ' + o.act + '" class="mn-tile' + (o.wide ? ' mn-wide' : '') +
-                '" style="--g1:' + o.g1 + ';--g2:' + o.g2 + ';--i:' + i + ';">' +
+                '" style="--g1:' + o.g1 + ';--g2:' + o.g2 + ';--i:' + i + ';' + (o.gg ? '--gg:' + o.gg + ';' : '') + '">' +
                 (theme ? '' : '<span class="mn-ghost" aria-hidden="true">' + o.ico + '</span>') + body +
                 (o.wide || theme === 'tch' ? '<span class="mn-arrow" aria-hidden="true"></span>' : '') + '</button>';
         }
@@ -6693,8 +6798,11 @@
                     '<span class="gc-top" aria-hidden="true"><span>PLAYER 1</span><span class="gc-bat"><i></i><i></i><i></i></span></span>' +
                     '<span class="gc-ttl">' + title + '</span><span class="gc-sel"><i aria-hidden="true">▶</i>' + kicker + '</span></span>';
             } else if (theme === 'tch') {
+                // (7 พ.ย.) แยกอีโมจิออกจากชื่อ ให้ตัวอักษรเป็นโครเมียมนูนได้ (ระบายสีเงินทับอีโมจิไม่ได้) + แสงวาบผ่านป้าย
+                var tm = /^(\S+)\s+(.+)$/.exec(title) || [title, '', title];
                 head = '<span class="tb-handle" aria-hidden="true"></span><span class="tb-latch l" aria-hidden="true"></span><span class="tb-latch r" aria-hidden="true"></span>' +
-                    '<span class="tb-plate"><span class="tb-ttl">' + title + '</span></span><span class="tb-tag">' + kicker + '</span>';
+                    '<span class="tb-plate"><span class="tb-ttl">' + (tm[1] ? '<i class="tb-emo">' + tm[1] + '</i> ' : '') + '<b class="tb-name" data-text="' + tm[2] + '">' + tm[2] + '</b></span>' +
+                    '<i class="tb-glint" aria-hidden="true"><i></i></i></span><span class="tb-tag">' + kicker + '</span>';
             } else {
                 html = '<p class="mn-kicker">' + kicker + '</p>';
             }
@@ -6723,11 +6831,11 @@
         // (ฝั่งนักเรียนมีเมนู ☰ แยกต่างหากอยู่ข้างๆ กันคนละหมวดชัดเจน)
         window.openAdminMenu = function() {
             openMenu_('🛠️ เมนูครู', '👨‍🏫 ปุ่มจัดการต้องใช้รหัสครู 🔒', [
-                { ico: '📤', label: 'Upload', sub: 'ส่งงาน · ไม่ต้องใส่รหัส', g1: '#60a5fa', g2: '#4338ca', act: 'openUploadPopup();' },
-                { ico: '🤖', label: 'Override', sub: 'จัดการคะแนน', g1: '#64748b', g2: '#0f172a', act: 'checkAdminScores();' },
-                { ico: '🎲', label: 'Quiz', sub: 'จัดการเกมควิซ', g1: '#fb923c', g2: '#9a3412', act: 'openQuizAdmin();' },
-                { ico: '📅', label: 'Deadline', sub: 'กำหนดส่งงาน', g1: '#fbbf24', g2: '#92400e', act: 'openDeadlineAdmin();' },
-                { ico: '📊', label: 'Dashboard', sub: 'ภาพรวมทุกห้อง', g1: '#34d399', g2: '#065f46', act: 'openDashboard();', wide: true }
+                { ico: '📤', label: 'Upload', sub: 'ส่งงาน · ไม่ต้องใส่รหัส', g1: '#60a5fa', g2: '#4338ca', gg: '96,165,250', act: 'openUploadPopup();' },
+                { ico: '🤖', label: 'Override', sub: 'จัดการคะแนน', g1: '#64748b', g2: '#0f172a', gg: '148,163,184', act: 'checkAdminScores();' },
+                { ico: '🎲', label: 'Quiz', sub: 'จัดการเกมควิซ', g1: '#fb923c', g2: '#9a3412', gg: '251,146,60', act: 'openQuizAdmin();' },
+                { ico: '📅', label: 'Deadline', sub: 'กำหนดส่งงาน', g1: '#fbbf24', g2: '#92400e', gg: '251,191,36', act: 'openDeadlineAdmin();' },
+                { ico: '📊', label: 'Dashboard', sub: 'ภาพรวมทุกห้อง', g1: '#34d399', g2: '#065f46', gg: '52,211,153', act: 'openDashboard();', wide: true }
             ], 'tch');
         };
 
