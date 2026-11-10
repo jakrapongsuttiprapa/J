@@ -3173,160 +3173,218 @@
         /* ลดการเคลื่อนไหว: ตัวหนังสือบนริบบิ้นหยุดนิ่ง */
         @media (prefers-reduced-motion: reduce) { .tk-track { animation: none; } .btt, .btt.show { transition: none; } }
         /* =====================================================================
-           ★ (13 ต.ค.) HERO แบบใหม่ "SHOWTIME POSTER" — โปสเตอร์ป๊อปอาร์ต
-             พื้น: ไล่สีพาสเทล ชมพู→พีช→ม่วงลาเวนเดอร์ + ลายจุดฮาล์ฟโทนมุมการ์ด + คำว่า ENGLISH ตัวโปร่งขนาดยักษ์ + คอนเฟตตี
-             รูปครู: แสงแฉกแผ่ออกจากรูป + ตราวงกลมสีกรมท่ามีตัวอักษรเหลืองวิ่งรอบ + กรอบขาว-ดำ 2 ชั้น + ดาว ม.4–6 + สติกเกอร์ I AM OAT!
-             ข้อความ: หัวข้อ HELLO HUMAN! ตัวขาว/เหลืองขอบดำ 3 มิติ + ริบบิ้นชื่อมีหางพับ + แท็กสติกเกอร์ 3 สี
-             ความลื่น: ทุกลายเป็นภาพนิ่ง ไม่มีเบลอ ไม่มี blend — ของที่ขยับใช้ transform ล้วน (หยุดเองตามโหมดเย็นเครื่อง / นอกจอ / ลดการเคลื่อนไหว)
+           ★ (10 พ.ย.) HERO ธีมใหม่ "AI HOLO PROFILE" (เดิม: โปสเตอร์ป๊อปอาร์ต SHOWTIME POSTER) — ครูขอเปลี่ยนธีม
+             ธีม = หน้าจอโปรไฟล์ AI สุดล้ำ เข้ากับคำทัก HELLO HUMAN! + พื้นวงจร AI ในรูปครู + ภาพพื้นหลังเมือง AI ของเว็บ
+             พื้น: น้ำเงินกรมท่าลึก + ลายรังผึ้งจางๆ + เส้นสแกน + พื้นตารางเรืองแสง (มุมมองไกล) + ลายวงจรทอง/ฟ้า 2 มุม + คำว่า ENGLISH แบบโฮโลแกรม
+             รูปครู: แสงฟ้าแผ่ + วงตัวอักษรหมุน (ทอง) + วงสเกล HUD มีเส้นขีดและโค้งทอง + กรอบสแกนทอง 4 มุม + ตรา ม.4–6 หกเหลี่ยมทอง + ป้าย I AM OAT! แบบบัตร
+             ข้อความ: ตราโรงเรียน + ป้าย WELCOME ทอง + ONLINE NOW (จุดเขียว) / HELLO = ตัวน้ำแข็งเรืองฟ้า · HUMAN! = ตัวทอง (นูน 3 มิติ)
+               ชื่อ = แถบบัตรประจำตัวโฮโลแกรม (แท็บ ID ทอง + มุม HUD) / แท็ก 3 อัน = ชิปข้อมูลเรืองแสง ฟ้า / เขียว / ม่วง
+             เปิดฉาก (ครั้งเดียว ~2 วิ): วงรูปบูตขึ้น → ป้ายบนลงมา → HELLO / HUMAN! → แถบชื่อ → แท็ก → เส้นสแกนกวาดผ่านรูป 1 ครั้ง
+             ที่ขยับตลอด: วงตัวอักษรหมุนช้า + มือโบก + จุดออนไลน์ (เหลือ 3 จากเดิม 11 — ไฟวิ่งรอบกรอบ/ประกายเล็ก เอาออก) · transform/opacity ล้วน
+             ไม่มี filter / blend / will-change ใหม่ · ★ ห้ามตั้ง animation ที่ตัวการ์ด (มี .animate-bounce-up) — เอฟเฟกต์ทั้งหมดอยู่ที่ลูก
            ===================================================================== */
-        .hx { --hxd: 330px; position: relative; overflow: hidden; margin-bottom: 32px; padding: 34px 46px 40px 40px;
-            border: 6px solid #000; border-radius: 3rem; box-shadow: 12px 12px 0 0 #000, 0 0 60px rgba(244,114,182,.35);
-            background: linear-gradient(135deg, #ffd1ea 0%, #ffe6c8 42%, #e2d6ff 78%, #cfe0ff 100%); }
-        .hx::before { content: ''; position: absolute; inset: 12px; z-index: 2; pointer-events: none;
-            border: 3px dashed rgba(30,27,75,.2); border-radius: 2.3rem; }
-        /* ลายจุดฮาล์ฟโทนที่มุมการ์ด (จางออกด้วย mask — ภาพนิ่ง วาดครั้งเดียว) */
-        .hx-dots { position: absolute; z-index: 1; width: 380px; height: 380px; pointer-events: none;
-            background: radial-gradient(circle, rgba(30,27,75,.24) 1.7px, transparent 2.3px) 0 0/14px 14px; }
-        .hx-dots.d1 { right: -60px; top: -60px; -webkit-mask-image: radial-gradient(circle at 100% 0, #000 0, transparent 68%); mask-image: radial-gradient(circle at 100% 0, #000 0, transparent 68%); }
-        .hx-dots.d2 { left: -60px; bottom: -60px; -webkit-mask-image: radial-gradient(circle at 0 100%, #000 0, transparent 68%); mask-image: radial-gradient(circle at 0 100%, #000 0, transparent 68%); }
-        .hx-word { position: absolute; z-index: 1; right: 26px; bottom: -40px; pointer-events: none; user-select: none; white-space: nowrap;
-            font-size: 10.5rem; font-weight: 900; line-height: 1; letter-spacing: .04em; color: transparent; -webkit-text-stroke: 2.5px rgba(30,27,75,.13); }
-        .hx-confetti { position: absolute; inset: 0; z-index: 1; pointer-events: none;
+        .ai-hero { --hxd: 330px; position: relative; overflow: hidden; margin-bottom: 32px; padding: 34px 46px 40px 40px; color: #e0f2fe;
+            border: 6px solid #000; border-radius: 3rem; box-shadow: 12px 12px 0 0 #000, 0 0 64px rgba(34,211,238,.35);
             background:
-              radial-gradient(circle at 47% 12%, #f472b6 0 5px, transparent 5.5px), radial-gradient(circle at 63% 86%, #60a5fa 0 5px, transparent 5.5px),
-              radial-gradient(circle at 88% 22%, #facc15 0 6px, transparent 6.5px), radial-gradient(circle at 96% 58%, #34d399 0 4px, transparent 4.5px),
-              radial-gradient(circle at 36% 90%, #a78bfa 0 4px, transparent 4.5px), radial-gradient(circle at 78% 92%, #fb923c 0 4px, transparent 4.5px),
-              linear-gradient(35deg, transparent 46%, #ef4444 46% 54%, transparent 54%) 56% 8% / 16px 16px no-repeat,
-              linear-gradient(-30deg, transparent 46%, #3b82f6 46% 54%, transparent 54%) 91% 84% / 18px 18px no-repeat,
-              linear-gradient(70deg, transparent 46%, #eab308 46% 54%, transparent 54%) 72% 14% / 14px 14px no-repeat,
-              linear-gradient(-60deg, transparent 46%, #ec4899 46% 54%, transparent 54%) 42% 78% / 14px 14px no-repeat; }
-        .hx .hero-spark { background: #fff; box-shadow: 0 0 0 2px rgba(30,27,75,.55), 0 0 10px 3px rgba(255,255,255,.9); }
+              repeating-linear-gradient(180deg, rgba(255,255,255,.028) 0 1px, rgba(255,255,255,0) 1px 4px),
+              url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='25.98' height='45' viewBox='0 0 25.98 45'%3E%3Cpath d='M0 -15L12.99 -7.5L12.99 7.5L0 15L-12.99 7.5L-12.99 -7.5ZM25.98 -15L38.97 -7.5L38.97 7.5L25.98 15L12.99 7.5L12.99 -7.5ZM12.99 7.5L25.98 15L25.98 30L12.99 37.5L-0 30L0 15ZM0 30L12.99 37.5L12.99 52.5L0 60L-12.99 52.5L-12.99 37.5ZM25.98 30L38.97 37.5L38.97 52.5L25.98 60L12.99 52.5L12.99 37.5Z' fill='none' stroke='%2367e8f9' stroke-opacity='.075' stroke-width='1'/%3E%3C/svg%3E") 0 0 / 26px 45px,
+              radial-gradient(ellipse 34% 62% at 20% 52%, rgba(34,211,238,.32), rgba(34,211,238,0) 72%),
+              radial-gradient(ellipse 46% 60% at 86% 0%, rgba(251,191,36,.2), rgba(251,191,36,0) 70%),
+              radial-gradient(ellipse 40% 50% at 100% 100%, rgba(139,92,246,.3), rgba(139,92,246,0) 70%),
+              linear-gradient(135deg, #060d27 0%, #0b1846 42%, #11286a 74%, #1a1d5c 100%); }
+        /* เส้นกรอบเรืองฟ้าด้านใน */
+        .ai-hero::before { content: ''; position: absolute; z-index: 2; inset: 14px; border-radius: 2.35rem; pointer-events: none;
+            border: 1.5px solid rgba(34,211,238,.5); box-shadow: 0 0 14px rgba(34,211,238,.25), inset 0 0 14px rgba(34,211,238,.15); }
+        .ai-corners { position: absolute; z-index: 3; inset: 20px; pointer-events: none;
+            background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 60 60'%3E%3Cg fill='none' stroke-linecap='square'%3E%3Cpath d='M4 34V4H34' stroke='%23000' stroke-width='7'/%3E%3Cpath d='M4 34V4H34' stroke='%2322d3ee' stroke-width='3.4'/%3E%3Cpath d='M13 24V13H24' stroke='%23000' stroke-width='5'/%3E%3Cpath d='M13 24V13H24' stroke='%23fbbf24' stroke-width='2.2'/%3E%3Cpath d='M40 4H52M4 40V52' stroke='%2367e8f9' stroke-opacity='.7' stroke-width='2'/%3E%3C/g%3E%3Crect x='1' y='1' width='7' height='7' fill='%23fde68a' stroke='%23000' stroke-width='1.6'/%3E%3C/svg%3E") 0 0 / 46px 46px no-repeat, url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 60 60'%3E%3Cg transform='translate(60 0) scale(-1 1)'%3E%3Cg fill='none' stroke-linecap='square'%3E%3Cpath d='M4 34V4H34' stroke='%23000' stroke-width='7'/%3E%3Cpath d='M4 34V4H34' stroke='%2322d3ee' stroke-width='3.4'/%3E%3Cpath d='M13 24V13H24' stroke='%23000' stroke-width='5'/%3E%3Cpath d='M13 24V13H24' stroke='%23fbbf24' stroke-width='2.2'/%3E%3Cpath d='M40 4H52M4 40V52' stroke='%2367e8f9' stroke-opacity='.7' stroke-width='2'/%3E%3C/g%3E%3Crect x='1' y='1' width='7' height='7' fill='%23fde68a' stroke='%23000' stroke-width='1.6'/%3E%3C/g%3E%3C/svg%3E") 100% 0 / 46px 46px no-repeat,
+                        url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 60 60'%3E%3Cg transform='translate(0 60) scale(1 -1)'%3E%3Cg fill='none' stroke-linecap='square'%3E%3Cpath d='M4 34V4H34' stroke='%23000' stroke-width='7'/%3E%3Cpath d='M4 34V4H34' stroke='%2322d3ee' stroke-width='3.4'/%3E%3Cpath d='M13 24V13H24' stroke='%23000' stroke-width='5'/%3E%3Cpath d='M13 24V13H24' stroke='%23fbbf24' stroke-width='2.2'/%3E%3Cpath d='M40 4H52M4 40V52' stroke='%2367e8f9' stroke-opacity='.7' stroke-width='2'/%3E%3C/g%3E%3Crect x='1' y='1' width='7' height='7' fill='%23fde68a' stroke='%23000' stroke-width='1.6'/%3E%3C/g%3E%3C/svg%3E") 0 100% / 46px 46px no-repeat, url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 60 60'%3E%3Cg transform='translate(60 60) scale(-1 -1)'%3E%3Cg fill='none' stroke-linecap='square'%3E%3Cpath d='M4 34V4H34' stroke='%23000' stroke-width='7'/%3E%3Cpath d='M4 34V4H34' stroke='%2322d3ee' stroke-width='3.4'/%3E%3Cpath d='M13 24V13H24' stroke='%23000' stroke-width='5'/%3E%3Cpath d='M13 24V13H24' stroke='%23fbbf24' stroke-width='2.2'/%3E%3Cpath d='M40 4H52M4 40V52' stroke='%2367e8f9' stroke-opacity='.7' stroke-width='2'/%3E%3C/g%3E%3Crect x='1' y='1' width='7' height='7' fill='%23fde68a' stroke='%23000' stroke-width='1.6'/%3E%3C/g%3E%3C/svg%3E") 100% 100% / 46px 46px no-repeat; }
+        /* พื้นตารางเรืองแสงแบบมุมมองไกล (ภาพนิ่ง) */
+        .ai-floor { position: absolute; z-index: 0; left: 0; right: 0; bottom: 0; height: 42%; pointer-events: none;
+            background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1000 160' preserveAspectRatio='none'%3E%3Cpath d='M-1400 160L-739.13 0M-1300 160L-673.91 0M-1200 160L-608.7 0M-1100 160L-543.48 0M-1000 160L-478.26 0M-900 160L-413.04 0M-800 160L-347.83 0M-700 160L-282.61 0M-600 160L-217.39 0M-500 160L-152.17 0M-400 160L-86.96 0M-300 160L-21.74 0M-200 160L43.48 0M-100 160L108.7 0M0 160L173.91 0M100 160L239.13 0M200 160L304.35 0M300 160L369.57 0M400 160L434.78 0M500 160L500 0M600 160L565.22 0M700 160L630.43 0M800 160L695.65 0M900 160L760.87 0M1000 160L826.09 0M1100 160L891.3 0M1200 160L956.52 0M1300 160L1021.74 0M1400 160L1086.96 0M1500 160L1152.17 0M1600 160L1217.39 0M1700 160L1282.61 0M1800 160L1347.83 0M1900 160L1413.04 0M2000 160L1478.26 0M2100 160L1543.48 0M2200 160L1608.7 0M2300 160L1673.91 0M2400 160L1739.13 0M-500 44.8H1500M-500 77.06H1500M-500 100.28H1500M-500 117H1500M-500 129.04H1500M-500 137.71H1500M-500 143.95H1500M-500 148.44H1500' stroke='%2322d3ee' stroke-opacity='.5' stroke-width='1' fill='none' vector-effect='non-scaling-stroke'/%3E%3C/svg%3E") 0 100% / 100% 100% no-repeat;
+            -webkit-mask-image: linear-gradient(180deg, rgba(0,0,0,0) 0%, #000 70%); mask-image: linear-gradient(180deg, rgba(0,0,0,0) 0%, #000 70%); }
+        .ai-circuit { position: absolute; z-index: 0; width: 260px; height: 160px; pointer-events: none; background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 260 160'%3E%3Cpath d='M0 30H60L80 50H140M0 62H40L70 92H110L130 112H196M92 0V18L112 38H170' fill='none' stroke='%23fbbf24' stroke-opacity='.42' stroke-width='1.6'/%3E%3Cpath d='M0 92H26L46 112V150M150 0V12L166 28H240M18 0V14L34 30' fill='none' stroke='%2322d3ee' stroke-opacity='.45' stroke-width='1.6'/%3E%3Ccircle cx='140' cy='50' r='3.2' fill='%230b1640' stroke='%23fbbf24' stroke-opacity='.8' stroke-width='1.6'/%3E%3Ccircle cx='196' cy='112' r='3.2' fill='%230b1640' stroke='%23fbbf24' stroke-opacity='.8' stroke-width='1.6'/%3E%3Ccircle cx='170' cy='38' r='3.2' fill='%230b1640' stroke='%23fbbf24' stroke-opacity='.8' stroke-width='1.6'/%3E%3Ccircle cx='240' cy='28' r='3.2' fill='%230b1640' stroke='%2322d3ee' stroke-opacity='.8' stroke-width='1.6'/%3E%3Ccircle cx='46' cy='150' r='3.2' fill='%230b1640' stroke='%2322d3ee' stroke-opacity='.8' stroke-width='1.6'/%3E%3Ccircle cx='34' cy='30' r='3.2' fill='%230b1640' stroke='%2322d3ee' stroke-opacity='.8' stroke-width='1.6'/%3E%3C/svg%3E") 0 0 / 100% 100% no-repeat; }
+        .ai-circuit.c1 { right: 16px; top: 16px; transform: scaleX(-1); }
+        .ai-circuit.c2 { left: 16px; bottom: 16px; transform: scaleY(-1); }
+        .ai-word { position: absolute; z-index: 1; right: 26px; bottom: -40px; pointer-events: none; user-select: none; white-space: nowrap;
+            font-size: 10.5rem; font-weight: 900; line-height: 1; letter-spacing: .04em; color: rgba(34,211,238,.05); -webkit-text-stroke: 2px rgba(103,232,249,.2); }
 
-        .hx-grid { position: relative; z-index: 3; display: flex; align-items: center; gap: 58px; }
-        .hx-text { position: relative; z-index: 2; flex: 1; min-width: 0; display: flex; flex-direction: column; align-items: flex-start; gap: 16px; container-type: inline-size; }
+        .ai-grid { position: relative; z-index: 4; display: flex; align-items: center; gap: 58px; }
+        .ai-text { position: relative; z-index: 2; flex: 1; min-width: 0; display: flex; flex-direction: column; align-items: flex-start; gap: 16px; container-type: inline-size; }
 
-        /* ---- รูปครู + ตราวงกลม + แสงแฉก ---- */
-        .hx-photo { position: relative; flex-shrink: 0; width: var(--hxd); height: var(--hxd); margin: 6px 0 6px 8px; }
-        .hx-burst { position: absolute; z-index: 0; left: 50%; top: 50%; width: 1500px; height: 1500px; margin: -750px 0 0 -750px; border-radius: 50%; pointer-events: none;
-            background: radial-gradient(circle, rgba(255,255,255,.95) 0 11%, rgba(255,255,255,.45) 17%, rgba(255,255,255,0) 30%),
-                        repeating-conic-gradient(from 4deg, rgba(255,255,255,.62) 0 6deg, rgba(255,255,255,0) 6deg 15deg);
-            -webkit-mask-image: radial-gradient(circle, #000 0, #000 22%, transparent 56%); mask-image: radial-gradient(circle, #000 0, #000 22%, transparent 56%); }
-        .hx-disc { position: absolute; z-index: 1; inset: 0; border-radius: 50%; border: 5px solid #000; box-shadow: 8px 8px 0 0 #000;
-            background: radial-gradient(circle, rgba(255,255,255,.1) 1.3px, transparent 1.8px) 0 0/11px 11px, linear-gradient(150deg, #3730a3, #1e1b4b 70%); }
-        /* หมุนที่กล่อง div ที่ห่อ SVG (ไม่หมุนตัว svg ตรงๆ) — วัดแล้ว Chrome หมุน svg เองไม่ได้บนการ์ดจอ ต้องวาดใหม่ ~6 ครั้ง/วินาที
-           ห่อด้วย div แล้วการ์ดจอหมุนภาพที่วาดไว้แล้วได้เลย (วาดใหม่ = 0) */
-        .hx-ring { position: absolute; inset: 0; will-change: transform; animation: hxSpin 40s linear infinite; }
-        .hx-ring svg { display: block; width: 100%; height: 100%; overflow: visible; }
-        .hx-ring text { font-family: 'Kanit', sans-serif; font-weight: 900; font-size: 14px; letter-spacing: 1px; fill: #fde047; }
-        .hx-ring .hx-ring-dash { fill: none; stroke: #fde047; stroke-opacity: .55; stroke-width: 1.4; stroke-dasharray: 2 5; }
-        @keyframes hxSpin { to { transform: rotate(360deg); } }
-        .hx-frame { position: absolute; z-index: 2; left: 12.5%; top: 12.5%; width: 75%; height: 75%; border-radius: 50%; overflow: hidden; background: #e0e7ff;
-            border: 5px solid #000; box-shadow: 0 0 0 5px #fff, 0 0 0 9px #000; }
-        .hx-frame img { width: 100%; height: 100%; object-fit: cover; object-position: top; user-select: none; -webkit-user-select: none; pointer-events: none; transition: transform .5s ease; }
-        .hx:hover .hx-frame img { transform: scale(1.06); }
-        .hx-shield { position: absolute; inset: 0; z-index: 3; -webkit-touch-callout: none; }
-        /* ดาวป๊อปอาร์ต ม.4–6 (ขอบดำ = ดาวดำซ้อนใต้ดาวชมพู) */
-        .hx-star { --star: polygon(50% 0%, 61% 17%, 81% 9%, 81% 30%, 100% 38%, 87% 54%, 97% 73%, 76% 77%, 71% 98%, 52% 87%, 33% 99%, 27% 79%, 5% 76%, 14% 57%, 0% 39%, 18% 30%, 17% 9%, 38% 17%);
-            position: absolute; z-index: 4; left: -14px; top: -6px; width: 96px; height: 96px; display: flex; align-items: center; justify-content: center;
-            background: #000; clip-path: var(--star); -webkit-clip-path: var(--star); transform: rotate(-12deg); }
-        .hx-star::before { content: ''; position: absolute; inset: 6px; background: #f9a8d4; clip-path: var(--star); -webkit-clip-path: var(--star); }
-        .hx-star b { position: relative; font-size: .98rem; font-weight: 900; color: #0f172a; letter-spacing: .02em; }
-        .hx-oat { position: absolute; z-index: 4; right: -26px; bottom: 26px; white-space: nowrap; padding: 6px 16px;
-            background: #fde047; color: #000; border: 3.5px solid #000; border-radius: 999px; box-shadow: 4px 4px 0 0 #000;
-            font-size: 1.02rem; font-weight: 900; letter-spacing: .06em; transform: rotate(-9deg); }
+        /* ---- รูปครู + วง HUD ---- */
+        .ai-photo { position: relative; flex-shrink: 0; width: var(--hxd); height: var(--hxd); margin: 8px 8px 8px 12px; }
+        .ai-burst { position: absolute; z-index: 0; left: 50%; top: 50%; width: 1400px; height: 1400px; margin: -700px 0 0 -700px; border-radius: 50%; pointer-events: none;
+            background: radial-gradient(circle, rgba(165,243,252,.55) 0 10%, rgba(34,211,238,.18) 17%, rgba(34,211,238,0) 30%),
+                        repeating-conic-gradient(from 4deg, rgba(103,232,249,.2) 0 4deg, rgba(103,232,249,0) 4deg 13deg);
+            -webkit-mask-image: radial-gradient(circle, #000 0, #000 20%, transparent 50%); mask-image: radial-gradient(circle, #000 0, #000 20%, transparent 50%); }
+        .ai-hud { position: absolute; z-index: 1; inset: -6.5%; pointer-events: none; background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 220 220'%3E%3Ccircle cx='110' cy='110' r='106.5' fill='none' stroke='%2322d3ee' stroke-opacity='.55' stroke-width='1'/%3E%3Cpath d='M210.45 120.56L215.42 121.08M208.79 131L213.68 132.04M206.06 141.21L210.81 142.76M202.27 151.08L206.84 153.11M191.71 169.37L195.76 172.31M185.06 177.58L188.77 180.93M177.58 185.06L180.93 188.77M169.37 191.71L172.31 195.76M151.08 202.27L153.11 206.84M141.21 206.06L142.76 210.81M131 208.79L132.04 213.68M120.56 210.45L121.08 215.42M99.44 210.45L98.92 215.42M89 208.79L87.96 213.68M78.79 206.06L77.24 210.81M68.92 202.27L66.89 206.84M50.63 191.71L47.69 195.76M42.42 185.06L39.07 188.77M34.94 177.58L31.23 180.93M28.29 169.37L24.24 172.31M17.73 151.08L13.16 153.11M13.94 141.21L9.19 142.76M11.21 131L6.32 132.04M9.55 120.56L4.58 121.08M9.55 99.44L4.58 98.92M11.21 89L6.32 87.96M13.94 78.79L9.19 77.24M17.73 68.92L13.16 66.89M28.29 50.63L24.24 47.69M34.94 42.42L31.23 39.07M42.42 34.94L39.07 31.23M50.63 28.29L47.69 24.24M68.92 17.73L66.89 13.16M78.79 13.94L77.24 9.19M89 11.21L87.96 6.32M99.44 9.55L98.92 4.58M120.56 9.55L121.08 4.58M131 11.21L132.04 6.32M141.21 13.94L142.76 9.19M151.08 17.73L153.11 13.16M169.37 28.29L172.31 24.24M177.58 34.94L180.93 31.23M185.06 42.42L188.77 39.07M191.71 50.63L195.76 47.69M202.27 68.92L206.84 66.89M206.06 78.79L210.81 77.24M208.79 89L213.68 87.96M210.45 99.44L215.42 98.92' stroke='%2367e8f9' stroke-opacity='.55' stroke-width='1'/%3E%3Cpath d='M207 110L216 110M194 158.5L201.8 163M158.5 194L163 201.8M110 207L110 216M61.5 194L57 201.8M26 158.5L18.2 163M13 110L4 110M26 61.5L18.2 57M61.5 26L57 18.2M110 13L110 4M158.5 26L163 18.2M194 61.5L201.8 57' stroke='%23a5f3fc' stroke-opacity='.95' stroke-width='1.8'/%3E%3Cpath d='M160.94 14.2A108.5 108.5 0 0 1 205.8 59.06M205.8 160.94A108.5 108.5 0 0 1 160.94 205.8M59.06 205.8A108.5 108.5 0 0 1 14.2 160.94M14.2 59.06A108.5 108.5 0 0 1 59.06 14.2' fill='none' stroke='%23000' stroke-width='5.5' stroke-linecap='round'/%3E%3Cpath d='M160.94 14.2A108.5 108.5 0 0 1 205.8 59.06M205.8 160.94A108.5 108.5 0 0 1 160.94 205.8M59.06 205.8A108.5 108.5 0 0 1 14.2 160.94M14.2 59.06A108.5 108.5 0 0 1 59.06 14.2' fill='none' stroke='%23fbbf24' stroke-width='3' stroke-linecap='round'/%3E%3Cpath d='M213 110L220 114L220 106ZM110 213L106 220L114 220ZM7 110L-0 106L0 114ZM110 7L114 -0L106 0Z' fill='%23fde68a' stroke='%23000' stroke-width='1.2' stroke-linejoin='round'/%3E%3C/svg%3E") 0 0 / 100% 100% no-repeat; }
+        .ai-scan { position: absolute; z-index: 1; inset: -11%; pointer-events: none;
+            background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 40 40'%3E%3Cg fill='none' stroke-linecap='square'%3E%3Cpath d='M4 20V4H20' stroke='%23000' stroke-width='7.5'/%3E%3Cpath d='M4 20V4H20' stroke='%23fbbf24' stroke-width='4'/%3E%3C/g%3E%3C/svg%3E") 0 0 / 15% 15% no-repeat, url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 40 40'%3E%3Cg transform='translate(40 0) scale(-1 1)'%3E%3Cg fill='none' stroke-linecap='square'%3E%3Cpath d='M4 20V4H20' stroke='%23000' stroke-width='7.5'/%3E%3Cpath d='M4 20V4H20' stroke='%23fbbf24' stroke-width='4'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E") 100% 0 / 15% 15% no-repeat,
+                        url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 40 40'%3E%3Cg transform='translate(0 40) scale(1 -1)'%3E%3Cg fill='none' stroke-linecap='square'%3E%3Cpath d='M4 20V4H20' stroke='%23000' stroke-width='7.5'/%3E%3Cpath d='M4 20V4H20' stroke='%23fbbf24' stroke-width='4'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E") 0 100% / 15% 15% no-repeat, url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 40 40'%3E%3Cg transform='translate(40 40) scale(-1 -1)'%3E%3Cg fill='none' stroke-linecap='square'%3E%3Cpath d='M4 20V4H20' stroke='%23000' stroke-width='7.5'/%3E%3Cpath d='M4 20V4H20' stroke='%23fbbf24' stroke-width='4'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E") 100% 100% / 15% 15% no-repeat; }
+        .ai-disc { position: absolute; z-index: 2; inset: 0; border-radius: 50%; border: 4px solid #000;
+            box-shadow: 0 0 0 2px #22d3ee, 0 0 0 5px #000, 0 0 30px 4px rgba(34,211,238,.45);
+            background: radial-gradient(circle, rgba(103,232,249,.12) 1.2px, transparent 1.7px) 0 0/11px 11px, radial-gradient(circle at 50% 30%, #1a3a8f 0%, #0b1846 62%, #060d27 100%); }
+        /* วงตัวอักษรหมุนช้า: หมุนที่ div ที่ห่อ SVG (การ์ดจอหมุนภาพเดิม ไม่ต้องวาดใหม่) */
+        .ai-ring { position: absolute; inset: 0; animation: aiSpin 40s linear infinite; }
+        .ai-ring svg { display: block; width: 100%; height: 100%; overflow: visible; }
+        .ai-ring text { font-family: 'Kanit', sans-serif; font-weight: 900; font-size: 14px; letter-spacing: 1px; fill: #fde68a; }
+        .ai-ring .hx-ring-dash { fill: none; stroke: #67e8f9; stroke-opacity: .6; stroke-width: 1.2; stroke-dasharray: 1 5; }
+        @keyframes aiSpin { to { transform: rotate(360deg); } }
+        .ai-frame { position: absolute; z-index: 3; left: 12.5%; top: 12.5%; width: 75%; height: 75%; border-radius: 50%; overflow: hidden; background: #0b1846;
+            border: 4px solid #000; box-shadow: 0 0 0 3px #22d3ee, 0 0 0 6px #fbbf24, 0 0 0 9px #000, 0 0 26px 6px rgba(34,211,238,.55); }
+        .ai-frame img { width: 100%; height: 100%; object-fit: cover; object-position: top; user-select: none; -webkit-user-select: none; pointer-events: none; transition: transform .5s ease; }
+        .ai-hero:hover .ai-frame img { transform: scale(1.06); }
+        .ai-shield { position: absolute; inset: 0; z-index: 3; -webkit-touch-callout: none; }
+        /* เส้นสแกนกวาดผ่านรูป 1 ครั้งตอนเปิดหน้า (ปกติมองไม่เห็น) */
+        .ai-scanline { position: absolute; z-index: 2; left: 0; right: 0; top: 0; height: 28%; opacity: 0; pointer-events: none;
+            background: linear-gradient(180deg, rgba(34,211,238,0) 0%, rgba(103,232,249,.55) 82%, #ecfeff 92%, rgba(34,211,238,0) 100%); }
+        /* ตรา ม.4–6 หกเหลี่ยมทอง (ขอบดำ = หกเหลี่ยมดำซ้อนใต้) */
+        .ai-badge { --hex: polygon(25% 3%, 75% 3%, 100% 50%, 75% 97%, 25% 97%, 0% 50%);
+            position: absolute; z-index: 5; left: -16px; top: -2px; width: 92px; height: 80px; display: flex; align-items: center; justify-content: center;
+            background: #000; clip-path: var(--hex); -webkit-clip-path: var(--hex); }
+        .ai-badge::before { content: ''; position: absolute; inset: 5px 6px; clip-path: var(--hex); -webkit-clip-path: var(--hex);
+            background: linear-gradient(180deg, #fff7d1 0%, #fde68a 34%, #fbbf24 64%, #d97706 100%); }
+        .ai-badge b { position: relative; font-size: .98rem; font-weight: 900; color: #1e1b4b; letter-spacing: .02em; }
+        .ai-oat { position: absolute; z-index: 5; right: -26px; bottom: 22px; white-space: nowrap; padding: 6px 16px 6px 14px;
+            color: #fde68a; border: 2.5px solid #000; border-radius: 10px;
+            background: linear-gradient(90deg, rgba(34,211,238,.28), rgba(34,211,238,.06)), #0b1846;
+            box-shadow: inset 0 0 0 1.5px #22d3ee, 4px 4px 0 0 #000, 0 0 18px rgba(34,211,238,.55);
+            font-size: 1.02rem; font-weight: 900; letter-spacing: .06em; }
 
-        /* ---- ข้อความ ---- */
-        /* ★ ทุกชิ้นข้อความต้องมี z-index ของตัวเอง — บนมือถือ .hx-text ถูกตั้ง display:contents (ไม่มีกล่อง) z-index ของมันจึงไม่มีผล
-             ถ้าไม่ใส่ แสงแฉก (อยู่ในกล่องรูป) จะลอยทับป้าย ONLINE NOW / หัวข้อ / แท็ก จนดูซีด */
-        .hx-top, .hx-title, .hx-name, .hx-tags { position: relative; z-index: 2; }
-        .hx-top { display: flex; align-items: center; flex-wrap: wrap; gap: 10px; }
-        .hx-logo { width: 58px; height: 58px; flex-shrink: 0; border-radius: 50%; background: #fff; border: 4px solid #000; box-shadow: 4px 4px 0 0 #000; padding: 3px; overflow: hidden; display: flex; }
-        .hx-logo img { width: 100%; height: 100%; object-fit: contain; }
-        /* ขนาดหัวข้อพอดีความกว้างคอลัมน์เสมอ (บรรทัดเดียว): ใช้หน่วย cqi ของคอลัมน์ข้อความ (ความกว้างข้อความ ≈ 8.84 เท่าของขนาดตัวอักษร)
-           เบราว์เซอร์เก่าที่ไม่รู้จัก cqi จะข้ามบรรทัดที่สองไปใช้ค่า clamp แรก ซึ่งคำนวณไว้แล้วว่าไม่ล้นทุกขนาดจอ */
-        .hx-title { margin: 0; font-weight: 900; line-height: .98; letter-spacing: .03em; white-space: nowrap;
+        /* ---- ข้อความ ---- (ทุกชิ้นมี z-index ของตัวเอง: บนมือถือ .ai-text = display: contents) */
+        .ai-top, .ai-title, .ai-name, .ai-tags { position: relative; z-index: 2; }
+        .ai-top { display: flex; align-items: center; flex-wrap: wrap; gap: 10px; }
+        .ai-logo { width: 58px; height: 58px; flex-shrink: 0; display: flex; padding: 3px; overflow: hidden; border-radius: 50%; background: #fff; border: 3px solid #000;
+            box-shadow: 0 0 0 3px #fbbf24, 0 0 0 5.5px #000, 0 0 18px 6px rgba(34,211,238,.5); }
+        .ai-logo img { width: 100%; height: 100%; object-fit: contain; }
+        .ai-chip { display: inline-flex; align-items: center; gap: 7px; padding: 6px 15px; border: 2.5px solid #000; border-radius: 999px;
+            font-size: .74rem; font-weight: 900; letter-spacing: .12em; line-height: 1.3; white-space: nowrap; }
+        .ai-chip.wel { color: #1e1b4b; background: linear-gradient(180deg, #fff7d1 0%, #fde68a 40%, #fbbf24 100%); box-shadow: 3px 3px 0 0 #000, 0 0 14px rgba(251,191,36,.45); }
+        .ai-chip.live { color: #dcfce7; background: linear-gradient(180deg, #14532d, #052e16); box-shadow: inset 0 0 0 1.5px #4ade80, 3px 3px 0 0 #000, 0 0 14px rgba(74,222,128,.45); }
+        /* หัวข้อ: ขนาดพอดีความกว้างคอลัมน์ข้อความเสมอ (หน่วย cqi) — ตัวจริง = เนื้อนูนสีเข้ม / ::after = หน้าตัวอักษรไล่สี */
+        .ai-title { margin: 0; font-weight: 900; line-height: .98; letter-spacing: .03em; white-space: nowrap;
             font-size: clamp(2.4rem, 5.2vw, 5.2rem); font-size: min(5.3rem, calc((100cqi - 16px) / 8.9)); }
-        .hx-title .t1, .hx-title .t2 { display: inline-block; }
-        .hx-title .t1 { color: #fff; text-shadow: -3px -3px 0 #000, 3px -3px 0 #000, -3px 3px 0 #000, 3px 3px 0 #000, 0 -3px 0 #000, 0 3px 0 #000, -3px 0 0 #000, 3px 0 0 #000,
-            6px 6px 0 #ec4899, 9px 9px 0 #000; }
-        .hx-title .t2 { color: #fde047; text-shadow: -3px -3px 0 #000, 3px -3px 0 #000, -3px 3px 0 #000, 3px 3px 0 #000, 0 -3px 0 #000, 0 3px 0 #000, -3px 0 0 #000, 3px 0 0 #000,
-            6px 6px 0 #7c3aed, 9px 9px 0 #000; }
-        .hx-title .wave-hand { margin-left: .12em; font-size: .9em; text-shadow: 4px 4px 0 rgba(0,0,0,.22); }
-        /* ริบบิ้นชื่อ: ตัวริบบิ้น + หางพับซ้าย/ขวา (หางวาดก่อนจึงอยู่ข้างหลังตัวริบบิ้น) */
-        .hx-name { position: relative; display: inline-block; max-width: 100%; margin: 4px 0 6px 24px; transform: rotate(-1.5deg); }
-        .hx-name .tl, .hx-name .tr { position: absolute; top: 12px; width: 40px; height: 100%; background: #4338ca; border: 3px solid #000; }
-        .hx-name .tl { left: -26px; clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%, 12px 50%); -webkit-clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%, 12px 50%); }
-        .hx-name .tr { right: -26px; clip-path: polygon(0 0, 100% 0, calc(100% - 12px) 50%, 100% 100%, 0 100%); -webkit-clip-path: polygon(0 0, 100% 0, calc(100% - 12px) 50%, 100% 100%, 0 100%); }
-        .hx-name-in { position: relative; display: block; padding: 10px 24px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
-            background: radial-gradient(circle, rgba(255,255,255,.1) 1.2px, transparent 1.7px) 0 0/12px 12px, #1e1b4b; color: #fff;
-            border: 3.5px solid #000; border-radius: 8px; box-shadow: 5px 5px 0 0 #000;
-            font-size: 1.55rem; font-weight: 800; letter-spacing: .06em; }
-        .hx-tags { display: flex; flex-wrap: wrap; gap: 10px 12px; }
-        .hx-tag { display: inline-flex; align-items: center; gap: 6px; padding: 7px 14px; white-space: nowrap; color: #0f172a; font-size: .92rem; font-weight: 800;
-            border: 2.5px solid #000; border-radius: 12px; box-shadow: 3px 3px 0 0 #000; transition: transform .15s ease; }
-        .hx-tag.g1 { background: #bfdbfe; transform: rotate(-1.4deg); }
-        .hx-tag.g2 { background: #bbf7d0; transform: rotate(.9deg); }
-        .hx-tag.g3 { background: #fbcfe8; transform: rotate(-.7deg); }
-        .hx-tag:hover { transform: translateY(-2px) rotate(0); }
+        .ai-title .t1, .ai-title .t2 { position: relative; display: inline-block; }
+        .ai-title .t1 { color: #0e7490; text-shadow: 0 1px 0 #0e7490, 0 2px 0 #155e75, 0 3px 0 #164e63, 0 4px 0 #083344, 0 5px 0 #000, 0 6px 0 #000, 5px 10px 0 rgba(0,0,0,.5), 0 0 34px rgba(34,211,238,.55); }
+        .ai-title .t2 { color: #b45309; text-shadow: 0 1px 0 #b45309, 0 2px 0 #a3470a, 0 3px 0 #92400e, 0 4px 0 #7c2d12, 0 5px 0 #000, 0 6px 0 #000, 5px 10px 0 rgba(0,0,0,.5), 0 0 34px rgba(251,191,36,.45); }
+        .ai-title .t1::after, .ai-title .t2::after { content: attr(data-text); content: attr(data-text) / ""; position: absolute; left: 0; top: 0; color: transparent; text-shadow: none;
+            pointer-events: none; -webkit-text-stroke: 1.5px #000; -webkit-background-clip: text; background-clip: text; }
+        .ai-title .t1::after { background-image: linear-gradient(180deg, #ffffff 0%, #f0fdff 42%, #a5f3fc 72%, #e0f2fe 100%); }
+        .ai-title .t2::after { background-image: linear-gradient(180deg, #fffbe6 0%, #fde68a 30%, #facc15 56%, #f59e0b 82%, #fde047 100%); }
+        .ai-title .wave-hand { margin-left: .12em; font-size: .9em; text-shadow: 4px 4px 0 rgba(0,0,0,.3); }
+        /* ชื่อ = แถบบัตรประจำตัวโฮโลแกรม: แท็บ ID ทอง + มุม HUD สองข้าง */
+        .ai-name { display: inline-flex; align-items: stretch; max-width: 100%; margin: 4px 0 6px; border: 3px solid #000; border-radius: 10px; overflow: hidden;
+            box-shadow: 5px 5px 0 0 #000, 0 0 24px rgba(34,211,238,.45); }
+        .ai-name::before { content: 'ID'; content: 'ID' / ''; display: flex; align-items: center; padding: 0 12px; font-size: .9rem; font-weight: 900; letter-spacing: .1em; color: #1e1b4b;
+            background: linear-gradient(180deg, #fff7d1 0%, #fde68a 40%, #fbbf24 100%); border-right: 3px solid #000; }
+        .ai-name-in { position: relative; display: block; min-width: 0; padding: 10px 26px 10px 18px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; color: #fff;
+            background: linear-gradient(90deg, rgba(34,211,238,.26), rgba(34,211,238,.06) 70%), repeating-linear-gradient(180deg, rgba(255,255,255,.05) 0 1px, rgba(255,255,255,0) 1px 4px), #0b1846;
+            box-shadow: inset 0 0 0 1.5px rgba(103,232,249,.85); font-size: 1.55rem; font-weight: 800; letter-spacing: .06em; text-shadow: 0 0 14px rgba(103,232,249,.55); }
+        .ai-name-in::after { content: ''; position: absolute; top: 6px; right: 6px; bottom: 6px; width: 12px; pointer-events: none;
+            border: 2px solid #fbbf24; border-left: 0; }
+        /* แท็ก = ชิปข้อมูลเรืองแสง */
+        .ai-tags { display: flex; flex-wrap: wrap; gap: 10px 12px; }
+        .ai-tag { --tc: 34,211,238; display: inline-flex; align-items: center; gap: 8px; padding: 6px 15px 6px 7px; white-space: nowrap; color: #f0f9ff; font-size: .92rem; font-weight: 800;
+            border: 2.5px solid #000; border-radius: 12px; transition: transform .15s ease;
+            background: linear-gradient(180deg, rgba(var(--tc), .3), rgba(var(--tc), .08)), #0d1b4d;
+            box-shadow: inset 0 0 0 1.5px rgba(var(--tc), .95), 3px 3px 0 0 #000, 0 0 16px rgba(var(--tc), .35); }
+        .ai-tag.g2 { --tc: 52,211,153; } .ai-tag.g3 { --tc: 192,132,252; }
+        .ai-tag i { flex: 0 0 auto; width: 28px; height: 28px; display: flex; align-items: center; justify-content: center; font-style: normal; font-size: .95rem; line-height: 1;
+            background: radial-gradient(circle at 34% 30%, #fff 0 30%, #e0f2fe 70%); border: 2px solid #000; border-radius: 50%; box-shadow: 0 0 0 2px rgba(var(--tc), .9); }
+        @media (hover: hover) { .ai-tag:hover { transform: translateY(-3px); } }
 
+        /* จอ ≥768px รูปครูอยู่ชิดซ้าย → มุม HUD ของการ์ดเหลือแค่ฝั่งขวา (ฝั่งซ้ายมีกรอบสแกนทองรอบรูปอยู่แล้ว ไม่ซ้อนกัน) */
+        @media (min-width: 768px) {
+            .ai-corners { background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 60 60'%3E%3Cg transform='translate(60 0) scale(-1 1)'%3E%3Cg fill='none' stroke-linecap='square'%3E%3Cpath d='M4 34V4H34' stroke='%23000' stroke-width='7'/%3E%3Cpath d='M4 34V4H34' stroke='%2322d3ee' stroke-width='3.4'/%3E%3Cpath d='M13 24V13H24' stroke='%23000' stroke-width='5'/%3E%3Cpath d='M13 24V13H24' stroke='%23fbbf24' stroke-width='2.2'/%3E%3Cpath d='M40 4H52M4 40V52' stroke='%2367e8f9' stroke-opacity='.7' stroke-width='2'/%3E%3C/g%3E%3Crect x='1' y='1' width='7' height='7' fill='%23fde68a' stroke='%23000' stroke-width='1.6'/%3E%3C/g%3E%3C/svg%3E") 100% 0 / 46px 46px no-repeat, url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 60 60'%3E%3Cg transform='translate(60 60) scale(-1 -1)'%3E%3Cg fill='none' stroke-linecap='square'%3E%3Cpath d='M4 34V4H34' stroke='%23000' stroke-width='7'/%3E%3Cpath d='M4 34V4H34' stroke='%2322d3ee' stroke-width='3.4'/%3E%3Cpath d='M13 24V13H24' stroke='%23000' stroke-width='5'/%3E%3Cpath d='M13 24V13H24' stroke='%23fbbf24' stroke-width='2.2'/%3E%3Cpath d='M40 4H52M4 40V52' stroke='%2367e8f9' stroke-opacity='.7' stroke-width='2'/%3E%3C/g%3E%3Crect x='1' y='1' width='7' height='7' fill='%23fde68a' stroke='%23000' stroke-width='1.6'/%3E%3C/g%3E%3C/svg%3E") 100% 100% / 46px 46px no-repeat; }
+        }
         /* ---- แท็บเล็ต / โน้ตบุ๊กจอเล็ก ---- */
         @media (min-width: 768px) and (max-width: 1100px) {
-            .hx { padding: 28px 32px 34px 30px; border-radius: 2.6rem; }
-            .hx-grid { gap: 40px; }
-            .hx { --hxd: 250px; }
-            .hx-name-in { font-size: 1.15rem; padding: 8px 18px; }
-            .hx-tag { font-size: .8rem; padding: 6px 11px; }
-            .hx-word { font-size: 8rem; }
-            .hx-star { width: 78px; height: 78px; left: -10px; } .hx-star b { font-size: .82rem; }
-            .hx-oat { font-size: .86rem; right: -18px; bottom: 16px; }
+            .ai-hero { --hxd: 250px; padding: 28px 32px 34px 30px; border-radius: 2.6rem; }
+            .ai-hero::before { border-radius: 1.95rem; }
+            .ai-grid { gap: 40px; }
+            .ai-name-in { font-size: 1.15rem; padding: 8px 20px 8px 14px; }
+            .ai-name::before { font-size: .78rem; padding: 0 10px; }
+            .ai-tag { font-size: .8rem; padding: 5px 12px 5px 6px; }
+            .ai-tag i { width: 24px; height: 24px; font-size: .8rem; }
+            .ai-word { font-size: 8rem; }
+            .ai-badge { width: 76px; height: 66px; left: -12px; } .ai-badge b { font-size: .82rem; }
+            .ai-oat { font-size: .86rem; right: -18px; bottom: 12px; }
+            .ai-circuit { width: 200px; height: 123px; }
         }
-        /* แท็บเล็ตแนวตั้ง: คอลัมน์ข้อความแคบ — หัวข้อขึ้น 2 บรรทัด ตัวใหญ่สะใจกว่าบีบเป็นบรรทัดเดียว */
+        /* แท็บเล็ตแนวตั้ง: หัวข้อ 2 บรรทัด ตัวใหญ่ */
         @media (min-width: 768px) and (max-width: 900px) {
-            .hx-title { font-size: 3.3rem; }
+            .ai-title { font-size: 3.3rem; }
+            .ai-hero { --hxd: 230px; } .ai-grid { gap: 30px; }
+            .ai-name-in { font-size: 1.02rem; letter-spacing: .04em; padding: 7px 16px 7px 12px; }
         }
-        /* หัวข้อ 2 บรรทัด (มือถือ + แท็บเล็ตแนวตั้ง): "HELLO 👋" / "HUMAN!" — มือโบกอยู่บรรทัดแรกที่สั้นกว่า จะได้ไม่ล้นไปชนรูป */
+        /* หัวข้อ 2 บรรทัด (มือถือ + แท็บเล็ตแนวตั้ง): "HELLO 👋" / "HUMAN!" */
         @media (max-width: 900px) {
-            .hx-title { white-space: normal; display: grid; grid-template-columns: max-content max-content; grid-template-areas: "t1 hand" "t2 t2";
+            .ai-title { white-space: normal; display: grid; grid-template-columns: max-content max-content; grid-template-areas: "t1 hand" "t2 t2";
                 justify-content: start; align-items: center; column-gap: .12em; }
-            .hx-title .t1 { grid-area: t1; } .hx-title .t2 { grid-area: t2; }
-            .hx-title .wave-hand { grid-area: hand; margin-left: 0; font-size: .72em; }
+            .ai-title .t1 { grid-area: t1; } .ai-title .t2 { grid-area: t2; }
+            .ai-title .wave-hand { grid-area: hand; margin-left: 0; font-size: .72em; }
         }
-        /* ---- มือถือ: ชื่อ-หัวข้อซ้าย รูปขวา (กระชับ ไม่ยาว) — แถวบนเว้นที่ขวาให้ปุ่มลอย ☰ 🛠️ ---- */
+        /* ---- มือถือ: หัวข้อซ้าย รูปขวา (กระชับ) — แถวบนเว้นที่ขวาให้ปุ่มลอย ☰ 🛠️ ---- */
         @media (max-width: 767px) {
-            .hx { padding: 16px 16px 20px; margin-bottom: 24px; border-width: 5px; border-radius: 1.75rem; box-shadow: 8px 8px 0 0 #000, 0 0 40px rgba(244,114,182,.3); }
-            .hx::before { inset: 8px; border-width: 2.5px; border-radius: 1.3rem; }
-            .hx { --hxd: 136px; }
-            .hx-grid { container-type: inline-size; display: grid; grid-template-columns: minmax(0,1fr) auto; grid-template-areas: "top top" "title photo" "name name" "tags tags"; gap: 12px 8px; align-items: center; }
-            .hx-text { display: contents; }
-            .hx-top { grid-area: top; padding-right: 104px; gap: 6px; min-height: 48px; }
-            .hx-logo { width: 44px; height: 44px; border-width: 3px; box-shadow: 3px 3px 0 0 #000; padding: 2px; }
-            .hx .welcome-pill, .hx .live-badge { font-size: .58rem; padding: 3px 9px; border-width: 2.5px; }
-            /* ขนาดหัวข้อ = ที่ว่างข้างรูปหาร 4.25 (บรรทัดที่ยาวสุดกว้าง ≈ 4.2 เท่าของขนาดตัวอักษร) → ไม่ล้นไปชนรูปทุกขนาดจอ */
-            .hx-title { grid-area: title; line-height: 1.04; font-size: clamp(1.7rem, 9.4vw, 2.7rem); font-size: clamp(1.7rem, calc((100cqi - var(--hxd) - 20px) / 4.25), 3rem); }
-            .hx-title .t1 { text-shadow: -2px -2px 0 #000, 2px -2px 0 #000, -2px 2px 0 #000, 2px 2px 0 #000, 0 -2px 0 #000, 0 2px 0 #000, -2px 0 0 #000, 2px 0 0 #000, 4px 4px 0 #ec4899, 6px 6px 0 #000; }
-            .hx-title .t2 { text-shadow: -2px -2px 0 #000, 2px -2px 0 #000, -2px 2px 0 #000, 2px 2px 0 #000, 0 -2px 0 #000, 0 2px 0 #000, -2px 0 0 #000, 2px 0 0 #000, 4px 4px 0 #7c3aed, 6px 6px 0 #000; }
-            .hx-photo { grid-area: photo; margin: 0 4px 8px 0; }
-            .hx-disc { border-width: 3.5px; box-shadow: 5px 5px 0 0 #000; }
-            .hx-frame { border-width: 3px; box-shadow: 0 0 0 3px #fff, 0 0 0 6px #000; }
-            .hx-burst { width: 760px; height: 760px; margin: -380px 0 0 -380px; }
-            .hx-star { display: none; }
-            .hx-oat { right: -8px; bottom: -8px; font-size: .56rem; padding: 2px 8px; border-width: 2.5px; box-shadow: 3px 3px 0 0 #000; letter-spacing: .04em; }
-            .hx-name { grid-area: name; justify-self: start; margin: 2px 0 4px 18px; }
-            .hx-name .tl, .hx-name .tr { top: 8px; width: 28px; border-width: 2.5px; }
-            .hx-name .tl { left: -18px; clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%, 8px 50%); -webkit-clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%, 8px 50%); }
-            .hx-name .tr { right: -18px; clip-path: polygon(0 0, 100% 0, calc(100% - 8px) 50%, 100% 100%, 0 100%); -webkit-clip-path: polygon(0 0, 100% 0, calc(100% - 8px) 50%, 100% 100%, 0 100%); }
-            .hx-name-in { font-size: .84rem; padding: 6px 13px; border-width: 3px; box-shadow: 4px 4px 0 0 #000; letter-spacing: .04em; }
-            .hx-tags { grid-area: tags; gap: 7px 8px; }
-            .hx-tag { font-size: .68rem; padding: 4px 9px; border-radius: 10px; border-width: 2px; box-shadow: 2px 2px 0 0 #000; }
-            .hx-word { font-size: 4.6rem; right: 10px; bottom: -16px; -webkit-text-stroke-width: 1.5px; }
-            .hx-dots { width: 220px; height: 220px; }
+            .ai-hero { --hxd: 136px; padding: 16px 16px 20px; margin-bottom: 24px; border-width: 5px; border-radius: 1.75rem; box-shadow: 8px 8px 0 0 #000, 0 0 40px rgba(34,211,238,.3); }
+            .ai-hero::before { inset: 9px; border-radius: 1.3rem; }
+            .ai-corners { inset: 13px; background-size: 28px 28px, 28px 28px, 28px 28px, 28px 28px; }
+            .ai-grid { container-type: inline-size; display: grid; grid-template-columns: minmax(0,1fr) auto; grid-template-areas: "top top" "title photo" "name name" "tags tags"; gap: 12px 8px; align-items: center; }
+            .ai-text { display: contents; }
+            .ai-top { grid-area: top; padding-right: 104px; gap: 6px; min-height: 48px; }
+            .ai-logo { width: 44px; height: 44px; border-width: 2.5px; padding: 2px; box-shadow: 0 0 0 2.5px #fbbf24, 0 0 0 4.5px #000, 0 0 12px 4px rgba(34,211,238,.45); }
+            .ai-chip { font-size: .58rem; padding: 3px 9px; border-width: 2px; gap: 5px; }
+            .ai-chip.wel { box-shadow: 2px 2px 0 0 #000, 0 0 10px rgba(251,191,36,.4); } .ai-chip.live { box-shadow: inset 0 0 0 1.5px #4ade80, 2px 2px 0 0 #000; }
+            /* ขนาดหัวข้อ = ที่ว่างข้างรูปหาร 4.25 (บรรทัดที่ยาวสุดกว้าง ≈ 4.2 เท่าของขนาดตัวอักษร) */
+            .ai-title { grid-area: title; line-height: 1.04; font-size: clamp(1.7rem, 9.4vw, 2.7rem); font-size: clamp(1.7rem, calc((100cqi - var(--hxd) - 20px) / 4.25), 3rem); }
+            .ai-title .t1 { text-shadow: 0 1px 0 #155e75, 0 2px 0 #164e63, 0 3px 0 #000, 3px 6px 0 rgba(0,0,0,.5), 0 0 22px rgba(34,211,238,.5); }
+            .ai-title .t2 { text-shadow: 0 1px 0 #92400e, 0 2px 0 #7c2d12, 0 3px 0 #000, 3px 6px 0 rgba(0,0,0,.5), 0 0 22px rgba(251,191,36,.4); }
+            .ai-title .t1::after, .ai-title .t2::after { -webkit-text-stroke-width: 1.1px; }
+            .ai-photo { grid-area: photo; margin: 2px 6px 8px 0; }
+            .ai-disc { border-width: 3px; box-shadow: 0 0 0 1.5px #22d3ee, 0 0 0 3.5px #000, 0 0 18px 2px rgba(34,211,238,.45); }
+            .ai-frame { border-width: 2.5px; box-shadow: 0 0 0 2px #22d3ee, 0 0 0 4px #fbbf24, 0 0 0 6px #000, 0 0 16px 3px rgba(34,211,238,.5); }
+            .ai-burst { width: 760px; height: 760px; margin: -380px 0 0 -380px; }
+            .ai-badge { display: none; }
+            .ai-oat { right: -8px; bottom: -8px; font-size: .56rem; padding: 2px 8px; border-width: 2px; border-radius: 7px; box-shadow: inset 0 0 0 1px #22d3ee, 2px 2px 0 0 #000; letter-spacing: .04em; }
+            .ai-name { grid-area: name; justify-self: start; margin: 2px 0 4px; border-width: 2.5px; box-shadow: 4px 4px 0 0 #000, 0 0 16px rgba(34,211,238,.4); }
+            .ai-name::before { font-size: .62rem; padding: 0 8px; border-right-width: 2.5px; }
+            .ai-name-in { font-size: .84rem; padding: 6px 18px 6px 10px; letter-spacing: .04em; }
+            .ai-name-in::after { top: 4px; right: 4px; bottom: 4px; width: 8px; border-width: 1.5px; }
+            .ai-tags { grid-area: tags; gap: 7px 8px; }
+            .ai-tag { gap: 5px; font-size: .68rem; padding: 3px 9px 3px 4px; border-radius: 10px; border-width: 2px; box-shadow: inset 0 0 0 1px rgba(var(--tc), .95), 2px 2px 0 0 #000, 0 0 10px rgba(var(--tc), .3); }
+            .ai-tag i { width: 19px; height: 19px; font-size: .66rem; border-width: 1.5px; box-shadow: 0 0 0 1.5px rgba(var(--tc), .9); }
+            .ai-word { font-size: 4.6rem; right: 10px; bottom: -16px; -webkit-text-stroke-width: 1.5px; }
+            .ai-circuit { width: 150px; height: 92px; opacity: .8; }
+            .ai-circuit.c1 { right: 10px; top: auto; bottom: 10px; transform: scale(-1,-1); }
+            .ai-floor { height: 30%; }
         }
         @media (max-width: 360px) {
-            .hx { --hxd: 104px; }
-            .hx-name-in { font-size: .76rem; padding: 5px 10px; }
-            .hx-oat { font-size: .5rem; right: -10px; }
+            .ai-hero { --hxd: 104px; }
+            .ai-name-in { font-size: .76rem; padding: 5px 14px 5px 8px; }
+            .ai-oat { font-size: .5rem; right: -10px; }
+            .ai-tag i { width: 17px; height: 17px; font-size: .6rem; }
         }
-        @media (prefers-reduced-motion: reduce) { .hx-ring { animation: none; } .hx-frame img, .hx-tag { transition: none; } }
+        /* ---- เปิดฉาก (ครั้งเดียว) — คลาส .hx-in อยู่ในรายการยกเว้นของโหมดเย็นเครื่อง/นอกจอ จึงเล่นจนจบเสมอ ---- */
+        @keyframes aiBoot { 0% { opacity: 0; transform: scale(.55) rotate(-24deg); } 65% { opacity: 1; transform: scale(1.05) rotate(3deg); } 100% { opacity: 1; transform: none; } }
+        @keyframes aiDrop { from { opacity: 0; transform: translateY(-16px) scale(.85); } to { opacity: 1; transform: none; } }
+        @keyframes aiPop { 0% { opacity: 0; transform: scale(.35) translateY(12px); } 62% { opacity: 1; transform: scale(1.1) translateY(-2px); } 100% { opacity: 1; transform: none; } }
+        @keyframes aiSlide { from { opacity: 0; transform: translateX(-28px); } to { opacity: 1; transform: none; } }
+        @keyframes aiRise { from { opacity: 0; transform: translateY(18px); } to { opacity: 1; transform: none; } }
+        @keyframes aiScan { 0% { opacity: 0; transform: translateY(-110%); } 12% { opacity: 1; } 88% { opacity: 1; } 100% { opacity: 0; transform: translateY(380%); } }
+        @media (prefers-reduced-motion: no-preference) {
+            .ai-disc.hx-in, .ai-hud.hx-in, .ai-frame.hx-in { animation: aiBoot .8s cubic-bezier(.2,.9,.3,1.1) .3s backwards; }
+            .ai-top > .hx-in { animation: aiDrop .45s cubic-bezier(.3,1.3,.5,1) backwards; }
+            .ai-top > .ai-logo { animation-delay: .35s; } .ai-top > .wel { animation-delay: .45s; } .ai-top > .live { animation-delay: .55s; }
+            .ai-title .t1.hx-in { animation: aiPop .55s cubic-bezier(.3,1.3,.5,1) .55s backwards; }
+            .ai-title .t2.hx-in { animation: aiPop .55s cubic-bezier(.3,1.3,.5,1) .72s backwards; }
+            .ai-title .wave-hand { animation: aiPop .5s cubic-bezier(.3,1.3,.5,1) .9s backwards, waveHand 2.8s ease-in-out 1.45s infinite; }
+            .ai-name.hx-in { animation: aiSlide .55s cubic-bezier(.25,.9,.3,1.05) 1s backwards; }
+            .ai-tag.hx-in { animation: aiRise .45s cubic-bezier(.3,1.3,.5,1) backwards; }
+            .ai-tag.g1.hx-in { animation-delay: 1.2s; } .ai-tag.g2.hx-in { animation-delay: 1.3s; } .ai-tag.g3.hx-in { animation-delay: 1.4s; }
+            .ai-badge.hx-in, .ai-oat.hx-in { animation: aiPop .5s cubic-bezier(.3,1.4,.5,1) 1.25s backwards; }
+            .ai-scanline.hx-in { animation: aiScan 1.3s cubic-bezier(.4,.1,.3,1) 1.6s 1 backwards; }
+        }
+        @media (prefers-reduced-motion: reduce) { .ai-ring { animation: none; } .ai-frame img, .ai-tag { transition: none; } }
         /* =====================================================================
            ★ (13 ต.ค.) DEADLINE แบบ "DEPARTURES BOARD" — ป้ายสนามบินเหลือง-ดำ + จอตารางบิน
              การ์ดเหลืองแบบป้ายบอกทางในสนามบิน (ไอคอนเครื่องบินในกล่องดำ + หัวข้อ 3 มิติ + นาฬิกาแบบป้ายพลิก)
@@ -4618,120 +4676,6 @@
             box-shadow: 3px 3px 0 0 #000, 0 0 0 3px #fff !important; }
         .nav-pill-btn.nb-stu:focus-visible, .nav-pill-btn.nb-tch:focus-visible { outline: 3px solid #facc15; outline-offset: 3px; border-radius: 13px; }
 
-        /* =====================================================================
-           ★ (21 ต.ค.) HERO "SHOWTIME POSTER" ขัดเงาเพิ่ม — โครงเดิมทั้งหมด (ตำแหน่ง/ขนาด/ข้อความ) เปลี่ยนแค่รายละเอียด
-             ไฟรอบกรอบ: จากขีดเหลือง → หลอดไฟกลมแบบป้ายโชว์ (กลไกเดิม: 4 แถบเลื่อนด้วย transform ครบ 1 ช่อง 22px แล้ววน)
-             รูปครู: วงโคจรเส้นประ + ดาวเคราะห์ 3 ดวงรอบตรา (ภาพนิ่ง) / แท็ก: สติกเกอร์มีเหรียญไอคอน
-             หัวข้อ: ประกายดาว 2 ดวง / พื้น: แสงสปอตไลต์มุมซ้ายบน — ทั้งหมดเป็นภาพนิ่ง ไม่เพิ่มแอนิเมชันเลย
-           ===================================================================== */
-        .hx { background: radial-gradient(ellipse 48% 60% at 10% 0%, rgba(255,255,255,.62), rgba(255,255,255,0) 72%),
-                          radial-gradient(ellipse 40% 50% at 100% 100%, rgba(196,181,253,.45), rgba(196,181,253,0) 70%),
-                          linear-gradient(135deg, #ffd1ea 0%, #ffe6c8 42%, #e2d6ff 78%, #cfe0ff 100%); }
-        .hx::before { inset: 17px; }
-        .hx .marquee-lights .ml-t, .hx .marquee-lights .ml-b { height: 11px;
-            background: radial-gradient(circle at 11px 50%, #fffbe6 0 1.7px, #fde047 2.3px 3.6px, rgba(146,64,14,.75) 4.1px 4.9px, rgba(146,64,14,0) 5.4px) 0 0 / 22px 100% repeat-x; }
-        .hx .marquee-lights .ml-l, .hx .marquee-lights .ml-r { width: 11px;
-            background: radial-gradient(circle at 50% 11px, #fffbe6 0 1.7px, #fde047 2.3px 3.6px, rgba(146,64,14,.75) 4.1px 4.9px, rgba(146,64,14,0) 5.4px) 0 0 / 100% 22px repeat-y; }
-        /* วงโคจรรอบตรา + ดาวเคราะห์ (จุดอยู่บนเส้นวงพอดี: มุม 45° / 200° / 290°) */
-        .hx-orbit { position: absolute; z-index: 1; inset: -16px; border-radius: 50%; pointer-events: none; border: 3px dashed rgba(30,27,75,.32);
-            background: radial-gradient(circle at 85.4% 14.6%, #f472b6 0 7px, #000 7.5px 10px, rgba(0,0,0,0) 10.5px),
-                        radial-gradient(circle at 3% 67.1%, #22d3ee 0 5px, #000 5.5px 8px, rgba(0,0,0,0) 8.5px),
-                        radial-gradient(circle at 67.1% 97%, #fde047 0 4px, #000 4.5px 7px, rgba(0,0,0,0) 7.5px); }
-        .hx-disc, .hx-frame { z-index: 2; } .hx-frame { z-index: 3; } .hx-star, .hx-oat { z-index: 5; }
-        /* ประกายดาวที่หัวข้อ (ภาพนิ่ง) */
-        .hx-title::before, .hx-title::after { content: '✦'; position: absolute; z-index: 1; line-height: 1; pointer-events: none; font-weight: 900;
-            text-shadow: -2px -2px 0 #000, 2px -2px 0 #000, -2px 2px 0 #000, 2px 2px 0 #000, 3px 4px 0 rgba(0,0,0,.25); }
-        .hx-title::before { left: -.34em; top: -.2em; font-size: .38em; color: #fff; transform: rotate(-12deg); }
-        .hx-title::after { right: -.3em; top: -.32em; font-size: .46em; color: #fde047; transform: rotate(14deg); }
-        /* แท็ก = สติกเกอร์มีเหรียญไอคอน */
-        .hx-tag { gap: 8px; padding: 6px 14px 6px 8px; box-shadow: 3px 3px 0 0 #000, inset 0 0 0 2px rgba(255,255,255,.65); }
-        .hx-tag i { flex: 0 0 auto; width: 28px; height: 28px; display: flex; align-items: center; justify-content: center; font-style: normal; font-size: .95rem; line-height: 1;
-            background: radial-gradient(circle at 34% 30%, #fff 0 30%, #f1f5f9 70%); border: 2.5px solid #000; border-radius: 50%; box-shadow: 1.5px 1.5px 0 0 #000; }
-        @media (hover: hover) { .hx-tag:hover { transform: translateY(-3px) rotate(0); box-shadow: 4px 6px 0 0 #000, inset 0 0 0 2px rgba(255,255,255,.65); } }
-        .hx-tag:hover { transform: none; } @media (hover: hover) { .hx-tag.g1:hover, .hx-tag.g2:hover, .hx-tag.g3:hover { transform: translateY(-3px) rotate(0); } }
-        @media (min-width: 768px) and (max-width: 1100px) { .hx-tag i { width: 24px; height: 24px; font-size: .8rem; } .hx-orbit { inset: -12px; } }
-        @media (max-width: 767px) {
-            .hx::before { inset: 11px; }
-            .hx .marquee-lights .ml-t, .hx .marquee-lights .ml-b { height: 8px;
-                background: radial-gradient(circle at 11px 50%, #fffbe6 0 1.2px, #fde047 1.7px 2.6px, rgba(146,64,14,.75) 3px 3.6px, rgba(146,64,14,0) 4px) 0 0 / 22px 100% repeat-x; }
-            .hx .marquee-lights .ml-l, .hx .marquee-lights .ml-r { width: 8px;
-                background: radial-gradient(circle at 50% 11px, #fffbe6 0 1.2px, #fde047 1.7px 2.6px, rgba(146,64,14,.75) 3px 3.6px, rgba(146,64,14,0) 4px) 0 0 / 100% 22px repeat-y; }
-            .hx-orbit { inset: -9px; border-width: 2px;
-                background: radial-gradient(circle at 85.4% 14.6%, #f472b6 0 4px, #000 4.5px 6.5px, rgba(0,0,0,0) 7px),
-                            radial-gradient(circle at 3% 67.1%, #22d3ee 0 3px, #000 3.5px 5.5px, rgba(0,0,0,0) 6px),
-                            radial-gradient(circle at 67.1% 97%, #fde047 0 2.5px, #000 3px 5px, rgba(0,0,0,0) 5.5px); }
-            .hx-tag { gap: 5px; padding: 3px 9px 3px 4px; box-shadow: 2px 2px 0 0 #000, inset 0 0 0 1.5px rgba(255,255,255,.65); }
-            .hx-tag i { width: 19px; height: 19px; font-size: .66rem; border-width: 2px; box-shadow: 1px 1px 0 0 #000; }
-            .hx-title::before { left: -.3em; } .hx-title::after { right: -.32em; top: -.28em; }
-        }
-        @media (max-width: 360px) { .hx-tag i { width: 17px; height: 17px; font-size: .6rem; } }
-
-        /* =====================================================================
-           ★ (5 พ.ย.) การ์ดแนะนำตัว (HERO) ชุดอลังการ — ครูขอ "สวยกว่านี้" (รูป / ชื่อ / ข้อความเดิมทุกตัว)
-             ตรา = เหรียญทอง: ขอบทองรอบตราวงกลม + วงทองรอบรูป / HELLO = ตัวขาวมุก · HUMAN! = ตัวทองไล่แสง (ขอบดำ 3 มิติเดิม)
-             ริบบิ้นชื่อ: ขอบทอง + ตะเข็บเย็บ / แท็ก: เคลือบเงา / พื้น: ลำแสงสปอตไลต์จากมุมขวาบน + ตัว ENGLISH จางชัดขึ้นนิด
-             เปิดฉาก (เล่นครั้งเดียวตอนโหลดหน้า ~2 วิ แล้วนิ่ง): ตราหมุนเข้า → ป้ายบนตกลงมา → HELLO / HUMAN! เด้งขึ้นทีละคำ → มือโบก
-               → ริบบิ้นชื่อคลี่ออก → แท็กลอยขึ้นทีละอัน → สติกเกอร์ ม.4–6 / I AM OAT! แปะลงมา → แสงวาบกวาดทั้งการ์ด
-             ทุกอย่างขยับแค่ transform / opacity ไม่มี blur / filter / blend · ตั้งลดการเคลื่อนไหว = ขึ้นนิ่งทันที
-           ===================================================================== */
-        .hx-disc { box-shadow: 0 0 0 4px #fbbf24, 0 0 0 7px #000, 9px 9px 0 7px #000; }
-        .hx-frame { box-shadow: 0 0 0 4px #fff, 0 0 0 7px #fbbf24, 0 0 0 10px #000; }
-        .hx-title .t1, .hx-title .t2 { position: relative; }
-        .hx-title .t1::after, .hx-title .t2::after { content: attr(data-text); content: attr(data-text) / ""; position: absolute; left: 0; top: 0; color: transparent; text-shadow: none;
-            pointer-events: none; -webkit-background-clip: text; background-clip: text; }
-        .hx-title .t1::after { background-image: linear-gradient(180deg, #ffffff 0%, #ffffff 50%, #ede9fe 74%, #fbcfe8 100%); }
-        .hx-title .t2::after { background-image: linear-gradient(180deg, #fffbe6 0%, #fde68a 30%, #facc15 56%, #f59e0b 82%, #fde047 100%); }
-        .hx-name-in { box-shadow: inset 0 0 0 2px rgba(251,191,36,.95), inset 0 3px 0 2px rgba(255,255,255,.12), 5px 5px 0 0 #000; }
-        .hx-name-in::after { content: ''; position: absolute; inset: 5px; pointer-events: none; border: 1.5px dashed rgba(253,230,138,.55); border-radius: 4px; }
-        .hx-name .tl, .hx-name .tr { background: linear-gradient(180deg, #4f46e5 0%, #3730a3 100%); }
-        .hx-tag { background-image: linear-gradient(180deg, rgba(255,255,255,.5) 0%, rgba(255,255,255,0) 62%); }
-        .hx-tag.g1 { --r: -1.4deg; } .hx-tag.g2 { --r: .9deg; } .hx-tag.g3 { --r: -.7deg; }
-        .hx-word { color: rgba(255,255,255,.32); -webkit-text-stroke-color: rgba(30,27,75,.16); }
-        /* มุมการ์ด 4 มุม = ลายทองฝังพลอย (ชุดเดียวกับกรอบการ์ดผู้เล่น) + สปอตไลต์นุ่มๆ หลังหัวข้อ */
-        .hx-corners { position: absolute; z-index: 3; inset: 24px; pointer-events: none;
-            background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 60 60'%3E%3Cg %3E%3Cg fill='none' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M4 46V14Q4 4 14 4H46' stroke='%23000' stroke-width='7'/%3E%3Cpath d='M4 46V14Q4 4 14 4H46' stroke='%23fbbf24' stroke-width='3.6'/%3E%3Cpath d='M12 34Q12 12 34 12' stroke='%23000' stroke-width='5'/%3E%3Cpath d='M12 34Q12 12 34 12' stroke='%23fde68a' stroke-width='2.2'/%3E%3Cpath d='M46 4Q54 4 54 10Q54 16 48 15' stroke='%23000' stroke-width='5'/%3E%3Cpath d='M46 4Q54 4 54 10Q54 16 48 15' stroke='%23fbbf24' stroke-width='2.4'/%3E%3Cpath d='M4 46Q4 54 10 54Q16 54 15 48' stroke='%23000' stroke-width='5'/%3E%3Cpath d='M4 46Q4 54 10 54Q16 54 15 48' stroke='%23fbbf24' stroke-width='2.4'/%3E%3C/g%3E%3Ccircle cx='13' cy='13' r='6' fill='%23ec4899' stroke='%23000' stroke-width='2.4'/%3E%3Ccircle cx='11.4' cy='11.4' r='1.8' fill='%23fff' fill-opacity='.85'/%3E%3C/g%3E%3C/svg%3E") 0 0 / 48px 48px no-repeat, url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 60 60'%3E%3Cg transform='translate(60 0) scale(-1 1)'%3E%3Cg fill='none' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M4 46V14Q4 4 14 4H46' stroke='%23000' stroke-width='7'/%3E%3Cpath d='M4 46V14Q4 4 14 4H46' stroke='%23fbbf24' stroke-width='3.6'/%3E%3Cpath d='M12 34Q12 12 34 12' stroke='%23000' stroke-width='5'/%3E%3Cpath d='M12 34Q12 12 34 12' stroke='%23fde68a' stroke-width='2.2'/%3E%3Cpath d='M46 4Q54 4 54 10Q54 16 48 15' stroke='%23000' stroke-width='5'/%3E%3Cpath d='M46 4Q54 4 54 10Q54 16 48 15' stroke='%23fbbf24' stroke-width='2.4'/%3E%3Cpath d='M4 46Q4 54 10 54Q16 54 15 48' stroke='%23000' stroke-width='5'/%3E%3Cpath d='M4 46Q4 54 10 54Q16 54 15 48' stroke='%23fbbf24' stroke-width='2.4'/%3E%3C/g%3E%3Ccircle cx='13' cy='13' r='6' fill='%23ec4899' stroke='%23000' stroke-width='2.4'/%3E%3Ccircle cx='11.4' cy='11.4' r='1.8' fill='%23fff' fill-opacity='.85'/%3E%3C/g%3E%3C/svg%3E") 100% 0 / 48px 48px no-repeat,
-                        url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 60 60'%3E%3Cg transform='translate(0 60) scale(1 -1)'%3E%3Cg fill='none' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M4 46V14Q4 4 14 4H46' stroke='%23000' stroke-width='7'/%3E%3Cpath d='M4 46V14Q4 4 14 4H46' stroke='%23fbbf24' stroke-width='3.6'/%3E%3Cpath d='M12 34Q12 12 34 12' stroke='%23000' stroke-width='5'/%3E%3Cpath d='M12 34Q12 12 34 12' stroke='%23fde68a' stroke-width='2.2'/%3E%3Cpath d='M46 4Q54 4 54 10Q54 16 48 15' stroke='%23000' stroke-width='5'/%3E%3Cpath d='M46 4Q54 4 54 10Q54 16 48 15' stroke='%23fbbf24' stroke-width='2.4'/%3E%3Cpath d='M4 46Q4 54 10 54Q16 54 15 48' stroke='%23000' stroke-width='5'/%3E%3Cpath d='M4 46Q4 54 10 54Q16 54 15 48' stroke='%23fbbf24' stroke-width='2.4'/%3E%3C/g%3E%3Ccircle cx='13' cy='13' r='6' fill='%23ec4899' stroke='%23000' stroke-width='2.4'/%3E%3Ccircle cx='11.4' cy='11.4' r='1.8' fill='%23fff' fill-opacity='.85'/%3E%3C/g%3E%3C/svg%3E") 0 100% / 48px 48px no-repeat, url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 60 60'%3E%3Cg transform='translate(60 60) scale(-1 -1)'%3E%3Cg fill='none' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M4 46V14Q4 4 14 4H46' stroke='%23000' stroke-width='7'/%3E%3Cpath d='M4 46V14Q4 4 14 4H46' stroke='%23fbbf24' stroke-width='3.6'/%3E%3Cpath d='M12 34Q12 12 34 12' stroke='%23000' stroke-width='5'/%3E%3Cpath d='M12 34Q12 12 34 12' stroke='%23fde68a' stroke-width='2.2'/%3E%3Cpath d='M46 4Q54 4 54 10Q54 16 48 15' stroke='%23000' stroke-width='5'/%3E%3Cpath d='M46 4Q54 4 54 10Q54 16 48 15' stroke='%23fbbf24' stroke-width='2.4'/%3E%3Cpath d='M4 46Q4 54 10 54Q16 54 15 48' stroke='%23000' stroke-width='5'/%3E%3Cpath d='M4 46Q4 54 10 54Q16 54 15 48' stroke='%23fbbf24' stroke-width='2.4'/%3E%3C/g%3E%3Ccircle cx='13' cy='13' r='6' fill='%23ec4899' stroke='%23000' stroke-width='2.4'/%3E%3Ccircle cx='11.4' cy='11.4' r='1.8' fill='%23fff' fill-opacity='.85'/%3E%3C/g%3E%3C/svg%3E") 100% 100% / 48px 48px no-repeat; }
-        .hx-logo { box-shadow: 0 0 0 3px #fbbf24, 0 0 0 6px #000, 5px 5px 0 6px #000; }
-        @media (max-width: 767px) {
-            .hx-corners { inset: 15px; background-size: 30px 30px, 30px 30px, 30px 30px, 30px 30px; }
-            .hx-logo { box-shadow: 0 0 0 2.5px #fbbf24, 0 0 0 4.5px #000, 3px 3px 0 4.5px #000; }
-        }
-        .hx-beams { position: absolute; z-index: 1; inset: 0; pointer-events: none;
-            background: radial-gradient(ellipse 34% 46% at 64% 42%, rgba(255,255,255,.55), rgba(255,255,255,0) 72%),
-                        conic-gradient(from 198deg at 100% 0%, rgba(255,255,255,0) 0deg, rgba(255,255,255,.5) 6deg, rgba(255,255,255,0) 13deg, rgba(255,255,255,0) 21deg,
-                rgba(255,255,255,.38) 28deg, rgba(255,255,255,0) 35deg, rgba(255,255,255,0) 43deg, rgba(255,255,255,.3) 49deg, rgba(255,255,255,0) 56deg); }
-        .hx-sheen { position: absolute; z-index: 19; top: -10%; bottom: -10%; left: 0; width: 16%; pointer-events: none; transform: translateX(-180%) skewX(-18deg);
-            background: linear-gradient(100deg, rgba(255,255,255,0) 0%, rgba(255,255,255,.6) 50%, rgba(255,255,255,0) 100%); }
-        @media (max-width: 767px) {
-            .hx-disc { box-shadow: 0 0 0 3px #fbbf24, 0 0 0 5px #000, 6px 6px 0 5px #000; }
-            .hx-frame { box-shadow: 0 0 0 2.5px #fff, 0 0 0 4.5px #fbbf24, 0 0 0 6.5px #000; }
-            .hx-name-in { box-shadow: inset 0 0 0 1.5px rgba(251,191,36,.95), 4px 4px 0 0 #000; }
-            .hx-name-in::after { inset: 3.5px; border-width: 1px; }
-            .hx-sheen { width: 24%; }
-        }
-        /* ---- เปิดฉาก (ครั้งเดียว) — คลาส .hx-in อยู่ในรายการยกเว้นของโหมดเย็นเครื่อง/นอกจอ จึงไม่ค้างกลางทาง ---- */
-        @keyframes hxMedal { 0% { opacity: 0; transform: scale(.45) rotate(-28deg); } 65% { opacity: 1; transform: scale(1.06) rotate(4deg); } 100% { opacity: 1; transform: none; } }
-        @keyframes hxDrop { from { opacity: 0; transform: translateY(-16px) scale(.85); } to { opacity: 1; transform: none; } }
-        @keyframes hxPop { 0% { opacity: 0; transform: scale(.35) translateY(12px); } 62% { opacity: 1; transform: scale(1.1) translateY(-2px); } 100% { opacity: 1; transform: none; } }
-        @keyframes hxSlap { 0% { opacity: 0; transform: scale(2.1) rotate(var(--r0, -40deg)); } 70% { opacity: 1; transform: scale(.94) rotate(var(--r, 0deg)); } 100% { opacity: 1; transform: rotate(var(--r, 0deg)); } }
-        @keyframes hxUnfurl { 0% { opacity: 0; transform: rotate(-1.5deg) scaleX(.08); } 55% { opacity: 1; } 100% { opacity: 1; transform: rotate(-1.5deg) scaleX(1); } }
-        @keyframes hxRise { from { opacity: 0; transform: translateY(18px) rotate(var(--r, 0deg)); } to { opacity: 1; transform: rotate(var(--r, 0deg)); } }
-        @keyframes hxSheen { from { transform: translateX(-180%) skewX(-18deg); } to { transform: translateX(760%) skewX(-18deg); } }
-        @media (prefers-reduced-motion: no-preference) {
-            .hx-disc.hx-in, .hx-frame.hx-in, .hx-orbit.hx-in { animation: hxMedal .8s cubic-bezier(.2,.9,.3,1.1) .3s backwards; }
-            .hx-top > .hx-in { animation: hxDrop .45s cubic-bezier(.3,1.3,.5,1) backwards; }
-            .hx-top > .hx-logo { animation-delay: .35s; } .hx-top > .welcome-pill { animation-delay: .45s; } .hx-top > .live-badge { animation-delay: .55s; }
-            .hx-title .t1.hx-in { animation: hxPop .55s cubic-bezier(.3,1.3,.5,1) .55s backwards; }
-            .hx-title .t2.hx-in { animation: hxPop .55s cubic-bezier(.3,1.3,.5,1) .72s backwards; }
-            .hx-title .wave-hand { animation: hxPop .5s cubic-bezier(.3,1.3,.5,1) .9s backwards, waveHand 2.8s ease-in-out 1.45s infinite; }
-            .hx-name.hx-in { transform-origin: 0 50%; animation: hxUnfurl .6s cubic-bezier(.25,.9,.3,1.05) 1s backwards; }
-            .hx-tag.hx-in { animation: hxRise .45s cubic-bezier(.3,1.3,.5,1) backwards; }
-            .hx-tag.g1.hx-in { animation-delay: 1.2s; } .hx-tag.g2.hx-in { animation-delay: 1.3s; } .hx-tag.g3.hx-in { animation-delay: 1.4s; }
-            .hx-star.hx-in { --r0: -60deg; --r: -12deg; animation: hxSlap .5s cubic-bezier(.3,1.4,.5,1) 1.2s backwards; }
-            .hx-oat.hx-in { --r0: 24deg; --r: -9deg; animation: hxSlap .5s cubic-bezier(.3,1.4,.5,1) 1.35s backwards; }
-            .hx-sheen.hx-in { animation: hxSheen 1.4s cubic-bezier(.4,.1,.3,1) 1.75s 1 backwards; }
-        }
-
         /* ---- (21 ต.ค.) แถบเครดิตท้ายเว็บ = โต๊ะครูหน้ากระดานดำ (ภาพนิ่งทั้งหมด) ---- */
         .ft-bar { position: relative; margin-top: 20px; display: flex; flex-direction: column; align-items: center; gap: 18px; padding: 24px 16px 34px; text-align: center;
             background: repeating-linear-gradient(176deg, rgba(0,0,0,.09) 0 2px, rgba(0,0,0,0) 2px 11px, rgba(255,255,255,.07) 11px 13px, rgba(0,0,0,0) 13px 24px),
@@ -5528,54 +5472,50 @@
 
     <div class="max-w-7xl mx-auto px-3 md:px-4 mt-2 md:mt-8 relative z-10 oat-main">
 
-        <!-- 1. HERO — (13 ต.ค.) ออกแบบใหม่ "SHOWTIME POSTER"
-             ฉากแสงแฉกป๊อปอาร์ตแผ่ออกจากรูปครู + ตราวงกลมตัวอักษรหมุนรอบรูป + หัวข้อ 3 มิติ + ริบบิ้นชื่อ + สติกเกอร์แท็ก
-             ลวดลายพื้นหลังทั้งหมดเป็นภาพนิ่ง (วาดครั้งเดียว) ไม่พึ่งรูปพื้นหลัง — โหลดรูปไม่ขึ้นก็ยังสวยครบ
-             ของที่ขยับ: ไฟวิ่งรอบกรอบ / วงแหวนตัวอักษร / มือโบก / จุดออนไลน์ / ประกายเล็ก — transform/opacity ล้วน และหยุดเองตามโหมดเย็นเครื่อง
-             ★ ห้ามตั้ง animation ให้ตัวการ์ด (มี .animate-bounce-up อยู่) — เอฟเฟกต์ทั้งหมดอยู่ที่ลูกเท่านั้น -->
-        <div class="hero-card hx animate-bounce-up delay-100">
-            <div class="marquee-lights" aria-hidden="true"><i class="ml-t"></i><i class="ml-b"></i><i class="ml-l"></i><i class="ml-r"></i></div>
-            <i class="hx-dots d1" aria-hidden="true"></i>
-            <i class="hx-dots d2" aria-hidden="true"></i>
-            <span class="hx-word" aria-hidden="true">ENGLISH</span>
-            <i class="hx-confetti" aria-hidden="true"></i>
-            <i class="hx-beams" aria-hidden="true"></i>
-            <i class="hx-corners" aria-hidden="true"></i>
-            <i class="hx-sheen hx-in" aria-hidden="true"></i>
-            <span class="hero-spark" style="top:16%;left:44%;animation-delay:0s;"></span>
-            <span class="hero-spark" style="top:12%;left:93%;animation-delay:.8s;"></span>
-            <span class="hero-spark" style="top:84%;left:40%;animation-delay:1.6s;"></span>
-            <span class="hero-spark" style="top:74%;left:95%;animation-delay:2.4s;"></span>
-            <div class="hx-grid">
-                <div class="hx-photo">
-                    <i class="hx-burst" aria-hidden="true"></i>
-                    <div class="hx-disc hx-in" aria-hidden="true">
-                        <div class="hx-ring"><svg viewBox="0 0 200 200" focusable="false">
+        <!-- 1. HERO — (10 พ.ย.) ธีมใหม่ "AI HOLO PROFILE" (เดิม 13 ต.ค.: โปสเตอร์ป๊อปอาร์ต SHOWTIME POSTER)
+             หน้าจอโปรไฟล์ AI: พื้นกรมท่าลึก ลายรังผึ้ง + พื้นตารางเรืองแสง + ลายวงจร / รูปครูในวง HUD + วงตัวอักษรหมุน + กรอบสแกนทอง
+             ชื่อ = แถบบัตร ID โฮโลแกรม / แท็ก = ชิปข้อมูลเรืองแสง · รูปครู / ตราโรงเรียน / ข้อความเดิมทุกตัว
+             ของที่ขยับตลอด: วงตัวอักษร / มือโบก / จุดออนไลน์ — transform/opacity ล้วน และหยุดเองตามโหมดเย็นเครื่อง
+             ★ ห้ามตั้ง animation ให้ตัวการ์ด (มี .animate-bounce-up อยู่) — เอฟเฟกต์ทั้งหมดอยู่ที่ลูกเท่านั้น
+             (คลาส .hx ที่การ์ดเก็บไว้ให้สคริปต์จัดตำแหน่งจอตอนเปิดหน้า) -->
+        <div class="hero-card hx ai-hero animate-bounce-up delay-100">
+            <i class="ai-floor" aria-hidden="true"></i>
+            <i class="ai-circuit c1" aria-hidden="true"></i>
+            <i class="ai-circuit c2" aria-hidden="true"></i>
+            <span class="ai-word" aria-hidden="true">ENGLISH</span>
+            <i class="ai-corners" aria-hidden="true"></i>
+            <div class="ai-grid">
+                <div class="ai-photo">
+                    <i class="ai-burst" aria-hidden="true"></i>
+                    <i class="ai-scan" aria-hidden="true"></i>
+                    <i class="ai-hud hx-in" aria-hidden="true"></i>
+                    <div class="ai-disc hx-in" aria-hidden="true">
+                        <div class="ai-ring"><svg viewBox="0 0 200 200" focusable="false">
                             <defs><path id="hxRingPath" d="M 16,100 a 84,84 0 1,1 168,0 a 84,84 0 1,1 -168,0"/></defs>
                             <circle cx="100" cy="100" r="96" class="hx-ring-dash"/>
                             <text><textPath href="#hxRingPath" textLength="522" lengthAdjust="spacing">★ ENGLISH TEACHER ★ GSB SCHOOL ★ I AM OAT</textPath></text>
                         </svg></div>
                     </div>
-                    <i class="hx-orbit hx-in" aria-hidden="true"></i>
-                    <div class="hx-frame hx-in">
+                    <div class="ai-frame hx-in">
                         <img src="https://i.postimg.cc/pVj2q08J/Chat-GPT-Image-May-23-2026-at-09-32-41-PM.png" data-img-slot="photo" onerror="if(!window.hubImgErr_||!hubImgErr_(this)){this.onerror=null;this.src='data:image/svg+xml,%3Csvg%20xmlns=%27http://www.w3.org/2000/svg%27%20width=%27400%27%20height=%27400%27%20viewBox=%270%200%20400%20400%27%3E%3Cdefs%3E%3ClinearGradient%20id=%27g%27%20x1=%270%27%20y1=%270%27%20x2=%271%27%20y2=%271%27%3E%3Cstop%20offset=%270%27%20stop-color=%27%234338ca%27/%3E%3Cstop%20offset=%271%27%20stop-color=%27%231e1b4b%27/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect%20width=%27400%27%20height=%27400%27%20fill=%27url%28%23g%29%27/%3E%3Cg%20fill=%27none%27%20stroke=%27%23ffffff%27%20stroke-opacity=%27.12%27%20stroke-width=%2718%27%3E%3Ccircle%20cx=%27200%27%20cy=%27200%27%20r=%27120%27/%3E%3Ccircle%20cx=%27200%27%20cy=%27200%27%20r=%27170%27/%3E%3C/g%3E%3Ctext%20x=%27200%27%20y=%27228%27%20font-family=%27Arial%20Black,Arial,Helvetica,sans-serif%27%20font-weight=%27900%27%20font-size=%27118%27%20text-anchor=%27middle%27%20fill=%27%23fde047%27%20stroke=%27%23000%27%20stroke-width=%2710%27%20paint-order=%27stroke%27%3EOAT%3C/text%3E%3Ctext%20x=%27200%27%20y=%27290%27%20font-family=%27Arial,Helvetica,sans-serif%27%20font-weight=%27700%27%20font-size=%2726%27%20letter-spacing=%275%27%20text-anchor=%27middle%27%20fill=%27%23ffffff%27%3EENGLISH%20TEACHER%3C/text%3E%3C/svg%3E'}" alt="ครูจักรพงษ์ สุทธิประภา (ครูโอ๊ต)" decoding="async" fetchpriority="high" oncontextmenu="return false;" draggable="false">
-                        <i class="hx-shield" aria-hidden="true"></i>
+                        <i class="ai-scanline hx-in" aria-hidden="true"></i>
+                        <i class="ai-shield" aria-hidden="true"></i>
                     </div>
-                    <span class="hx-star hx-in" aria-hidden="true"><b>ม.4–6</b></span>
-                    <span class="hx-oat hx-in">I AM OAT! 🇬🇧 🇹🇭</span>
+                    <span class="ai-badge hx-in" aria-hidden="true"><b>ม.4–6</b></span>
+                    <span class="ai-oat hx-in">I AM OAT! 🇬🇧 🇹🇭</span>
                 </div>
-                <div class="hx-text">
-                    <div class="hx-top">
-                        <span class="hx-logo hx-in"><img src="https://i.postimg.cc/ydtX6mMS/logo.png" alt="ตราโรงเรียนธนาคารออมสิน" decoding="async" data-img-slot="logo" onerror="if(!window.hubImgErr_||!hubImgErr_(this)){this.onerror=null;this.src='data:image/svg+xml,%3Csvg%20xmlns=%27http://www.w3.org/2000/svg%27%20width=%27120%27%20height=%27120%27%20viewBox=%270%200%20120%20120%27%3E%3Ccircle%20cx=%2760%27%20cy=%2760%27%20r=%2760%27%20fill=%27%23ffffff%27/%3E%3Ctext%20x=%2760%27%20y=%2764%27%20font-size=%2764%27%20text-anchor=%27middle%27%20dominant-baseline=%27middle%27%3E%F0%9F%8F%AB%3C/text%3E%3C/svg%3E'}"></span>
-                        <span class="welcome-pill hx-in">WELCOME 🏀</span>
-                        <span class="live-badge hx-in"><i class="live-dot"></i>ONLINE NOW</span>
+                <div class="ai-text">
+                    <div class="ai-top">
+                        <span class="ai-logo hx-in"><img src="https://i.postimg.cc/ydtX6mMS/logo.png" alt="ตราโรงเรียนธนาคารออมสิน" decoding="async" data-img-slot="logo" onerror="if(!window.hubImgErr_||!hubImgErr_(this)){this.onerror=null;this.src='data:image/svg+xml,%3Csvg%20xmlns=%27http://www.w3.org/2000/svg%27%20width=%27120%27%20height=%27120%27%20viewBox=%270%200%20120%20120%27%3E%3Ccircle%20cx=%2760%27%20cy=%2760%27%20r=%2760%27%20fill=%27%23ffffff%27/%3E%3Ctext%20x=%2760%27%20y=%2764%27%20font-size=%2764%27%20text-anchor=%27middle%27%20dominant-baseline=%27middle%27%3E%F0%9F%8F%AB%3C/text%3E%3C/svg%3E'}"></span>
+                        <span class="ai-chip wel hx-in">WELCOME 🏀</span>
+                        <span class="ai-chip live hx-in"><i class="live-dot"></i>ONLINE NOW</span>
                     </div>
-                    <h1 class="hx-title"><span class="t1 hx-in" data-text="HELLO">HELLO</span> <span class="t2 hx-in" data-text="HUMAN!">HUMAN!</span><span class="wave-hand" aria-hidden="true">👋</span></h1>
-                    <div class="hx-name hx-in"><i class="tl" aria-hidden="true"></i><i class="tr" aria-hidden="true"></i><span class="hx-name-in">T.JAKRAPONG SUTTIPRAPA <span class="hx-flag" aria-hidden="true">🇬🇧</span></span></div>
-                    <div class="hx-tags">
-                        <span class="hx-tag g1 hx-in"><i aria-hidden="true">📡</i>ภาษาต่างประเทศ</span>
-                        <span class="hx-tag g2 hx-in"><i aria-hidden="true">🏫</i>ร.ร. ธนาคารออมสิน</span>
-                        <span class="hx-tag g3 hx-in"><i aria-hidden="true">💻</i>หัวหน้าวิชาการมัธยมปลาย</span>
+                    <h1 class="ai-title"><span class="t1 hx-in" data-text="HELLO">HELLO</span> <span class="t2 hx-in" data-text="HUMAN!">HUMAN!</span><span class="wave-hand" aria-hidden="true">👋</span></h1>
+                    <div class="ai-name hx-in"><span class="ai-name-in">T.JAKRAPONG SUTTIPRAPA <span class="hx-flag" aria-hidden="true">🇬🇧</span></span></div>
+                    <div class="ai-tags">
+                        <span class="ai-tag g1 hx-in"><i aria-hidden="true">📡</i>ภาษาต่างประเทศ</span>
+                        <span class="ai-tag g2 hx-in"><i aria-hidden="true">🏫</i>ร.ร. ธนาคารออมสิน</span>
+                        <span class="ai-tag g3 hx-in"><i aria-hidden="true">💻</i>หัวหน้าวิชาการมัธยมปลาย</span>
                     </div>
                 </div>
             </div>
