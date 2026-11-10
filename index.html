@@ -2866,107 +2866,110 @@
         .tp-form .border-dashed { border-width: 3px !important; border-radius: 18px !important; background: #eff6ff !important; }
 
 
-        /* ==== แผง TEACHER TOOLS บนจอใหญ่ — (21 ต.ค.) ตู้เครื่องมือ ชุดเดียวกับเมนูครู 🛠️ (หูหิ้ว/ตัวล็อก/ป้ายโลหะ/มือจับ ใช้ชุด .tb-* ของเมนู) ==== */
-        .td-dock { position: relative; overflow: hidden; margin: 40px 0 44px; border: 6px solid #000; border-radius: 2.2rem; box-shadow: 10px 10px 0 0 #000;
-            background: repeating-linear-gradient(90deg, rgba(255,255,255,.08) 0 1px, rgba(255,255,255,0) 1px 4px), linear-gradient(180deg, #e5e7eb 0%, #d1d5db 55%, #9ca3af 100%); }
-        .td-head { position: relative; display: flex; flex-direction: column; align-items: center; padding: 36px 120px 22px; border-bottom: 5px solid #000;
-            background: linear-gradient(180deg, rgba(255,255,255,.28) 0 5px, rgba(255,255,255,0) 6px), repeating-linear-gradient(90deg, rgba(255,255,255,.04) 0 2px, rgba(255,255,255,0) 2px 6px),
-                        linear-gradient(180deg, #ef4444 0%, #dc2626 55%, #991b1b 100%); }
-        .td-head .tb-handle { top: 10px; width: 170px; margin-left: -85px; }
-        .td-head .tb-latch.l { left: 64px; } .td-head .tb-latch.r { right: 64px; }
-        .td-plate { padding: 8px 32px 9px; }
-        .td-title { font-size: 1.75rem; letter-spacing: .14em; line-height: 1.1; color: #1f2937; text-shadow: 0 1px 0 #fff, 0 -1px 0 rgba(0,0,0,.25); white-space: nowrap; }
-        .td-grid { display: grid; grid-template-columns: repeat(5, minmax(0,1fr)); gap: 16px; padding: 22px 24px 26px; }
-        .td-tool { position: relative; display: flex; flex-direction: column; align-items: center; gap: 10px; min-width: 0; padding: 14px 10px 30px; cursor: pointer; font-family: 'Kanit', sans-serif;
-            color: #0f172a; border: 4px solid #000; border-radius: 14px; box-shadow: 5px 5px 0 0 #000;
-            background: linear-gradient(180deg, rgba(255,255,255,.32) 0 3px, rgba(255,255,255,0) 4px), linear-gradient(180deg, var(--g1) 0%, var(--g2) 100%);
-            transition: transform .13s ease, box-shadow .13s ease; }
-        @media (hover: hover) { .td-tool:hover { transform: translateY(-4px); box-shadow: 5px 9px 0 0 #000; } }
-        .td-tool:active { transform: translate(3px,3px); box-shadow: 0 0 0 0 #000; }
-        .td-tool:focus-visible { outline: 4px solid #4338ca; outline-offset: 3px; border-radius: 14px; }
-        .td-ico { width: 56px; height: 56px; border-radius: 50%; background: #fff; border: 3px solid #000; box-shadow: 3px 3px 0 0 #000;
-            display: flex; align-items: center; justify-content: center; font-size: 1.75rem; }
-        .td-txt { display: flex; flex-direction: column; align-items: center; gap: 1px; width: 100%; min-width: 0; padding: 5px 8px 6px;
-            background: #fff; border: 3px solid #000; border-radius: 7px; box-shadow: 0 0 0 3px #cbd5e1, 0 0 0 4.5px #000; }
-        .td-lab { font-weight: 900; font-size: .92rem; letter-spacing: .1em; color: #0f172a; white-space: nowrap; }
-        .td-sub { max-width: 100%; font-size: .7rem; font-weight: 800; color: #475569; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-        .td-tool .td-pull { left: 24px; right: 24px; bottom: 8px; }
-        @media (max-width: 1100px) and (min-width: 768px) {
-            .td-grid { grid-template-columns: repeat(3, minmax(0,1fr)); }
-            .td-head { padding-left: 96px; padding-right: 96px; } .td-head .tb-latch.l { left: 40px; } .td-head .tb-latch.r { right: 40px; }
-        }
+        /* ==== แผง TEACHER TOOLS บนจอใหญ่ (≥768px) — (10 พ.ย.) ธีมใหม่ "ART DECO GOLD" (ครูบอกตู้เครื่องมือสีแดงไม่สวย ขอเปลี่ยนธีม) ====
+           พื้นดำนิลลายตาข่ายทองจางๆ · กรอบทองสองเส้น + พัดทองประดับ 4 มุม (สไตล์อาร์ตเดโค หรูแบบยุค 1920s)
+           หัว: รัศมีแสงทอง + ปีกเส้นทองสองข้าง + ป้ายชื่อแผ่นดำขอบทองสองชั้น ตัวทองนูน 3 มิติ + พัดทองบนป้าย + ป้ายโหมดครูดำขอบทอง
+           เครื่องมือ 5 อย่าง = ซุ้มประตูโค้งสีอัญมณี (ไพลิน / แพลทินัม / บุษราคัม / ซิทริน / มรกต) ขอบทอง + หินทองบนยอดซุ้ม
+             + เหรียญไอคอนขอบทองหลายชั้นมีแสงทองแผ่ + ชื่อเครื่องมือตัวทอง + ตรากุญแจบนเหรียญ (🔓 อัปโหลด = ไม่ต้องใส่รหัส / 🔒 = ใช้รหัสครู)
+           ปุ่ม/คำสั่ง/ลำดับเดิมทั้งหมด (เมนูครู 🛠️ และหน้าต่างเครื่องมือครูไม่ได้แตะ)
+           ภาพนิ่งทั้งหมด — ไม่ใส่ animation บน #sec-teacher (มี .animate-bounce-up อยู่) ไม่มี filter / blend / will-change */
+        .td-dock { position: relative; overflow: hidden; margin: 40px 0 44px; border: 6px solid #000; border-radius: 2.2rem; color: #fde68a;
+            box-shadow: 10px 10px 0 0 #000, 0 0 60px rgba(251,191,36,.28);
+            background:
+              radial-gradient(ellipse 62% 48% at 50% 0, rgba(251,191,36,.2), rgba(251,191,36,0) 72%),
+              repeating-linear-gradient(45deg, rgba(251,191,36,.075) 0 1px, rgba(251,191,36,0) 1px 26px),
+              repeating-linear-gradient(-45deg, rgba(251,191,36,.075) 0 1px, rgba(251,191,36,0) 1px 26px),
+              linear-gradient(180deg, #16131f 0%, #0d0b15 46%, #07060b 100%); }
+        /* กรอบทองสองเส้น + พัดทอง 4 มุม (อยู่บนสุด ไม่รับการคลิก) */
+        .td-dock::after { content: ''; position: absolute; z-index: 4; inset: 10px; border-radius: calc(2.2rem - 10px); pointer-events: none;
+            border: 2px solid #fbbf24; box-shadow: inset 0 0 0 4px rgba(13,11,21,.9), inset 0 0 0 5.5px #d97706, 0 0 0 1.5px rgba(0,0,0,.6), 0 0 18px rgba(251,191,36,.25);
+            background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 80 80'%3E%3Cg fill='none' stroke-linecap='round'%3E%3Cpath d='M73 7A66 66 0 0 1 7 73' stroke='%23000' stroke-width='5'/%3E%3Cpath d='M73 7A66 66 0 0 1 7 73' stroke='%23fbbf24' stroke-width='2.4'/%3E%3Cpath d='M79 7A72 72 0 0 1 7 79' stroke='%23fde68a' stroke-opacity='.55' stroke-width='1.2'/%3E%3Cpath d='M23 7L65 7M22.8 9.5L52.43 14.2M22.22 11.94L62.16 24.92M21.26 14.26L47.99 27.88M19.94 16.4L53.92 41.09M18.31 18.31L39.53 39.53M16.4 19.94L41.09 53.92M14.26 21.26L27.88 47.99M11.94 22.22L24.92 62.16M9.5 22.8L14.2 52.43M7 23L7 65' stroke='%23fbbf24' stroke-opacity='.75' stroke-width='1.6'/%3E%3Cpath d='M23 7A16 16 0 0 1 7 23' stroke='%23000' stroke-width='5'/%3E%3Cpath d='M23 7A16 16 0 0 1 7 23' stroke='%23fde68a' stroke-width='2.4'/%3E%3C/g%3E%3Cpath d='M7 1L13 7L7 13L1 7Z' fill='%23fde68a' stroke='%23000' stroke-width='1.6' stroke-linejoin='round'/%3E%3C/svg%3E") 0 0 / 60px 60px no-repeat, url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 80 80'%3E%3Cg transform='translate(80 0) scale(-1 1)'%3E%3Cg fill='none' stroke-linecap='round'%3E%3Cpath d='M73 7A66 66 0 0 1 7 73' stroke='%23000' stroke-width='5'/%3E%3Cpath d='M73 7A66 66 0 0 1 7 73' stroke='%23fbbf24' stroke-width='2.4'/%3E%3Cpath d='M79 7A72 72 0 0 1 7 79' stroke='%23fde68a' stroke-opacity='.55' stroke-width='1.2'/%3E%3Cpath d='M23 7L65 7M22.8 9.5L52.43 14.2M22.22 11.94L62.16 24.92M21.26 14.26L47.99 27.88M19.94 16.4L53.92 41.09M18.31 18.31L39.53 39.53M16.4 19.94L41.09 53.92M14.26 21.26L27.88 47.99M11.94 22.22L24.92 62.16M9.5 22.8L14.2 52.43M7 23L7 65' stroke='%23fbbf24' stroke-opacity='.75' stroke-width='1.6'/%3E%3Cpath d='M23 7A16 16 0 0 1 7 23' stroke='%23000' stroke-width='5'/%3E%3Cpath d='M23 7A16 16 0 0 1 7 23' stroke='%23fde68a' stroke-width='2.4'/%3E%3C/g%3E%3Cpath d='M7 1L13 7L7 13L1 7Z' fill='%23fde68a' stroke='%23000' stroke-width='1.6' stroke-linejoin='round'/%3E%3C/g%3E%3C/svg%3E") 100% 0 / 60px 60px no-repeat,
+                        url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 80 80'%3E%3Cg transform='translate(0 80) scale(1 -1)'%3E%3Cg fill='none' stroke-linecap='round'%3E%3Cpath d='M73 7A66 66 0 0 1 7 73' stroke='%23000' stroke-width='5'/%3E%3Cpath d='M73 7A66 66 0 0 1 7 73' stroke='%23fbbf24' stroke-width='2.4'/%3E%3Cpath d='M79 7A72 72 0 0 1 7 79' stroke='%23fde68a' stroke-opacity='.55' stroke-width='1.2'/%3E%3Cpath d='M23 7L65 7M22.8 9.5L52.43 14.2M22.22 11.94L62.16 24.92M21.26 14.26L47.99 27.88M19.94 16.4L53.92 41.09M18.31 18.31L39.53 39.53M16.4 19.94L41.09 53.92M14.26 21.26L27.88 47.99M11.94 22.22L24.92 62.16M9.5 22.8L14.2 52.43M7 23L7 65' stroke='%23fbbf24' stroke-opacity='.75' stroke-width='1.6'/%3E%3Cpath d='M23 7A16 16 0 0 1 7 23' stroke='%23000' stroke-width='5'/%3E%3Cpath d='M23 7A16 16 0 0 1 7 23' stroke='%23fde68a' stroke-width='2.4'/%3E%3C/g%3E%3Cpath d='M7 1L13 7L7 13L1 7Z' fill='%23fde68a' stroke='%23000' stroke-width='1.6' stroke-linejoin='round'/%3E%3C/g%3E%3C/svg%3E") 0 100% / 60px 60px no-repeat, url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 80 80'%3E%3Cg transform='translate(80 80) scale(-1 -1)'%3E%3Cg fill='none' stroke-linecap='round'%3E%3Cpath d='M73 7A66 66 0 0 1 7 73' stroke='%23000' stroke-width='5'/%3E%3Cpath d='M73 7A66 66 0 0 1 7 73' stroke='%23fbbf24' stroke-width='2.4'/%3E%3Cpath d='M79 7A72 72 0 0 1 7 79' stroke='%23fde68a' stroke-opacity='.55' stroke-width='1.2'/%3E%3Cpath d='M23 7L65 7M22.8 9.5L52.43 14.2M22.22 11.94L62.16 24.92M21.26 14.26L47.99 27.88M19.94 16.4L53.92 41.09M18.31 18.31L39.53 39.53M16.4 19.94L41.09 53.92M14.26 21.26L27.88 47.99M11.94 22.22L24.92 62.16M9.5 22.8L14.2 52.43M7 23L7 65' stroke='%23fbbf24' stroke-opacity='.75' stroke-width='1.6'/%3E%3Cpath d='M23 7A16 16 0 0 1 7 23' stroke='%23000' stroke-width='5'/%3E%3Cpath d='M23 7A16 16 0 0 1 7 23' stroke='%23fde68a' stroke-width='2.4'/%3E%3C/g%3E%3Cpath d='M7 1L13 7L7 13L1 7Z' fill='%23fde68a' stroke='%23000' stroke-width='1.6' stroke-linejoin='round'/%3E%3C/g%3E%3C/svg%3E") 100% 100% / 60px 60px no-repeat; }
 
-        /* =====================================================================
-           ★ (22 ต.ค.) TEACHER TOOLS = "PRO TOOLBOX" ตู้เครื่องมือเกรดพรีเมียม — ครูขอให้อลังการขึ้น (โครง/ปุ่ม/ลำดับเดิมทั้งหมด)
-             ฝา = สีแดงเคลือบเงาแบบสีรถ (แสงสะท้อน + เส้นทองคู่ + คิ้วโครเมียมขอบล่าง) + ช่องลมโครเมียมสองข้าง (จอ ≥1101px) + ประกายแสง
-             หูหิ้ว/ตัวล็อก = โครเมียม / ป้ายชื่อ = แผ่นดำเงา ขอบโครเมียม น็อต 4 มุม ตัวอักษรโครเมียมนูน 3 มิติ (ตัวจริงเป็นเนื้อนูน + ::after เป็นหน้าเงิน)
-             ตัวตู้ = สแตนเลสขัดเงา + รางไฟ LED ใต้ฝา + แผ่นกันลื่นลายตาข้าวฐานตู้ / ลิ้นชัก = สีเคลือบเงา ขอบโครเมียม ไฟสถานะ LED เขียว
-             ภาพนิ่งทั้งหมด — ไม่ใส่ animation บน #sec-teacher (มี .animate-bounce-up อยู่) ไม่มี filter / blend
-           ===================================================================== */
-        .td-dock { box-shadow: 10px 10px 0 0 #000, 0 0 54px rgba(239,68,68,.28);
-            background: linear-gradient(104deg, rgba(255,255,255,0) 0 30%, rgba(255,255,255,.38) 31% 34%, rgba(255,255,255,0) 35% 37%, rgba(255,255,255,.22) 37.5% 38.5%, rgba(255,255,255,0) 39%),
-                        repeating-linear-gradient(90deg, rgba(255,255,255,.14) 0 1px, rgba(255,255,255,0) 1px 4px),
-                        linear-gradient(180deg, #f8fafc 0%, #e2e8f0 22%, #cbd5e1 58%, #94a3b8 100%); }
-        .td-head { padding-top: 40px; padding-bottom: 28px;
-            box-shadow: inset 0 -6px 0 #cbd5e1, inset 0 -8px 0 #f8fafc, inset 0 -10px 0 rgba(0,0,0,.4);
-            background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='720' height='124' viewBox='0 0 720 124'%3E%3Cpath d='M18 12 C19.8 20.2 19.8 20.2 28 22 C19.8 23.8 19.8 23.8 18 32 C16.2 23.8 16.2 23.8 8 22 C16.2 20.2 16.2 20.2 18 12Z' fill='%23fff' stroke='%23000' stroke-width='1.5' stroke-linejoin='round'/%3E%3Cpath d='M700 88 C702.2 97.8 702.2 97.8 712 100 C702.2 102.2 702.2 102.2 700 112 C697.8 102.2 697.8 102.2 688 100 C697.8 97.8 697.8 97.8 700 88Z' fill='%23fff' stroke='%23000' stroke-width='1.5' stroke-linejoin='round'/%3E%3Cpath d='M686 12 C687.1 16.9 687.1 16.9 692 18 C687.1 19.1 687.1 19.1 686 24 C684.9 19.1 684.9 19.1 680 18 C684.9 16.9 684.9 16.9 686 12Z' fill='%23fde68a' stroke='%23000' stroke-width='1.5' stroke-linejoin='round'/%3E%3Cpath d='M36 98 C37.1 102.9 37.1 102.9 42 104 C37.1 105.1 37.1 105.1 36 110 C34.9 105.1 34.9 105.1 30 104 C34.9 102.9 34.9 102.9 36 98Z' fill='%23fde68a' stroke='%23000' stroke-width='1.5' stroke-linejoin='round'/%3E%3C/svg%3E") 50% 46% / 720px 124px no-repeat,
-                        linear-gradient(180deg, rgba(255,255,255,.6) 0 3px, rgba(255,255,255,.2) 3px 7px, rgba(255,255,255,0) 8px),
-                        radial-gradient(ellipse 62% 75% at 50% -22%, rgba(255,255,255,.4), rgba(255,255,255,0) 70%),
-                        linear-gradient(103deg, rgba(255,255,255,0) 0 14%, rgba(255,255,255,.17) 14.5% 18%, rgba(255,255,255,0) 18.5% 20%, rgba(255,255,255,.11) 20.5% 21.5%, rgba(255,255,255,0) 22%),
-                        linear-gradient(180deg, rgba(0,0,0,0) calc(100% - 24px), #fcd34d calc(100% - 24px) calc(100% - 22px), rgba(0,0,0,0) calc(100% - 22px) calc(100% - 19px), #fcd34d calc(100% - 19px) calc(100% - 18px), rgba(0,0,0,0) calc(100% - 18px)),
-                        repeating-linear-gradient(90deg, rgba(255,255,255,.035) 0 2px, rgba(255,255,255,0) 2px 6px),
-                        linear-gradient(180deg, #ff505a 0%, #e3172c 40%, #b10f20 74%, #6e0912 100%); }
-        /* หูหิ้วโครเมียม + ขายึด */
-        .td-head .tb-handle { top: 9px; height: 20px; width: 190px; margin-left: -95px; box-shadow: 0 4px 0 0 rgba(0,0,0,.45);
-            background: repeating-linear-gradient(90deg, rgba(0,0,0,.12) 0 2px, rgba(0,0,0,0) 2px 9px), linear-gradient(180deg, #ffffff 0%, #cbd5e1 34%, #64748b 54%, #e2e8f0 74%, #94a3b8 100%); }
-        .td-head .tb-handle::before, .td-head .tb-handle::after { content: ''; position: absolute; top: calc(100% - 1px); width: 16px; height: 11px; border: 3px solid #000; border-top: 0; border-radius: 0 0 4px 4px;
-            background: linear-gradient(90deg, #94a3b8, #f8fafc 45%, #64748b); }
-        .td-head .tb-handle::before { left: 14px; } .td-head .tb-handle::after { right: 14px; }
-        /* ตัวล็อกโครเมียมมีรูกุญแจ */
-        .td-head .tb-latch { width: 46px; height: 28px; bottom: -7px; border-radius: 7px 7px 4px 4px; box-shadow: 2px 3px 0 0 rgba(0,0,0,.45);
-            background: radial-gradient(circle at 50% 42%, #111827 0 3px, rgba(0,0,0,0) 3.5px), linear-gradient(#111827, #111827) 50% 64% / 2px 7px no-repeat,
-                        linear-gradient(180deg, #ffffff 0%, #cbd5e1 40%, #64748b 62%, #e2e8f0 100%); }
-        /* ป้ายชื่อแผ่นดำเงา ขอบโครเมียม + น็อต */
-        .td-head .td-plate { padding: 12px 42px 13px; border-radius: 12px;
-            background: radial-gradient(circle at 11px 11px, #f8fafc 0 2.4px, #475569 2.9px 3.6px, rgba(0,0,0,0) 4px), radial-gradient(circle at calc(100% - 11px) 11px, #f8fafc 0 2.4px, #475569 2.9px 3.6px, rgba(0,0,0,0) 4px),
-                        radial-gradient(circle at 11px calc(100% - 11px), #f8fafc 0 2.4px, #475569 2.9px 3.6px, rgba(0,0,0,0) 4px), radial-gradient(circle at calc(100% - 11px) calc(100% - 11px), #f8fafc 0 2.4px, #475569 2.9px 3.6px, rgba(0,0,0,0) 4px),
-                        radial-gradient(ellipse 85% 65% at 50% -8%, rgba(255,255,255,.26), rgba(255,255,255,0) 70%),
-                        linear-gradient(180deg, #273244 0%, #0f172a 58%, #020617 100%);
-            box-shadow: inset 0 0 0 3px #e5e7eb, inset 0 0 0 5px #6b7280, inset 0 0 0 6px #000, 5px 5px 0 0 #000, 0 0 34px rgba(255,255,255,.28); }
-        .td-title { position: relative; font-size: 2.15rem; color: #64748b; letter-spacing: .14em;
-            text-shadow: 0 1px 0 #64748b, 0 2px 0 #475569, 0 3px 0 #334155, 0 4px 0 #000, 0 5px 0 #000, 3px 7px 0 rgba(0,0,0,.5); }
-        .td-title::after { content: attr(data-text); content: attr(data-text) / ""; position: absolute; left: 0; right: 0; top: 0; color: transparent; text-shadow: none; -webkit-text-stroke: 1px #000;
-            background: linear-gradient(180deg, #ffffff 0%, #f1f5f9 30%, #94a3b8 50%, #e2e8f0 68%, #ffffff 86%, #cbd5e1 100%); -webkit-background-clip: text; background-clip: text; }
-        .td-head .td-kick { margin-top: 14px; font-size: .7rem; box-shadow: 3px 3px 0 0 #000, 0 0 16px rgba(253,224,71,.45); }
-        /* ช่องลมโครเมียมสองข้างฝา (จอ ≥1101px) */
-        @media (min-width: 1101px) {
-            .td-head::before, .td-head::after { content: ''; position: absolute; top: 50%; width: 112px; height: 54px; margin-top: -26px; border: 3px solid #000; border-radius: 12px; pointer-events: none;
-                background: repeating-linear-gradient(180deg, #0b1220 0 6px, #6b7280 6px 7px, #f1f5f9 7px 8px, #0b1220 8px 12px) 11px 10px / calc(100% - 22px) calc(100% - 20px) no-repeat,
-                            linear-gradient(180deg, #ffffff 0%, #cbd5e1 38%, #64748b 56%, #e2e8f0 76%, #94a3b8 100%);
-                box-shadow: 3px 3px 0 0 #000, inset 0 1px 0 #fff; }
-            .td-head::before { left: 114px; } .td-head::after { right: 114px; }
+        /* ---- หัวแผง ---- */
+        .td-head { position: relative; z-index: 1; display: flex; flex-direction: column; align-items: center; padding: 58px 40px 24px; }
+        /* รัศมีแสงทองแผ่รอบป้ายชื่อ (ภาพนิ่ง) */
+        .td-rays { position: absolute; z-index: 0; left: 50%; top: 82px; width: 900px; height: 900px; margin: -450px 0 0 -450px; border-radius: 50%; pointer-events: none;
+            background: radial-gradient(circle, rgba(253,224,71,.32) 0 9%, rgba(253,224,71,0) 30%),
+                        repeating-conic-gradient(from 0deg, rgba(253,230,138,.2) 0 2.4deg, rgba(253,230,138,0) 2.4deg 9deg);
+            -webkit-mask-image: radial-gradient(circle, #000 0 12%, rgba(0,0,0,.55) 24%, rgba(0,0,0,0) 44%); mask-image: radial-gradient(circle, #000 0 12%, rgba(0,0,0,.55) 24%, rgba(0,0,0,0) 44%); }
+        /* ปีกเส้นทองสองข้างป้ายชื่อ: 3 เส้น (เส้นกลางหนา) + หินทองปลายปีก */
+        .td-wing { position: absolute; z-index: 1; top: 82px; height: 28px; margin-top: -14px; pointer-events: none;
+            background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20'%3E%3Cpath d='M10 1.5L18.5 10L10 18.5L1.5 10Z' fill='%23fbbf24' stroke='%23000' stroke-width='2' stroke-linejoin='round'/%3E%3Cpath d='M10 5L15 10L10 15L5 10Z' fill='%23fff7d1'/%3E%3C/svg%3E") 0 50% / 22px 22px no-repeat, url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 28' preserveAspectRatio='none'%3E%3Cg fill='none' stroke-linecap='round' vector-effect='non-scaling-stroke'%3E%3Cpath d='M40 4H400' stroke='%23fbbf24' stroke-width='2' vector-effect='non-scaling-stroke'/%3E%3Cpath d='M14 14H400' stroke='%23000' stroke-width='6' vector-effect='non-scaling-stroke'/%3E%3Cpath d='M14 14H400' stroke='%23fde68a' stroke-width='3' vector-effect='non-scaling-stroke'/%3E%3Cpath d='M40 24H400' stroke='%23fbbf24' stroke-width='2' vector-effect='non-scaling-stroke'/%3E%3C/g%3E%3C/svg%3E") 10px 0 / calc(100% - 10px) 100% no-repeat; }
+        .td-wing.l { left: 52px; right: calc(50% + var(--plate-w) / 2 + 10px); }
+        .td-wing.r { right: 52px; left: calc(50% + var(--plate-w) / 2 + 10px); transform: scaleX(-1); }
+        /* ป้ายชื่อ: แผ่นดำเงา ขอบทองสองชั้น หมุดเพชรทอง 4 มุม + พัดทองบนป้าย */
+        .td-head { --plate-w: 470px; }
+        .td-plate { position: relative; z-index: 2; display: flex; align-items: center; justify-content: center; width: var(--plate-w); max-width: 100%; height: 66px; padding: 0 30px;
+            border: 3px solid #000; border-radius: 10px;
+            background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20'%3E%3Cpath d='M10 1.5L18.5 10L10 18.5L1.5 10Z' fill='%23fbbf24' stroke='%23000' stroke-width='2' stroke-linejoin='round'/%3E%3Cpath d='M10 5L15 10L10 15L5 10Z' fill='%23fff7d1'/%3E%3C/svg%3E") 9px 50% / 14px 14px no-repeat, url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20'%3E%3Cpath d='M10 1.5L18.5 10L10 18.5L1.5 10Z' fill='%23fbbf24' stroke='%23000' stroke-width='2' stroke-linejoin='round'/%3E%3Cpath d='M10 5L15 10L10 15L5 10Z' fill='%23fff7d1'/%3E%3C/svg%3E") calc(100% - 9px) 50% / 14px 14px no-repeat,
+                        radial-gradient(ellipse 80% 70% at 50% -10%, rgba(253,230,138,.22), rgba(253,230,138,0) 70%),
+                        linear-gradient(180deg, #221d31 0%, #0f0c19 58%, #050409 100%);
+            box-shadow: inset 0 0 0 2px #fbbf24, inset 0 0 0 5px #0f0c19, inset 0 0 0 6.5px #d97706, 6px 6px 0 0 #000, 0 0 40px rgba(251,191,36,.4); }
+        .td-plate::before { content: ''; position: absolute; left: 50%; bottom: calc(100% - 3px); width: 96px; height: 50px; margin-left: -48px; pointer-events: none;
+            background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 120 62'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='0' y2='1'%3E%3Cstop offset='0' stop-color='%23fff7d1'/%3E%3Cstop offset='.45' stop-color='%23fbbf24'/%3E%3Cstop offset='1' stop-color='%23b45309'/%3E%3C/linearGradient%3E%3C/defs%3E%3Cpath d='M8 58A52 52 0 0 1 112 58Z' fill='url(%23g)' stroke='%23000' stroke-width='3.2' stroke-linejoin='round'/%3E%3Cpath d='M17 58A43 43 0 0 1 103 58' fill='none' stroke='%237c2d12' stroke-width='1.6' stroke-opacity='.75'/%3E%3Cpath d='M50.34 55.41L13.64 45.58M51.34 53L18.43 34M52.93 50.93L26.06 24.06M55 49.34L36 16.43M57.41 48.34L47.58 11.64M60 48L60 10M62.59 48.34L72.42 11.64M65 49.34L84 16.43M67.07 50.93L93.94 24.06M68.66 53L101.57 34M69.66 55.41L106.36 45.58' stroke='%237c2d12' stroke-width='1.5' stroke-opacity='.8' stroke-linecap='round'/%3E%3Cpath d='M46 58A14 14 0 0 1 74 58Z' fill='%230d0b16' stroke='%23000' stroke-width='2.4'/%3E%3Cpath d='M60 49L65 54L60 59L55 54Z' fill='%23fde68a'/%3E%3C/svg%3E") 50% 100% / 100% 100% no-repeat; }
+        /* ชื่อแผง: ตัวจริง = เนื้อนูนทองเข้ม / ::after = หน้าทองไล่สี (เทคนิคเดียวกับชื่อ SCORE STUDENTS) */
+        .td-title { position: relative; font-size: 2.15rem; line-height: 1.1; letter-spacing: .14em; white-space: nowrap; color: #b45309;
+            text-shadow: 0 1px 0 #b45309, 0 2px 0 #a3470a, 0 3px 0 #92400e, 0 4px 0 #000, 3px 7px 0 rgba(0,0,0,.6), 0 0 30px rgba(253,224,71,.4); }
+        .td-title::after { content: attr(data-text); content: attr(data-text) / ""; position: absolute; left: 0; right: 0; top: 0; color: transparent; text-shadow: none; -webkit-text-stroke: 1.2px #000;
+            background: linear-gradient(180deg, #fffdf0 0%, #fde68a 30%, #fbbf24 55%, #d97706 78%, #fde68a 100%); -webkit-background-clip: text; background-clip: text; }
+        .td-kick { position: relative; z-index: 2; display: block; width: fit-content; max-width: 100%; margin-top: 18px; padding: 3px 18px 2px; color: #fde68a;
+            background: linear-gradient(180deg, #221d31, #0b0a12); border: 2px solid #000; border-radius: 999px;
+            box-shadow: inset 0 0 0 1.5px #d97706, 3px 3px 0 0 #000, 0 0 16px rgba(251,191,36,.35);
+            font-size: .74rem; font-weight: 800; letter-spacing: .06em; line-height: 1.6; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+
+        /* ---- เครื่องมือ 5 อย่าง = ซุ้มประตูโค้งสีอัญมณี ---- */
+        .td-grid { position: relative; z-index: 1; display: grid; grid-template-columns: repeat(5, minmax(0,1fr)); gap: 20px; padding: 42px 58px 62px; }
+        /* เส้นคั่นทองใต้หัวแผง + หินทองตรงกลาง */
+        .td-grid::before { content: ''; position: absolute; left: 60px; right: 60px; top: 8px; height: 18px; pointer-events: none;
+            background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20'%3E%3Cpath d='M10 1.5L18.5 10L10 18.5L1.5 10Z' fill='%23fbbf24' stroke='%23000' stroke-width='2' stroke-linejoin='round'/%3E%3Cpath d='M10 5L15 10L10 15L5 10Z' fill='%23fff7d1'/%3E%3C/svg%3E") 50% 50% / 18px 18px no-repeat,
+                        linear-gradient(90deg, rgba(251,191,36,0), #fbbf24 18%, #fbbf24 calc(50% - 16px), rgba(251,191,36,0) calc(50% - 16px), rgba(251,191,36,0) calc(50% + 16px), #fbbf24 calc(50% + 16px), #fbbf24 82%, rgba(251,191,36,0)) 0 50% / 100% 2px no-repeat; }
+        /* เส้นทองฐานใต้ซุ้ม (สมมาตรกับเส้นคั่นด้านบน) */
+        .td-grid::after { content: ''; position: absolute; left: 76px; right: 76px; bottom: 22px; height: 18px; pointer-events: none;
+            background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20'%3E%3Cpath d='M10 1.5L18.5 10L10 18.5L1.5 10Z' fill='%23fbbf24' stroke='%23000' stroke-width='2' stroke-linejoin='round'/%3E%3Cpath d='M10 5L15 10L10 15L5 10Z' fill='%23fff7d1'/%3E%3C/svg%3E") 50% 50% / 18px 18px no-repeat,
+                        linear-gradient(90deg, rgba(251,191,36,0), #fbbf24 18%, #fbbf24 calc(50% - 16px), rgba(251,191,36,0) calc(50% - 16px), rgba(251,191,36,0) calc(50% + 16px), #fbbf24 calc(50% + 16px), #fbbf24 82%, rgba(251,191,36,0)) 0 50% / 100% 2px no-repeat; }
+        .td-tool { position: relative; isolation: isolate; display: flex; flex-direction: column; align-items: center; min-width: 0; padding: 30px 12px 18px; cursor: pointer; font-family: 'Kanit', sans-serif;
+            color: #fde68a; border: 3px solid #000; border-radius: 50% 50% 16px 16px / 88px 88px 16px 16px;
+            background: linear-gradient(180deg, rgba(255,255,255,.16) 0, rgba(255,255,255,0) 34%),
+                        radial-gradient(ellipse 95% 62% at 50% 22%, var(--j1) 0%, var(--j2) 58%, #0b0a12 100%);
+            box-shadow: inset 0 0 0 2px #fbbf24, inset 0 0 0 5px rgba(0,0,0,.42), inset 0 0 0 6.5px rgba(253,230,138,.75), 6px 6px 0 0 #000, 0 0 26px rgba(var(--gg), .32);
+            transition: transform .14s ease, box-shadow .14s ease; }
+        @media (hover: hover) { .td-tool:hover { transform: translateY(-5px);
+            box-shadow: inset 0 0 0 2px #fde68a, inset 0 0 0 5px rgba(0,0,0,.42), inset 0 0 0 6.5px #fde68a, 6px 11px 0 0 #000, 0 0 38px rgba(var(--gg), .6); } }
+        .td-tool:active { transform: translate(3px,3px); box-shadow: inset 0 0 0 2px #fbbf24, inset 0 0 0 5px rgba(0,0,0,.42), inset 0 0 0 6.5px rgba(253,230,138,.75), 0 0 0 0 #000; }
+        .td-tool:focus-visible { outline: 4px solid #fde047; outline-offset: 4px; }
+        /* หินทองบนยอดซุ้ม */
+        .td-tool::before { content: ''; position: absolute; z-index: 2; left: 50%; top: -12px; width: 22px; height: 22px; margin-left: -11px; pointer-events: none;
+            background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20'%3E%3Cpath d='M10 1.5L18.5 10L10 18.5L1.5 10Z' fill='%23fbbf24' stroke='%23000' stroke-width='2' stroke-linejoin='round'/%3E%3Cpath d='M10 5L15 10L10 15L5 10Z' fill='%23fff7d1'/%3E%3C/svg%3E") 0 0 / 100% 100% no-repeat; }
+        /* ตรากุญแจที่มุมขวาล่างของเหรียญไอคอน: 🔒 ต้องใช้รหัสครู / 🔓 อัปโหลดไม่ต้องใส่รหัส */
+        .td-tool::after { content: '🔒'; content: '🔒' / ''; position: absolute; z-index: 2; left: calc(50% + 16px); top: 82px; width: 26px; height: 26px; border-radius: 50%; pointer-events: none;
+            display: flex; align-items: center; justify-content: center; font-size: 12px; line-height: 1;
+            background: radial-gradient(circle at 35% 30%, #2a2438, #0b0a12); box-shadow: 0 0 0 1.5px #fbbf24, 0 0 0 3px #000; }
+        .td-tool.is-open::after { content: '🔓'; content: '🔓' / ''; }
+        /* เหรียญไอคอน: พื้นงาช้าง ขอบทอง-ดำ 2 ชั้น + แสงสีอัญมณี / แสงทองแผ่ด้านหลัง */
+        .td-ico { position: relative; width: 70px; height: 70px; flex: none; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 2.05rem; line-height: 1;
+            background: radial-gradient(circle at 35% 28%, #ffffff 0 42%, #fff7e6 72%, #f3dfae 100%); border: 3px solid #000;
+            box-shadow: 0 0 0 3px #fbbf24, 0 0 0 5px #000, 0 0 0 7.5px #fde68a, 0 0 0 9.5px #000, 0 0 28px 8px rgba(var(--gg), .55); }
+        .td-ico::before { content: ''; position: absolute; z-index: -1; left: 50%; top: 50%; width: 150px; height: 150px; margin: -75px 0 0 -75px; border-radius: 50%; pointer-events: none;
+            background: repeating-conic-gradient(rgba(253,230,138,.34) 0 3deg, rgba(253,230,138,0) 3deg 12deg);
+            -webkit-mask-image: radial-gradient(circle, rgba(0,0,0,0) 0 30%, #000 34%, rgba(0,0,0,0) 70%); mask-image: radial-gradient(circle, rgba(0,0,0,0) 0 30%, #000 34%, rgba(0,0,0,0) 70%); }
+        .td-txt { display: flex; flex-direction: column; align-items: center; width: 100%; min-width: 0; margin-top: 22px; }
+        .td-lab { font-weight: 900; font-size: 1.02rem; letter-spacing: .16em; line-height: 1.2; color: #fde68a; white-space: nowrap; text-shadow: 0 2px 0 #000, 0 0 14px rgba(251,191,36,.45); }
+        /* เส้นทองคั่น + หินทองเล็ก */
+        .td-lab::after { content: ''; display: block; width: 84px; height: 10px; margin: 6px auto 0;
+            background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20'%3E%3Cpath d='M10 1.5L18.5 10L10 18.5L1.5 10Z' fill='%23fbbf24' stroke='%23000' stroke-width='2' stroke-linejoin='round'/%3E%3Cpath d='M10 5L15 10L10 15L5 10Z' fill='%23fff7d1'/%3E%3C/svg%3E") 50% 50% / 10px 10px no-repeat,
+                        linear-gradient(90deg, rgba(251,191,36,0), #fbbf24 30%, #fbbf24 calc(50% - 8px), rgba(251,191,36,0) calc(50% - 8px), rgba(251,191,36,0) calc(50% + 8px), #fbbf24 calc(50% + 8px), #fbbf24 70%, rgba(251,191,36,0)) 0 50% / 100% 1.5px no-repeat; }
+        .td-sub { max-width: 100%; margin-top: 6px; font-size: .74rem; font-weight: 700; color: #f8fafc; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; text-shadow: 0 1px 0 rgba(0,0,0,.6); }
+
+        /* แท็บเล็ต (768–1100px): 3 ต่อแถว แถวล่าง 2 อันอยู่กึ่งกลาง / ป้ายชื่อเล็กลง */
+        @media (max-width: 1100px) and (min-width: 768px) {
+            .td-head { --plate-w: 420px; }
+            .td-title { font-size: 1.85rem; }
+            .td-grid { grid-template-columns: repeat(6, minmax(0,1fr)); gap: 22px 20px; }
+            .td-tool { grid-column: span 2; }
+            .td-tool:nth-child(4) { grid-column: 2 / span 2; }
         }
-        @media (min-width: 1280px) { .td-head::before, .td-head::after { width: 150px; } .td-head::before { left: 132px; } .td-head::after { right: 132px; } }
-        /* รางไฟ LED ใต้ฝา + แผ่นกันลื่นลายตาข้าวที่ฐานตู้ */
-        .td-grid { position: relative; padding-top: 30px; padding-bottom: 40px; }
-        .td-grid::before { content: ''; position: absolute; left: 22px; right: 22px; top: 8px; height: 11px; border: 2px solid #000; border-radius: 999px; pointer-events: none;
-            background: linear-gradient(180deg, #0b1220 0 2px, #22d3ee 2px 3px, #ecfeff 3px 5px, #22d3ee 5px 6px, #0b1220 6px); box-shadow: 0 0 8px #22d3ee, 0 0 22px rgba(34,211,238,.7), 0 0 40px rgba(34,211,238,.35); }
-        .td-grid::after { content: ''; position: absolute; left: 0; right: 0; bottom: 0; height: 22px; border-top: 3px solid #000; pointer-events: none;
-            background: linear-gradient(45deg, rgba(255,255,255,0) 42%, rgba(255,255,255,.75) 42% 50%, rgba(0,0,0,.25) 50% 58%, rgba(255,255,255,0) 58%) 0 0 / 14px 14px,
-                        linear-gradient(-45deg, rgba(255,255,255,0) 42%, rgba(255,255,255,.75) 42% 50%, rgba(0,0,0,.25) 50% 58%, rgba(255,255,255,0) 58%) 7px 7px / 14px 14px,
-                        linear-gradient(180deg, #cbd5e1, #64748b); }
-        /* ลิ้นชัก: สีเคลือบเงา ขอบโครเมียม ไฟ LED + แสงเรืองสีลิ้นชัก */
-        .td-tool { box-shadow: 5px 5px 0 0 #000, 0 0 22px rgba(var(--gg, 255,255,255), .4), inset 0 0 0 2px rgba(255,255,255,.5), inset 0 0 0 4px rgba(0,0,0,.15);
-            background: linear-gradient(112deg, rgba(255,255,255,.42) 0 7%, rgba(255,255,255,.12) 7.5% 12%, rgba(255,255,255,0) 12.5%),
-                        linear-gradient(180deg, rgba(255,255,255,.4) 0 3px, rgba(255,255,255,.14) 3px 44%, rgba(255,255,255,0) 45%),
-                        linear-gradient(180deg, var(--g1) 0%, var(--g2) 100%); }
-        @media (hover: hover) { .td-tool:hover { box-shadow: 5px 9px 0 0 #000, 0 0 30px rgba(var(--gg, 255,255,255), .6), inset 0 0 0 2px rgba(255,255,255,.5), inset 0 0 0 4px rgba(0,0,0,.15); } }
-        .td-tool:active { box-shadow: 0 0 0 0 #000, inset 0 0 0 2px rgba(255,255,255,.5); }
-        .td-tool::after { content: ''; position: absolute; top: 9px; right: 10px; width: 9px; height: 9px; border-radius: 50%; border: 2px solid #000; pointer-events: none;
-            background: radial-gradient(circle at 35% 30%, #f0fdf4 0 25%, #4ade80 55%, #15803d 100%); box-shadow: 0 0 8px rgba(74,222,128,.95); }
-        .td-ico { background: radial-gradient(circle at 35% 28%, #fff 0 45%, #eef2f7 72%, #d6dde8 100%); box-shadow: 0 0 0 3px #e5e7eb, 0 0 0 5px #000, 4px 5px 0 4px rgba(0,0,0,.8); }
-        .td-txt { box-shadow: 0 0 0 3px #cbd5e1, 0 0 0 4.5px #000, inset 0 2px 0 rgba(255,255,255,.9), inset 0 -3px 0 rgba(15,23,42,.06); }
-        .td-tool .td-pull { height: 11px; background: linear-gradient(180deg, #ffffff 0%, #e2e8f0 35%, #64748b 62%, #cbd5e1 100%); box-shadow: 0 2px 0 rgba(0,0,0,.4); }
+        @media (max-width: 860px) and (min-width: 768px) { .td-wing { display: none; } }
 
         /* โหมดเย็นเครื่อง: หยุดแอนิเมชัน (ค้างไว้ที่ท่าปัจจุบัน ไม่กระตุกกลับ) — ดูสคริปต์ท้ายไฟล์ */
         /* ไม่หยุดแอนิเมชัน "เด้งเข้า" ครั้งเดียวตอนโหลด (.animate-bounce-up / ปุ่มด่าน) ไม่งั้นการ์ดนอกจอจะค้างโปร่งใส */
@@ -6012,19 +6015,23 @@
         </section>
 
         <!-- Upload & Admin (ซ่อนบนมือถือ ใช้เมนู 🛠️ มุมขวาบนแทน) — (11 ต.ค.) รวมเป็นแผง TEACHER TOOLS แผงเดียว
-             (21 ต.ค.) หน้าตาใหม่ = ตู้เครื่องมือ ชุดเดียวกับเมนูครู 🛠️: ฝาแดง หูหิ้ว ตัวล็อก ป้ายชื่อโลหะ / เครื่องมือ 5 อย่าง = ลิ้นชักมีมือจับ (ภาพนิ่ง) -->
+             (10 พ.ย.) ธีมใหม่ "ART DECO GOLD" (เดิม: ตู้เครื่องมือสีแดง): พื้นดำนิลลายตาข่ายทอง กรอบทองสองเส้น + พัดทอง 4 มุม
+             ป้ายชื่อแผ่นดำขอบทอง ตัวทองนูน + พัดทองบนป้าย + รัศมีแสงทอง + ปีกเส้นทองสองข้าง
+             เครื่องมือ 5 อย่าง = ซุ้มประตูโค้งสีอัญมณี ขอบทอง + เหรียญไอคอนขอบทอง + ป้ายกุญแจ (🔓 อัปโหลดไม่ต้องใส่รหัส / 🔒 ใช้รหัสครู)
+             ปุ่ม/คำสั่งเดิมทั้งหมด ภาพนิ่งทั้งหมด (ไม่ใส่ animation บน #sec-teacher เพราะมี .animate-bounce-up) -->
         <section id="sec-teacher" class="td-dock hidden md:block animate-bounce-up delay-500">
             <div class="td-head">
-                <span class="tb-handle" aria-hidden="true"></span><span class="tb-latch l" aria-hidden="true"></span><span class="tb-latch r" aria-hidden="true"></span>
-                <div class="tb-plate td-plate"><h2 class="td-title font-black" data-text="TEACHER TOOLS">TEACHER TOOLS</h2></div>
-                <span class="tb-tag td-kick">👨‍🏫 โหมดครู · ปุ่มจัดการข้อมูลต้องใช้รหัสครู</span>
+                <i class="td-rays" aria-hidden="true"></i>
+                <i class="td-wing l" aria-hidden="true"></i><i class="td-wing r" aria-hidden="true"></i>
+                <div class="td-plate"><h2 class="td-title font-black" data-text="TEACHER TOOLS">TEACHER TOOLS</h2></div>
+                <span class="td-kick">👨‍🏫 โหมดครู · ปุ่มจัดการข้อมูลต้องใช้รหัสครู</span>
             </div>
             <div class="td-grid">
-                <button type="button" onclick="openUploadPopup()" class="td-tool" style="--g1:#60a5fa;--g2:#4338ca;--gg:96,165,250;"><span class="td-ico" aria-hidden="true">📤</span><span class="td-txt"><span class="td-lab">UPLOAD</span><span class="td-sub">ส่งงาน · ไม่ต้องใส่รหัส</span></span><span class="tb-pull td-pull" aria-hidden="true"></span></button>
-                <button type="button" onclick="checkAdminScores()" class="td-tool" style="--g1:#64748b;--g2:#0f172a;--gg:148,163,184;"><span class="td-ico" aria-hidden="true">🤖</span><span class="td-txt"><span class="td-lab">OVERRIDE</span><span class="td-sub">คะแนนทุกห้อง</span></span><span class="tb-pull td-pull" aria-hidden="true"></span></button>
-                <button type="button" onclick="openQuizAdmin()" class="td-tool" style="--g1:#fb923c;--g2:#9a3412;--gg:251,146,60;"><span class="td-ico" aria-hidden="true">🎲</span><span class="td-txt"><span class="td-lab">QUIZ</span><span class="td-sub">จัดการเกมควิซ</span></span><span class="tb-pull td-pull" aria-hidden="true"></span></button>
-                <button type="button" onclick="openDeadlineAdmin()" class="td-tool" style="--g1:#fbbf24;--g2:#92400e;--gg:251,191,36;"><span class="td-ico" aria-hidden="true">📅</span><span class="td-txt"><span class="td-lab">DEADLINE</span><span class="td-sub">กำหนดส่งงาน</span></span><span class="tb-pull td-pull" aria-hidden="true"></span></button>
-                <button type="button" onclick="openDashboard()" class="td-tool" style="--g1:#34d399;--g2:#065f46;--gg:52,211,153;"><span class="td-ico" aria-hidden="true">📊</span><span class="td-txt"><span class="td-lab">DASHBOARD</span><span class="td-sub">ภาพรวมวันนี้</span></span><span class="tb-pull td-pull" aria-hidden="true"></span></button>
+                <button type="button" onclick="openUploadPopup()" class="td-tool is-open" style="--j1:#3b82f6;--j2:#1e3a8a;--gg:96,165,250;"><span class="td-ico" aria-hidden="true">📤</span><span class="td-txt"><span class="td-lab">UPLOAD</span><span class="td-sub">ส่งงาน · ไม่ต้องใส่รหัส</span></span></button>
+                <button type="button" onclick="checkAdminScores()" class="td-tool" style="--j1:#94a3b8;--j2:#1e293b;--gg:148,163,184;"><span class="td-ico" aria-hidden="true">🤖</span><span class="td-txt"><span class="td-lab">OVERRIDE</span><span class="td-sub">คะแนนทุกห้อง</span></span></button>
+                <button type="button" onclick="openQuizAdmin()" class="td-tool" style="--j1:#f97316;--j2:#7c2d12;--gg:251,146,60;"><span class="td-ico" aria-hidden="true">🎲</span><span class="td-txt"><span class="td-lab">QUIZ</span><span class="td-sub">จัดการเกมควิซ</span></span></button>
+                <button type="button" onclick="openDeadlineAdmin()" class="td-tool" style="--j1:#f59e0b;--j2:#78350f;--gg:251,191,36;"><span class="td-ico" aria-hidden="true">📅</span><span class="td-txt"><span class="td-lab">DEADLINE</span><span class="td-sub">กำหนดส่งงาน</span></span></button>
+                <button type="button" onclick="openDashboard()" class="td-tool" style="--j1:#10b981;--j2:#064e3b;--gg:52,211,153;"><span class="td-ico" aria-hidden="true">📊</span><span class="td-txt"><span class="td-lab">DASHBOARD</span><span class="td-sub">ภาพรวมวันนี้</span></span></button>
             </div>
         </section>
 
