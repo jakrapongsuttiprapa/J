@@ -5487,6 +5487,62 @@
         @media (max-width: 599px) { .ft-doodle.dd1 { display: none; } }
         @media (max-width: 359px) { .ft-bunting i { width: 30px; height: 36px; font-size: .78rem; } }
 
+        /* ==========================================================================
+           ★ (9 พ.ย.) SCORE STUDENTS = "LEGENDARY MAP" — ครูขอให้อลังการขึ้นอีก (ปุ่มห้อง/แท็บ/ลำดับ/การทำงานเดิมทั้งหมด)
+             บนเกาะ: ถนนลูกรังคดเคี้ยวเชื่อมด่าน 1→4 (เหรียญทองวางบนถนน) + เงาใต้ลูกบอลด่าน + ประกายวิบวับบนอัญมณี
+             ดาวใต้ด่าน = ดาวทอง 3 ดวงเรียงโค้ง (ดวงกลางใหญ่) แบบเกมจริง · ป้ายโลกมีหางริบบิ้นสองข้าง
+             จอกว้าง: สะพานเชือกไม้กระดานเชื่อมเกาะ ม.4 → ม.5 → ม.6 — ภาพนิ่งทั้งหมด ไม่เพิ่มแอนิเมชัน ไม่มี filter / blend
+           ========================================================================== */
+        /* ถนนคดเคี้ยวผ่านด่าน (เส้นโค้งปรับตามความกว้างเกาะ เส้นหนาเท่าเดิมทุกจอ) — แทนเส้นประเดิม */
+        .st-path::before { left: 0; right: 0; top: calc(var(--ball) / 2 - 4px); height: 40px; border-radius: 0;
+            background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 40' preserveAspectRatio='none'%3E%3Cpath d='M50 8C90 8 110 28 150 28S210 8 250 8S310 28 350 28' fill='none' stroke='%23000' stroke-width='16' stroke-linecap='round' vector-effect='non-scaling-stroke'/%3E%3Cpath d='M50 8C90 8 110 28 150 28S210 8 250 8S310 28 350 28' fill='none' stroke='%23e2b56a' stroke-width='11' stroke-linecap='round' vector-effect='non-scaling-stroke'/%3E%3Cpath d='M50 8C90 8 110 28 150 28S210 8 250 8S310 28 350 28' fill='none' stroke='%23f8dc9c' stroke-width='7' stroke-linecap='round' vector-effect='non-scaling-stroke'/%3E%3Cpath d='M50 8C90 8 110 28 150 28S210 8 250 8S310 28 350 28' fill='none' stroke='%23ffffff' stroke-width='1.6' stroke-dasharray='5 7' stroke-opacity='.9' stroke-linecap='round' vector-effect='non-scaling-stroke'/%3E%3C/svg%3E") 0 0 / 100% 100% no-repeat; }
+        /* เงานุ่มๆ ใต้ลูกบอลด่าน ให้ดูตั้งอยู่บนพื้นเกาะ */
+        .st-node::before { content: ''; position: absolute; z-index: -1; left: 50%; top: calc(var(--ball) - 4px); width: calc(var(--ball) * 1.2); height: 18px;
+            margin-left: calc(var(--ball) * -.6); border-radius: 50%; pointer-events: none;
+            background: radial-gradient(ellipse 50% 50% at 50% 50%, rgba(60,20,0,.34) 0 45%, rgba(60,20,0,0) 100%); }
+        /* ประกายวิบวับบนอัญมณี (ภาพนิ่ง) */
+        .st-ball::after { content: ''; position: absolute; left: 13%; top: 9%; width: 30%; height: 30%; pointer-events: none;
+            background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20'%3E%3Cpath d='M10 0C10.9 7.3 12.7 9.1 20 10C12.7 10.9 10.9 12.7 10 20C9.1 12.7 7.3 10.9 0 10C7.3 9.1 9.1 7.3 10 0Z' fill='%23fff' fill-opacity='.95'/%3E%3C/svg%3E") 0 0 / 100% 100% no-repeat; }
+        /* ดาวทอง 3 ดวงเรียงโค้ง (ดวงกลางใหญ่) — ตัวอักษร ★★★ เดิมยังอยู่ (ซ่อนจากโปรแกรมอ่านจอเหมือนเดิม) แต่ไม่แสดงผล */
+        .st-stars { display: block; width: 50px; height: 20px; font-size: 0; color: transparent; text-shadow: none; letter-spacing: 0;
+            background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 26'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='0' y2='1'%3E%3Cstop offset='0' stop-color='%23fff7c2'/%3E%3Cstop offset='.45' stop-color='%23fde047'/%3E%3Cstop offset='1' stop-color='%23f59e0b'/%3E%3C/linearGradient%3E%3C/defs%3E%3Cg stroke='%23000' stroke-width='1.8' stroke-linejoin='round' fill='url(%23g)'%3E%3Cpath d='M12.00 5.50L14.51 11.54L21.04 12.06L16.07 16.32L17.58 22.69L12.00 19.27L6.42 22.69L7.93 16.32L2.96 12.06L9.49 11.54Z'/%3E%3Cpath d='M52.00 5.50L54.51 11.54L61.04 12.06L56.07 16.32L57.58 22.69L52.00 19.27L46.42 22.69L47.93 16.32L42.96 12.06L49.49 11.54Z'/%3E%3Cpath d='M32.00 0.50L35.17 8.13L43.41 8.79L37.14 14.17L39.05 22.21L32.00 17.90L24.95 22.21L26.86 14.17L20.59 8.79L28.83 8.13Z'/%3E%3C/g%3E%3Cg fill='%23fff' fill-opacity='.85'%3E%3Ccircle cx='9.5' cy='12' r='1.6'/%3E%3Ccircle cx='49.5' cy='12' r='1.6'/%3E%3Ccircle cx='29' cy='9' r='2'/%3E%3C/g%3E%3C/svg%3E") 50% 50% / contain no-repeat; }
+        /* ป้ายโลก: หางริบบิ้นสองข้าง สีประจำโลก */
+        .sw-sign::before, .sw-sign::after { content: ''; position: absolute; top: 7px; bottom: -6px; width: 18px; border: 3px solid #000; pointer-events: none;
+            background: linear-gradient(180deg, var(--sg1), var(--sg2)); }
+        .sw-sign::before { right: calc(100% - 1px); clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%, 42% 50%); }
+        .sw-sign::after { left: calc(100% - 1px); clip-path: polygon(0 0, 100% 0, 58% 50%, 100% 100%, 0 100%); }
+        /* สะพานเชือกไม้กระดาน (จอกว้าง) */
+        @media (min-width: 900px) {
+            .st-world:not(:last-child) .sw-bridge { right: -46px; top: 45%; width: 58px; height: 24px; border: 0; border-radius: 0;
+                background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 26'%3E%3Cpath d='M2 6Q32 22 62 6' fill='none' stroke='%23000' stroke-width='4.6' stroke-linecap='round'/%3E%3Crect x='6.2' y='6.3' width='5.6' height='9' rx='1.2' fill='%23b7793b' stroke='%23000' stroke-width='1.5' transform='rotate(17 9 9.3)'/%3E%3Crect x='14.2' y='9.0' width='5.6' height='9' rx='1.2' fill='%23b7793b' stroke='%23000' stroke-width='1.5' transform='rotate(11 17 12.0)'/%3E%3Crect x='22.2' y='10.6' width='5.6' height='9' rx='1.2' fill='%23b7793b' stroke='%23000' stroke-width='1.5' transform='rotate(5 25 13.6)'/%3E%3Crect x='30.2' y='11.0' width='5.6' height='9' rx='1.2' fill='%23b7793b' stroke='%23000' stroke-width='1.5' transform='rotate(-1 33 14.0)'/%3E%3Crect x='38.2' y='10.3' width='5.6' height='9' rx='1.2' fill='%23b7793b' stroke='%23000' stroke-width='1.5' transform='rotate(-6 41 13.3)'/%3E%3Crect x='46.2' y='8.4' width='5.6' height='9' rx='1.2' fill='%23b7793b' stroke='%23000' stroke-width='1.5' transform='rotate(-12 49 11.4)'/%3E%3Crect x='54.2' y='5.4' width='5.6' height='9' rx='1.2' fill='%23b7793b' stroke='%23000' stroke-width='1.5' transform='rotate(-18 57 8.4)'/%3E%3Cpath d='M2 6Q32 22 62 6' fill='none' stroke='%23fde047' stroke-width='1.8' stroke-linecap='round'/%3E%3Cpath d='M2 1.5Q32 13 62 1.5' fill='none' stroke='%23000' stroke-width='3.4' stroke-linecap='round'/%3E%3Cpath d='M2 1.5Q32 13 62 1.5' fill='none' stroke='%23fde68a' stroke-width='1.3' stroke-linecap='round'/%3E%3C/svg%3E") 0 0 / 100% 100% no-repeat; }
+        }
+        /* ป้าย STAGE = แผ่นป้ายกรมท่าตัวทอง + ดอกไม้เล็กๆ บนแนวหญ้าเกาะ */
+        .st-node small { margin-top: 6px; padding: 2px 8px 1px; color: #fde68a; line-height: 1.35; letter-spacing: .1em;
+            background: linear-gradient(180deg, #3730a3 0%, #1e1b4b 100%); border: 2px solid #000; border-radius: 999px; box-shadow: 0 2px 0 0 #000, inset 0 1px 0 rgba(255,255,255,.22); }
+        .sw-island { background:
+              radial-gradient(circle, #fde047 0 1.4px, rgba(253,224,71,0) 1.9px) 16px 3px / 52px 10px repeat-x,
+              radial-gradient(circle, #ffffff 0 3px, rgba(255,255,255,0) 3.6px) 16px 3px / 52px 10px repeat-x,
+              radial-gradient(circle, #fbcfe8 0 2.4px, rgba(251,207,232,0) 3px) 42px 5px / 52px 10px repeat-x,
+              radial-gradient(circle at 10px 0, var(--grass) 0 9px, transparent 9.5px) 0 15px / 20px 12px repeat-x,
+              radial-gradient(circle at 10px 0, var(--grass2, rgba(0,0,0,.18)) 0 9px, transparent 9.5px) 0 18px / 20px 12px repeat-x,
+              linear-gradient(180deg, rgba(255,255,255,.35) 0 2px, var(--grass) 2px 16px, transparent 16px),
+              radial-gradient(circle, rgba(0,0,0,.07) 1.4px, transparent 2px) 0 0/14px 14px,
+              radial-gradient(ellipse 70% 60% at 50% 40%, rgba(255,255,255,.55), rgba(255,255,255,0) 70%),
+              linear-gradient(180deg, var(--soil) 30%, var(--soil2) 100%); }
+        @media (max-width: 360px) { .st-node small { padding: 2px 5px 1px; letter-spacing: .05em; } }
+        /* ขอบหญ้า 2 ชั้น (เงาสีเข้มใต้ระบายหญ้า) + เหรียญทองบนถนนสีทองเข้มขึ้น ให้เด่นจากพื้นถนน */
+        .st-world.g4 { --grass2: #c2410c; } .st-world.g5 { --grass2: #15803d; } .st-world.g6 { --grass2: #be185d; }
+        .st-path::after { --coin: #fbbf24 0 2.4px, #000 2.8px 3.9px, rgba(0,0,0,0) 4.3px; }
+        /* แท็บเลือกโลก (มือถือ/แท็บเล็ต): การ์ดโลกขอบสีประจำโลก · โลกที่เลือก = ขอบทอง + แสงเรือง + ลูกศรชี้ลงหาเกาะ */
+        .st-tab { position: relative; border: 2px solid rgba(var(--wg), .55); background: linear-gradient(180deg, rgba(var(--wg), .2), rgba(var(--wg), .05)); color: #e0e7ff; }
+        .st-tab[aria-selected="true"] { border: 2.5px solid #000; box-shadow: 0 0 0 2px #fbbf24, 0 3px 0 2px #000, 0 0 18px rgba(var(--wg), .75), inset 0 0 0 2px rgba(255,255,255,.55); }
+        .st-tab[aria-selected="true"]::after { content: ''; position: absolute; left: 50%; bottom: -13px; width: 16px; height: 9px; margin-left: -8px; pointer-events: none;
+            background: #fbbf24; clip-path: polygon(0 0, 100% 0, 50% 100%); }
+        @media (max-width: 767px) {
+            .st-stars { width: 44px; height: 18px; }
+            .sw-sign::before, .sw-sign::after { width: 14px; top: 6px; bottom: -5px; }
+        }
+
 </style>
     <!-- ★ Tailwind CSS สำเร็จรูป (3.4.19) แทนตัวคอมไพล์สดแบบ CDN: ไม่ต้องคอมไพล์ในเบราว์เซอร์ทุกครั้งที่เปิดเว็บ/เปิดป๊อปอัป
          และไม่พึ่งเซิร์ฟเวอร์ภายนอก (เดิมถ้า cdn.tailwindcss.com ล่ม ทั้งหน้าจะไม่มีสไตล์)
