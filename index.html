@@ -5452,6 +5452,57 @@
         @media (max-width: 599px) { .ft-doodle.dd1 { display: none; } }
         @media (max-width: 359px) { .ft-bunting i { width: 30px; height: 36px; font-size: .78rem; } }
 
+        /* ==========================================================================
+           ★ (11 พ.ย.) เมนูครู 🛠️ + หน้าต่างฝั่งครู (.tp-pop) = ธีม "ART DECO GOLD" ให้เข้าชุดกับแผง TEACHER TOOLS ใหม่ (เดิม: กล่องเครื่องมือสีแดง)
+             หัวหน้าต่าง = แผ่นดำนิลลายตาข่ายทอง + เส้นทองคู่ / หูหิ้วเดิม → คานทองมีหินทองกลาง / ตัวล็อกเดิม → หินทองสองข้าง
+             ป้ายชื่อ = แผ่นดำขอบทองสองชั้น ตัวทองนูน / ป้ายโหมดครู = ดำขอบทอง / ปุ่มปิด = ทอง
+             เมนูครู: พื้นดำนิลลายตาข่ายทอง + เส้นทองคั่น / ปุ่ม = แผ่นสีอัญมณีขอบทอง ป้ายชื่อดำตัวทอง
+             ปุ่ม/คำสั่ง/ขนาด/จังหวะเปิดเมนูเดิมทั้งหมด — เปลี่ยนแค่สีและลวดลาย (ภาพนิ่ง ไม่มี filter / blend)
+           ========================================================================== */
+        .swal2-container .mn-tch .swal2-title, .swal2-container .tp-pop .swal2-title {
+            box-shadow: inset 0 -3px 0 #fbbf24, inset 0 -6px 0 #0d0b15, inset 0 -7.5px 0 #d97706;
+            background: radial-gradient(ellipse 70% 90% at 50% 0, rgba(251,191,36,.26), rgba(251,191,36,0) 72%),
+                        repeating-linear-gradient(45deg, rgba(251,191,36,.09) 0 1px, rgba(251,191,36,0) 1px 22px),
+                        repeating-linear-gradient(-45deg, rgba(251,191,36,.09) 0 1px, rgba(251,191,36,0) 1px 22px),
+                        linear-gradient(180deg, #1c1828 0%, #0d0b15 60%, #07060b 100%) !important; }
+        .mn-tch .tb-handle, .tp-pop .tb-handle { top: 13px; height: 9px; border-width: 2px; box-shadow: 0 0 10px rgba(251,191,36,.5);
+            background: linear-gradient(180deg, #fff7d1 0%, #fbbf24 55%, #b45309 100%); }
+        .mn-tch .tb-handle::before, .tp-pop .tb-handle::before { left: 50%; top: 50%; width: 14px; height: 14px; margin: -7px 0 0 -7px; border: 2px solid #000; border-radius: 2px; transform: rotate(45deg);
+            background: linear-gradient(135deg, #fff7d1, #fbbf24); }
+        .mn-tch .tb-handle::after, .tp-pop .tb-handle::after { display: none; }
+        .mn-tch .tb-latch, .tp-pop .tb-latch { width: 16px; height: 16px; bottom: -9px; border: 2px solid #000; border-radius: 2px; transform: rotate(45deg); box-shadow: 0 0 10px rgba(251,191,36,.6);
+            background: linear-gradient(135deg, #fff7d1, #fbbf24 60%, #d97706); }
+        .mn-tch .tb-plate, .tp-pop .tb-plate { border-radius: 10px;
+            background: radial-gradient(ellipse 80% 70% at 50% -10%, rgba(253,230,138,.22), rgba(253,230,138,0) 70%), linear-gradient(180deg, #221d31 0%, #0f0c19 58%, #050409 100%);
+            box-shadow: inset 0 0 0 2px #fbbf24, inset 0 0 0 5px #0f0c19, inset 0 0 0 6.5px #d97706, 4px 4px 0 0 #000, 0 0 30px rgba(251,191,36,.38); }
+        .tp-pop .tp-ttl { color: #fde68a; text-shadow: 0 2px 0 #000, 0 0 14px rgba(251,191,36,.45); }
+        .mn-tch .tb-name { color: #b45309; text-shadow: 0 1px 0 #b45309, 0 2px 0 #92400e, 0 3px 0 #7c2d12, 0 4px 0 #000, 3px 6px 0 rgba(0,0,0,.55); }
+        .mn-tch .tb-name::after { background: linear-gradient(180deg, #fffdf0 0%, #fde68a 30%, #fbbf24 55%, #d97706 78%, #fde68a 100%); -webkit-background-clip: text; background-clip: text; }
+        .mn-tch .tb-tag, .tp-pop .tb-tag { color: #fde68a; background: linear-gradient(180deg, #221d31, #0b0a12); border-color: #000; border-radius: 999px;
+            box-shadow: inset 0 0 0 1.5px #d97706, 3px 3px 0 0 #000, 0 0 14px rgba(251,191,36,.35); }
+        .swal2-container .mn-tch .swal2-close, .swal2-container .tp-pop .swal2-close { background: radial-gradient(circle at 35% 28%, #fff7d1 0 28%, #fbbf24 60%, #d97706 100%); color: #1e1b4b; }
+        .swal2-container .swal2-popup.tp-pop { box-shadow: 12px 12px 0 0 #000, 0 0 60px rgba(251,191,36,.3); }
+        /* ---- เมนูครู ---- */
+        .swal2-container .swal2-popup.mn-tch { box-shadow: 12px 12px 0 0 #000, 0 0 64px rgba(251,191,36,.32);
+            background: radial-gradient(ellipse 85% 260px at 50% 150px, rgba(251,191,36,.12), rgba(251,191,36,0) 70%),
+                        repeating-linear-gradient(45deg, rgba(251,191,36,.07) 0 1px, rgba(251,191,36,0) 1px 24px),
+                        repeating-linear-gradient(-45deg, rgba(251,191,36,.07) 0 1px, rgba(251,191,36,0) 1px 24px),
+                        linear-gradient(180deg, #16131f 0%, #0d0b15 50%, #07060b 100%) !important; }
+        .mn-tch .mn-grid::before { height: 2px; border: 0; border-radius: 2px; top: -12px; box-shadow: 0 0 8px rgba(251,191,36,.6);
+            background: linear-gradient(90deg, rgba(251,191,36,0), #fbbf24 20%, #fde68a 50%, #fbbf24 80%, rgba(251,191,36,0)); }
+        .mn-tch .mn-tile, .mn-tch .mn-wide {
+            box-shadow: 5px 5px 0 0 #000, 0 0 20px rgba(var(--gg, 255,255,255), .35), inset 0 0 0 2px #fbbf24, inset 0 0 0 4.5px rgba(0,0,0,.4), inset 0 0 0 5.5px rgba(253,230,138,.65);
+            background: linear-gradient(180deg, rgba(255,255,255,.18) 0, rgba(255,255,255,0) 46%), linear-gradient(180deg, var(--g1) 0%, var(--g2) 78%, #0b0a12 130%); }
+        @media (hover: hover) { .mn-tch .mn-tile:hover { box-shadow: 5px 5px 0 0 #000, 0 0 30px rgba(var(--gg, 255,255,255), .6), inset 0 0 0 2px #fde68a, inset 0 0 0 4.5px rgba(0,0,0,.4), inset 0 0 0 5.5px #fde68a; } }
+        .mn-tch .mn-tile:active { box-shadow: 0 0 0 0 #000, inset 0 0 0 2px #fbbf24, inset 0 0 0 4.5px rgba(0,0,0,.4); }
+        .mn-tch .mn-ico { background: radial-gradient(circle at 35% 28%, #ffffff 0 42%, #fff7e6 72%, #f3dfae 100%); box-shadow: 0 0 0 3px #fbbf24, 0 0 0 5px #000, 3px 4px 0 5px rgba(0,0,0,.7); }
+        .mn-tch .mn-txt, .mn-tch .mn-wide .mn-txt { color: #fde68a; background: linear-gradient(180deg, #221d31 0%, #0d0b15 100%); border-color: #000;
+            box-shadow: 0 0 0 1.5px #d97706, 0 0 0 3px #000, inset 0 1px 0 rgba(253,230,138,.25); }
+        .mn-tch .mn-label, .mn-tch .mn-wide .mn-label { color: #fde68a; text-shadow: 0 2px 0 #000; }
+        .mn-tch .mn-sub { color: #f1f5f9; }
+        .mn-tch .mn-txt::after { display: none; }
+        .mn-tch .tb-pull { height: 6px; border-width: 2px; background: linear-gradient(180deg, #fff7d1 0%, #fbbf24 55%, #b45309 100%); box-shadow: 0 0 8px rgba(251,191,36,.5); }
+
 </style>
     <!-- ★ Tailwind CSS สำเร็จรูป (3.4.19) แทนตัวคอมไพล์สดแบบ CDN: ไม่ต้องคอมไพล์ในเบราว์เซอร์ทุกครั้งที่เปิดเว็บ/เปิดป๊อปอัป
          และไม่พึ่งเซิร์ฟเวอร์ภายนอก (เดิมถ้า cdn.tailwindcss.com ล่ม ทั้งหน้าจะไม่มีสไตล์)
