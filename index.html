@@ -2982,9 +2982,9 @@
         /* โหมดเย็นเครื่อง: หยุดแอนิเมชัน (ค้างไว้ที่ท่าปัจจุบัน ไม่กระตุกกลับ) — ดูสคริปต์ท้ายไฟล์ */
         /* ไม่หยุดแอนิเมชัน "เด้งเข้า" ครั้งเดียวตอนโหลด (.animate-bounce-up / ปุ่มด่าน) ไม่งั้นการ์ดนอกจอจะค้างโปร่งใส */
         /* (5 พ.ย.) DEADLINE: แถวพลิกเข้า / แสงวาบบนตั๋ว / เครื่องบินบินครั้งเดียว / ตัวเลขนาฬิกาพลิก = เล่นครั้งเดียวจบ จึงไม่หยุดกลางทาง (ไม่งั้นแถวจะค้างตะแคงมองไม่เห็น) */
-        html.calm .oat-main *:not(.animate-bounce-up):not(.st-node):not(.fb-flipin):not(.fb-in):not(.fb-shine):not(.fb-plane):not(.fb-tick):not(.hx-in):not(.qz-in):not(.lk-in), html.calm .oat-main *::before, html.calm .oat-main *::after,
+        html.calm .oat-main *:not(.animate-bounce-up):not(.st-node):not(.fb-flipin):not(.fb-in):not(.fb-shine):not(.fb-plane):not(.fb-tick):not(.hx-in):not(.qz-in):not(.lk-in):not(.cb-ss):not(.cb-plane), html.calm .oat-main *::before, html.calm .oat-main *::after,
         html.calm .marquee-lights i,
-        .anim-off *:not(.animate-bounce-up):not(.st-node):not(.fb-flipin):not(.fb-in):not(.fb-shine):not(.fb-plane):not(.fb-tick):not(.hx-in):not(.qz-in):not(.lk-in), .anim-off *::before, .anim-off *::after { animation-play-state: paused !important; }
+        .anim-off *:not(.animate-bounce-up):not(.st-node):not(.fb-flipin):not(.fb-in):not(.fb-shine):not(.fb-plane):not(.fb-tick):not(.hx-in):not(.qz-in):not(.lk-in):not(.cb-ss):not(.cb-plane), .anim-off *::before, .anim-off *::after { animation-play-state: paused !important; }
 
 
         /* ==== กล่องเกรดแบบจัดเต็ม (11 ต.ค. ค่ำ) — ลวดลายทั้งหมดเป็นภาพนิ่ง วาดครั้งเดียว ไม่กินเครื่อง ====
@@ -5726,6 +5726,59 @@
             .fb-clock { box-shadow: 3px 3px 0 0 #000, inset 0 0 0 1.5px #fde68a, 0 0 14px rgba(254,240,138,.5); }
         }
 
+        /* ==========================================================================
+           ★ (13 พ.ย.) ตกแต่งโซน "ห้องเรียน" เพิ่ม (ครู: สไตล์กระดาน/ห้องเรียนสวยอยู่แล้ว ตกแต่งเพิ่มได้อีก) — คงธีมเดิมทุกอย่าง แค่เติมของ
+             นาฬิกาคาบ: เข็มวินาทีสีแดงเดินทีละวินาทีตามเวลาจริง (ขยับครั้งละ 1 วิ ชิ้นเล็กมาก)
+             บอร์ดไม้ก๊อก: กระดาษโน้ต "Have a nice day!" แปะข้างป้ายภาคเรียน + เครื่องบินกระดาษร่อนผ่านบอร์ดครั้งเดียวตอนเลื่อนมาเจอ
+             กระดานดำ: ธงราวแกว่งเบาๆ + ลายชอล์ก "Hello, class!" + เส้นใต้ชอล์ก "ขีด" เข้ามาตอนเลื่อนมาเจอ · โต๊ะครู: ไอกาแฟลอยขึ้นจากแก้ว
+             ความลื่น: transform / opacity ล้วน ชิ้นเล็กทั้งหมด พักเองตอนเลื่อนหน้า/นิ่ง 12 วิ (ยกเว้นเข็มวินาทีที่ต้องตรงเวลา + เครื่องบินที่บินครั้งเดียว)
+           ========================================================================== */
+        @keyframes cbTick { to { transform: rotate(360deg); } }
+        .cb-clock .cb-ss { z-index: 1; width: 2px; height: 38px; margin-left: -1px; background: #ef4444; border-radius: 2px; animation: cbTick 60s steps(60, end) infinite; }
+        .cb-clock .cb-ss::after { content: ''; position: absolute; left: 50%; bottom: -9px; width: 2px; height: 10px; margin-left: -1px; background: #ef4444; border-radius: 2px; }
+        .cb-memo { position: absolute; right: calc(100% + 16px); top: -10px; width: 112px; padding: 14px 8px 8px; background: linear-gradient(180deg, #bbf7d0, #86efac); color: #14532d;
+            border: 2px solid #000; box-shadow: 3px 4px 0 0 rgba(0,0,0,.45); transform: rotate(-6deg); font-size: .8rem; font-weight: 900; line-height: 1.15; text-align: center; letter-spacing: .02em; }
+        .cb-memo::before { content: ''; position: absolute; left: 50%; top: -8px; width: 14px; height: 14px; margin-left: -7px; border-radius: 50%; border: 2px solid #000;
+            background: radial-gradient(circle at 35% 30%, #fff 0 22%, #f43f5e 26%); box-shadow: 1px 2px 0 rgba(0,0,0,.4); }
+        .cb-memo small { display: block; margin-top: 3px; font-size: .62rem; font-weight: 800; color: #166534; }
+        @media (max-width: 379px) { .cb-memo { display: none; } }
+        @media (max-width: 767px) { .cb-memo { width: 96px; right: calc(100% + 10px); font-size: .72rem; padding: 12px 6px 6px; } }
+        @media (max-width: 419px) { .cb-memo { width: 82px; right: calc(100% + 8px); font-size: .64rem; } .cb-memo small { font-size: .56rem; } }
+        .cb-boards { position: relative; }
+        .cb-sky { position: absolute; z-index: 7; left: 0; right: 0; top: 96px; height: 72px; pointer-events: none; container-type: inline-size; }
+        .cb-plane { position: absolute; left: 0; top: 14px; width: 104px; height: 34px; opacity: 0;
+            background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 40'%3E%3Cpath d='M2 20 L62 2 L40 38 L30 24 Z' fill='%23ffffff' stroke='%23000' stroke-width='3' stroke-linejoin='round'/%3E%3Cpath d='M62 2 L30 24 L28 34 L36 27' fill='%23e0f2fe' stroke='%23000' stroke-width='3' stroke-linejoin='round'/%3E%3C/svg%3E") 100% 50% / 52px 33px no-repeat, url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 60 10'%3E%3Cpath d='M2 6 Q 15 1 30 5 T 58 4' fill='none' stroke='%23fff' stroke-width='2.4' stroke-dasharray='3 5' stroke-linecap='round'/%3E%3C/svg%3E") 0 70% / 56px 10px no-repeat; }
+        @keyframes cbFly {
+            0% { opacity: 0; transform: translate(-30px, 26px) rotate(6deg); }
+            12% { opacity: 1; }
+            50% { transform: translate(calc(50cqw - 52px), -18px) rotate(-4deg); }
+            88% { opacity: 1; }
+            100% { opacity: 0; transform: translate(calc(100cqw - 104px), 8px) rotate(5deg); } }
+        .cb-sky.fly .cb-plane { animation: cbFly 3.4s cubic-bezier(.45,.05,.4,1) .2s 1 backwards; }
+        @keyframes ftSway { from { transform: rotate(var(--r, -3deg)); } to { transform: rotate(calc(var(--r, -3deg) * -1)); } }
+        .ft-bunting i { animation: ftSway 3.2s ease-in-out infinite alternate; }
+        .ft-bunting i:nth-child(3n+1) { animation-delay: -.8s; } .ft-bunting i:nth-child(3n+2) { animation-delay: -1.9s; }
+        .ft-hello { display: none; }
+        @media (min-width: 1280px) {
+            .ft-hello { display: block; position: absolute; z-index: 1; left: 470px; top: 82px; padding: 6px 16px 7px; border: 2px dashed rgba(255,255,255,.62); border-radius: 18px;
+                color: rgba(255,255,255,.78); font-style: normal; font-size: 1.05rem; font-weight: 800; letter-spacing: .04em; transform: rotate(-4deg); pointer-events: none; }
+            .ft-hello::after { content: ''; position: absolute; left: 22px; bottom: -11px; width: 14px; height: 14px; border-right: 2px dashed rgba(255,255,255,.62); border-bottom: 2px dashed rgba(255,255,255,.62);
+                transform: rotate(45deg) skew(8deg, 8deg); }
+        }
+        @keyframes ftDraw { from { transform: scaleX(0); opacity: .3; } to { transform: scaleX(1); opacity: 1; } }
+        .ft-title .c2::after { transform-origin: 0 50%; }
+        .ft-slate.ft-in .ft-title .c2::after { animation: ftDraw .9s cubic-bezier(.3,.7,.4,1) .25s 1 backwards; }
+        .ft-props .ft-mug { position: relative; }
+        @keyframes ftSteam { 0% { opacity: 0; transform: translateY(.1em) scale(.6); } 35% { opacity: .85; } 100% { opacity: 0; transform: translateY(-.55em) scale(1.25); } }
+        .ft-props .ft-mug::before, .ft-props .ft-mug::after { content: ''; position: absolute; bottom: 82%; left: 34%; width: .2em; height: .42em; border-radius: 50%;
+            background: radial-gradient(ellipse, rgba(255,255,255,.9) 0 30%, rgba(255,255,255,0) 72%); animation: ftSteam 2.8s ease-out infinite; }
+        .ft-props .ft-mug::after { left: 54%; animation-delay: -1.4s; }
+        @media (prefers-reduced-motion: reduce) {
+            .cb-clock .cb-ss, .cb-sky { display: none; }
+            .ft-bunting i, .ft-props .ft-mug::before, .ft-props .ft-mug::after, .ft-slate.ft-in .ft-title .c2::after { animation: none; }
+            .ft-props .ft-mug::before, .ft-props .ft-mug::after { opacity: .6; }
+        }
+
 </style>
     <!-- ★ Tailwind CSS สำเร็จรูป (3.4.19) แทนตัวคอมไพล์สดแบบ CDN: ไม่ต้องคอมไพล์ในเบราว์เซอร์ทุกครั้งที่เปิดเว็บ/เปิดป๊อปอัป
          และไม่พึ่งเซิร์ฟเวอร์ภายนอก (เดิมถ้า cdn.tailwindcss.com ล่ม ทั้งหน้าจะไม่มีสไตล์)
@@ -5993,7 +6046,7 @@
              ปุ่ม/ฟังก์ชันเดิมครบ (เลือกชั้น → เลือกห้อง → ดูตาราง / แตะเพื่อดูภาพเต็ม) ลวดลายทั้งหมดเป็นภาพนิ่ง ไม่มีแอนิเมชันวน -->
         <div id="sec-schedule" class="cb-wall">
             <div class="cb-time" id="schoolClock">
-                <div class="cb-clock" aria-hidden="true"><i class="cb-hh" id="scHour"></i><i class="cb-mm" id="scMin"></i></div>
+                <div class="cb-clock" aria-hidden="true"><i class="cb-hh" id="scHour"></i><i class="cb-mm" id="scMin"></i><i class="cb-ss" id="scSec"></i></div>
                 <div class="cb-now">
                     <p class="cb-today"><span class="cb-day" id="scDay">วันนี้</span><span class="cb-tnow" id="scTime">--:--</span><span class="cb-tag">⏰ SCHOOL TIME</span></p>
                     <p class="cb-label" id="scLabel">กำลังดูเวลา…</p>
@@ -6010,6 +6063,7 @@
                 </div>
             </div>
             <div class="cb-boards">
+                <div class="cb-sky" aria-hidden="true"><i class="cb-plane"></i></div>
                 <div class="cb-board cs-teacher animate-bounce-up delay-300">
                     <div class="cb-cork">
                         <span class="cb-sticker s1" aria-hidden="true">☕</span>
@@ -6021,7 +6075,7 @@
                                 <h2 class="cs-title font-black">MY<br>SCHEDULE</h2>
                             </div>
                         </div>
-                        <p class="cs-term">📌 ภาคเรียนที่ 2 · ปีการศึกษา 2569</p>
+                        <p class="cs-term">📌 ภาคเรียนที่ 2 · ปีการศึกษา 2569<span class="cb-memo" aria-hidden="true">Have a<br>nice day!<small>☺ ตั้งใจเรียนนะ</small></span></p>
                         <div class="sc-viewer cs-viewer cursor-pointer group" onclick="openTsched_()">
                             <div class="sc-bar">
                                 <div class="sc-dots"><i style="background:#f87171"></i><i style="background:#fbbf24"></i><i style="background:#4ade80"></i></div>
@@ -6282,6 +6336,7 @@
             <div class="ft-board">
                 <div class="ft-slate">
                     <div class="ft-bunting" aria-hidden="true"><i class="x2">★</i><i class="x1">★</i><i>E</i><i>N</i><i>G</i><i>L</i><i>I</i><i>S</i><i>H</i><i class="bang">!</i><i class="cl hrt">♥</i><i class="cl">C</i><i class="cl">L</i><i class="cl">A</i><i class="cl">S</i><i class="cl">S</i><i class="x1">★</i><i class="x2">★</i></div>
+                    <i class="ft-hello" aria-hidden="true">Hello, class!</i>
                     <svg class="ft-doodle dd1" viewBox="0 0 150 64" aria-hidden="true"><text x="2" y="50" font-size="46">ABC</text><path d="M128 8 l5 11 12 1 -9 8 3 12 -11 -6 -11 6 3 -12 -9 -8 12 -1z"/></svg>
                     <svg class="ft-doodle dd2" viewBox="0 0 60 60" aria-hidden="true"><circle cx="30" cy="30" r="25"/><path d="M20 24 v3 M40 24 v3 M18 36 q12 12 24 0"/></svg>
                     <svg class="ft-doodle dd3" viewBox="0 0 120 50" aria-hidden="true"><path d="M6 36 C 30 6, 60 50, 92 22 M80 18 l13 3 -4 12"/></svg>
@@ -8872,6 +8927,8 @@
                 var hh = document.getElementById('scHour'), mm = document.getElementById('scMin');
                 if (hh) hh.style.transform = 'rotate(' + ((h % 12) * 30 + mi * 0.5) + 'deg)';
                 if (mm) mm.style.transform = 'rotate(' + (mi * 6) + 'deg)';
+                var ss = document.getElementById('scSec');   // (13 พ.ย.) เข็มวินาที: ตั้งจังหวะให้ตรงวินาทีจริงทุกครั้งที่นาฬิกาอัปเดต
+                if (ss) ss.style.animationDelay = '-' + (d.getUTCSeconds() + d.getUTCMilliseconds() / 1000).toFixed(2) + 's';
                 var school = dow >= 1 && dow <= 5, cur = -1, label, range = '', next = '', pct = 0;
                 if (school) for (var i = 0; i < BELL_.length; i++) { if (now >= BELL_[i][0] && now < BELL_[i][1]) { cur = i; break; } }
                 if (!school) {
@@ -9838,6 +9895,13 @@
             window.addEventListener('focus', wake);
             document.addEventListener('visibilitychange', function () { if (document.hidden) { calm(); } else { wake(); } });
             wake();
+            // (13 พ.ย.) เล่นครั้งเดียวตอนเลื่อนมาเจอ: เครื่องบินกระดาษร่อนผ่านบอร์ด / เส้นใต้ชอล์กบนกระดานดำ
+            if ('IntersectionObserver' in window) {
+                var once = new IntersectionObserver(function (entries) {
+                    entries.forEach(function (e) { if (e.isIntersecting) { e.target.classList.add(e.target.classList.contains('cb-sky') ? 'fly' : 'ft-in'); once.unobserve(e.target); } });
+                }, { threshold: 0.6 });
+                document.querySelectorAll('.cb-sky, .ft-slate').forEach(function (el) { once.observe(el); });
+            }
             if ('IntersectionObserver' in window) {
                 var io = new IntersectionObserver(function (entries) {
                     entries.forEach(function (e) { e.target.classList.toggle('anim-off', !e.isIntersecting); });
