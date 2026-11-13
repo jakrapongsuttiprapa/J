@@ -280,9 +280,11 @@
             60% { opacity: 1; transform: translateY(-10px) scale(1.02); }
             100% { opacity: 1; transform: translateY(0) scale(1); }
         }
+        /* ★ (13 พ.ย.) ลื่นขึ้นบน MacBook การ์ดจอ Intel: เดิมใช้ "forwards" + opacity:0 ทำให้แอนิเมชันค้างผลไว้ตลอดกาล
+             เบราว์เซอร์จึงแยกการ์ดใหญ่ทั้ง 12 ใบเป็นเลเยอร์การ์ดจอถาวร (และทุกอย่างที่ซ้อนทับต้องแยกเลเยอร์ตาม ≈ 60 เลเยอร์ กินหน่วยความจำการ์ดจอมาก)
+             เปลี่ยนเป็น "backwards" = ตอนรอ delay ยังซ่อนอยู่เหมือนเดิม เล่นจบแล้วปล่อยกลับเป็นการ์ดปกติ (หน้าตาตอนจบเหมือนเดิมทุกพิกเซล) */
         .animate-bounce-up {
-            animation: bounceUp 0.8s cubic-bezier(0.25, 1, 0.5, 1) forwards;
-            opacity: 0;
+            animation: bounceUp 0.8s cubic-bezier(0.25, 1, 0.5, 1) backwards;
         }
         /* ★★★ แก้บั๊กร้ายแรง: การ์ด Quiz 4 ใบหายไปเงียบๆ (ค้างที่ opacity:0 ตลอดกาล) ★★★
            สาเหตุ: .quiz-neon (ประกาศทีหลังในไฟล์นี้) ตั้งค่า animation ทับ .animate-bounce-up
@@ -942,6 +944,12 @@
         .nav-prog { position: absolute; left: 24px; right: 24px; bottom: -4px; height: 4px; pointer-events: none; overflow: hidden; border-radius: 4px; }
         .nav-prog b { display: block; height: 100%; transform-origin: 0 50%; transform: scaleX(0);
             background: linear-gradient(90deg, #fb923c, #fde047 25%, #4ade80 50%, #38bdf8 75%, #f472b6); }
+        /* (13 พ.ย.) เบราว์เซอร์ใหม่ (Chrome/Brave/Edge 115+, Safari 26+): ให้แถบความคืบหน้าวิ่งตามการเลื่อนเองบนการ์ดจอ ไม่ต้องใช้สคริปต์ทุกเฟรม
+           เบราว์เซอร์เก่า: สคริปต์ตั้งค่า scaleX ให้เหมือนเดิม (ดูท้ายไฟล์) */
+        @supports (animation-timeline: scroll()) {
+            @keyframes navProg { from { transform: scaleX(0); } to { transform: scaleX(1); } }
+            .nav-prog b { animation: navProg linear both; animation-timeline: scroll(root block); }
+        }
 
         /* ปุ่มลอยบนมือถือ — ทำให้เข้าชุดกับแคปซูลกระจกบน desktop (เดิมเป็นกล่องเหลี่ยมขอบดำแข็ง)
            ความทึบ .88 ตรวจแล้วอ่านออกทุกส่วนของภาพ HERO ที่ลอยทับ (แย่สุด 13.52:1) */
@@ -5658,14 +5666,12 @@
              ★ ไม่ได้ตั้ง animation ที่ตัว .rw-card (มี .animate-bounce-up) ---- */
         @keyframes rwOrbit { to { transform: rotate(360deg); } }
         @keyframes rwBreath { from { opacity: .65; transform: scale(.97); } to { opacity: 1; transform: scale(1.045); } }
-        @keyframes rwTwinkle { from { opacity: .4; } to { opacity: 1; } }
         @keyframes rwPing { 0% { opacity: .9; transform: scale(1); } 70%, 100% { opacity: 0; transform: scale(1.9); } }
         @keyframes rwSheen { 0%, 55% { transform: translateX(0) skewX(-18deg); } 100% { transform: translateX(760%) skewX(-18deg); } }
-        .rw-stage::after { -webkit-mask-image: none; mask-image: none; opacity: .92; animation: rwOrbit 90s linear infinite; }
-        .rw-rays { animation: rwOrbit 70s linear infinite reverse; }
+        /* (13 พ.ย.) วงแหวน HUD / ลำแสง / ประกายดาว / ลายวงจร = ภาพนิ่ง — เดิมหมุน 70–90 วิต่อรอบ + กะพริบทั้งการ์ด ซึ่งแทบมองไม่ออกว่าขยับ
+           แต่การ์ดจอต้องวาดพื้นที่ใหญ่เกือบทั้งการ์ดใหม่ทุกเฟรม (วัดแล้วกินงานการ์ดจอ ~25% ตอนการ์ดนี้อยู่บนจอ) — ที่ยังขยับ: ดาวเทียมโคจร / วงแสงหายใจ / คลื่นจากปุ่ม SPIN / แสงวาบบนปุ่ม */
+        .rw-stage::after { -webkit-mask-image: none; mask-image: none; opacity: .92; }
         .rw-stage::before { animation: rwBreath 3.4s ease-in-out infinite alternate; }
-        .rw-confetti { animation: rwTwinkle 2.6s ease-in-out infinite alternate; }
-        .rw-drape { animation: rwTwinkle 3.2s ease-in-out .6s infinite alternate; }
         .rw-orbit { position: absolute; z-index: 0; inset: -11.6%; border-radius: 50%; pointer-events: none; animation: rwOrbit 9s linear infinite; }
         .rw-orbit.o2 { inset: -22.3%; animation-duration: 15s; animation-direction: reverse; }
         .rw-orbit::before { content: ''; position: absolute; left: 50%; top: 0; width: 12px; height: 12px; margin: -6px 0 0 -6px; border-radius: 50%;
@@ -5677,7 +5683,7 @@
         .rw-go::before { content: ''; position: absolute; top: -4px; bottom: -4px; left: -34%; width: 20%; pointer-events: none;
             background: linear-gradient(90deg, rgba(255,255,255,0), rgba(255,255,255,.8) 50%, rgba(255,255,255,0)); transform: translateX(0) skewX(-18deg); animation: rwSheen 4.6s ease-in-out infinite; }
         @media (max-width: 767px) { .rw-orbit { inset: -8.5%; } .rw-orbit.o2 { inset: -18.6%; } }
-        @media (prefers-reduced-motion: reduce) { .rw-stage::after, .rw-stage::before, .rw-rays, .rw-confetti, .rw-drape, .rw-orbit, .rw-hub::before, .rw-go::before { animation: none; } .rw-hub::before, .rw-go::before { display: none; } }
+        @media (prefers-reduced-motion: reduce) { .rw-stage::before, .rw-orbit, .rw-hub::before, .rw-go::before { animation: none; } .rw-hub::before, .rw-go::before { display: none; } }
 
         /* ==========================================================================
            ★ (12 พ.ย.) ให้ช่วงบนของเว็บเป็นชุดเดียวกัน (HERO / ริบบิ้น / DEADLINE / RANDOMIZER = ตระกูล NEO AI)
@@ -9678,31 +9684,38 @@
             var secs = ['sec-deadline', 'scoreStudentsSection', 'sec-schedule', 'sec-quiz', 'sec-links'];
             var links = Array.prototype.slice.call(document.querySelectorAll('.nav-link'));
             var bar = document.querySelector('.nav-prog b'), btt = $('bttBtn'), ftBar = document.querySelector('.ft-bar');
-            var ticking = false, cur = null, lastP = -1, shown = null, lastY = 0, goingUp = false;
+            if (window.CSS && CSS.supports && CSS.supports('animation-timeline: scroll()')) bar = null;   // แถบวิ่งเองด้วย CSS แล้ว
+            var ticking = false, cur = null, lastP = -1, lastRing = -1, shown = null, lastY = 0, goingUp = false;
             function update() {
                 ticking = false;
                 var de = document.documentElement, y = window.pageYOffset || de.scrollTop || 0;
                 var max = de.scrollHeight - window.innerHeight;
                 var p = max > 0 ? Math.min(1, Math.max(0, y / max)) : 0;
+                // (13 พ.ย.) อ่านตำแหน่งทั้งหมดก่อน แล้วค่อยเขียน — เดิมเขียนสไตล์แล้วอ่านตำแหน่งทันที บังคับให้เบราว์เซอร์คำนวณหน้าใหม่ทุกเฟรมที่เลื่อน
+                var nearEnd = ftBar ? ftBar.getBoundingClientRect().top < window.innerHeight - 30 : false;
+                var act = null;
+                if (links.length && window.innerWidth >= 768) {
+                    var line = window.innerHeight * 0.4; act = '';
+                    for (var i = 0; i < secs.length; i++) {
+                        var el = $(secs[i]);
+                        if (el && el.getBoundingClientRect().top <= line) act = secs[i];
+                    }
+                }
                 if (Math.abs(p - lastP) > 0.002 || (p === 0 && lastP !== 0) || (p === 1 && lastP !== 1)) {
                     lastP = p;
                     if (bar) bar.style.transform = 'scaleX(' + p.toFixed(4) + ')';
-                    if (btt) btt.style.setProperty('--p', p.toFixed(3));
+                    // วงรอบปุ่มกลับขึ้นบนวาดใหม่ทุกครั้งที่ค่าเปลี่ยน → ขยับทีละ 1% พอ (เดิม 0.2% = วาดใหม่แทบทุกเฟรม)
+                    var pr = Math.round(p * 100) / 100;
+                    if (btt && pr !== lastRing) { lastRing = pr; btt.style.setProperty('--p', pr.toFixed(2)); }
                 }
                 // ปุ่มกลับขึ้นบน: ซ่อนเมื่อแถบท้ายเว็บ (มีปุ่ม "กลับขึ้นบน" อยู่แล้ว) โผล่มา
                 //   จอที่ไม่มีขอบว่างข้างการ์ด (มือถือ/แท็บเล็ต/โน้ตบุ๊กจอแคบ): โผล่เฉพาะตอนกำลังเลื่อนขึ้น — ตอนเลื่อนลงอ่านอยู่จะหลบไป ไม่บังปุ่มบนการ์ด กันกดพลาด
                 //   จอกว้างตั้งแต่ 1400px (เช่น MacBook 13" ค่าปกติ 1440): ปุ่มอยู่ในขอบว่างข้างการ์ดพอดี จึงโชว์ค้างไว้ได้
                 if (y < lastY - 4) goingUp = true; else if (y > lastY + 4) goingUp = false;
                 lastY = y;
-                var nearEnd = ftBar ? ftBar.getBoundingClientRect().top < window.innerHeight - 30 : false;
                 var sh = y > 600 && !nearEnd && (window.innerWidth >= 1400 || goingUp);
                 if (btt && sh !== shown) { shown = sh; btt.classList.toggle('show', sh); }
-                if (links.length && window.innerWidth >= 768) {
-                    var line = window.innerHeight * 0.4, act = '';
-                    for (var i = 0; i < secs.length; i++) {
-                        var el = $(secs[i]);
-                        if (el && el.getBoundingClientRect().top <= line) act = secs[i];
-                    }
+                if (act !== null) {
                     if (act !== cur) {
                         cur = act;
                         links.forEach(function (a) {
@@ -9799,16 +9812,28 @@
         (function () {
             var root = document.documentElement, timer = null, last = 0, IDLE_MS = 12000;
             function calm() { root.classList.add('calm'); }
+            // (13 พ.ย.) ระหว่างกำลังเลื่อนหน้า (ล้อเมาส์/แทร็กแพด/นิ้ว/กดเมนู) → พักแอนิเมชันตกแต่งไว้ก่อน แล้วเล่นต่อจากท่าเดิม 0.25 วิหลังหยุดเลื่อน
+            //   ตอนเลื่อน การ์ดจอต้องวาดทั้งจอใหม่ทุกเฟรมอยู่แล้ว ถ้ายังมีของหมุน/กะพริบซ้อนอีก เครื่องการ์ดจอ Intel จะเริ่มตกเฟรม (วัดแล้ว ~30% ของงานวาดตอนเลื่อน)
+            //   ใช้คลาส calm ตัวเดิม: แอนิเมชัน "เข้าฉากครั้งเดียว" (การ์ดเด้งเข้า / ตู้เกม / ตั๋ว ฯลฯ) ยังเล่นตามปกติ
+            var scrollT = null;
+            function scrolling() {
+                if (!root.classList.contains('calm')) root.classList.add('calm');
+                clearTimeout(scrollT);
+                scrollT = setTimeout(function () { scrollT = null; last = 0; wake(); }, 250);
+            }
             function wake() {
+                if (scrollT) return;   // ยังเลื่อนอยู่ — ไว้ปลุกตอนหยุดเลื่อน
                 var now = Date.now();
                 if (now - last < 800 && !root.classList.contains('calm')) return;   // กันเรียกถี่ๆ ตอนขยับเมาส์
                 last = now;
                 root.classList.remove('calm');
                 clearTimeout(timer); timer = setTimeout(calm, IDLE_MS);
             }
-            ['pointermove', 'pointerdown', 'wheel', 'scroll', 'keydown', 'touchstart'].forEach(function (ev) {
+            ['pointermove', 'pointerdown', 'keydown', 'touchstart'].forEach(function (ev) {
                 window.addEventListener(ev, wake, { passive: true });
             });
+            window.addEventListener('scroll', scrolling, { passive: true });
+            window.addEventListener('wheel', scrolling, { passive: true });
             window.addEventListener('blur', calm);
             window.addEventListener('focus', wake);
             document.addEventListener('visibilitychange', function () { if (document.hidden) { calm(); } else { wake(); } });
