@@ -6069,6 +6069,19 @@
         .ft-fx:active { transform: translateY(3px); box-shadow: 0 2px 0 0 #000; }
         .ft-fx:focus-visible, .fx-tog:focus-visible { outline: 3px solid #fde047; outline-offset: 3px; }
 
+        /* ==========================================================================
+           ★ (14 พ.ย. เย็น) ลดภาระการ์ดจอ รอบ 3 — ภาพเหมือนเดิม/ใกล้เคียง แต่ไม่บังคับให้การ์ดจอแยกภาพซ้อนอีก
+             • พื้นตารางนีออนใต้ตู้เกม: เดิมใช้มุมมอง 3 มิติ (perspective/rotateX) ซึ่งทำให้ตู้เกม 4 ตู้ที่ทับอยู่ต้องแยกเป็นภาพซ้อนถาวร → เปลี่ยนเป็นภาพตารางมุมมองแบบแบน
+             • ธงราวบนกระดานดำ: เดิมแกว่งทีละผืน (≈35 ภาพซ้อน) → แกว่งทั้งราวพร้อมกัน (ภาพเดียว)
+             • ไอคอน STUDENT HUB ลอย: ถอด (ทำให้ทุกอย่างบนการ์ดที่ทับไอคอนต้องแยกภาพ)
+           ========================================================================== */
+        .qz-floor { left: 0; right: 0; transform: none; height: 38%; -webkit-mask-image: linear-gradient(180deg, transparent 0%, #000 55%); mask-image: linear-gradient(180deg, transparent 0%, #000 55%); background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1000 300' preserveAspectRatio='none'%3E%3Cg stroke='%2322d3ee' stroke-opacity='.45' stroke-width='1.3' vector-effect='non-scaling-stroke' fill='none'%3E%3Cpath d='M220 0L-830 300'/%3E%3Cpath d='M240 0L-735 300'/%3E%3Cpath d='M260 0L-640 300'/%3E%3Cpath d='M280 0L-545 300'/%3E%3Cpath d='M300 0L-450 300'/%3E%3Cpath d='M320 0L-355 300'/%3E%3Cpath d='M340 0L-260 300'/%3E%3Cpath d='M360 0L-165 300'/%3E%3Cpath d='M380 0L-70 300'/%3E%3Cpath d='M400 0L25 300'/%3E%3Cpath d='M420 0L120 300'/%3E%3Cpath d='M440 0L215 300'/%3E%3Cpath d='M460 0L310 300'/%3E%3Cpath d='M480 0L405 300'/%3E%3Cpath d='M500 0L500 300'/%3E%3Cpath d='M520 0L595 300'/%3E%3Cpath d='M540 0L690 300'/%3E%3Cpath d='M560 0L785 300'/%3E%3Cpath d='M580 0L880 300'/%3E%3Cpath d='M600 0L975 300'/%3E%3Cpath d='M620 0L1070 300'/%3E%3Cpath d='M640 0L1165 300'/%3E%3Cpath d='M660 0L1260 300'/%3E%3Cpath d='M680 0L1355 300'/%3E%3Cpath d='M700 0L1450 300'/%3E%3Cpath d='M720 0L1545 300'/%3E%3Cpath d='M740 0L1640 300'/%3E%3Cpath d='M760 0L1735 300'/%3E%3Cpath d='M780 0L1830 300'/%3E%3C/g%3E%3Cg stroke='%23ff2bd6' stroke-opacity='.6' stroke-width='1.6' vector-effect='non-scaling-stroke'%3E%3Cpath d='M0 300.0H1000'/%3E%3Cpath d='M0 216.0H1000'/%3E%3Cpath d='M0 155.5H1000'/%3E%3Cpath d='M0 112.0H1000'/%3E%3Cpath d='M0 80.6H1000'/%3E%3Cpath d='M0 58.0H1000'/%3E%3Cpath d='M0 41.8H1000'/%3E%3Cpath d='M0 30.1H1000'/%3E%3Cpath d='M0 21.7H1000'/%3E%3C/g%3E%3C/svg%3E") 50% 100% / 100% 100% no-repeat, linear-gradient(180deg, rgba(45,10,78,0), rgba(45,10,78,.9)); }
+        .ft-bunting i { animation: none; }
+        @keyframes ftRowSway { from { transform: rotate(-.7deg); } to { transform: rotate(.7deg); } }
+        .ft-bunting { transform-origin: 50% 0; animation: ftRowSway 3.4s ease-in-out infinite alternate; }
+        .lk-hall .qa-ico { animation: none; }
+        @media (prefers-reduced-motion: reduce) { .ft-bunting { animation: none; } }
+
 </style>
     <!-- ★ Tailwind CSS สำเร็จรูป (3.4.19) แทนตัวคอมไพล์สดแบบ CDN: ไม่ต้องคอมไพล์ในเบราว์เซอร์ทุกครั้งที่เปิดเว็บ/เปิดป๊อปอัป
          และไม่พึ่งเซิร์ฟเวอร์ภายนอก (เดิมถ้า cdn.tailwindcss.com ล่ม ทั้งหน้าจะไม่มีสไตล์)
