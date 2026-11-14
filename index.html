@@ -5897,6 +5897,101 @@
         .anim-off *:not(.animate-bounce-up):not(.st-node):not(.fb-flipin):not(.fb-in):not(.fb-shine):not(.fb-plane):not(.fb-tick):not(.hx-in):not(.qz-in):not(.lk-in):not(.cb-ss):not(.cb-plane):not(.wave-hand),
         .anim-off *:not(.qz-crt)::before, .anim-off *:not(.qz-crt)::after { animation-name: none !important; }
 
+        /* ==========================================================================
+           ★ (14 พ.ย.) การ์ดคะแนนรายคน — โหมด "ระหว่างภาค" (คะแนนกลางภาค/ปลายภาคยังไม่ออก)
+             เดิม: การ์ดสอบ 2 ใบใหญ่โชว์ 0/20, 0/30 + เกรด 0 "ยังมีเวลาแก้ตัว" ทั้งที่ยังไม่ได้สอบ → ดูโล่งและทำให้เด็กตกใจ
+             ใหม่: วงแหวน = คะแนนสะสมตอนนี้ (เช่น 29/50) · กล่องเกรด = "รอ" + IN PROGRESS · ช่องสอบที่ยังไม่มีผล = การ์ดล็อกเล็ก "รอประกาศผล"
+             แถบสรุป: ช่องสอบที่รอ = ลายทาง "รอสอบ" · พอครูกรอกคะแนนสอบครบ หน้าตาจะกลับเป็นแบบเดิมเองทั้งหมด (สูตรเกรดไม่แตะ)
+           ========================================================================== */
+        .dt-locks { display: grid; grid-template-columns: repeat(2, minmax(0,1fr)); gap: 10px; }
+        .dt-boss.one { grid-template-columns: minmax(0,1fr); }
+        .dt-boss + .dt-locks { margin-top: 10px; }
+        .dt-locks:has(> :only-child) { grid-template-columns: minmax(0,1fr); }
+        .dt-lock { position: relative; overflow: hidden; display: flex; align-items: center; gap: 10px; min-width: 0; padding: 10px 12px; border: 3px solid #000; border-radius: 14px;
+            background: repeating-linear-gradient(-45deg, rgba(255,255,255,.05) 0 8px, rgba(255,255,255,0) 8px 16px), radial-gradient(ellipse 70% 90% at 0% 50%, rgba(167,139,250,.35), rgba(167,139,250,0) 70%), linear-gradient(160deg, #241a5c 0%, #120d35 100%);
+            box-shadow: inset 0 0 0 1.5px rgba(251,191,36,.55), 3px 4px 0 0 #000; color: #ede9fe; }
+        .dt-lock-ico { flex: 0 0 auto; position: relative; width: 38px; height: 38px; border-radius: 50%; border: 2.5px solid #000;
+            background: radial-gradient(circle at 35% 30%, #fff7d1 0 18%, #fde047 46%, #d97706 100%); box-shadow: 2px 2px 0 0 #000, 0 0 14px rgba(253,224,71,.5); }
+        .dt-lock-ico::before { content: ''; position: absolute; left: 50%; top: 7px; width: 12px; height: 11px; margin-left: -6px; border: 2.5px solid #1c1917; border-bottom: 0; border-radius: 7px 7px 0 0; }
+        .dt-lock-ico::after { content: ''; position: absolute; left: 50%; top: 16px; width: 18px; height: 13px; margin-left: -9px; border-radius: 3px; background: #1c1917;
+            box-shadow: inset 0 0 0 3px #1c1917, inset 0 0 0 5px #fde68a; }
+        .dt-lock-t { min-width: 0; display: flex; flex-direction: column; line-height: 1.15; }
+        .dt-lock-t small { font-size: .56rem; font-weight: 900; letter-spacing: .2em; color: #fcd34d; }
+        .dt-lock-t b { font-size: 1.05rem; font-weight: 900; color: #fff; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+        .dt-lock-t i { font-style: normal; font-size: .68rem; font-weight: 700; color: #c4b5fd; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+        .dt-lock-sheen { position: absolute; top: -10%; bottom: -10%; left: -30%; width: 18%; pointer-events: none; background: linear-gradient(90deg, rgba(255,255,255,0), rgba(255,255,255,.22), rgba(255,255,255,0));
+            transform: translateX(0) skewX(-18deg); animation: dtLockSheen 5.5s ease-in-out 1s infinite; }
+        .dt-lock + .dt-lock .dt-lock-sheen { animation-delay: 1.6s; }
+        @keyframes dtLockSheen { 0%, 70% { transform: translateX(0) skewX(-18deg); } 100% { transform: translateX(800%) skewX(-18deg); } }
+        .dt-sec-n.wait { color: #0c4a6e; background: #e0f2fe; }
+        .sw-pop .dt-sec-n.wait { color: #0c4a6e; background: linear-gradient(180deg, #f0f9ff, #bae6fd); }
+        .dt-part.lock .dt-part-top b.dt-wait { color: #64748b; font-size: 1.05rem; }
+        .dt-bar.dt-bar-lock { background: repeating-linear-gradient(-45deg, #e2e8f0 0 6px, #cbd5e1 6px 12px); }
+        .sw-pop .dt-bar.dt-bar-lock { background: repeating-linear-gradient(-45deg, #312e81 0 6px, #1e1b4b 6px 12px); }
+        .sw-pop .dt-bar.dt-bar-lock::after { display: none; }
+        .dt-hero.dt-prog .dt-gbox span { font-size: 2.3rem; letter-spacing: .02em; }
+        @media (max-width: 380px) { .dt-part.lock .dt-part-top b.dt-wait i { display: none; } .dt-locks { grid-template-columns: minmax(0,1fr); } .dt-hero.dt-prog .dt-gbox span { font-size: 1.9rem; } }
+        @media (prefers-reduced-motion: reduce) { .dt-lock-sheen { animation: none; display: none; } }
+
+        /* ==========================================================================
+           ★ (14 พ.ย.) การ์ดคะแนนรายคน = ธีมใหม่ "COSMIC PLAYER CARD" (ครู: สวยงาม อลังการ UI ใหม่ ๆ)
+             พื้นป๊อปอัปจากครีม → อวกาศสีเข้ม + เนบิวลาสีประจำโลก (ม.4 ส้มไฟ / ม.5 เขียว / ม.6 ชมพู) + ดาวระยิบ
+             กล่องหมวด = แผงกระจกเข้มขอบเรืองแสงสีประจำโลก · ช่องสรุปคะแนน = แผ่นเข้มตัวเลขขาวเรืองแสง
+             หัวการ์ด: แสงโฮโลแกรมวาบผ่านเป็นระยะ + จุดแสงโคจรรอบวงแหวนคะแนน
+             ใช้เฉพาะการ์ดรายคนในโลกนักเรียน (.sw-pop.dt-pop) — รายชื่อห้อง / แฟ้มกู้เกรด / ฝั่งครู ไม่เปลี่ยน · สูตรคะแนนไม่แตะ
+           ========================================================================== */
+        .swal2-container .swal2-popup.sw-pop.dt-pop { box-shadow: 12px 12px 0 0 #000, 0 0 70px rgba(var(--wgr),.55) !important;
+            background: radial-gradient(circle, rgba(255,255,255,.55) 0 1px, rgba(255,255,255,0) 1.6px) 0 0 / 46px 46px,
+                        radial-gradient(circle, rgba(255,255,255,.3) 0 .8px, rgba(255,255,255,0) 1.3px) 23px 17px / 31px 31px,
+                        radial-gradient(ellipse 80% 40% at 0% 18%, rgba(var(--wgr),.42), rgba(var(--wgr),0) 70%),
+                        radial-gradient(ellipse 80% 45% at 100% 78%, rgba(139,92,246,.45), rgba(139,92,246,0) 70%),
+                        linear-gradient(180deg, #120e33 0%, #0b0a24 45%, #1a1146 100%) !important; }
+        .swal2-container .swal2-popup.sw-pop.dt-pop .dt-sec { background: radial-gradient(ellipse 80% 60% at 100% 100%, rgba(var(--wgr),.2), rgba(var(--wgr),0) 70%), linear-gradient(180deg, rgba(36,30,92,.94) 0%, rgba(17,13,48,.96) 100%);
+            box-shadow: inset 0 0 0 2px rgba(var(--wgr),.95), inset 0 0 0 4px rgba(0,0,0,.45), 4px 5px 0 0 #000, 0 0 28px rgba(var(--wgr),.38); }
+        .swal2-container .swal2-popup.sw-pop.dt-pop .dt-sec .dt-part { background: radial-gradient(ellipse 90% 70% at 50% 120%, rgba(var(--wgr),.28), rgba(var(--wgr),0) 70%), linear-gradient(180deg, #221c5c 0%, #131034 100%);
+            box-shadow: inset 0 0 0 1.5px rgba(255,255,255,.18), 3px 4px 0 0 #000; }
+        .swal2-container .swal2-popup.sw-pop.dt-pop .dt-part-top b { color: #fff; text-shadow: 0 2px 0 #000, 0 0 14px rgba(var(--wgr),.7); }
+        .swal2-container .swal2-popup.sw-pop.dt-pop .dt-part-top b i { color: #c7d2fe; text-shadow: none; }
+        .swal2-container .swal2-popup.sw-pop.dt-pop .dt-part.lock .dt-part-top b.dt-wait { color: #a5b4fc; text-shadow: none; }
+        .swal2-container .swal2-popup.sw-pop.dt-pop .dt-empty { background: rgba(255,255,255,.06); border-color: rgba(196,181,253,.6); }
+        .swal2-container .swal2-popup.sw-pop.dt-pop .dt-empty p { color: #e0e7ff; } .swal2-container .swal2-popup.sw-pop.dt-pop .dt-empty small { color: #c7d2fe; }
+        .swal2-container .swal2-popup.sw-pop.dt-pop .dt-lock { box-shadow: inset 0 0 0 1.5px rgba(var(--wgr),.85), 3px 4px 0 0 #000, 0 0 16px rgba(var(--wgr),.25); }
+        .swal2-container .swal2-popup.sw-pop.dt-pop .dt-quest { box-shadow: inset 0 0 0 2px rgba(var(--wgr),.9), inset 0 0 0 4px rgba(0,0,0,.45), 3px 4px 0 0 #000, 0 0 18px rgba(var(--wgr),.35); }
+        .swal2-container .swal2-popup.sw-pop.dt-pop .dt-hero { box-shadow: inset 0 0 0 3px #fbbf24, inset 0 0 0 5px rgba(0,0,0,.5), 5px 6px 0 0 #000, 0 0 40px rgba(var(--ray),.6), 0 0 80px rgba(var(--wgr),.25); }
+        .dt-holo { position: absolute; inset: 0; z-index: 0; overflow: hidden; border-radius: inherit; pointer-events: none; }
+        .dt-holo::before { content: ''; position: absolute; top: -20%; bottom: -20%; left: -40%; width: 22%;
+            background: linear-gradient(90deg, rgba(255,255,255,0), rgba(186,230,253,.28) 35%, rgba(244,114,182,.28) 65%, rgba(255,255,255,0));
+            transform: translateX(0) skewX(-20deg); animation: dtHolo 6s ease-in-out 1.2s infinite; }
+        @keyframes dtHolo { 0%, 66% { transform: translateX(0) skewX(-20deg); } 100% { transform: translateX(720%) skewX(-20deg); } }
+        .dt-ring > .dt-orb { position: absolute; z-index: 3; inset: -11px; border-radius: 50%; pointer-events: none; animation: dtOrb 7s linear infinite; }
+        .dt-ring > .dt-orb::before { content: ''; position: absolute; left: 50%; top: 0; width: 11px; height: 11px; margin: -5.5px 0 0 -5.5px; border-radius: 50%; border: 2px solid #000;
+            background: radial-gradient(circle at 35% 30%, #fff 0 25%, var(--rc, #fde047) 70%); box-shadow: 0 0 10px 3px rgba(255,255,255,.55); }
+        @keyframes dtOrb { to { transform: rotate(360deg); } }
+        @media (prefers-reduced-motion: reduce) { .dt-holo::before, .dt-ring > .dt-orb { animation: none; } .dt-holo { display: none; } }
+
+        /* ==========================================================================
+           ★ (14 พ.ย.) การ์ดคะแนนรายคนบนจอคอม (≥1100px): ขยายกว้าง + จัด 2 คอลัมน์ ให้การ์ดไม่ยาวเกินไป
+             ซ้าย = เกรด / สรุปคะแนน / คะแนนสอบ (และแฟ้มกู้เกรด ถ้ามี) · ขวา = งานเก็บทั้งหมด · มือถือ/แท็บเล็ตเหมือนเดิม (คอลัมน์เดียว)
+           ========================================================================== */
+        @media (min-width: 1100px) {
+            .swal2-container .swal2-popup.dt-pop:has(.dt-sec.task) { width: min(68rem, 94vw) !important; }
+            /* (14 พ.ย. บ่าย) จัดเป็น "แถว" แทนคอลัมน์ยาว 2 ฝั่ง (ครู: ไม่ให้ดูเหมือนมีส่วนเกิน — แบบคอลัมน์มีที่โล่งใต้ฝั่งที่สั้นกว่าเสมอ)
+               แถวบน: เกรด | สรุปคะแนน (สูงเท่ากัน) · ถัดลงมาเต็มความกว้าง: คะแนนสอบ → (แฟ้มกู้เกรด) → งานเก็บ (งานที่ผ่านเรียง 3 ช่อง) */
+            .dt-pop .swal2-html-container:has(> .dt-sec.task) { display: grid !important; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); column-gap: 18px; align-items: stretch; }
+            .dt-pop .swal2-html-container:has(> .dt-sec.task) > * { grid-column: 1 / -1; }
+            .dt-pop .swal2-html-container:has(> .dt-sec.task) > .dt-hero { grid-column: 1; margin-top: 4px; }
+            .dt-pop .swal2-html-container:has(> .dt-sec.task) > .dt-sec.sum { grid-column: 2; margin-top: 4px; display: flex; flex-direction: column; }
+            .dt-pop .swal2-html-container:has(> .dt-sec.task) > .dt-sec.sum > .dt-parts { flex: 1 1 auto; align-items: stretch; }
+            .dt-pop .swal2-html-container:has(> .dt-sec.task) > .dt-sec.sum .dt-part { display: flex; flex-direction: column; justify-content: space-between; }
+            .dt-pop .swal2-html-container:has(> .dt-sec.task) > .dt-sec.task .dt-list.dt-grid { grid-template-columns: repeat(auto-fit, minmax(min(100%, 270px), 1fr)); }
+            /* การ์ดสอบเต็มความกว้าง: จัดเป็นแถวนอน (ชื่อซ้าย · คะแนนใหญ่ + ป้ายผ่าน ขวา · แถบล่าง) ไม่ให้มีที่โล่งกลางการ์ด */
+            .dt-pop .swal2-html-container:has(> .dt-sec.task) .dt-boss .dt-row.exam { grid-template-columns: minmax(0,1fr) auto auto; grid-template-areas: "tag got stat" "name got stat" "meta got stat" "bar bar bar"; column-gap: 16px; padding: 10px 14px 12px; }
+            .dt-pop .swal2-html-container:has(> .dt-sec.task) .dt-boss .dt-row.exam .dt-got { margin-top: 0; align-self: center; }
+            .dt-pop .swal2-html-container:has(> .dt-sec.task) .dt-boss .dt-row.exam .dt-stat { align-self: center; margin: 0; }
+            .dt-pop .swal2-html-container:has(> .dt-sec.task) .dt-boss .dt-row.exam .dt-mbar { margin-top: 8px; }
+            .dt-pop .swal2-html-container:has(> .dt-sec.task) > .dt-sec.task .dt-group:not(.ok) .dt-list { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 380px), 1fr)); gap: 8px; }
+        }
+
 </style>
     <!-- ★ Tailwind CSS สำเร็จรูป (3.4.19) แทนตัวคอมไพล์สดแบบ CDN: ไม่ต้องคอมไพล์ในเบราว์เซอร์ทุกครั้งที่เปิดเว็บ/เปิดป๊อปอัป
          และไม่พึ่งเซิร์ฟเวอร์ภายนอก (เดิมถ้า cdn.tailwindcss.com ล่ม ทั้งหน้าจะไม่มีสไตล์)
@@ -7837,27 +7932,33 @@
                 else if (totalScore100 >= 50) { grade = '1'; gradeColor = 'text-orange-800 bg-orange-100 border-orange-500'; }
                 // ติด ร: ครูติ๊กในชีต → แสดง ร แทนคะแนนรวมและเกรด
                 const rFlag = isRFlag_(std);
+                // (14 พ.ย.) ระหว่างภาค (คะแนนสอบยังไม่ครบ): เกรดยังตัดไม่ได้ → ป้าย "รอ" + คะแนนสะสม/เต็มที่มีตอนนี้ ไม่นับเข้าค่าเฉลี่ย
+                const ovMidHas = examHas_(std.midterm), ovFinHas = examHas_(std.final), ovProg = !(ovMidHas && ovFinHas) && !rFlag;
+                const ovMax = 50 + (ovMidHas ? 20 : 0) + (ovFinHas ? 30 : 0);
+                const ovSoFar = Math.round(scaledTask + (ovMidHas ? scaledMid : 0) + (ovFinHas ? scaledFin : 0) + bonusPts);
+                if (ovProg) { grade = 'รอ'; gradeColor = 'text-sky-900 bg-sky-100 border-sky-500'; }
                 if (rFlag) { grade = 'ร'; gradeColor = 'text-amber-900 bg-amber-100 border-amber-500'; rN++; }
-                else { sumScore += totalScore100; sumN++; }
+                else if (!ovProg) { sumScore += totalScore100; sumN++; }
                 if (tasksTotal > 0 && tasksPassed === tasksTotal) allPassN++;
                 const vColor = function(r) { return r.state === 'pass' ? 'text-green-700' : (r.state === 'r' ? 'text-red-700' : 'text-gray-500'); };
+                const exLabel = function(has, r) { return has ? escapeHtml(r.label) : '⏳ รอผล'; };
                 const tasksColor = (tasksTotal > 0 && tasksPassed === tasksTotal) ? 'text-green-700' : (tasksPassed < tasksTotal ? 'text-orange-700' : 'text-gray-500');
                 rowsHtml += '<div class="ov-row" style="--d:' + Math.min(idx, 14) + ';">' +
                     '<div class="ov-top"><span class="ov-no">' + escapeHtml(std.no || (idx + 1)) + '</span>' +
                         '<span class="ov-name" data-v>' + escapeHtml(std.name) + '</span>' +
-                        '<span class="ov-total"><b data-v>' + (rFlag ? 'ร' : totalScore100) + '</b>' + (!rFlag && bonusPts > 0 ? '<small>+' + bonusPts + ' พิเศษ</small>' : '<small>/100</small>') + '</span>' +
+                        '<span class="ov-total"><b data-v>' + (rFlag ? 'ร' : (ovProg ? ovSoFar : totalScore100)) + '</b>' + (!rFlag && bonusPts > 0 ? '<small>+' + bonusPts + ' พิเศษ</small>' : '<small>/' + (ovProg ? ovMax : 100) + '</small>') + '</span>' +
                         '<span class="ov-grade border-[3px] ' + gradeColor + '" data-v>' + grade + '</span></div>' +
                     '<div class="ov-chips">' +
                         '<span class="ov-chip"><i>งาน</i><b class="' + tasksColor + '" data-v>' + tasksPassed + '/' + tasksTotal + '</b></span>' +
-                        '<span class="ov-chip"><i>กลางภาค</i><b class="' + vColor(midRes) + '" data-v>' + escapeHtml(midRes.label) + '</b></span>' +
-                        '<span class="ov-chip"><i>ปลายภาค</i><b class="' + vColor(finRes) + '" data-v>' + escapeHtml(finRes.label) + '</b></span>' +
+                        '<span class="ov-chip"><i>กลางภาค</i><b class="' + vColor(midRes) + '" data-v>' + exLabel(ovMidHas, midRes) + '</b></span>' +
+                        '<span class="ov-chip"><i>ปลายภาค</i><b class="' + vColor(finRes) + '" data-v>' + exLabel(ovFinHas, finRes) + '</b></span>' +
                     '</div></div>';
             });
             const avg = sumN ? Math.round(sumScore / sumN) : 0;
             let html = '<button type="button" onclick="backToStudentList()" class="pp-back"><span class="pp-back-ico" aria-hidden="true"></span>กลับไปเลือกรายชื่อ</button>';
             html += '<div class="ov-stats">' +
                 '<div class="ov-stat" style="--c:#c7d2fe;"><span>👥</span><b>' + students.length + '</b><i>นักเรียน</i></div>' +
-                '<div class="ov-stat" style="--c:#fde68a;"><span>⭐</span><b>' + avg + '</b><i>คะแนนเฉลี่ย</i></div>' +
+                '<div class="ov-stat" style="--c:#fde68a;"><span>⭐</span><b>' + (sumN ? avg : '—') + '</b><i>' + (sumN ? 'คะแนนเฉลี่ย' : 'เฉลี่ย (รอสอบ)') + '</i></div>' +
                 '<div class="ov-stat" style="--c:#bbf7d0;"><span>✅</span><b>' + allPassN + '</b><i>งานผ่านครบ</i></div>' +
                 '<div class="ov-stat" style="--c:#fecaca;"><span>⚠️</span><b>' + rN + '</b><i>ติด ร</i></div></div>';
             html += '<div class="ov-list">' + rowsHtml + '</div>';
@@ -7869,6 +7970,14 @@
 
         // ★ (11 ต.ค.) แถวคะแนนหนึ่งช่องในหน้าคะแนนรายคน (ใช้ทั้งงานย่อย กลางภาค ปลายภาค)
         // ★ (4 พ.ย.) + แถบคะแนนบางๆ ขอบล่างแถว (ได้/เต็ม) + ขีดเกณฑ์ผ่าน + ป้าย MIDTERM / FINAL ของช่องสอบ — ข้อความและป้ายสถานะเดิมทุกตัว
+        // ★ (14 พ.ย.) ช่องสอบ "มีผลแล้วหรือยัง" — ช่องว่างในชีต = ยังไม่สอบ/ยังไม่ประกาศ (0 ที่ครูพิมพ์เอง หรือ ร = มีผลแล้ว)
+        function examHas_(o) { var t = (o && o.score !== undefined && o.score !== null) ? String(o.score).trim() : ''; return t !== '' && !/^[-–—]+$/.test(t); }   // ขีด - ในชีต = ยังไม่มีผลเหมือนช่องว่าง
+        // ช่องสอบที่ยังไม่มีผล: การ์ดล็อกเล็ก ๆ แทนการ์ดใหญ่ที่โชว์ 0 (ดูโล่งและทำให้เข้าใจผิดว่าได้ 0)
+        function dtLock_(tag, name, max) {
+            return '<div class="dt-lock"><span class="dt-lock-ico" aria-hidden="true"></span>' +
+                '<div class="dt-lock-t"><small>' + tag + '</small><b>' + escapeHtml(name) + '</b><i>เต็ม ' + escapeHtml(max) + ' · รอผล</i></div>' +
+                '<span class="dt-lock-sheen" aria-hidden="true"></span></div>';
+        }
         function dtRow_(name, max, pass, got, state, label, statusClass, kind, tag) {
             const tone = state === 'pass' ? 'ok' : (state === 'r' ? 'bad' : 'none');
             const g = parseFloat(got), m = parseFloat(max), ps = parseFloat(pass);
@@ -7921,6 +8030,11 @@
             // ถ้าครูเว้นว่างไว้ในชีต จะเป็น 0 ไม่กระทบการคำนวณเดิมเลย
             let bonusPts = parseFloat(std.bonus) || 0;
             let totalScore100 = Math.round(scaledTask + scaledMid + scaledFin + bonusPts);
+            // ★ (14 พ.ย.) ระหว่างภาค: ยังไม่มีคะแนนสอบช่องใดช่องหนึ่ง → ยังตัดเกรดไม่ได้ แสดง "คะแนนสะสมตอนนี้" แทนเกรด 0
+            const midHas = examHas_(std.midterm), finHas = examHas_(std.final);
+            const inProg = !(midHas && finHas);
+            const soFarMax = 50 + (midHas ? 20 : 0) + (finHas ? 30 : 0);
+            const soFar = Math.round(scaledTask + (midHas ? scaledMid : 0) + (finHas ? scaledFin : 0) + bonusPts);
 
             // ★ ระบบแสดงเกรดแบบ "มีรางวัลทางสายตา" — เดิมเกรด 4 กับเกรด 0 หน้าตาเหมือนกันเป๊ะ
             // ต่างแค่สีตัวเลข ทำให้ช่วงเวลาที่นักเรียนลุ้นที่สุดกลับรู้สึกจืดที่สุด
@@ -7993,6 +8107,14 @@
             // ★ ติด ร: ครูติ๊กช่อง "ติด ร" ในชีต → แสดง "ร" แทนคะแนนรวมและเกรด / ไม่ติ๊ก → แสดงตามปกติ
             const rSum = studentRSummary_(std);
             const rFlag = isRFlag_(std);
+            if (inProg && !rFlag) {
+                grade = 'รอ';
+                gradeBoxClass = 'grade-box-sky dt-prog';
+                gradeTextClass = 'text-sky-900';
+                gradeIcon = '⏳';
+                gradeMsg = 'คะแนนสอบยังไม่ออก<br><span style="white-space:nowrap">สะสมแล้ว <b>' + soFar + '/' + soFarMax + '</b></span>';
+                gradeMsgClass = 'text-sky-800';
+            }
             if (rFlag) {
                 grade = "ร";
                 gradeBoxClass = 'grade-box-calm';
@@ -8014,17 +8136,18 @@
 
             // ★ (11 ต.ค.) หน้าตาใหม่: แถบหัวชุดเดียวกับป๊อปอัปอื่น + วงแหวนคะแนนรวม + แถบ 3 ส่วน + รายการงานเป็นการ์ด
             //   สูตรคำนวณ/การตัดสินผ่าน-ไม่ผ่าน-ร ด้านบนไม่ได้แตะเลย เปลี่ยนแค่การแสดงผล
-            const ringColor = rFlag ? '#f59e0b' : (grade === '4' ? '#f59e0b' : (grade === '3.5' || grade === '3' ? '#10b981' : (grade === '2.5' || grade === '2' ? '#0ea5e9' : '#94a3b8')));
+            const ringColor = rFlag ? '#f59e0b' : (inProg ? '#0ea5e9' : (grade === '4' ? '#f59e0b' : (grade === '3.5' || grade === '3' ? '#10b981' : (grade === '2.5' || grade === '2' ? '#0ea5e9' : '#94a3b8'))));
             let html = '<div class="dt-chips"><span class="dt-chip">เลขที่ ' + escapeHtml(std.no) + '</span>' +
                 (window.currentRoomName && !(ctx && ctx.data) ? '<span class="dt-chip" style="background:' + gradeTheme_(window.currentRoomName).grad + ';">ห้อง ม.' + escapeHtml(window.currentRoomName) + '</span>' : '') +
                 (ctx && ctx.badge ? '<span class="dt-chip dark">' + escapeHtml(ctx.badge) + '</span>' : '') + '</div>';
             // วงแหวนคะแนนรวม + เกรด
-            html += '<div class="dt-hero ' + gradeBoxClass + '" style="--rc:' + ringColor + ';"><span class="dt-rays" aria-hidden="true"></span><span class="dt-confetti" aria-hidden="true"></span><span class="dt-stripe" aria-hidden="true"></span>';
+            html += '<div class="dt-hero ' + gradeBoxClass + '" style="--rc:' + ringColor + ';"><span class="dt-rays" aria-hidden="true"></span><span class="dt-confetti" aria-hidden="true"></span><span class="dt-stripe" aria-hidden="true"></span><span class="dt-holo" aria-hidden="true"></span>';
             if (grade === "4") {
                 html += '<span class="grade-spark" aria-hidden="true" style="top:10%;left:6%;animation-delay:0s;">✦</span><span class="grade-spark" aria-hidden="true" style="top:70%;left:40%;animation-delay:.6s;">✦</span><span class="grade-spark" aria-hidden="true" style="top:16%;left:58%;animation-delay:1.2s;">✦</span>';
             }
-            html += '<div class="dt-ring" style="--p:' + (rFlag ? 100 : totalPct).toFixed(1) + ';--rc:' + ringColor + ';"><div class="dt-ring-in"><small>TOTAL</small><b>' + (rFlag ? 'ร' : totalScore100) + '</b><i>/100</i></div></div>';
-            html += '<div class="dt-grade"><p class="dt-eval"><span aria-hidden="true">' + gradeIcon + '</span> FINAL GRADE</p>';
+            const showProg = inProg && !rFlag;
+            html += '<div class="dt-ring" style="--p:' + (rFlag ? 100 : (showProg ? Math.min(100, soFar / soFarMax * 100) : totalPct)).toFixed(1) + ';--rc:' + ringColor + ';"><i class="dt-orb" aria-hidden="true"></i><div class="dt-ring-in"><small>' + (showProg ? 'SO FAR' : 'TOTAL') + '</small><b>' + (rFlag ? 'ร' : (showProg ? soFar : totalScore100)) + '</b><i>/' + (showProg ? soFarMax : 100) + '</i></div></div>';
+            html += '<div class="dt-grade"><p class="dt-eval"><span aria-hidden="true">' + gradeIcon + '</span> ' + (showProg ? 'IN PROGRESS' : 'FINAL GRADE') + '</p>';
             html += '<div class="dt-gwrap"><span class="dt-star s1" aria-hidden="true">★</span><span class="dt-star s2" aria-hidden="true">★</span><span class="dt-star s3" aria-hidden="true">✦</span>' +
                 '<div class="dt-gbox"><small>GRADE</small><span class="' + gradeTextClass + '">' + grade + '</span></div></div>';
             html += '<p class="dt-msg">' + gradeMsg + '</p></div></div>';
@@ -8035,13 +8158,15 @@
                     '<span class="dt-sec-t"><small aria-hidden="true">' + en + '</small><b data-text="' + th + '">' + th + '</b></span>' + (right ? ' ' + right : '') + '</h3>';
             };
             // ① สรุปคะแนน: แถบ 3 ส่วน + คะแนนพิเศษ + แถบสรุป ร / ผ่านครบ
-            const part = function(label, max, val, pct, c, tint) {
-                const sp = label.indexOf(' ');   // "📝 งานเก็บ" → ไอคอน + ชื่อ (ไอคอนซ่อนบนจอแคบมาก ชื่อจะได้ไม่โดนตัด)
+            const part = function(label, max, val, pct, c, tint, locked) {
+                const sp = label.indexOf(' ');
+                if (locked) return '<div class="dt-part lock" style="--pt:' + tint + ';"><div class="dt-part-top"><span><i class="dt-pe" aria-hidden="true">' + label.slice(0, sp) + '</i>' + label.slice(sp + 1) + '</span><b class="dt-wait">รอสอบ<i>/' + max + '</i></b></div>' +
+                    '<div class="dt-bar dt-bar-lock"></div></div>';   // "📝 งานเก็บ" → ไอคอน + ชื่อ (ไอคอนซ่อนบนจอแคบมาก ชื่อจะได้ไม่โดนตัด)
                 return '<div class="dt-part" style="--pt:' + tint + ';"><div class="dt-part-top"><span><i class="dt-pe" aria-hidden="true">' + label.slice(0, sp) + '</i>' + label.slice(sp + 1) + '</span><b>' + val.toFixed(1) + '<i>/' + max + '</i></b></div>' +
                     '<div class="dt-bar"><div style="width:' + pct.toFixed(1) + '%;background:' + c + ';"></div></div></div>';
             };
             html += '<section class="dt-sec sum">' + secH('📊', 'SCORE BREAKDOWN', 'สรุปคะแนน', '<span class="dt-sec-n">เต็ม 100</span>');
-            html += '<div class="dt-parts">' + part('📝 งานเก็บ', 50, scaledTask, taskPct, '#3b82f6', '#dbeafe') + part('📘 กลางภาค', 20, scaledMid, midPct, '#f97316', '#ffedd5') + part('🏁 ปลายภาค', 30, scaledFin, finPct, '#a855f7', '#f3e8ff') + '</div>';
+            html += '<div class="dt-parts">' + part('📝 งานเก็บ', 50, scaledTask, taskPct, '#3b82f6', '#dbeafe') + part('📘 กลางภาค', 20, scaledMid, midPct, '#f97316', '#ffedd5', !midHas) + part('🏁 ปลายภาค', 30, scaledFin, finPct, '#a855f7', '#f3e8ff', !finHas) + '</div>';
             // คะแนนพิเศษ — โผล่เฉพาะคนที่ครูให้จริงเท่านั้น
             if (bonusPts > 0) {
                 html += '<div class="dt-note good"><span>🎁 คะแนนพิเศษ</span><b>+' + bonusPts + '</b></div>';
@@ -8067,11 +8192,16 @@
                 html += rsPlan_(cells);
             }
             // ② คะแนนสอบ (กลางภาค · ปลายภาค)
-            const examBad = (midRes.state === 'r' ? 1 : 0) + (finRes.state === 'r' ? 1 : 0);
-            html += '<section class="dt-sec exam">' + secH('⚔️', 'BOSS BATTLE', 'คะแนนสอบ', examBad ? '<span class="dt-sec-n bad">ไม่ผ่าน ' + examBad + ' ช่อง</span>' : '<span class="dt-sec-n">2 สนามสอบ</span>');
-            html += '<div class="dt-list dt-boss">' +
-                dtRow_('กลางภาค', midMax, midPassData, (isRMark_(midGotData) ? 'ร' : midGot), midRes.state, midRes.label, rStatusClass_(midRes.state), 'exam', 'MIDTERM') +
-                dtRow_('ปลายภาค', finMax, finPassData, (isRMark_(finGotData) ? 'ร' : finGot), finRes.state, finRes.label, rStatusClass_(finRes.state), 'exam', 'FINAL') + '</div></section>';
+            const examBad = (midHas && midRes.state === 'r' ? 1 : 0) + (finHas && finRes.state === 'r' ? 1 : 0);
+            // (14 พ.ย.) ช่องสอบที่ยังไม่มีผล = การ์ดล็อกเล็ก "รอประกาศผล" (เดิมเป็นการ์ดใหญ่โชว์ 0 ทั้งที่ยังไม่ได้สอบ)
+            const midRow = midHas ? dtRow_('กลางภาค', midMax, midPassData, (isRMark_(midGotData) ? 'ร' : midGot), midRes.state, midRes.label, rStatusClass_(midRes.state), 'exam', 'MIDTERM') : '';
+            const finRow = finHas ? dtRow_('ปลายภาค', finMax, finPassData, (isRMark_(finGotData) ? 'ร' : finGot), finRes.state, finRes.label, rStatusClass_(finRes.state), 'exam', 'FINAL') : '';
+            const locks = (midHas ? '' : dtLock_('MIDTERM', 'กลางภาค', midMax)) + (finHas ? '' : dtLock_('FINAL', 'ปลายภาค', finMax));
+            const examN = examBad ? '<span class="dt-sec-n bad">ไม่ผ่าน ' + examBad + ' ช่อง</span>' : (midHas && finHas ? '<span class="dt-sec-n">2 สนามสอบ</span>' : '<span class="dt-sec-n wait">⏳ รอประกาศผล</span>');
+            html += '<section class="dt-sec exam' + (midHas || finHas ? '' : ' wait') + '">' + secH('⚔️', 'BOSS BATTLE', 'คะแนนสอบ', examN);
+            if (midRow || finRow) html += '<div class="dt-list dt-boss' + (midRow && finRow ? '' : ' one') + '">' + midRow + finRow + '</div>';
+            if (locks) html += '<div class="dt-locks">' + locks + '</div>';
+            html += '</section>';
             // ③ งานเก็บ: แถบความคืบหน้า (เขียว/แดง/เทา) + กลุ่มตามสถานะ
             const nR = taskRows.r.length, nN = taskRows.none.length, nP = taskRows.pass.length, nT = nR + nN + nP;
             html += '<section class="dt-sec task">' + secH('📜', 'QUEST LOG', 'งานเก็บ', '<span class="dt-sec-n">' + nT + ' งาน</span>');
