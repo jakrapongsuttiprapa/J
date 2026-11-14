@@ -5823,6 +5823,80 @@
             background: radial-gradient(circle, #fffbeb 0 3px, #fde047 4px, rgba(253,224,71,.45) 6px, rgba(253,224,71,0) 11px) 50% 50% / 46px 22px repeat-x; }
         @media (prefers-reduced-motion: reduce) { .qz-alien, .lk-twk { animation: none; } .lk-sheen { display: none; } }
 
+        /* ==========================================================================
+           ★ (14 พ.ย.) ตกแต่งเพิ่มอีกรอบ — SCORE STUDENTS / TEACHER TOOLS / DEADLINE (คงธีมเดิมทุกโซน)
+             SCORE STUDENTS: ดวงจันทร์ดวงเล็กโคจรรอบดาวทั้ง 3 ดวง + ดาวตก 2 ดวงพาดฟ้าเป็นระยะ
+             TEACHER TOOLS: แสงวาบสีทองวิ่งผ่านป้าย TEACHER TOOLS + เพชรบนยอดซุ้มทั้ง 5 ส่องประกายทีละอัน (ใช้ชิ้น .td-gem แยก — ::after ของซุ้มเป็นตรากุญแจ ห้ามแตะ)
+             DEADLINE: ก้อนเมฆ 2 ก้อนลอยช้า ๆ บนท้องฟ้าหัวการ์ด
+             ความลื่น: ชิ้นเล็กทั้งหมด transform / opacity ล้วน พักเองตอนเลื่อนหน้า/นิ่ง/พ้นจอ (ระบบเดิม) · ไม่ตั้ง animation ที่ตัวการ์ด
+           ========================================================================== */
+        @keyframes gxMoon { to { transform: rotate(360deg); } }
+        .gx-moon { position: absolute; z-index: 3; inset: -24%; }
+        @media (max-width: 480px), (min-width: 880px) and (max-width: 1099px) { .gx-moon { inset: -12%; } }
+        .gx-moon { border-radius: 50%; pointer-events: none; animation: gxMoon 16s linear infinite; }
+        .gx-moon::before { content: ''; position: absolute; left: 50%; top: 0; width: 13px; height: 13px; margin: -6.5px 0 0 -6.5px; border-radius: 50%; border: 2px solid #000;
+            background: radial-gradient(circle at 34% 30%, #ffffff 0 18%, #e2e8f0 42%, #94a3b8 100%); box-shadow: 0 0 10px 2px rgba(226,232,240,.55); }
+        .st-world.g5 .gx-moon { animation-duration: 19s; animation-direction: reverse; }
+        .st-world.g6 .gx-moon { animation-duration: 13s; }
+        @keyframes gxShoot { 0% { opacity: 0; transform: translate(0,0) rotate(-24deg); } 2% { opacity: 1; } 11% { opacity: 0; transform: translate(360px,160px) rotate(-24deg); } 100% { opacity: 0; transform: translate(360px,160px) rotate(-24deg); } }
+        .gx-shoot { position: absolute; z-index: 1; width: 120px; height: 2px; border-radius: 2px; pointer-events: none; opacity: 0;
+            background: linear-gradient(90deg, rgba(255,255,255,0), rgba(255,255,255,.95) 85%, #fff); transform-origin: 100% 50%; animation: gxShoot 9s ease-out infinite; }
+        .gx-shoot::after { content: ''; position: absolute; right: -3px; top: -2px; width: 6px; height: 6px; border-radius: 50%; background: #fff; box-shadow: 0 0 8px 2px rgba(255,255,255,.9); }
+        .gx-shoot.s1 { left: 8%; top: 8%; } .gx-shoot.s2 { left: 52%; top: 4%; animation-delay: 4.6s; }
+        @media (max-width: 767px) { .gx-shoot.s2 { display: none; } .gx-shoot.s1 { left: 2%; top: 3%; } }
+        .td-plate { overflow: hidden; }
+        .td-sheen { position: absolute; inset: 0; z-index: 3; pointer-events: none; overflow: hidden; border-radius: inherit; }
+        .td-sheen b { position: absolute; top: -20%; bottom: -20%; left: -30%; width: 14%; background: linear-gradient(90deg, rgba(255,247,209,0), rgba(255,247,209,.7), rgba(255,247,209,0));
+            transform: translateX(0) skewX(-22deg); animation: tdSheen 6.5s ease-in-out 1.5s infinite; }
+        @keyframes tdSheen { 0%, 70% { transform: translateX(0) skewX(-22deg); } 100% { transform: translateX(1000%) skewX(-22deg); } }
+        @keyframes tdGem { 0%, 70%, 100% { opacity: 0; transform: scale(.4) rotate(0deg); } 80% { opacity: 1; transform: scale(1.15) rotate(45deg); } }
+        .td-gem { position: absolute; z-index: 3; left: 50%; top: -22px; width: 20px; height: 20px; margin-left: 2px; pointer-events: none; opacity: 0;
+            background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20'%3E%3Cpath d='M10 0C10.7 6.3 13.7 9.3 20 10C13.7 10.7 10.7 13.7 10 20C9.3 13.7 6.3 10.7 0 10C6.3 9.3 9.3 6.3 10 0Z' fill='%23fff7d1'/%3E%3C/svg%3E") 0 0 / contain no-repeat; animation: tdGem 5s ease-in-out infinite; }
+        .td-tool:nth-child(2) .td-gem { animation-delay: 1s; } .td-tool:nth-child(3) .td-gem { animation-delay: 2s; }
+        .td-tool:nth-child(4) .td-gem { animation-delay: 3s; } .td-tool:nth-child(5) .td-gem { animation-delay: 4s; }
+        @keyframes fbCloud { from { transform: translateX(0); } to { transform: translateX(var(--dx, 40px)); } }
+        .fb-cloud { position: absolute; z-index: 1; width: 58px; height: 26px; pointer-events: none; opacity: .9;
+            background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 28'%3E%3Cpath d='M10 26h44a9 9 0 0 0 0-18 13 13 0 0 0-24-4 10 10 0 0 0-17 7 8 8 0 0 0-3 15z' fill='%23fff7ed' stroke='%23000' stroke-width='2.5' stroke-linejoin='round'/%3E%3Cpath d='M14 21h34' stroke='%23fed7aa' stroke-width='3' stroke-linecap='round'/%3E%3C/svg%3E") 0 0 / contain no-repeat; animation: fbCloud 7s ease-in-out infinite alternate; }
+        .fb-cloud.c1 { right: 128px; top: 4px; --dx: -30px; } .fb-cloud.c2 { right: 200px; top: 14px; width: 40px; height: 18px; --dx: 24px; animation-duration: 9s; }
+        @media (max-width: 767px), (min-width: 1000px) and (max-width: 1179px) { .fb-cloud { display: none; } }
+        @media (prefers-reduced-motion: reduce) { .gx-moon, .gx-shoot, .td-sheen b, .td-gem, .fb-cloud { animation: none; } .gx-shoot, .td-sheen { display: none; } }
+
+        /* ==========================================================================
+           ★ (14 พ.ย. รอบ 2) เติมต่อ — HERO / ริบบิ้น / QUIZ ZONE / STUDENT HUB
+             HERO: ดาวเทียมดวงเล็กโคจรรอบรูปครู  (เคยลองแสงวาบบนแถบชื่อ ID แล้ววัดได้ว่าทำให้หัวเว็บตกเฟรม จึงถอดออก)
+             ริบบิ้น: โทรโข่ง 📣 สั่นเรียกความสนใจเป็นจังหวะ + ✨ หมุนวิบวับ
+             QUIZ ZONE: จอยสติ๊กของตู้เกมโยกเองทีละตู้ (หยุดตอนเอาเมาส์ชี้ แล้วโยกตามเมาส์แบบเดิม)
+             STUDENT HUB: เหรียญไอคอนบนการ์ดลอยขึ้นลงเบา ๆ ไล่ทีละใบ
+             ความลื่น: ชิ้นเล็ก transform / opacity ล้วน พักเองตอนเลื่อนหน้า/นิ่ง/พ้นจอ · ไม่แตะแอนิเมชันเข้าฉากเดิม (.hx-in ฯลฯ)
+           ========================================================================== */
+        @keyframes aiSat { to { transform: rotate(360deg); } }
+        .ai-sat { position: absolute; z-index: 1; inset: -7%; border-radius: 50%; pointer-events: none; animation: aiSat 11s linear infinite; }
+        .ai-sat::before { content: ''; position: absolute; left: 50%; top: 0; width: 12px; height: 12px; margin: -6px 0 0 -6px; border-radius: 50%; border: 2px solid #000;
+            background: radial-gradient(circle at 35% 30%, #ffffff 0 22%, #67e8f9 60%, #6366f1 100%); box-shadow: 0 0 12px 3px rgba(103,232,249,.75); }
+        .ai-sat::after { content: ''; position: absolute; left: calc(50% + 8px); top: -1px; width: 26px; height: 2px; border-radius: 2px; background: linear-gradient(90deg, rgba(103,232,249,.8), rgba(103,232,249,0)); }
+        @keyframes tkHorn { 0%, 80%, 100% { transform: rotate(0deg); } 84% { transform: rotate(-14deg) scale(1.08); } 88% { transform: rotate(12deg) scale(1.08); } 92% { transform: rotate(-8deg); } 96% { transform: rotate(5deg); } }
+        @keyframes tkSpark { 0%, 100% { transform: scale(1); } 50% { transform: scale(.86); } }   /* ปุ่มขวาชิดขอบจอ: ห้ามขยาย/หมุนเกินกรอบ ไม่งั้นหน้าเลื่อนออกด้านข้าง */
+        .tk-cap.cap-l { animation: tkHorn 5s ease-in-out infinite; }
+        .tk-cap.cap-r { animation: tkSpark 2.8s ease-in-out infinite; }
+        @keyframes qzStick { 0%, 74%, 100% { transform: scale(var(--js, 1)) rotate(0deg); } 79% { transform: scale(var(--js, 1)) rotate(-16deg); } 84% { transform: scale(var(--js, 1)) rotate(14deg); } 89% { transform: scale(var(--js, 1)) rotate(-8deg); } 94% { transform: scale(var(--js, 1)) rotate(4deg); } }
+        .qz-deck::before { animation: qzStick 6s ease-in-out infinite; }
+        .qz-tile:nth-child(2) .qz-deck::before { animation-delay: 1.5s; } .qz-tile:nth-child(3) .qz-deck::before { animation-delay: 3s; } .qz-tile:nth-child(4) .qz-deck::before { animation-delay: 4.5s; }
+        @media (hover: hover) { .qz-tile:hover .qz-deck::before { animation: none; } }
+        @media (max-width: 767px) { .qz-deck::before { --js: .85; } }
+        @keyframes qaBob { from { transform: translateY(0); } to { transform: translateY(-5px); } }
+        .lk-hall .qa-ico { animation: qaBob 2.2s ease-in-out infinite alternate; animation-delay: calc(var(--i, 0) * -0.45s); }
+        @media (prefers-reduced-motion: reduce) { .ai-sat, .tk-cap.cap-l, .tk-cap.cap-r, .qz-deck::before, .lk-hall .qa-ico { animation: none; } }
+
+        /* ==========================================================================
+           ★ (14 พ.ย.) แก้กระตุก: การ์ดที่เลื่อนพ้นจอ "ถอด" แอนิเมชันตกแต่งออกเลย (เดิมแค่หยุดไว้)
+             เหตุ: แอนิเมชันที่หยุดไว้ยังถูกนับว่า "กำลังเล่น" เบราว์เซอร์เลยแยกชิ้นนั้น + ทุกอย่างที่ทับมันเป็นภาพแยกในการ์ดจอ
+             วัดได้ ~160 ชิ้นทั้งหน้า (หลังแก้รอบก่อนเหลือ 45 แล้วค่อย ๆ เพิ่มตามของตกแต่ง) — ยิ่งเยอะ การ์ดจอ Intel ยิ่งตกเฟรมตอนเลื่อน
+             ถอดเฉพาะตอนพ้นจอ (มองไม่เห็น จึงไม่มีอะไรกระตุก) พอเลื่อนกลับมาก็เริ่มเล่นใหม่ตามปกติ
+             ยกเว้นแอนิเมชันเข้าฉากครั้งเดียวชุดเดิม + มือโบก (มีท่าโผล่ครั้งแรกรวมอยู่ ห้ามเล่นซ้ำ) + เข็มวินาที (ต้องตรงเวลา) + เครื่องบินกระดาษ + ม่านจอตู้เกม
+           ========================================================================== */
+        .anim-off *:not(.animate-bounce-up):not(.st-node):not(.fb-flipin):not(.fb-in):not(.fb-shine):not(.fb-plane):not(.fb-tick):not(.hx-in):not(.qz-in):not(.lk-in):not(.cb-ss):not(.cb-plane):not(.wave-hand),
+        .anim-off *:not(.qz-crt)::before, .anim-off *:not(.qz-crt)::after { animation-name: none !important; }
+
 </style>
     <!-- ★ Tailwind CSS สำเร็จรูป (3.4.19) แทนตัวคอมไพล์สดแบบ CDN: ไม่ต้องคอมไพล์ในเบราว์เซอร์ทุกครั้งที่เปิดเว็บ/เปิดป๊อปอัป
          และไม่พึ่งเซิร์ฟเวอร์ภายนอก (เดิมถ้า cdn.tailwindcss.com ล่ม ทั้งหน้าจะไม่มีสไตล์)
@@ -5886,6 +5960,7 @@
                     <i class="ai-burst" aria-hidden="true"></i>
                     <i class="ai-scan" aria-hidden="true"></i>
                     <i class="ai-hud hx-in" aria-hidden="true"></i>
+                    <i class="ai-sat" aria-hidden="true"></i>
                     <div class="ai-disc hx-in" aria-hidden="true">
                         <div class="ai-ring"><svg viewBox="0 0 200 200" focusable="false">
                             <defs><path id="hxRingPath" d="M 16,100 a 84,84 0 1,1 168,0 a 84,84 0 1,1 -168,0"/></defs>
@@ -5957,6 +6032,7 @@
                  นับถอยหลังแบบ D-DAY / D-3 / +5 บนป้ายพลิก — ลวดลายทั้งหมดเป็นภาพนิ่ง ของที่ขยับมีแค่ไฟกะพริบของงานที่ต้องส่งวันนี้ -->
             <div class="fb-card animate-bounce-up delay-400">
                 <i class="fb-dots" aria-hidden="true"></i>
+                <i class="fb-cloud c1" aria-hidden="true"></i><i class="fb-cloud c2" aria-hidden="true"></i>
                 <svg class="fb-route" viewBox="0 0 300 120" aria-hidden="true" focusable="false"><path class="fb-route-line" d="M6 112 C 90 108, 170 70, 268 18"/><g class="fb-plane"><path class="fb-route-plane" transform="translate(262 4) rotate(60 12 12)" d="M21 16v-2l-8-5V3.5c0-.83-.67-1.5-1.5-1.5S10 2.67 10 3.5V9l-8 5v2l8-2.5V19l-2 1.5V22l3.5-1 3.5 1v-1.5L13 19v-5.5l8 2.5z"/></g></svg>
                 <div class="fb-head">
                     <span class="fb-pict" aria-hidden="true"><svg viewBox="0 0 24 24" focusable="false"><path d="M21 16v-2l-8-5V3.5c0-.83-.67-1.5-1.5-1.5S10 2.67 10 3.5V9l-8 5v2l8-2.5V19l-2 1.5V22l3.5-1 3.5 1v-1.5L13 19v-5.5l8 2.5z"/></svg></span>
@@ -6018,6 +6094,7 @@
              มือถือ: แท็บ WORLD 1–3 เลือกดาวทีละดวง (จำชั้นที่เลือกไว้เหมือนเดิม)
              ลวดลายทั้งหมดเป็นภาพนิ่ง — ของที่ขยับมีแค่ดวงจันทร์เด้งเข้าตอนโหลด (ครั้งเดียว) + ดาวกะพริบ + ป้าย "ล่าสุด" -->
         <div id="scoreStudentsSection" class="st-card animate-bounce-up delay-200">
+            <i class="gx-shoot s1" aria-hidden="true"></i><i class="gx-shoot s2" aria-hidden="true"></i>
             <i class="sw-sky" aria-hidden="true"></i>
             <i class="gx-nebula" aria-hidden="true"></i>
             <i class="gx-galaxy" aria-hidden="true"></i>
@@ -6046,7 +6123,7 @@
                         <div class="gx-plate"><b>WORLD 1</b><span>ม.4<em> · FIRE PLANET</em></span></div>
                         <div class="gx-field">
                             <i class="gx-orbit" aria-hidden="true"></i>
-                            <span class="gx-planet" aria-hidden="true"><i class="gx-ring b"></i><i class="gx-globe"></i><i class="gx-ring f"></i></span>
+                            <span class="gx-planet" aria-hidden="true"><i class="gx-ring b"></i><i class="gx-globe"></i><i class="gx-ring f"></i><i class="gx-moon"></i></span>
                             <button type="button" onclick="checkMissionPassword('4/1')" class="st-node" data-room="4/1" style="--i:0;" aria-label="ดูคะแนนห้อง ม.4/1"><span class="st-ball">4/1</span><small>ROOM 1</small></button>
                             <button type="button" onclick="checkMissionPassword('4/2')" class="st-node" data-room="4/2" style="--i:1;" aria-label="ดูคะแนนห้อง ม.4/2"><span class="st-ball">4/2</span><small>ROOM 2</small></button>
                             <button type="button" onclick="checkMissionPassword('4/3')" class="st-node" data-room="4/3" style="--i:2;" aria-label="ดูคะแนนห้อง ม.4/3"><span class="st-ball">4/3</span><small>ROOM 3</small></button>
@@ -6059,7 +6136,7 @@
                         <div class="gx-plate"><b>WORLD 2</b><span>ม.5<em> · JUNGLE PLANET</em></span></div>
                         <div class="gx-field">
                             <i class="gx-orbit" aria-hidden="true"></i>
-                            <span class="gx-planet" aria-hidden="true"><i class="gx-ring b"></i><i class="gx-globe"></i><i class="gx-ring f"></i></span>
+                            <span class="gx-planet" aria-hidden="true"><i class="gx-ring b"></i><i class="gx-globe"></i><i class="gx-ring f"></i><i class="gx-moon"></i></span>
                             <button type="button" onclick="checkMissionPassword('5/1')" class="st-node" data-room="5/1" style="--i:0;" aria-label="ดูคะแนนห้อง ม.5/1"><span class="st-ball">5/1</span><small>ROOM 1</small></button>
                             <button type="button" onclick="checkMissionPassword('5/2')" class="st-node" data-room="5/2" style="--i:1;" aria-label="ดูคะแนนห้อง ม.5/2"><span class="st-ball">5/2</span><small>ROOM 2</small></button>
                             <button type="button" onclick="checkMissionPassword('5/3')" class="st-node" data-room="5/3" style="--i:2;" aria-label="ดูคะแนนห้อง ม.5/3"><span class="st-ball">5/3</span><small>ROOM 3</small></button>
@@ -6072,7 +6149,7 @@
                         <div class="gx-plate"><b>WORLD 3</b><span>ม.6<em> · CRYSTAL PLANET</em></span></div>
                         <div class="gx-field">
                             <i class="gx-orbit" aria-hidden="true"></i>
-                            <span class="gx-planet" aria-hidden="true"><i class="gx-ring b"></i><i class="gx-globe"></i><i class="gx-ring f"></i></span>
+                            <span class="gx-planet" aria-hidden="true"><i class="gx-ring b"></i><i class="gx-globe"></i><i class="gx-ring f"></i><i class="gx-moon"></i></span>
                             <button type="button" onclick="checkMissionPassword('6/1')" class="st-node" data-room="6/1" style="--i:0;" aria-label="ดูคะแนนห้อง ม.6/1"><span class="st-ball">6/1</span><small>ROOM 1</small></button>
                             <button type="button" onclick="checkMissionPassword('6/2')" class="st-node" data-room="6/2" style="--i:1;" aria-label="ดูคะแนนห้อง ม.6/2"><span class="st-ball">6/2</span><small>ROOM 2</small></button>
                             <button type="button" onclick="checkMissionPassword('6/3')" class="st-node" data-room="6/3" style="--i:2;" aria-label="ดูคะแนนห้อง ม.6/3"><span class="st-ball">6/3</span><small>ROOM 3</small></button>
@@ -6369,15 +6446,15 @@
             <div class="td-head">
                 <i class="td-rays" aria-hidden="true"></i>
                 <i class="td-wing l" aria-hidden="true"></i><i class="td-wing r" aria-hidden="true"></i>
-                <div class="td-plate"><h2 class="td-title font-black" data-text="TEACHER TOOLS">TEACHER TOOLS</h2></div>
+                <div class="td-plate"><h2 class="td-title font-black" data-text="TEACHER TOOLS">TEACHER TOOLS</h2><i class="td-sheen" aria-hidden="true"><b></b></i></div>
                 <span class="td-kick">👨‍🏫 โหมดครู · ปุ่มจัดการข้อมูลต้องใช้รหัสครู</span>
             </div>
             <div class="td-grid">
-                <button type="button" onclick="openUploadPopup()" class="td-tool is-open" style="--j1:#3b82f6;--j2:#1e3a8a;--gg:96,165,250;"><span class="td-ico" aria-hidden="true">📤</span><span class="td-txt"><span class="td-lab">UPLOAD</span><span class="td-sub">ส่งงาน · ไม่ต้องใส่รหัส</span></span></button>
-                <button type="button" onclick="checkAdminScores()" class="td-tool" style="--j1:#94a3b8;--j2:#1e293b;--gg:148,163,184;"><span class="td-ico" aria-hidden="true">🤖</span><span class="td-txt"><span class="td-lab">OVERRIDE</span><span class="td-sub">คะแนนทุกห้อง</span></span></button>
-                <button type="button" onclick="openQuizAdmin()" class="td-tool" style="--j1:#f97316;--j2:#7c2d12;--gg:251,146,60;"><span class="td-ico" aria-hidden="true">🎲</span><span class="td-txt"><span class="td-lab">QUIZ</span><span class="td-sub">จัดการเกมควิซ</span></span></button>
-                <button type="button" onclick="openDeadlineAdmin()" class="td-tool" style="--j1:#f59e0b;--j2:#78350f;--gg:251,191,36;"><span class="td-ico" aria-hidden="true">📅</span><span class="td-txt"><span class="td-lab">DEADLINE</span><span class="td-sub">กำหนดส่งงาน</span></span></button>
-                <button type="button" onclick="openDashboard()" class="td-tool" style="--j1:#10b981;--j2:#064e3b;--gg:52,211,153;"><span class="td-ico" aria-hidden="true">📊</span><span class="td-txt"><span class="td-lab">DASHBOARD</span><span class="td-sub">ภาพรวมวันนี้</span></span></button>
+                <button type="button" onclick="openUploadPopup()" class="td-tool is-open" style="--j1:#3b82f6;--j2:#1e3a8a;--gg:96,165,250;"><i class="td-gem" aria-hidden="true"></i><span class="td-ico" aria-hidden="true">📤</span><span class="td-txt"><span class="td-lab">UPLOAD</span><span class="td-sub">ส่งงาน · ไม่ต้องใส่รหัส</span></span></button>
+                <button type="button" onclick="checkAdminScores()" class="td-tool" style="--j1:#94a3b8;--j2:#1e293b;--gg:148,163,184;"><i class="td-gem" aria-hidden="true"></i><span class="td-ico" aria-hidden="true">🤖</span><span class="td-txt"><span class="td-lab">OVERRIDE</span><span class="td-sub">คะแนนทุกห้อง</span></span></button>
+                <button type="button" onclick="openQuizAdmin()" class="td-tool" style="--j1:#f97316;--j2:#7c2d12;--gg:251,146,60;"><i class="td-gem" aria-hidden="true"></i><span class="td-ico" aria-hidden="true">🎲</span><span class="td-txt"><span class="td-lab">QUIZ</span><span class="td-sub">จัดการเกมควิซ</span></span></button>
+                <button type="button" onclick="openDeadlineAdmin()" class="td-tool" style="--j1:#f59e0b;--j2:#78350f;--gg:251,191,36;"><i class="td-gem" aria-hidden="true"></i><span class="td-ico" aria-hidden="true">📅</span><span class="td-txt"><span class="td-lab">DEADLINE</span><span class="td-sub">กำหนดส่งงาน</span></span></button>
+                <button type="button" onclick="openDashboard()" class="td-tool" style="--j1:#10b981;--j2:#064e3b;--gg:52,211,153;"><i class="td-gem" aria-hidden="true"></i><span class="td-ico" aria-hidden="true">📊</span><span class="td-txt"><span class="td-lab">DASHBOARD</span><span class="td-sub">ภาพรวมวันนี้</span></span></button>
             </div>
         </section>
 
