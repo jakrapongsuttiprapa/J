@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>I AM OAT</title>
+    <script>/* (14 พ.ย.) โหมดลื่น: ใส่ก่อนวาดหน้า กันแอนิเมชันเล่นแวบแรก */try{if(localStorage.getItem('oatFx')==='off')document.documentElement.classList.add('lite')}catch(e){}</script>
     <link rel="icon" type="image/png" sizes="32x32" href="https://i.postimg.cc/rwtMK5zs/5884a6e1-a4e2-4ce7-bf96-9270c6a64cb4.png">
 <link rel="icon" type="image/png" sizes="16x16" href="https://i.postimg.cc/rwtMK5zs/5884a6e1-a4e2-4ce7-bf96-9270c6a64cb4.png">
 <link rel="apple-touch-icon" sizes="180x180" href="https://i.postimg.cc/rwtMK5zs/5884a6e1-a4e2-4ce7-bf96-9270c6a64cb4.png">
@@ -4796,7 +4797,7 @@
             .ft-props i { font-size: 2.9rem; } .ft-props .ft-cup { font-size: 2.2rem; } .ft-props .ft-apple { font-size: 2.3rem; }
             .ft-bar .ft-id { grid-area: id; padding: 38px 34px 15px; } .ft-bar .ft-id b { font-size: 1.3rem; } .ft-bar .ft-id small { font-size: .84rem; }
             .ft-bar .ft-logo { width: 64px; height: 64px; top: -34px; margin-left: -32px; }
-            .ft-bar .ft-copy { grid-area: cp; margin-top: 8px; } .ft-bar .ft-top { grid-area: tp; }
+            .ft-bar .ft-copy { grid-area: cp; margin-top: 8px; } .ft-bar .ft-top { grid-area: tp; } .ft-bar .ft-btns { grid-area: tp; }
         }
         @media (max-width: 767px) { .ft-bar { box-shadow: 6px 6px 0 0 #000, inset 0 -13px 0 #5c3a1a, inset 0 -16px 0 #000; } .ft-bar .ft-id { flex-direction: column; } }
         @media (max-width: 360px) { .ft-props i { font-size: 1.35rem; } .ft-props .ft-cup, .ft-props .ft-apple { font-size: 1.1rem; } .ft-bar .ft-id { padding-left: 14px; padding-right: 14px; }
@@ -6018,6 +6019,56 @@
             .swal2-container .dt-pop .dt-boss .dt-row.exam .dt-rname { font-size: .98rem; } }
         @media (max-width: 599px) { .swal2-container .dt-pop .dt-sec .dt-list.dt-boss { grid-template-columns: minmax(0, 1fr); } }   /* มือถือ: การ์ดสอบเรียงลงทีละใบ เต็มความกว้าง วงแหวน + ข้อความวางข้างกันได้สบาย */
 
+        /* ==========================================================================
+           ★ (14 พ.ย.) หน้ารายชื่อนักเรียน (SELECT PLAYER) = ธีม COSMIC ชุดเดียวกับการ์ดคะแนนรายคน
+             พื้นอวกาศ + เนบิวลาสีประจำโลก · แถวรายชื่อ = แผงกระจกเข้ม เลขที่เป็นเหรียญ ชื่อสีขาว ปุ่มเล่นทอง · ช่องค้นหาเข้ม ขอบทองเรืองแสง
+             จอคอม ≥1100px: ป๊อปอัปกว้างขึ้น + รายชื่อ 2 คอลัมน์ (เลื่อนน้อยลงครึ่งหนึ่ง) · ไม่มีแอนิเมชันวนเพิ่ม
+           ========================================================================== */
+        .swal2-container .swal2-popup.sw-pop.pp-pop:has(#ppStudentList) { box-shadow: 12px 12px 0 0 #000, 0 0 70px rgba(var(--wgr),.55) !important;
+            background: radial-gradient(circle, rgba(255,255,255,.55) 0 1px, rgba(255,255,255,0) 1.6px) 0 0 / 46px 46px,
+                        radial-gradient(circle, rgba(255,255,255,.3) 0 .8px, rgba(255,255,255,0) 1.3px) 23px 17px / 31px 31px,
+                        radial-gradient(ellipse 80% 40% at 0% 18%, rgba(var(--wgr),.42), rgba(var(--wgr),0) 70%),
+                        radial-gradient(ellipse 80% 45% at 100% 78%, rgba(139,92,246,.45), rgba(139,92,246,0) 70%),
+                        linear-gradient(180deg, #120e33 0%, #0b0a24 45%, #1a1146 100%) !important; }
+        .swal2-container .swal2-popup.sw-pop.pp-pop:has(#ppStudentList) .pp-search { background: linear-gradient(180deg, #1c1748, #110d33); box-shadow: 0 0 0 2px #fbbf24, 3px 4px 0 2px #000, 0 0 18px rgba(var(--wgr),.35); }
+        .swal2-container .swal2-popup.sw-pop.pp-pop:has(#ppStudentList) .pp-search input { color: #fff; background: transparent; }
+        .swal2-container .swal2-popup.sw-pop.pp-pop:has(#ppStudentList) .pp-search input::placeholder { color: #c7d2fe; opacity: 1; }
+        .swal2-container .swal2-popup.sw-pop.pp-pop:has(#ppStudentList) .pp-row { position: relative; overflow: hidden; border-color: #000;
+            background: radial-gradient(ellipse 60% 120% at 0% 50%, rgba(var(--wgr),.38), rgba(var(--wgr),0) 70%), linear-gradient(180deg, #241d5e 0%, #15113d 100%);
+            box-shadow: inset 0 0 0 1.5px rgba(var(--wgr),.75), 3px 4px 0 0 #000; transition: transform .14s ease, box-shadow .14s ease; }
+        .swal2-container .swal2-popup.sw-pop.pp-pop:has(#ppStudentList) .pp-row::after { content: ''; position: absolute; left: 0; right: 0; top: 0; height: 45%; pointer-events: none; background: linear-gradient(180deg, rgba(255,255,255,.09), rgba(255,255,255,0)); }
+        .swal2-container .swal2-popup.sw-pop.pp-pop:has(#ppStudentList) .pp-name { color: #fff; text-shadow: 0 2px 0 #000; }
+        .swal2-container .swal2-popup.sw-pop.pp-pop:has(#ppStudentList) .pp-no { box-shadow: 0 0 0 2px #fbbf24, 0 0 12px rgba(var(--wgr),.7); }
+        .swal2-container .swal2-popup.sw-pop.pp-pop:has(#ppStudentList) .pp-arrow { background: radial-gradient(circle at 35% 30%, #fffbe0 0 18%, #fde047 46%, #f59e0b 100%); box-shadow: 0 0 10px rgba(253,224,71,.55); }
+        @media (hover: hover) { .swal2-container .swal2-popup.sw-pop.pp-pop:has(#ppStudentList) .pp-row:hover { transform: translate(-1px,-2px); box-shadow: inset 0 0 0 2px #fde68a, 4px 6px 0 0 #000, 0 0 22px rgba(var(--wgr),.55); } }
+        .swal2-container .swal2-popup.sw-pop.pp-pop:has(#ppStudentList) .pp-row:focus-visible { outline: 3px solid #fde047; outline-offset: 2px; }
+        .swal2-container .swal2-popup.sw-pop.pp-pop:has(#ppStudentList) .pp-none { color: #e0e7ff; }
+        .swal2-container .swal2-popup.sw-pop.pp-pop:has(#ppStudentList) .pp-list::-webkit-scrollbar-thumb { background: #fbbf24; }
+        @media (min-width: 1100px) {
+            .swal2-container .swal2-popup.sw-pop.pp-pop:has(#ppStudentList) { width: min(52rem, 92vw) !important; }
+            .swal2-container .swal2-popup.sw-pop.pp-pop:has(#ppStudentList) .pp-list { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); align-content: start; gap: 10px 12px; max-height: 56vh; }
+            .swal2-container .swal2-popup.sw-pop.pp-pop:has(#ppStudentList) .pp-list .pp-none { grid-column: 1 / -1; }
+        }
+
+        /* ==========================================================================
+           ★ (14 พ.ย.) ปุ่ม "เอฟเฟกต์ เปิด/ปิด" (โหมดลื่น) — ครูขอปุ่มกันกระตุกสำหรับเครื่องที่การ์ดจออ่อน
+             ปิด = ถอดแอนิเมชันทั้งหมดในหน้าและป๊อปอัป (ภาพเหมือนเดิม แค่นิ่ง) จำค่าไว้ในเครื่อง · ปุ่มอยู่บนแถบเมนู (คอม) / แถบท้ายเว็บ (ทุกจอ)
+           ========================================================================== */
+        /* แอนิเมชันเข้าฉากครั้งเดียว (การ์ดเด้งเข้า ฯลฯ) ไม่ถอด: เล่นจบเองในไม่กี่วิ และถ้าถอดแล้วเปิดคืน ทุกการ์ดจะเด้งเข้าซ้ำทั้งหน้า */
+        html.lite *:not(.animate-bounce-up):not(.st-node):not(.fb-flipin):not(.fb-in):not(.fb-shine):not(.fb-plane):not(.fb-tick):not(.hx-in):not(.qz-in):not(.lk-in):not(.cb-plane):not(.wave-hand), html.lite *::before, html.lite *::after { animation: none !important; }
+        html.lite .wave-hand { animation: none !important; }
+        html.lite .qz-tile.qz-off .qz-crt { opacity: 0 !important; }
+        html.lite .qz-head.qz-off .qz-title .n1, html.lite .qz-head.qz-off .qz-title .n2 { opacity: 1 !important; }
+        .fx-tog .fx-on, html.lite .fx-tog .fx-off { display: inline; } .fx-tog .fx-off, html.lite .fx-tog .fx-on { display: none; }
+        .nav-pill-btn.fx-tog { font-size: 1.15rem; }
+        html.lite .nav-pill-btn.fx-tog { filter: none; opacity: .75; }
+        .ft-btns { display: flex; flex-wrap: wrap; justify-content: center; align-items: center; gap: 10px; }
+        .ft-fx { display: inline-flex; align-items: center; gap: 6px; padding: 8px 16px; border: 3px solid #000; border-radius: 12px; background: #1e1b4b; color: #fde68a;
+            font-family: inherit; font-size: .86rem; font-weight: 900; letter-spacing: .03em; cursor: pointer; box-shadow: 0 5px 0 0 #000; }
+        @media (max-width: 767px) { .ft-bar .ft-btns { position: relative; z-index: 2; gap: 8px; } .ft-bar .ft-btns .ft-top, .ft-fx { padding: 7px 12px; font-size: .78rem; } }
+        .ft-fx:active { transform: translateY(3px); box-shadow: 0 2px 0 0 #000; }
+        .ft-fx:focus-visible, .fx-tog:focus-visible { outline: 3px solid #fde047; outline-offset: 3px; }
+
 </style>
     <!-- ★ Tailwind CSS สำเร็จรูป (3.4.19) แทนตัวคอมไพล์สดแบบ CDN: ไม่ต้องคอมไพล์ในเบราว์เซอร์ทุกครั้งที่เปิดเว็บ/เปิดป๊อปอัป
          และไม่พึ่งเซิร์ฟเวอร์ภายนอก (เดิมถ้า cdn.tailwindcss.com ล่ม ทั้งหน้าจะไม่มีสไตล์)
@@ -6052,6 +6103,7 @@
             </div>
             <div class="flex items-center gap-2">
                 <button type="button" onclick="openStudentMenu()" aria-label="เมนูนักเรียน" title="เมนูนักเรียน" class="nav-pill-btn nb-stu"><span class="nb-bars" aria-hidden="true"></span></button>
+                <button type="button" onclick="toggleFx_()" aria-pressed="true" aria-label="เอฟเฟกต์เคลื่อนไหว (กดเพื่อปิด/เปิด ถ้าเครื่องกระตุก)" title="เอฟเฟกต์ เปิด/ปิด (ถ้าเครื่องกระตุกให้ปิด)" class="nav-pill-btn fx-tog"><span class="fx-on" aria-hidden="true">✨</span><span class="fx-off" aria-hidden="true">💤</span></button>
                 <button type="button" onclick="openAdminMenu()" aria-label="เมนูครู" title="เมนูครู" class="nav-pill-btn nb-adm nb-tch"><span class="nb-emo" aria-hidden="true">🛠️</span></button>
             </div>
             <i class="nav-prog" aria-hidden="true"><b></b></i>
@@ -6627,7 +6679,7 @@
                     <div class="min-w-0"><b>T.JAKRAPONG SUTTIPRAPA</b><small>ครูภาษาอังกฤษ ม.4–6 · โรงเรียนธนาคารออมสิน</small></div>
                 </div>
                 <p class="ft-copy">© <span id="ftYear">2569</span> I AM OAT · Made with ☕ &amp; ❤️</p>
-                <button type="button" class="ft-top" onclick="goSec_('top')">▲ กลับขึ้นบน</button>
+                <div class="ft-btns"><button type="button" class="ft-top" onclick="goSec_('top')">▲ กลับขึ้นบน</button><button type="button" class="ft-fx fx-tog" onclick="toggleFx_()" aria-pressed="true"><span class="fx-on">✨ เอฟเฟกต์: เปิด</span><span class="fx-off">💤 เอฟเฟกต์: ปิด</span></button></div>
             </div>
         </footer>
 
@@ -6637,6 +6689,15 @@
     <button type="button" id="bttBtn" class="btt" aria-label="กลับขึ้นบนสุด" onclick="goSec_('top')"><span class="btt-ring" aria-hidden="true"></span><span class="btt-arrow" aria-hidden="true"></span></button>
 
     <script>
+        // ★ (14 พ.ย.) ปุ่มเอฟเฟกต์ เปิด/ปิด (โหมดลื่น) — จำค่าในเครื่องนี้ (อ่านไม่ได้ = เปิดเอฟเฟกต์ตามปกติ)
+        window.toggleFx_ = function () {
+            var r = document.documentElement, off = !r.classList.contains('lite');
+            r.classList.toggle('lite', off);
+            try { localStorage.setItem('oatFx', off ? 'off' : 'on'); } catch (e) {}
+            document.querySelectorAll('.fx-tog').forEach(function (b) { b.setAttribute('aria-pressed', off ? 'false' : 'true'); });
+        };
+        document.addEventListener('DOMContentLoaded', function () { var off = document.documentElement.classList.contains('lite');
+            document.querySelectorAll('.fx-tog').forEach(function (b) { b.setAttribute('aria-pressed', off ? 'false' : 'true'); }); });
         const API_URL = 'https://script.google.com/macros/s/AKfycbytukN4c-djW3606I7zl_AkXEVaC-WLwjf0_Hc8h_JUB_KFFTyqB0j7zm9ZK0LG1z0/exec';
 
         // ★ เพิ่ม "เวลาจำกัด" (timeout) และ "ลองใหม่อัตโนมัติ" (retry) ให้ทุกการเรียก API
