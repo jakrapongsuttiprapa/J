@@ -5979,18 +5979,44 @@
                แถวบน: เกรด | สรุปคะแนน (สูงเท่ากัน) · ถัดลงมาเต็มความกว้าง: คะแนนสอบ → (แฟ้มกู้เกรด) → งานเก็บ (งานที่ผ่านเรียง 3 ช่อง) */
             .dt-pop .swal2-html-container:has(> .dt-sec.task) { display: grid !important; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); column-gap: 18px; align-items: stretch; }
             .dt-pop .swal2-html-container:has(> .dt-sec.task) > * { grid-column: 1 / -1; }
-            .dt-pop .swal2-html-container:has(> .dt-sec.task) > .dt-hero { grid-column: 1; margin-top: 4px; }
-            .dt-pop .swal2-html-container:has(> .dt-sec.task) > .dt-sec.sum { grid-column: 2; margin-top: 4px; display: flex; flex-direction: column; }
-            .dt-pop .swal2-html-container:has(> .dt-sec.task) > .dt-sec.sum > .dt-parts { flex: 1 1 auto; align-items: stretch; }
-            .dt-pop .swal2-html-container:has(> .dt-sec.task) > .dt-sec.sum .dt-part { display: flex; flex-direction: column; justify-content: space-between; }
+            .dt-pop .swal2-html-container:has(> .dt-sec.task) > .dt-hero { grid-column: 1; grid-row: 2; margin-top: 4px; }
+            .dt-pop .swal2-html-container:has(> .dt-sec.task) > .dt-sec.sum { grid-column: 1 / -1; }
+            /* (14 พ.ย. เย็น) แถวบน: เกรด | คะแนนสอบ (การ์ดบอสแบบวงแหวน 2 ใบ ไม่กว้างเกินไป) · สรุปคะแนนลงไปเต็มแถว */
+            .dt-pop .swal2-html-container:has(> .dt-sec.task) > .dt-sec.exam { grid-column: 2; grid-row: 2; margin-top: 4px; display: flex; flex-direction: column; }
+            .dt-pop .swal2-html-container:has(> .dt-sec.task) > .dt-sec.exam > .dt-boss, .dt-pop .swal2-html-container:has(> .dt-sec.task) > .dt-sec.exam > .dt-locks { flex: 1 1 auto; }
+            .dt-pop .swal2-html-container:has(> .dt-sec.task) > .dt-sec.exam > .dt-locks { align-items: stretch; }
+            .dt-pop .swal2-html-container:has(> .dt-sec.task) > .dt-sec.exam .dt-lock { flex-direction: column; justify-content: center; text-align: center; gap: 8px; padding: 14px 10px; }
+            .dt-pop .swal2-html-container:has(> .dt-sec.task) > .dt-sec.exam .dt-lock-ico { width: 46px; height: 46px; }
+            .dt-pop .swal2-html-container:has(> .dt-sec.task) > .dt-sec.exam .dt-lock-ico::before { top: 9px; } .dt-pop .swal2-html-container:has(> .dt-sec.task) > .dt-sec.exam .dt-lock-ico::after { top: 19px; }
+            .dt-pop .swal2-html-container:has(> .dt-sec.task) > .dt-sec.exam .dt-lock-t { align-items: center; }
             .dt-pop .swal2-html-container:has(> .dt-sec.task) > .dt-sec.task .dt-list.dt-grid { grid-template-columns: repeat(auto-fit, minmax(min(100%, 270px), 1fr)); }
-            /* การ์ดสอบเต็มความกว้าง: จัดเป็นแถวนอน (ชื่อซ้าย · คะแนนใหญ่ + ป้ายผ่าน ขวา · แถบล่าง) ไม่ให้มีที่โล่งกลางการ์ด */
-            .dt-pop .swal2-html-container:has(> .dt-sec.task) .dt-boss .dt-row.exam { grid-template-columns: minmax(0,1fr) auto auto; grid-template-areas: "tag got stat" "name got stat" "meta got stat" "bar bar bar"; column-gap: 16px; padding: 10px 14px 12px; }
-            .dt-pop .swal2-html-container:has(> .dt-sec.task) .dt-boss .dt-row.exam .dt-got { margin-top: 0; align-self: center; }
-            .dt-pop .swal2-html-container:has(> .dt-sec.task) .dt-boss .dt-row.exam .dt-stat { align-self: center; margin: 0; }
-            .dt-pop .swal2-html-container:has(> .dt-sec.task) .dt-boss .dt-row.exam .dt-mbar { margin-top: 8px; }
             .dt-pop .swal2-html-container:has(> .dt-sec.task) > .dt-sec.task .dt-group:not(.ok) .dt-list { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 380px), 1fr)); gap: 8px; }
         }
+
+        /* ==========================================================================
+           ★ (14 พ.ย. เย็น) การ์ดคะแนนสอบ = "BOSS MEDAL" แบบใหม่ (ครู: เดิมกว้างเกินไป ตัวเลขลอยอยู่ปลายขวา)
+             ซ้าย = วงแหวนคะแนน (สีตามผล: เขียวผ่าน / แดงไม่ผ่าน / เทายังไม่ตัดสิน) ตัวเลขอยู่กลางวง · ขวา = ป้าย MIDTERM/FINAL + ชื่อ + เต็ม/ผ่าน + ป้ายผล
+             แถบคะแนนยาวถูกแทนด้วยวงแหวน · ใช้ทุกขนาดจอ (จอแคบมากเรียงการ์ดลงทีละใบ)
+           ========================================================================== */
+        .swal2-container .dt-pop .dt-boss .dt-row.exam { --rc2: #94a3b8; grid-template-columns: auto minmax(0, 1fr); grid-template-areas: "got tag" "got name" "got meta" "got stat";
+            column-gap: 14px; row-gap: 1px; align-items: center; align-content: center; padding: 12px 14px; }
+        .swal2-container .dt-pop .dt-boss .dt-row.exam.ok { --rc2: #4ade80; } .swal2-container .dt-pop .dt-boss .dt-row.exam.bad { --rc2: #f87171; }
+        .swal2-container .dt-pop .dt-boss .dt-row.exam .dt-got { grid-area: got; align-self: center; position: relative; width: 84px; height: 84px; margin: 0; border-radius: 50%;
+            display: flex; flex-direction: column; align-items: center; justify-content: center; line-height: 1;
+            background: radial-gradient(circle, #14112f 0 58%, rgba(0,0,0,0) 59%), conic-gradient(var(--rc2) calc(var(--pp, 0) * 1%), rgba(255,255,255,.14) 0);
+            box-shadow: 0 0 0 2.5px #000, 0 0 0 4.5px #fbbf24, 3px 4px 0 3px #000, 0 0 18px rgba(253,224,71,.25); }
+        .swal2-container .dt-pop .dt-boss .dt-row.exam .dt-got b { font-size: 1.75rem; }
+        .swal2-container .dt-pop .dt-boss .dt-row.exam .dt-got i { font-size: .7rem; margin: 2px 0 0; }
+        .swal2-container .dt-pop:not(.sw-pop) .dt-boss .dt-row.exam .dt-got { background: radial-gradient(circle, #fff 0 58%, rgba(255,255,255,0) 59%), conic-gradient(var(--rc2) calc(var(--pp, 0) * 1%), #e2e8f0 0); }
+        .swal2-container .dt-pop .dt-boss .dt-row.exam .dt-rtag { margin: 0 0 3px; }
+        .swal2-container .dt-pop .dt-boss .dt-row.exam .dt-rname { font-size: 1.15rem; line-height: 1.2; }
+        .swal2-container .dt-pop .dt-boss .dt-row.exam .dt-rmeta { margin-top: 1px; }
+        .swal2-container .dt-pop .dt-boss .dt-row.exam .dt-stat { grid-area: stat; justify-self: start; align-self: start; margin: 6px 0 0; }
+        .swal2-container .dt-pop .dt-boss .dt-row.exam .dt-mbar { display: none; }
+        @media (max-width: 420px) { .swal2-container .dt-pop .dt-boss .dt-row.exam { column-gap: 10px; padding: 10px; }
+            .swal2-container .dt-pop .dt-boss .dt-row.exam .dt-got { width: 64px; height: 64px; } .swal2-container .dt-pop .dt-boss .dt-row.exam .dt-got b { font-size: 1.3rem; }
+            .swal2-container .dt-pop .dt-boss .dt-row.exam .dt-rname { font-size: .98rem; } }
+        @media (max-width: 599px) { .swal2-container .dt-pop .dt-sec .dt-list.dt-boss { grid-template-columns: minmax(0, 1fr); } }   /* มือถือ: การ์ดสอบเรียงลงทีละใบ เต็มความกว้าง วงแหวน + ข้อความวางข้างกันได้สบาย */
 
 </style>
     <!-- ★ Tailwind CSS สำเร็จรูป (3.4.19) แทนตัวคอมไพล์สดแบบ CDN: ไม่ต้องคอมไพล์ในเบราว์เซอร์ทุกครั้งที่เปิดเว็บ/เปิดป๊อปอัป
@@ -7971,7 +7997,14 @@
         // ★ (11 ต.ค.) แถวคะแนนหนึ่งช่องในหน้าคะแนนรายคน (ใช้ทั้งงานย่อย กลางภาค ปลายภาค)
         // ★ (4 พ.ย.) + แถบคะแนนบางๆ ขอบล่างแถว (ได้/เต็ม) + ขีดเกณฑ์ผ่าน + ป้าย MIDTERM / FINAL ของช่องสอบ — ข้อความและป้ายสถานะเดิมทุกตัว
         // ★ (14 พ.ย.) ช่องสอบ "มีผลแล้วหรือยัง" — ช่องว่างในชีต = ยังไม่สอบ/ยังไม่ประกาศ (0 ที่ครูพิมพ์เอง หรือ ร = มีผลแล้ว)
-        function examHas_(o) { var t = (o && o.score !== undefined && o.score !== null) ? String(o.score).trim() : ''; return t !== '' && !/^[-–—]+$/.test(t); }   // ขีด - ในชีต = ยังไม่มีผลเหมือนช่องว่าง
+        function examHas_(o) {
+            // ขีด - ในชีต = ยังไม่มีผล · (14 พ.ย. เย็น) ชีตจริงส่ง "0" มาแทนช่องว่าง (เห็นจากหน้าจอครู: 0/20 · ผ่าน 0 · สถานะ -)
+            //   จึงถือว่า "0 ที่ไม่มีสถานะผ่าน/ไม่ผ่าน" = ยังไม่สอบ · ถ้าครูให้ 0 จริงและมีสถานะ "ไม่ผ่าน"/ร → นับว่ามีผล
+            var t = (o && o.score !== undefined && o.score !== null) ? String(o.score).trim() : '';
+            if (t === '' || /^[-–—]+$/.test(t)) return false;
+            if (parseFloat(t) === 0 && taskResult_(o).state === 'none') return false;
+            return true;
+        }
         // ช่องสอบที่ยังไม่มีผล: การ์ดล็อกเล็ก ๆ แทนการ์ดใหญ่ที่โชว์ 0 (ดูโล่งและทำให้เข้าใจผิดว่าได้ 0)
         function dtLock_(tag, name, max) {
             return '<div class="dt-lock"><span class="dt-lock-ico" aria-hidden="true"></span>' +
@@ -7983,7 +8016,7 @@
             const g = parseFloat(got), m = parseFloat(max), ps = parseFloat(pass);
             const pct = (state !== 'none' && !isNaN(g) && m > 0) ? Math.max(0, Math.min(100, g / m * 100)) : 0;
             const mark = (!isNaN(ps) && ps > 0 && m > 0 && ps < m) ? '<b style="left:' + (ps / m * 100).toFixed(1) + '%;"></b>' : '';
-            return '<div class="dt-row ' + tone + (kind === 'exam' ? ' exam' : '') + '">' +
+            return '<div class="dt-row ' + tone + (kind === 'exam' ? ' exam' : '') + '"' + (kind === 'exam' ? ' style="--pp:' + pct.toFixed(1) + ';"' : '') + '>' +
                 '<span class="dt-dot" aria-hidden="true"></span>' +
                 '<div class="dt-rmain">' + (tag ? '<span class="dt-rtag" aria-hidden="true">' + tag + '</span>' : '') +
                 '<p class="dt-rname">' + escapeHtml(name) + '</p>' +
