@@ -2875,7 +2875,7 @@
         .tp-form .border-dashed { border-width: 3px !important; border-radius: 18px !important; background: #eff6ff !important; }
 
 
-        /* ==== แผง TEACHER TOOLS บนจอใหญ่ (≥768px) — (10 พ.ย.) ธีมใหม่ "ART DECO GOLD" (ครูบอกตู้เครื่องมือสีแดงไม่สวย ขอเปลี่ยนธีม) ====
+        /* ==== แผง TEACHER TOOLS บนจอใหญ่ (≥768px) — (16 พ.ย.) เปลี่ยนเป็นธีม "สมุดจดของครู" (กระดาษเส้นบรรทัด ห่วงสันสมุด โพสต์อิทเครื่องมือ) — ข้อความต่อไปนี้เป็นของธีมเก่า: (10 พ.ย.) ธีม "ART DECO GOLD" (ครูบอกตู้เครื่องมือสีแดงไม่สวย ขอเปลี่ยนธีม) ====
            พื้นดำนิลลายตาข่ายทองจางๆ · กรอบทองสองเส้น + พัดทองประดับ 4 มุม (สไตล์อาร์ตเดโค หรูแบบยุค 1920s)
            หัว: รัศมีแสงทอง + ปีกเส้นทองสองข้าง + ป้ายชื่อแผ่นดำขอบทองสองชั้น ตัวทองนูน 3 มิติ + พัดทองบนป้าย + ป้ายโหมดครูดำขอบทอง
            เครื่องมือ 5 อย่าง = ซุ้มประตูโค้งสีอัญมณี (ไพลิน / แพลทินัม / บุษราคัม / ซิทริน / มรกต) ขอบทอง + หินทองบนยอดซุ้ม
@@ -6446,6 +6446,176 @@
         @media (max-width: 420px) { #sec-schedule .cb-board .na-holo { right: 4px; transform: scale(.72); transform-origin: 100% 50%; opacity: .75; } }
         @media (prefers-reduced-motion: reduce) { #sec-schedule .cb-board .na-run, #sec-schedule .cb-board .cs-title::before, #sec-schedule .cb-board .cs-title::after, #sec-schedule .cb-board .cs-badge::after { display: none; } #sec-schedule .cb-board .na-fx *, #sec-schedule .cb-board .na-holo * { animation: none !important; } }
         html.lite #sec-schedule .cb-board .na-run, html.lite #sec-schedule .cb-board .cs-badge::after { display: none; }
+        /* ==========================================================================
+           ★ (16 พ.ย.) STUDENT HUB = ธีม "ป้ายนิเทศห้องเรียน" (ครูขอให้บางการ์ดเป็นธีมห้องเรียน ไม่ต้องธีมเดียวกันทั้งเว็บ)
+             กรอบลายลูกกวาดสีรุ้ง + ขอบกระดาษหยัก (border trim แบบป้ายนิเทศ) · พื้นไม้ก๊อก · ชื่อเป็นตัวอักษรกระดาษสีติดผนัง (กระโดดทีละตัวเป็นระยะ)
+             การ์ด 5 ใบ = กระดาษแข็งสี + บัตรคำเส้นบรรทัด ติดหมุด/เทปกาว เอียงนิดๆ ชี้แล้วตั้งตรงยกขึ้น
+             ของตกแต่ง: ดาวกระดาษ (แกว่ง) · สติกเกอร์ A+ · โพสต์อิท "You can do it!" · หมุดหล่น · ดินสอวางขอบล่าง
+             มือถือ: การ์ด 2 คอลัมน์ (สั้นลงครึ่งหนึ่งจากแบบเดิม) · แอนิเมชันชิ้นเล็ก transform อย่างเดียว
+           ========================================================================== */
+        .bb-wall { position: relative; padding: 16px; border: 5px solid #000; border-radius: 30px;
+            background: repeating-linear-gradient(45deg, #ef4444 0 16px, #f59e0b 16px 32px, #facc15 32px 48px, #22c55e 48px 64px, #3b82f6 64px 80px, #a855f7 80px 96px);
+            box-shadow: inset 0 0 0 3px rgba(255,255,255,.35), 10px 12px 0 0 #000; }
+        .bb-cork { position: relative; padding: 34px 26px 34px; border: 3px solid #000; border-radius: 16px;
+            background: radial-gradient(circle at 20% 30%, rgba(92,52,18,.1) 0 .8px, rgba(92,52,18,0) 1.4px) 0 0/7px 9px,
+                        radial-gradient(circle at 70% 60%, rgba(255,232,196,.14) 0 1px, rgba(255,232,196,0) 1.7px) 3px 5px/11px 13px,
+                        radial-gradient(ellipse 2.4px 1.4px at 40% 80%, rgba(110,58,20,.3) 0 70%, rgba(110,58,20,0)) 5px 2px/19px 17px,
+                        radial-gradient(ellipse 1.6px 2.6px at 60% 20%, rgba(255,226,180,.25) 0 70%, rgba(255,226,180,0)) 9px 7px/23px 29px,
+                        radial-gradient(circle at 30% 70%, rgba(120,62,22,.18), rgba(120,62,22,0) 18%) 0 0/170px 130px,
+                        radial-gradient(circle at 75% 25%, rgba(255,236,200,.16), rgba(255,236,200,0) 22%) 40px 20px/230px 190px,
+                        radial-gradient(ellipse at 50% 0%, rgba(255,240,210,.35), rgba(255,240,210,0) 60%),
+                        linear-gradient(135deg, #d9a062 0%, #c68a4c 50%, #b5773b 100%);
+            box-shadow: inset 0 0 0 2px rgba(255,255,255,.18), inset 0 10px 24px rgba(70,35,10,.35); }
+        /* ขอบกระดาษหยักรอบไม้ก๊อก */
+        .bb-cork::before { content: ''; position: absolute; inset: 0; border-radius: 13px; pointer-events: none;
+            background: radial-gradient(circle at 50% 0, #fff7e6 0 8px, rgba(255,247,230,0) 8.6px) 0 0/22px 11px repeat-x,
+                        radial-gradient(circle at 50% 100%, #fff7e6 0 8px, rgba(255,247,230,0) 8.6px) 0 100%/22px 11px repeat-x,
+                        radial-gradient(circle at 0 50%, #fff7e6 0 8px, rgba(255,247,230,0) 8.6px) 0 0/11px 22px repeat-y,
+                        radial-gradient(circle at 100% 50%, #fff7e6 0 8px, rgba(255,247,230,0) 8.6px) 100% 0/11px 22px repeat-y; }
+        .bb-sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+        .bb-head { position: relative; z-index: 2; text-align: center; }
+        .bb-kick { position: relative; display: inline-block; margin: 0 0 14px; padding: 5px 16px; color: #b91c1c; background: #fff; border: 2px solid #000; border-radius: 4px;
+            font-weight: 900; font-size: .74rem; letter-spacing: .22em; transform: rotate(-2deg); box-shadow: 3px 3px 0 0 #000; }
+        .bb-kick::before { content: ''; position: absolute; left: 50%; top: -11px; width: 58px; height: 18px; margin-left: -29px; transform: rotate(3deg);
+            background: repeating-linear-gradient(90deg, rgba(253,224,71,.85) 0 6px, rgba(254,240,138,.85) 6px 12px); border: 1px solid rgba(0,0,0,.25); }
+        .bb-title { display: flex; flex-wrap: wrap; justify-content: center; gap: 10px 26px; margin: 0; line-height: 1; font-size: clamp(1.55rem, 3.4vw, 2.7rem); }
+        .bb-word { display: inline-flex; gap: 6px; }
+        .bb-word b { --lr: -4deg; display: inline-grid; place-items: center; width: 1.28em; height: 1.36em; color: #fff; border: 3px solid #000; border-radius: 9px;
+            background: var(--lc, #ef4444); text-shadow: 0 3px 0 #000, 2px 0 0 #000, -2px 0 0 #000, 0 -2px 0 #000;
+            box-shadow: inset 0 3px 0 rgba(255,255,255,.35), inset 0 -4px 0 rgba(0,0,0,.18), 3px 4px 0 0 #000;
+            transform: rotate(var(--lr)); animation: bbHop 6.5s ease-in-out infinite; }
+        .bb-word b:nth-child(6n+1) { --lc: #ef4444; } .bb-word b:nth-child(6n+2) { --lc: #f97316; --lr: 3deg; } .bb-word b:nth-child(6n+3) { --lc: #eab308; --lr: -2deg; }
+        .bb-word b:nth-child(6n+4) { --lc: #22c55e; --lr: 4deg; } .bb-word b:nth-child(6n+5) { --lc: #3b82f6; --lr: -3deg; } .bb-word b:nth-child(6n+6) { --lc: #a855f7; --lr: 2deg; }
+        .bb-word + .bb-word b:nth-child(1) { --lc: #ec4899; --lr: 3deg; } .bb-word + .bb-word b:nth-child(2) { --lc: #14b8a6; --lr: -4deg; } .bb-word + .bb-word b:nth-child(3) { --lc: #6366f1; --lr: 2deg; }
+        .bb-word b:nth-child(2) { animation-delay: .1s; } .bb-word b:nth-child(3) { animation-delay: .2s; } .bb-word b:nth-child(4) { animation-delay: .3s; }
+        .bb-word b:nth-child(5) { animation-delay: .4s; } .bb-word b:nth-child(6) { animation-delay: .5s; } .bb-word b:nth-child(7) { animation-delay: .6s; }
+        .bb-word + .bb-word b:nth-child(1) { animation-delay: .8s; } .bb-word + .bb-word b:nth-child(2) { animation-delay: .9s; } .bb-word + .bb-word b:nth-child(3) { animation-delay: 1s; }
+        @keyframes bbHop { 0%, 10%, 100% { transform: rotate(var(--lr)); } 4% { transform: translateY(-10px) rotate(calc(var(--lr) * -1.5)); } 7% { transform: translateY(1px) rotate(var(--lr)); } }
+        .bb-sub { display: inline-block; margin: 18px 0 0; padding: 6px 14px; color: #1c1917; font-weight: 700; font-size: .86rem; background: #fef08a;
+            border: 2px solid #000; border-radius: 3px; transform: rotate(1deg); box-shadow: 3px 3px 0 0 #000; }
+        /* ของตกแต่ง */
+        .bb-star { position: absolute; z-index: 1; top: 14px; left: 20px; width: 62px; height: 62px; background: #000; transform-origin: 50% 0;
+            clip-path: polygon(50% 0, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%); animation: bbSway 4.5s ease-in-out infinite alternate; }
+        .bb-star::after { content: ''; position: absolute; inset: 5px; background: linear-gradient(160deg, #fef08a, #facc15 55%, #f59e0b);
+            clip-path: polygon(50% 0, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%); }
+        @keyframes bbSway { from { transform: rotate(-10deg); } to { transform: rotate(10deg); } }
+        .bb-aplus { position: absolute; z-index: 1; top: 16px; right: 24px; display: grid; place-items: center; width: 62px; height: 62px; border-radius: 50%;
+            color: #fff; font-weight: 900; font-size: 1.45rem; line-height: 1; font-style: normal; text-shadow: 0 2px 0 rgba(0,0,0,.4); border: 3px solid #000; transform: rotate(14deg);
+            background: radial-gradient(circle, #ef4444 0 52%, #fff 53% 58%, #dc2626 59%); box-shadow: 3px 4px 0 0 #000; }
+        .bb-note { position: absolute; z-index: 1; top: 86px; right: 26px; width: 112px; padding: 12px 10px 14px; text-align: center; color: #9d174d; font-weight: 900; font-size: .9rem; line-height: 1.15;
+            background: linear-gradient(180deg, #fbcfe8 0 18%, #f9a8d4 18%); border: 2px solid #000; border-radius: 2px 2px 18px 2px; transform: rotate(5deg); box-shadow: 3px 4px 0 0 #000; }
+        .bb-note em { font-style: normal; }
+        .bb-tack { position: absolute; z-index: 1; width: 16px; height: 16px; border-radius: 50%; border: 2px solid #000;
+            background: radial-gradient(circle at 35% 30%, #fff 0 18%, rgba(255,255,255,0) 30%), var(--tc, #22c55e); box-shadow: 2px 3px 0 rgba(0,0,0,.45); }
+        .bb-tack.k1 { top: 96px; left: 34px; --tc: #3b82f6; } .bb-tack.k2 { top: 60px; left: 26%; --tc: #ec4899; }
+        .bb-pencil { position: absolute; z-index: 3; left: 70px; bottom: -14px; width: 190px; height: 18px; transform: rotate(-4deg); border: 2.5px solid #000; border-radius: 3px 0 0 3px;
+            background: linear-gradient(180deg, #fde047 0 33%, #facc15 33% 66%, #eab308 66%) 22px 0/100% 100% no-repeat, linear-gradient(90deg, #f9a8d4 0 14px, #cbd5e1 14px 22px); }
+        .bb-pencil::after { content: ''; position: absolute; right: -32px; top: -2.5px; width: 30px; height: 18px; background: #000;
+            clip-path: polygon(0 0, 100% 50%, 0 100%); }
+        .bb-pencil::before { content: ''; position: absolute; z-index: 1; right: -27px; top: 1px; width: 24px; height: 11px;
+            background: linear-gradient(90deg, #fcd9a8 0 62%, #374151 62%); clip-path: polygon(0 0, 100% 50%, 0 100%); }
+        /* การ์ดกระดาษ */
+        .bb-grid { position: relative; z-index: 2; display: flex; flex-wrap: wrap; justify-content: center; gap: 30px 20px; margin-top: 34px; }
+        .bb-card { --pc: #3b82f6; --pl: #dbeafe; --hl: rgba(147,197,253,.75); --rt: -2deg;
+            position: relative; display: flex; flex-direction: column; flex: 0 1 calc((100% - 80px) / 5); min-width: 0; padding: 14px 11px 12px; text-align: center; color: #111827; text-decoration: none; cursor: pointer;
+            background: linear-gradient(160deg, rgba(255,255,255,.22), rgba(255,255,255,0) 40%), var(--pc); border: 3px solid #000; border-radius: 8px;
+            box-shadow: inset 0 0 0 2px rgba(255,255,255,.25), 6px 7px 0 0 #000; transform: rotate(var(--rt)); transition: transform .28s cubic-bezier(.2,.9,.3,1.3), box-shadow .28s; }
+        .bb-card.c2 { --pc: #ef4444; --pl: #fee2e2; --hl: rgba(252,165,165,.75); --rt: 1.8deg; }
+        .bb-card.c3 { --pc: #8b5cf6; --pl: #ede9fe; --hl: rgba(196,181,253,.8); --rt: -1deg; }
+        .bb-card.c4 { --pc: #10b981; --pl: #d1fae5; --hl: rgba(110,231,183,.75); --rt: 2.2deg; }
+        .bb-card.c5 { --pc: #f97316; --pl: #ffedd5; --hl: rgba(253,186,116,.8); --rt: -1.6deg; }
+        @media (hover: hover) { .bb-card:hover { transform: translateY(-8px) rotate(0deg) scale(1.03); box-shadow: inset 0 0 0 2px rgba(255,255,255,.25), 10px 14px 0 0 #000; } }
+        .bb-card:active { transform: translateY(2px) rotate(0deg); box-shadow: inset 0 0 0 2px rgba(255,255,255,.25), 3px 3px 0 0 #000; }
+        .bb-card:focus-visible { outline: 3px dashed #000; outline-offset: 5px; }
+        .bb-pin { position: absolute; z-index: 3; top: -13px; left: 50%; width: 24px; height: 24px; margin-left: -12px; border-radius: 50%; border: 2.5px solid #000;
+            background: radial-gradient(circle at 35% 30%, #fff 0 16%, rgba(255,255,255,0) 30%), radial-gradient(circle, var(--pc) 0 60%, #000 61%); box-shadow: 2px 4px 0 rgba(0,0,0,.5); }
+        .bb-tape { position: absolute; z-index: 3; top: -14px; left: 50%; width: 76px; height: 24px; margin-left: -38px; transform: rotate(-4deg);
+            background: repeating-linear-gradient(135deg, rgba(255,255,255,.88) 0 7px, rgba(254,243,199,.88) 7px 14px); border-left: 2px dashed rgba(0,0,0,.25); border-right: 2px dashed rgba(0,0,0,.25);
+            box-shadow: 0 2px 3px rgba(0,0,0,.25); }
+        .bb-num { position: absolute; z-index: 2; top: -11px; right: -10px; padding: 3px 7px; color: #b91c1c; font-weight: 900; font-size: .64rem; letter-spacing: .06em;
+            background: #fff; border: 2px solid #b91c1c; border-radius: 6px; transform: rotate(10deg); box-shadow: 2px 2px 0 rgba(0,0,0,.6); }
+        .bb-in { position: relative; display: flex; flex: 1; flex-direction: column; align-items: center; gap: 4px; padding: 36px 8px 12px; margin-top: 30px; border: 2.5px solid #000; border-radius: 4px;
+            background: linear-gradient(90deg, rgba(248,113,113,0) 14px, rgba(248,113,113,.75) 14px 16px, rgba(248,113,113,0) 16px),
+                        repeating-linear-gradient(180deg, rgba(191,219,254,0) 0 21px, rgba(147,197,253,.65) 21px 22px), #fffdf5;
+            box-shadow: 2px 3px 0 rgba(0,0,0,.35); }
+        .bb-ico { position: absolute; top: -32px; left: 50%; display: grid; place-items: center; width: 62px; height: 62px; margin-left: -31px; font-size: 1.8rem; border-radius: 50%;
+            background: radial-gradient(circle at 35% 28%, #fff 0 22%, var(--pl) 50%); border: 3px solid #000; box-shadow: 3px 4px 0 0 #000; transition: transform .3s cubic-bezier(.2,.9,.3,1.5); }
+        @media (hover: hover) { .bb-card:hover .bb-ico { transform: rotate(-10deg) scale(1.12); } }
+        .bb-kick2 { padding: 2px 8px; color: #fff; font-weight: 800; font-size: .66rem; background: #111827; border-radius: 99px; white-space: nowrap; }
+        .bb-name { margin-top: 4px; padding: 0 4px; font-weight: 900; font-size: 1.12rem; line-height: 1.15; letter-spacing: .02em;
+            background: linear-gradient(180deg, rgba(255,255,255,0) 55%, var(--hl) 55% 92%, rgba(255,255,255,0) 92%); }
+        .bb-desc { color: #4b5563; font-weight: 600; font-size: .74rem; line-height: 1.3; }
+        .bb-cta { display: flex; align-items: center; justify-content: space-between; gap: 6px; margin-top: 12px; padding: 7px 7px 7px 13px; color: #fff; font-weight: 900; font-size: .74rem;
+            letter-spacing: .04em; white-space: nowrap; background: #111827; border: 2px solid #000; border-radius: 99px; box-shadow: inset 0 2px 0 rgba(255,255,255,.18); }
+        .bb-go { flex: none; position: relative; width: 24px; height: 24px; border-radius: 50%; background: var(--pl); border: 2px solid #000; transition: transform .25s; }
+        .bb-go::after { content: ''; position: absolute; left: 8px; top: 5px; border: 5px solid transparent; border-left: 7px solid #000; border-right: 0; }
+        @media (hover: hover) { .bb-card:hover .bb-go { transform: translateX(3px); } }
+        @media (max-width: 1099px) { .bb-card { flex-basis: calc((100% - 40px) / 3); } }
+        @media (max-width: 767px) {
+            .bb-wall { padding: 11px; border-radius: 24px; }
+            .bb-cork { padding: 30px 12px 30px; }
+            .bb-grid { gap: 30px 14px; margin-top: 30px; }
+            .bb-card { flex-basis: calc((100% - 14px) / 2); padding: 12px 8px 10px; }
+            .bb-in { padding: 34px 5px 10px; } .bb-name { font-size: .92rem; white-space: nowrap; } .bb-desc { font-size: .68rem; } .bb-cta { justify-content: center; font-size: .62rem; padding: 6px 5px 6px 9px; } .bb-ce { display: none; } .bb-kick2 { font-size: .6rem; }
+            .bb-star { top: 8px; left: 8px; width: 42px; height: 42px; } .bb-aplus { top: 10px; right: 10px; width: 44px; height: 44px; font-size: 1rem; }
+            .bb-note, .bb-tack { display: none; }
+            .bb-pencil { left: 40px; width: 130px; }
+            .bb-word { gap: 4px; } .bb-word b { border-width: 2.5px; border-radius: 7px; }
+        }
+        @media (max-width: 360px) { .bb-card { padding-left: 6px; padding-right: 6px; } .bb-in { padding-left: 3px; padding-right: 3px; } .bb-cta { font-size: .55rem; } .bb-name { font-size: .74rem; } .bb-kick2 { font-size: .54rem; } .bb-aplus { display: none; } }
+        @media (prefers-reduced-motion: reduce) { .bb-word b, .bb-star { animation: none; } }
+
+        /* ==========================================================================
+           ★ (16 พ.ย.) TEACHER TOOLS = ธีม "สมุดจดของครู" (แทน ART DECO ทองดำ · แสดงเฉพาะจอคอม)
+             กระดาษครีมเส้นบรรทัดฟ้า + เส้นกั้นหน้าแดง · ห่วงสันสมุดด้านบน · คลิปหนีบกระดาษ · รอยแก้วกาแฟ
+             ชื่อ = ปากกาน้ำเงินทับปากกาไฮไลต์เหลือง + เครื่องหมายถูกวงแดง · ป้ายโหมดครู = เทปกาวกระดาษ · ดูเดิ้ลลายมือรอบหัว
+             เครื่องมือ 5 อย่าง = โพสต์อิทสีพาสเทล ติดเทป เอียงนิดๆ ชี้แล้วยกขึ้น · สติกเกอร์ 🔓/🔒 มุมขวาบนเหมือนเดิม
+             ภาพนิ่งทั้งหมด (section มี .animate-bounce-up ห้ามใส่ animation ที่ตัว section)
+           ========================================================================== */
+        .tn-book { position: relative; padding: 46px 40px 40px 82px; border: 5px solid #000; border-radius: 26px; color: #1f2937;
+            background: linear-gradient(90deg, rgba(248,113,113,0) 58px, rgba(248,113,113,.85) 58px 60px, rgba(248,113,113,0) 60px 64px, rgba(248,113,113,.85) 64px 65px, rgba(248,113,113,0) 65px),
+                        repeating-linear-gradient(180deg, rgba(191,219,254,0) 0 33px, rgba(147,197,253,.6) 33px 34px) 0 30px,
+                        radial-gradient(ellipse at 85% 10%, rgba(254,243,199,.9), rgba(254,243,199,0) 55%), #fffdf4;
+            box-shadow: inset 0 0 0 3px #fff, inset -14px 0 0 -10px rgba(0,0,0,.05), 10px 12px 0 0 #000, 14px 16px 0 0 #fef3c7, 14px 16px 0 3px #000; }
+        .tn-rings { position: absolute; top: -18px; left: 50px; right: 50px; height: 40px; pointer-events: none;
+            background: radial-gradient(circle at 50% 76%, #1f2937 0 5px, rgba(0,0,0,0) 5.6px) 0 0/34px 40px repeat-x,
+                        radial-gradient(ellipse 6px 15px at 50% 46%, rgba(0,0,0,0) 0 3.5px, #111 3.8px 4.6px, #cbd5e1 4.8px 6.8px, #111 7px 7.8px, rgba(0,0,0,0) 8px) 0 0/34px 40px repeat-x; }
+        .tn-clip { position: absolute; z-index: 3; top: -22px; right: 92px; width: 26px; height: 74px; border: 4px solid #64748b; border-radius: 14px; transform: rotate(8deg);
+            box-shadow: 0 0 0 2px #000, inset 0 0 0 2px #000; }
+        .tn-clip::after { content: ''; position: absolute; left: 3px; right: 3px; top: 10px; bottom: 14px; border: 3px solid #94a3b8; border-top: 0; border-radius: 0 0 10px 10px; box-shadow: 0 2px 0 #000; }
+        .tn-mug { position: absolute; top: 34px; right: 120px; width: 92px; height: 92px; border-radius: 50%; pointer-events: none;
+            background: radial-gradient(circle, rgba(146,64,14,0) 0 39px, rgba(146,64,14,.22) 40px 43px, rgba(146,64,14,.08) 44px 45px, rgba(146,64,14,0) 46px); }
+        .tn-head { position: relative; display: flex; flex-direction: column; align-items: flex-start; gap: 10px; }
+        .tn-tape { display: inline-block; padding: 7px 22px; color: #422006; font-weight: 800; font-size: .82rem; transform: rotate(-1.5deg);
+            background: repeating-linear-gradient(90deg, rgba(253,230,138,.95) 0 9px, rgba(254,240,138,.95) 9px 18px);
+            clip-path: polygon(0 8%, 3% 0, 6% 10%, 9% 0, 100% 0, 97% 50%, 100% 100%, 4% 100%, 1% 90%, 3% 50%); }
+        .tn-title { position: relative; display: inline-flex; align-items: center; gap: 14px; margin: 0; font-size: clamp(2rem, 3.4vw, 2.9rem); line-height: 1.05; letter-spacing: .03em; color: #1e3a8a; }
+        .tn-hl { padding: 0 8px; background: linear-gradient(176deg, rgba(254,240,138,0) 48%, rgba(250,204,21,.85) 49% 88%, rgba(254,240,138,0) 89%); text-shadow: 2px 2px 0 rgba(30,58,138,.15); }
+        .tn-check { display: grid; place-items: center; width: 52px; height: 52px; color: #dc2626; font-size: 2rem; font-style: normal; border: 3.5px solid #dc2626; border-radius: 50% 46% 52% 44%; transform: rotate(-12deg); }
+        .tn-doodle { position: absolute; color: #2563eb; font-weight: 700; font-style: normal; pointer-events: none; }
+        .tn-doodle.d1 { top: -8px; right: 30%; font-size: 2.2rem; color: #f59e0b; transform: rotate(14deg); }
+        .tn-doodle.d2 { top: 34px; right: 20%; font-size: 2rem; color: #db2777; transform: rotate(-10deg); }
+        .tn-doodle.d3 { top: 12px; right: 4%; font-size: 1rem; transform: rotate(4deg); border-bottom: 2.5px solid #2563eb; padding: 0 6px 2px; }
+        .tn-grid { position: relative; z-index: 2; display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 26px; margin-top: 34px; }
+        .tn-note { --nc: #bfdbfe; --nd: #93c5fd; --rt: -2deg; position: relative; display: flex; flex-direction: column; align-items: center; gap: 6px; min-height: 172px; padding: 26px 10px 16px;
+            text-align: center; cursor: pointer; background: linear-gradient(180deg, rgba(255,255,255,.45), rgba(255,255,255,0) 30%), var(--nc); border: 2.5px solid #000; border-radius: 3px 3px 26px 3px;
+            box-shadow: inset -10px -10px 0 -8px var(--nd), 5px 6px 0 0 #000; transform: rotate(var(--rt)); transition: transform .28s cubic-bezier(.2,.9,.3,1.3), box-shadow .28s; }
+        .tn-note.n2 { --nc: #e9d5ff; --nd: #c4b5fd; --rt: 1.5deg; } .tn-note.n3 { --nc: #fed7aa; --nd: #fdba74; --rt: -1deg; }
+        .tn-note.n4 { --nc: #fef08a; --nd: #fde047; --rt: 2deg; } .tn-note.n5 { --nc: #bbf7d0; --nd: #86efac; --rt: -1.5deg; }
+        .tn-note::before { content: ''; position: absolute; top: -12px; left: 50%; width: 70px; height: 22px; margin-left: -35px; transform: rotate(-3deg);
+            background: repeating-linear-gradient(135deg, rgba(255,255,255,.85) 0 7px, rgba(241,245,249,.85) 7px 14px); border-left: 2px dashed rgba(0,0,0,.2); border-right: 2px dashed rgba(0,0,0,.2); box-shadow: 0 2px 3px rgba(0,0,0,.2); }
+        .tn-note::after { content: '🔒'; content: '🔒' / ''; position: absolute; top: -12px; right: -12px; display: grid; place-items: center; width: 32px; height: 32px; font-size: .95rem;
+            background: #fff; border: 2.5px solid #000; border-radius: 50%; box-shadow: 2px 3px 0 0 #000; transform: rotate(10deg); }
+        .tn-note.is-open::after { content: '🔓'; content: '🔓' / ''; background: #dcfce7; }
+        @media (hover: hover) { .tn-note:hover { transform: translateY(-8px) rotate(0deg) scale(1.04); box-shadow: inset -10px -10px 0 -8px var(--nd), 9px 12px 0 0 #000; } }
+        .tn-note:active { transform: translateY(2px) rotate(0deg); box-shadow: inset -10px -10px 0 -8px var(--nd), 3px 3px 0 0 #000; }
+        .tn-note:focus-visible { outline: 3px dashed #1e3a8a; outline-offset: 5px; }
+        .tn-ico { display: grid; place-items: center; width: 66px; height: 66px; font-size: 2rem; background: #fff; border: 2.5px solid #000; border-radius: 50%; box-shadow: 3px 4px 0 0 #000;
+            transition: transform .3s cubic-bezier(.2,.9,.3,1.5); }
+        @media (hover: hover) { .tn-note:hover .tn-ico { transform: rotate(-10deg) scale(1.1); } }
+        .tn-lab { margin-top: 6px; color: #111827; font-weight: 900; font-size: 1.12rem; letter-spacing: .06em; }
+        .tn-sub { color: #374151; font-weight: 600; font-size: .78rem; border-top: 2px dotted rgba(0,0,0,.35); padding-top: 4px; }
+        @media (max-width: 1099px) { .tn-book { padding: 44px 26px 34px 76px; } .tn-grid { gap: 18px; } .tn-doodle.d3 { display: none; } .tn-lab { font-size: .98rem; } .tn-sub { font-size: .7rem; } }
 </style>
     <!-- ★ Tailwind CSS สำเร็จรูป (3.4.19) แทนตัวคอมไพล์สดแบบ CDN: ไม่ต้องคอมไพล์ในเบราว์เซอร์ทุกครั้งที่เปิดเว็บ/เปิดป๊อปอัป
          และไม่พึ่งเซิร์ฟเวอร์ภายนอก (เดิมถ้า cdn.tailwindcss.com ล่ม ทั้งหน้าจะไม่มีสไตล์)
@@ -6897,100 +7067,71 @@
              การ์ด 5 ใบ = ตู้ล็อกเกอร์: ช่องระบายอากาศ / ป้ายเลขตู้ 01–05 / สติกเกอร์ไอคอน / การ์ดชื่อ / มือจับ + แป้นรหัส / ปุ่มไปต่อ
              จอใหญ่ = ตู้สูงเรียงกัน / มือถือ-แท็บเล็ต = ตู้ประตูกว้าง (แบบล็อกเกอร์ 2 ชั้น) — ชี้เมาส์แล้วประตูแง้มเห็นของในตู้ (transform ครั้งเดียว ไม่มีแอนิเมชันวน)
              ปุ่ม/ลิงก์เดิมทุกตัว (คงกลุ่ม qa-grid / qa-grid2 ไว้ แต่ให้ตู้ทั้ง 5 เรียงในแถวเดียวกันด้วย display: contents) -->
-        <section id="sec-links" class="lk-hall">
-            <div class="hb-head">
-                <i class="lk-burst b1" aria-hidden="true"></i><i class="lk-burst b2" aria-hidden="true"></i>
-                <i class="lk-twk t1" aria-hidden="true"></i><i class="lk-twk t2" aria-hidden="true"></i><i class="lk-twk t3" aria-hidden="true"></i><i class="lk-twk t4" aria-hidden="true"></i>
-                <span class="lk-flags" aria-hidden="true">
-                    <span class="lk-flag f1"><i class="lk-cloth"><b>📖</b><em>LEARN</em></i></span>
-                    <span class="lk-flag f2"><i class="lk-cloth"><b>🎮</b><em>PLAY</em></i></span>
-                    <span class="lk-flag f3"><i class="lk-cloth"><b>🌱</b><em>GROW</em></i></span>
-                    <span class="lk-flag f4"><i class="lk-cloth"><b>⭐</b><em>SHINE</em></i></span>
-                </span>
-                <div class="lk-sign">
-                    <span class="hb-kick">★ QUICK ACCESS ★</span>
-                    <h2 class="hb-title font-black" data-text="STUDENT HUB">STUDENT HUB</h2>
-                    <svg class="lk-laurel l" viewBox="0 0 64 128" aria-hidden="true" focusable="false"><defs><linearGradient id="lkGoldL" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#fff3b0"/><stop offset=".5" stop-color="#fbbf24"/><stop offset="1" stop-color="#b45309"/></linearGradient></defs><g fill="none" stroke="#000" stroke-width="3" stroke-linecap="round"><path d="M51.8 126.2 L48.7 124.6 L45.6 122.9 L42.7 120.9 L39.8 118.9 L37.1 116.6 L34.5 114.2 L32.1 111.7 L29.8 109.0 L27.7 106.2 L25.7 103.3 L23.9 100.3 L22.3 97.2 L20.8 94.0 L19.6 90.7 L18.5 87.3 L17.6 83.9 L16.9 80.5 L16.4 77.0 L16.1 73.5 L16.0 70.0 L16.1 66.5 L16.4 63.0 L16.9 59.5 L17.6 56.1 L18.5 52.7 L19.6 49.3 L20.8 46.0 L22.3 42.8 L23.9 39.7 L25.7 36.7 L27.7 33.8 L29.8 31.0 L32.1 28.3 L34.5 25.8 L37.1 23.4 L39.8 21.1 L42.7 19.1 L45.6 17.1 L48.7 15.4 L51.8 13.8"/></g><g fill="url(#lkGoldL)" stroke="#000" stroke-width="1.6"><ellipse cx="38.8" cy="124.3" rx="10.7" ry="4.5" transform="rotate(-182 38.8 124.3)"/><ellipse cx="44.6" cy="116.2" rx="10.7" ry="4.5" transform="rotate(-106 44.6 116.2)"/><ellipse cx="23.9" cy="109.5" rx="10.1" ry="4.2" transform="rotate(-164 23.9 109.5)"/><ellipse cx="32.0" cy="103.6" rx="10.1" ry="4.2" transform="rotate(-88 32.0 103.6)"/><ellipse cx="14.3" cy="90.8" rx="9.6" ry="4.0" transform="rotate(-146 14.3 90.8)"/><ellipse cx="23.8" cy="87.7" rx="9.6" ry="4.0" transform="rotate(-70 23.8 87.7)"/><ellipse cx="11.0" cy="70.0" rx="9.1" ry="3.8" transform="rotate(-128 11.0 70.0)"/><ellipse cx="21.0" cy="70.0" rx="9.1" ry="3.8" transform="rotate(-52 21.0 70.0)"/><ellipse cx="14.3" cy="49.2" rx="8.5" ry="3.6" transform="rotate(-110 14.3 49.2)"/><ellipse cx="23.8" cy="52.3" rx="8.5" ry="3.6" transform="rotate(-34 23.8 52.3)"/><ellipse cx="23.9" cy="30.5" rx="8.0" ry="3.3" transform="rotate(-92 23.9 30.5)"/><ellipse cx="32.0" cy="36.4" rx="8.0" ry="3.3" transform="rotate(-16 32.0 36.4)"/><ellipse cx="38.8" cy="15.7" rx="7.5" ry="3.1" transform="rotate(-74 38.8 15.7)"/><ellipse cx="44.6" cy="23.8" rx="7.5" ry="3.1" transform="rotate(2 44.6 23.8)"/></g></svg>
-                    <svg class="lk-laurel r" viewBox="0 0 64 128" aria-hidden="true" focusable="false"><defs><linearGradient id="lkGoldR" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#fff3b0"/><stop offset=".5" stop-color="#fbbf24"/><stop offset="1" stop-color="#b45309"/></linearGradient></defs><g fill="none" stroke="#000" stroke-width="3" stroke-linecap="round"><path d="M51.8 126.2 L48.7 124.6 L45.6 122.9 L42.7 120.9 L39.8 118.9 L37.1 116.6 L34.5 114.2 L32.1 111.7 L29.8 109.0 L27.7 106.2 L25.7 103.3 L23.9 100.3 L22.3 97.2 L20.8 94.0 L19.6 90.7 L18.5 87.3 L17.6 83.9 L16.9 80.5 L16.4 77.0 L16.1 73.5 L16.0 70.0 L16.1 66.5 L16.4 63.0 L16.9 59.5 L17.6 56.1 L18.5 52.7 L19.6 49.3 L20.8 46.0 L22.3 42.8 L23.9 39.7 L25.7 36.7 L27.7 33.8 L29.8 31.0 L32.1 28.3 L34.5 25.8 L37.1 23.4 L39.8 21.1 L42.7 19.1 L45.6 17.1 L48.7 15.4 L51.8 13.8"/></g><g fill="url(#lkGoldR)" stroke="#000" stroke-width="1.6"><ellipse cx="38.8" cy="124.3" rx="10.7" ry="4.5" transform="rotate(-182 38.8 124.3)"/><ellipse cx="44.6" cy="116.2" rx="10.7" ry="4.5" transform="rotate(-106 44.6 116.2)"/><ellipse cx="23.9" cy="109.5" rx="10.1" ry="4.2" transform="rotate(-164 23.9 109.5)"/><ellipse cx="32.0" cy="103.6" rx="10.1" ry="4.2" transform="rotate(-88 32.0 103.6)"/><ellipse cx="14.3" cy="90.8" rx="9.6" ry="4.0" transform="rotate(-146 14.3 90.8)"/><ellipse cx="23.8" cy="87.7" rx="9.6" ry="4.0" transform="rotate(-70 23.8 87.7)"/><ellipse cx="11.0" cy="70.0" rx="9.1" ry="3.8" transform="rotate(-128 11.0 70.0)"/><ellipse cx="21.0" cy="70.0" rx="9.1" ry="3.8" transform="rotate(-52 21.0 70.0)"/><ellipse cx="14.3" cy="49.2" rx="8.5" ry="3.6" transform="rotate(-110 14.3 49.2)"/><ellipse cx="23.8" cy="52.3" rx="8.5" ry="3.6" transform="rotate(-34 23.8 52.3)"/><ellipse cx="23.9" cy="30.5" rx="8.0" ry="3.3" transform="rotate(-92 23.9 30.5)"/><ellipse cx="32.0" cy="36.4" rx="8.0" ry="3.3" transform="rotate(-16 32.0 36.4)"/><ellipse cx="38.8" cy="15.7" rx="7.5" ry="3.1" transform="rotate(-74 38.8 15.7)"/><ellipse cx="44.6" cy="23.8" rx="7.5" ry="3.1" transform="rotate(2 44.6 23.8)"/></g></svg>
-                    <i class="lk-crown" aria-hidden="true"></i>
-                    <i class="lk-glint" aria-hidden="true"><i class="lk-in"></i></i>
-                    <i class="lk-sheen" aria-hidden="true"><b></b></i>
+        <section id="sec-links" class="bb-wall">
+            <div class="bb-cork">
+                <i class="bb-star" aria-hidden="true"></i>
+                <i class="bb-aplus" aria-hidden="true">A+</i>
+                <span class="bb-note" aria-hidden="true">You can<br>do it! <em>💪</em></span>
+                <i class="bb-tack k1" aria-hidden="true"></i><i class="bb-tack k2" aria-hidden="true"></i>
+                <div class="bb-head">
+                    <p class="bb-kick">★ QUICK ACCESS ★</p>
+                    <h2 class="bb-title font-black"><span class="bb-sr">STUDENT HUB</span><span class="bb-word" aria-hidden="true"><b>S</b><b>T</b><b>U</b><b>D</b><b>E</b><b>N</b><b>T</b></span><span class="bb-word" aria-hidden="true"><b>H</b><b>U</b><b>B</b></span></h2>
+                    <p class="bb-sub">📚 เอกสาร · เช็กสถานะ · เกรด · ระเบียบ · ผลงาน</p>
                 </div>
-                <p class="hb-sub">📚 เอกสาร · เช็กสถานะ · เกรด · ระเบียบ · ผลงาน</p>
-            </div>
-            <i class="lk-foot" aria-hidden="true"></i>
-            <div class="lk-bank">
-              <div class="qa-grid">
-                <button type="button" onclick="showDownloadFolders()" class="qa-card qa-blue" style="--i:0;">
-                    <span class="lk-item" aria-hidden="true">📚</span>
-                    <span class="lk-door lk-in">
-                        <span class="lk-vent" aria-hidden="true"></span>
-                        <span class="qa-num" aria-hidden="true">01</span>
-                        <span class="qa-top">
-                        <span class="qa-ico" aria-hidden="true">🗂️</span>
-                        <span class="qa-txt"><span class="qa-kick">📚 เอกสารเรียน</span><span class="qa-title">ASSESSMENTS</span><span class="qa-sub">โหลดเอกสาร · ใบงาน</span></span>
-                        </span>
-                        <span class="lk-handle" aria-hidden="true"></span>
-                        <span class="qa-cta"><span class="qa-cta-txt">DOWNLOAD <span aria-hidden="true">📥</span></span><span class="qa-go" aria-hidden="true"></span></span>
+                <div class="bb-grid">
+                <button type="button" onclick="showDownloadFolders()" class="bb-card c1">
+                    <i class="bb-pin" aria-hidden="true"></i><span class="bb-num" aria-hidden="true">No.01</span>
+                    <span class="bb-in">
+                        <span class="bb-ico" aria-hidden="true">🗂️</span>
+                        <span class="bb-kick2">📚 เอกสารเรียน</span>
+                        <span class="bb-name">ASSESSMENTS</span>
+                        <span class="bb-desc">โหลดเอกสาร · ใบงาน</span>
                     </span>
+                    <span class="bb-cta"><span class="bb-ct">DOWNLOAD <span class="bb-ce" aria-hidden="true">📥</span></span><i class="bb-go" aria-hidden="true"></i></span>
                 </button>
-                <button type="button" onclick="checkStudentStatus()" class="qa-card qa-red" style="--i:1;">
-                    <span class="lk-item" aria-hidden="true">🚨</span>
-                    <span class="lk-door lk-in">
-                        <span class="lk-vent" aria-hidden="true"></span>
-                        <span class="qa-num" aria-hidden="true">02</span>
-                        <span class="qa-top">
-                        <span class="qa-ico" aria-hidden="true">⚠️</span>
-                        <span class="qa-txt"><span class="qa-kick">🚨 เช็กด่วน</span><span class="qa-title">ตรวจ 0 · ร · มส</span><span class="qa-sub">ดูรายชื่อที่ต้องตามงาน</span></span>
-                        </span>
-                        <span class="lk-handle" aria-hidden="true"></span>
-                        <span class="qa-cta"><span class="qa-cta-txt">VERIFY STATUS <span aria-hidden="true">🔍</span></span><span class="qa-go" aria-hidden="true"></span></span>
+                <button type="button" onclick="checkStudentStatus()" class="bb-card c2">
+                    <i class="bb-tape" aria-hidden="true"></i><span class="bb-num" aria-hidden="true">No.02</span>
+                    <span class="bb-in">
+                        <span class="bb-ico" aria-hidden="true">⚠️</span>
+                        <span class="bb-kick2">🚨 เช็กด่วน</span>
+                        <span class="bb-name">ตรวจ 0 · ร · มส</span>
+                        <span class="bb-desc">ดูรายชื่อที่ต้องตามงาน</span>
                     </span>
+                    <span class="bb-cta"><span class="bb-ct">VERIFY STATUS <span class="bb-ce" aria-hidden="true">🔍</span></span><i class="bb-go" aria-hidden="true"></i></span>
                 </button>
-                <a href="https://sccl.gsbschool.ac.th/LC2/SDC.php?" target="_blank" rel="noopener" class="qa-card qa-purple" style="--i:2;">
-                    <span class="lk-item" aria-hidden="true">🎓</span>
-                    <span class="lk-door lk-in">
-                        <span class="lk-vent" aria-hidden="true"></span>
-                        <span class="qa-num" aria-hidden="true">03</span>
-                        <span class="qa-top">
-                        <span class="qa-ico" aria-hidden="true">📊</span>
-                        <span class="qa-txt"><span class="qa-kick">🎓 ระบบโรงเรียน</span><span class="qa-title">CHECK GRADE</span><span class="qa-sub">ระบบดูเกรดโรงเรียน SCCL</span></span>
-                        </span>
-                        <span class="lk-handle" aria-hidden="true"></span>
-                        <span class="qa-cta"><span class="qa-cta-txt">ACCESS SYSTEM <span aria-hidden="true">🌐</span></span><span class="qa-go" aria-hidden="true"></span></span>
+                <a href="https://sccl.gsbschool.ac.th/LC2/SDC.php?" target="_blank" rel="noopener" class="bb-card c3">
+                    <i class="bb-pin" aria-hidden="true"></i><span class="bb-num" aria-hidden="true">No.03</span>
+                    <span class="bb-in">
+                        <span class="bb-ico" aria-hidden="true">📊</span>
+                        <span class="bb-kick2">🎓 ระบบโรงเรียน</span>
+                        <span class="bb-name">CHECK GRADE</span>
+                        <span class="bb-desc">ระบบดูเกรดโรงเรียน SCCL</span>
                     </span>
+                    <span class="bb-cta"><span class="bb-ct">ACCESS SYSTEM <span class="bb-ce" aria-hidden="true">🌐</span></span><i class="bb-go" aria-hidden="true"></i></span>
                 </a>
-              </div>
-              <div class="qa-grid qa-grid2">
-                <a href="https://oomsin.mynameisoat.com" target="_blank" rel="noopener" class="qa-card qa-green" style="--i:0;">
-                    <span class="lk-item" aria-hidden="true">👕</span>
-                    <span class="lk-door lk-in">
-                        <span class="lk-vent" aria-hidden="true"></span>
-                        <span class="qa-num" aria-hidden="true">04</span>
-                        <span class="qa-top">
-                        <span class="qa-ico" aria-hidden="true">👗</span>
-                        <span class="qa-txt"><span class="qa-kick">👔 DRESS CODE</span><span class="qa-title">ตรวจระเบียบ</span><span class="qa-sub">การแต่งกายนักเรียน</span></span>
-                        </span>
-                        <span class="lk-handle" aria-hidden="true"></span>
-                        <span class="qa-cta"><span class="qa-cta-txt">CHECK SYSTEM <span aria-hidden="true">✨</span></span><span class="qa-go" aria-hidden="true"></span></span>
+                <a href="https://oomsin.mynameisoat.com" target="_blank" rel="noopener" class="bb-card c4">
+                    <i class="bb-tape" aria-hidden="true"></i><span class="bb-num" aria-hidden="true">No.04</span>
+                    <span class="bb-in">
+                        <span class="bb-ico" aria-hidden="true">👗</span>
+                        <span class="bb-kick2">👔 DRESS CODE</span>
+                        <span class="bb-name">ตรวจระเบียบ</span>
+                        <span class="bb-desc">การแต่งกายนักเรียน</span>
                     </span>
+                    <span class="bb-cta"><span class="bb-ct">CHECK SYSTEM <span class="bb-ce" aria-hidden="true">✨</span></span><i class="bb-go" aria-hidden="true"></i></span>
                 </a>
-                <a href="https://script.google.com/macros/s/AKfycbwAvihdYXdxWWgcwOCOZvBQbsmDA1VLHCwW5wDuQ59QSZmr4QiEa7hym76HjsaZi8sZTA/exec" target="_blank" rel="noopener" class="qa-card qa-orange" style="--i:1;">
-                    <span class="lk-item" aria-hidden="true">🏆</span>
-                    <span class="lk-door lk-in">
-                        <span class="lk-vent" aria-hidden="true"></span>
-                        <span class="qa-num" aria-hidden="true">05</span>
-                        <span class="qa-top">
-                        <span class="qa-ico" aria-hidden="true">📁</span>
-                        <span class="qa-txt"><span class="qa-kick">🏆 PORTFOLIO</span><span class="qa-title">E-PORTFOLIO</span><span class="qa-sub">แฟ้มสะสมผลงานนักเรียน</span></span>
-                        </span>
-                        <span class="lk-handle" aria-hidden="true"></span>
-                        <span class="qa-cta"><span class="qa-cta-txt">VIEW FILES <span aria-hidden="true">🚀</span></span><span class="qa-go" aria-hidden="true"></span></span>
+                <a href="https://script.google.com/macros/s/AKfycbwAvihdYXdxWWgcwOCOZvBQbsmDA1VLHCwW5wDuQ59QSZmr4QiEa7hym76HjsaZi8sZTA/exec" target="_blank" rel="noopener" class="bb-card c5">
+                    <i class="bb-pin" aria-hidden="true"></i><span class="bb-num" aria-hidden="true">No.05</span>
+                    <span class="bb-in">
+                        <span class="bb-ico" aria-hidden="true">📁</span>
+                        <span class="bb-kick2">🏆 PORTFOLIO</span>
+                        <span class="bb-name">E-PORTFOLIO</span>
+                        <span class="bb-desc">แฟ้มสะสมผลงานนักเรียน</span>
                     </span>
+                    <span class="bb-cta"><span class="bb-ct">VIEW FILES <span class="bb-ce" aria-hidden="true">🚀</span></span><i class="bb-go" aria-hidden="true"></i></span>
                 </a>
-              </div>
+                </div>
             </div>
-            <i class="lk-floor" aria-hidden="true"></i>
+            <i class="bb-pencil" aria-hidden="true"></i>
         </section>
 
         <!-- Upload & Admin (ซ่อนบนมือถือ ใช้เมนู 🛠️ มุมขวาบนแทน) — (11 ต.ค.) รวมเป็นแผง TEACHER TOOLS แผงเดียว
@@ -6998,19 +7139,21 @@
              ป้ายชื่อแผ่นดำขอบทอง ตัวทองนูน + พัดทองบนป้าย + รัศมีแสงทอง + ปีกเส้นทองสองข้าง
              เครื่องมือ 5 อย่าง = ซุ้มประตูโค้งสีอัญมณี ขอบทอง + เหรียญไอคอนขอบทอง + ป้ายกุญแจ (🔓 อัปโหลดไม่ต้องใส่รหัส / 🔒 ใช้รหัสครู)
              ปุ่ม/คำสั่งเดิมทั้งหมด ภาพนิ่งทั้งหมด (ไม่ใส่ animation บน #sec-teacher เพราะมี .animate-bounce-up) -->
-        <section id="sec-teacher" class="td-dock hidden md:block animate-bounce-up delay-500">
-            <div class="td-head">
-                <i class="td-rays" aria-hidden="true"></i>
-                <i class="td-wing l" aria-hidden="true"></i><i class="td-wing r" aria-hidden="true"></i>
-                <div class="td-plate"><h2 class="td-title font-black" data-text="TEACHER TOOLS">TEACHER TOOLS</h2><i class="td-sheen" aria-hidden="true"><b></b></i></div>
-                <span class="td-kick">👨‍🏫 โหมดครู · ปุ่มจัดการข้อมูลต้องใช้รหัสครู</span>
+        <section id="sec-teacher" class="tn-book hidden md:block animate-bounce-up delay-500">
+            <i class="tn-rings" aria-hidden="true"></i>
+            <i class="tn-clip" aria-hidden="true"></i>
+            <i class="tn-mug" aria-hidden="true"></i>
+            <div class="tn-head">
+                <span class="tn-tape">👨‍🏫 โหมดครู · ปุ่มจัดการข้อมูลต้องใช้รหัสครู</span>
+                <h2 class="tn-title font-black"><span class="tn-hl">TEACHER TOOLS</span><i class="tn-check" aria-hidden="true">✓</i></h2>
+                <span class="tn-doodle d1" aria-hidden="true">☆</span><span class="tn-doodle d2" aria-hidden="true">☺</span><span class="tn-doodle d3" aria-hidden="true">✎ to-do list</span>
             </div>
-            <div class="td-grid">
-                <button type="button" onclick="openUploadPopup()" class="td-tool is-open" style="--j1:#3b82f6;--j2:#1e3a8a;--gg:96,165,250;"><i class="td-gem" aria-hidden="true"></i><span class="td-ico" aria-hidden="true">📤</span><span class="td-txt"><span class="td-lab">UPLOAD</span><span class="td-sub">ส่งงาน · ไม่ต้องใส่รหัส</span></span></button>
-                <button type="button" onclick="checkAdminScores()" class="td-tool" style="--j1:#94a3b8;--j2:#1e293b;--gg:148,163,184;"><i class="td-gem" aria-hidden="true"></i><span class="td-ico" aria-hidden="true">🤖</span><span class="td-txt"><span class="td-lab">OVERRIDE</span><span class="td-sub">คะแนนทุกห้อง</span></span></button>
-                <button type="button" onclick="openQuizAdmin()" class="td-tool" style="--j1:#f97316;--j2:#7c2d12;--gg:251,146,60;"><i class="td-gem" aria-hidden="true"></i><span class="td-ico" aria-hidden="true">🎲</span><span class="td-txt"><span class="td-lab">QUIZ</span><span class="td-sub">จัดการเกมควิซ</span></span></button>
-                <button type="button" onclick="openDeadlineAdmin()" class="td-tool" style="--j1:#f59e0b;--j2:#78350f;--gg:251,191,36;"><i class="td-gem" aria-hidden="true"></i><span class="td-ico" aria-hidden="true">📅</span><span class="td-txt"><span class="td-lab">DEADLINE</span><span class="td-sub">กำหนดส่งงาน</span></span></button>
-                <button type="button" onclick="openDashboard()" class="td-tool" style="--j1:#10b981;--j2:#064e3b;--gg:52,211,153;"><i class="td-gem" aria-hidden="true"></i><span class="td-ico" aria-hidden="true">📊</span><span class="td-txt"><span class="td-lab">DASHBOARD</span><span class="td-sub">ภาพรวมวันนี้</span></span></button>
+            <div class="tn-grid">
+                <button type="button" onclick="openUploadPopup()" class="tn-note n1 is-open"><span class="tn-ico" aria-hidden="true">📤</span><span class="tn-lab">UPLOAD</span><span class="tn-sub">ส่งงาน · ไม่ต้องใส่รหัส</span></button>
+                <button type="button" onclick="checkAdminScores()" class="tn-note n2"><span class="tn-ico" aria-hidden="true">🤖</span><span class="tn-lab">OVERRIDE</span><span class="tn-sub">คะแนนทุกห้อง</span></button>
+                <button type="button" onclick="openQuizAdmin()" class="tn-note n3"><span class="tn-ico" aria-hidden="true">🎲</span><span class="tn-lab">QUIZ</span><span class="tn-sub">จัดการเกมควิซ</span></button>
+                <button type="button" onclick="openDeadlineAdmin()" class="tn-note n4"><span class="tn-ico" aria-hidden="true">📅</span><span class="tn-lab">DEADLINE</span><span class="tn-sub">กำหนดส่งงาน</span></button>
+                <button type="button" onclick="openDashboard()" class="tn-note n5"><span class="tn-ico" aria-hidden="true">📊</span><span class="tn-lab">DASHBOARD</span><span class="tn-sub">ภาพรวมวันนี้</span></button>
             </div>
         </section>
 
