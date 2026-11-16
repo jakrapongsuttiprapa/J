@@ -6214,6 +6214,238 @@
         body.swal2-shown .oat-main *:not(.animate-bounce-up):not(.st-node):not(.fb-flipin):not(.fb-in):not(.fb-shine):not(.fb-plane):not(.fb-tick):not(.hx-in):not(.qz-in):not(.lk-in):not(.cb-ss):not(.cb-plane), body.swal2-shown .oat-main *::before, body.swal2-shown .oat-main *::after,
         body.swal2-shown nav.top-nav *, body.swal2-shown nav.top-nav *::before, body.swal2-shown nav.top-nav *::after { animation-play-state: paused !important; }
 
+        /* ==========================================================================
+           ★ (15 พ.ย.) หน้าโหลด "LOADING" = ธีม NEON PORTAL (ครู: ปรับให้สวยอลังการขึ้น) — ชุดเดียวกับการ์ดคะแนน NEON ARENA
+             พื้นเมชม่วง-ฟ้า-บานเย็น + ลายเฉียง (ถอดจุดดาว/มุมทอง) · หลังตัว O-A-T = ประตูมิติ: วงแหวนไล่สีรุ้งหมุน + วงเส้นประหมุนสวน + จุดแสงโคจร
+             แท่นเวที = จานนีออนเรืองแสง · แถบโหลด = นีออนฟ้า→ม่วง→ชมพู + แสงวาบ · การ์ดคำศัพท์ = กระจกเข้มขอบไล่สีรุ้ง คำไล่สี
+             แอนิเมชัน transform/opacity ล้วน (หน้าโหลดเปิดแค่ไม่กี่วินาที) · ปุ่ม 💤 / ลดการเคลื่อนไหว = นิ่ง
+           ========================================================================== */
+        .swal2-container .swal2-popup.ld-pop { box-shadow: 12px 12px 0 0 #000, 0 0 70px rgba(139,92,246,.6), 0 0 120px rgba(34,211,238,.18) !important;
+            background: radial-gradient(ellipse 70% 38% at 50% 38%, rgba(168,85,247,.55), rgba(168,85,247,0) 72%),
+                        radial-gradient(ellipse 60% 40% at 0% 8%, rgba(34,211,238,.35), rgba(34,211,238,0) 70%),
+                        radial-gradient(ellipse 60% 40% at 100% 70%, rgba(236,72,153,.35), rgba(236,72,153,0) 70%),
+                        repeating-linear-gradient(115deg, rgba(255,255,255,0) 0 60px, rgba(255,255,255,.04) 60px 90px),
+                        linear-gradient(180deg, #0b0822 0%, #140f3b 45%, #1d1150 100%) !important; }
+        .swal2-container .swal2-popup.ld-pop::after { background: none !important; border: 2px solid rgba(196,181,253,.85) !important;
+            box-shadow: 0 0 0 1px rgba(0,0,0,.4), inset 0 0 0 1px rgba(0,0,0,.3), 0 0 16px rgba(167,139,250,.55), inset 0 0 22px rgba(34,211,238,.18) !important; }
+        .swal2-container .swal2-popup.ld-pop .ld-ttl { color: #1e1b4b; text-shadow: 0 2px 0 #000, 0 3px 0 #000, 0 0 22px rgba(167,139,250,.75), 0 0 40px rgba(34,211,238,.35); }
+        .swal2-container .swal2-popup.ld-pop .ld-ttl::after { -webkit-text-stroke: 1px #000; background: linear-gradient(100deg, #ffffff 0%, #a5f3fc 35%, #e9d5ff 60%, #fbcfe8 100%) 0 0 / 100% 1.2em repeat-y; -webkit-background-clip: text; background-clip: text; }
+        .swal2-container .swal2-popup.ld-pop .ld-stage { height: 168px; margin-top: 14px; }
+        .swal2-container .swal2-popup.ld-pop .ld-rays { opacity: .45; }
+        .swal2-container .swal2-popup.ld-pop .ld-glow { position: absolute; left: 50%; top: 50%; width: 190px; height: 190px; margin: -95px 0 0 -95px; border-radius: 50%; pointer-events: none;
+            background: radial-gradient(circle, rgba(255,255,255,.55) 0 8%, rgba(196,181,253,.45) 22%, rgba(129,140,248,.18) 45%, rgba(129,140,248,0) 68%); }
+        .swal2-container .swal2-popup.ld-pop .ld-ring { position: absolute; left: 50%; top: 50%; border-radius: 50%; pointer-events: none; }
+        .swal2-container .swal2-popup.ld-pop .ld-ring.r1 { width: 150px; height: 150px; margin: -75px 0 0 -75px;
+            background: conic-gradient(from 0deg, #22d3ee, #a78bfa, #f472b6, #fde047, #22d3ee);
+            -webkit-mask: radial-gradient(circle, transparent 0 63%, #000 64% 68%, transparent 69%); mask: radial-gradient(circle, transparent 0 63%, #000 64% 68%, transparent 69%);
+            animation: ldSpin 2.6s linear infinite; }
+        .swal2-container .swal2-popup.ld-pop .ld-ring.r1 b { display: none; }
+        .swal2-container .swal2-popup.ld-pop .ld-ring.r2 { width: 184px; height: 184px; margin: -92px 0 0 -92px; border: 2px dashed rgba(165,243,252,.6);
+            animation: ldSpin 9s linear infinite reverse; }
+        .swal2-container .swal2-popup.ld-pop .ld-ring.r2::before { content: ''; position: absolute; left: 50%; top: -6px; width: 10px; height: 10px; margin-left: -5px; border-radius: 50%; background: #fff;
+            box-shadow: 0 0 10px 3px rgba(103,232,249,.9); }
+        .swal2-container .swal2-popup.ld-pop .ld-ring.r2::after { content: ''; position: absolute; left: 50%; bottom: -5px; width: 8px; height: 8px; margin-left: -4px; border-radius: 50%; background: #fbcfe8;
+            box-shadow: 0 0 10px 3px rgba(244,114,182,.9); }
+        @keyframes ldSpin { to { transform: rotate(360deg); } }
+        .swal2-container .swal2-popup.ld-pop .ld-podium { bottom: 22px; border: 2px solid #000;
+            background: radial-gradient(ellipse 60% 80% at 50% 40%, rgba(165,243,252,.55), rgba(165,243,252,0) 72%), linear-gradient(180deg, #2e1065 0%, #170a3f 100%);
+            box-shadow: inset 0 0 0 2px #67e8f9, inset 0 0 0 4px rgba(0,0,0,.4), 0 6px 0 0 #3b0764, 0 6px 0 2px #000, 0 11px 0 0 #f472b6, 0 11px 0 2px #000, 0 0 36px 8px rgba(103,232,249,.4), 0 14px 40px rgba(244,114,182,.45); }
+        .swal2-container .swal2-popup.ld-pop .ld-oat { bottom: 34px; }
+        .swal2-container .swal2-popup.ld-pop .ld-key { box-shadow: inset 0 0 0 2.5px #fff, inset 0 0 0 4px rgba(0,0,0,.2), inset 0 -7px 0 rgba(0,0,0,.16), inset 0 6px 0 rgba(255,255,255,.45), 0 5px 0 0 #000, 0 0 26px rgba(var(--kg),.9); }
+        .swal2-container .swal2-popup.ld-pop .ld-bar { background: repeating-linear-gradient(90deg, rgba(255,255,255,.07) 0 2px, rgba(255,255,255,0) 2px 14px), linear-gradient(180deg, #0b0822 0%, #1e1b4b 100%);
+            box-shadow: 0 0 0 2px #a78bfa, 0 0 0 4px #000, 4px 5px 0 4px rgba(0,0,0,.55), 0 0 24px rgba(167,139,250,.55); }
+        .swal2-container .swal2-popup.ld-pop .ld-bar-fill { background: linear-gradient(180deg, rgba(255,255,255,.55) 0 30%, rgba(255,255,255,0) 31%), linear-gradient(90deg, #22d3ee, #a78bfa 50%, #f472b6);
+            box-shadow: 0 0 14px rgba(167,139,250,.9), 0 0 24px rgba(34,211,238,.5); }
+        .swal2-container .swal2-popup.ld-pop .ld-bar-sheen { position: absolute; top: 0; bottom: 0; left: -20%; width: 14%; pointer-events: none; background: linear-gradient(90deg, rgba(255,255,255,0), rgba(255,255,255,.6), rgba(255,255,255,0));
+            transform: translateX(0) skewX(-20deg); animation: ldSheen 1.8s ease-in-out infinite; }
+        @keyframes ldSheen { 0% { transform: translateX(0) skewX(-20deg); } 100% { transform: translateX(900%) skewX(-20deg); } }
+        .swal2-container .swal2-popup.ld-pop .ld-wait { color: #e9d5ff; letter-spacing: .04em; }
+        .swal2-container .swal2-popup.ld-pop .ld-word { color: #fff; border: 2px solid #000;
+            background: radial-gradient(ellipse 80% 60% at 50% 0, rgba(167,139,250,.35), rgba(167,139,250,0) 70%), linear-gradient(180deg, rgba(35,27,90,.95) 0%, rgba(17,12,48,.97) 100%) !important;
+            box-shadow: 0 0 0 2px #22d3ee, 0 0 0 4px #000, 0 0 0 6px #f472b6, 0 0 0 8px #000, 5px 7px 0 8px rgba(0,0,0,.5), 0 0 30px rgba(167,139,250,.5) !important; }
+        .swal2-container .swal2-popup.ld-pop .ld-word-en { color: transparent; background: linear-gradient(100deg, #a5f3fc 0%, #ffffff 45%, #f9a8d4 100%); -webkit-background-clip: text; background-clip: text;
+            text-shadow: none; filter: none; }
+        .swal2-container .swal2-popup.ld-pop .ld-word-th { color: #e9d5ff; }
+        @media (prefers-reduced-motion: reduce) { .swal2-container .swal2-popup.ld-pop .ld-ring, .swal2-container .swal2-popup.ld-pop .ld-bar-sheen { animation: none; } }
+
+        /* ==========================================================================
+           ★ (15 พ.ย. ค่ำ) NEON PORTAL รอบ 2 "ว้าว" — วงโคจรเอียง 2 วงแบบอะตอม · ลำแสงโฮโลแกรมพุ่งจากแท่น · ประกายลอยขึ้น 8 จุด · ดาวตกพาดฉาก
+             หัวข้อมีแสงไล่สีวิ่ง · ตัวอักษร O-A-T เรืองแสงเป็นจังหวะ · มิเตอร์เสียงเต้นข้าง "รอแป๊บนึงน้า" · การ์ดคำศัพท์พลิกเข้า
+             ทุกชิ้นเล็ก transform/opacity (ยกเว้นแสงวิ่งบนหัวข้อ = ทาสีเฉพาะบรรทัดหัวข้อ) · ปุ่ม 💤 / ลดการเคลื่อนไหว = นิ่ง
+           ========================================================================== */
+        .swal2-container .swal2-popup.ld-pop .ld-orbit { position: absolute; left: 50%; top: 50%; width: 210px; height: 210px; margin: -105px 0 0 -105px; pointer-events: none; transform: rotate(-24deg) scaleY(.32); }
+        .swal2-container .swal2-popup.ld-pop .ld-orbit.o2 { transform: rotate(28deg) scaleY(.32); }
+        .swal2-container .swal2-popup.ld-pop .ld-orbit b { position: absolute; inset: 0; border-radius: 50%; border: 2px solid rgba(165,243,252,.9); box-shadow: 0 0 10px rgba(103,232,249,.6); animation: ldSpin 3.2s linear infinite; }
+        .swal2-container .swal2-popup.ld-pop .ld-orbit.o2 b { border-color: rgba(249,168,212,.9); box-shadow: 0 0 10px rgba(244,114,182,.6); animation-duration: 4.4s; animation-direction: reverse; }
+        .swal2-container .swal2-popup.ld-pop .ld-orbit b::before { content: ''; position: absolute; left: 50%; top: -7px; width: 12px; height: 12px; margin-left: -6px; border-radius: 50%;
+            background: radial-gradient(circle at 35% 30%, #fff 0 30%, #67e8f9 70%); box-shadow: 0 0 12px 4px rgba(103,232,249,.85); }
+        .swal2-container .swal2-popup.ld-pop .ld-orbit.o2 b::before { background: radial-gradient(circle at 35% 30%, #fff 0 30%, #f472b6 70%); box-shadow: 0 0 12px 4px rgba(244,114,182,.85); }
+        .swal2-container .swal2-popup.ld-pop .ld-beam { position: absolute; left: 50%; bottom: 36px; width: 200px; height: 150px; margin-left: -100px; pointer-events: none; transform-origin: 50% 100%;
+            background: linear-gradient(0deg, rgba(165,243,252,.75) 0%, rgba(196,181,253,.35) 45%, rgba(244,114,182,0) 100%);
+            clip-path: polygon(14% 100%, 86% 100%, 100% 0, 0 0); animation: ldBeam 2.4s ease-in-out infinite alternate; }
+        @keyframes ldBeam { from { opacity: .55; transform: scaleX(.92); } to { opacity: 1; transform: scaleX(1.04); } }
+        .swal2-container .swal2-popup.ld-pop .ld-pt { position: absolute; bottom: 40px; width: 6px; height: 6px; border-radius: 50%; background: #fff; pointer-events: none; opacity: 0; z-index: 2;
+            box-shadow: 0 0 8px 2px rgba(165,243,252,.9); animation: ldRise 2.6s ease-out infinite; }
+        @keyframes ldRise { 0% { opacity: 0; transform: translateY(0) scale(.6); } 20% { opacity: 1; } 100% { opacity: 0; transform: translateY(-120px) scale(1.1); } }
+        .swal2-container .swal2-popup.ld-pop .ld-pt.q1 { left: 30%; } .swal2-container .swal2-popup.ld-pop .ld-pt.q2 { left: 38%; animation-delay: .9s; box-shadow: 0 0 8px 2px rgba(244,114,182,.9); }
+        .swal2-container .swal2-popup.ld-pop .ld-pt.q3 { left: 46%; animation-delay: 1.7s; } .swal2-container .swal2-popup.ld-pop .ld-pt.q4 { left: 54%; animation-delay: .4s; box-shadow: 0 0 8px 2px rgba(253,224,71,.9); }
+        .swal2-container .swal2-popup.ld-pop .ld-pt.q5 { left: 62%; animation-delay: 1.3s; box-shadow: 0 0 8px 2px rgba(244,114,182,.9); } .swal2-container .swal2-popup.ld-pop .ld-pt.q6 { left: 70%; animation-delay: 2.1s; }
+        .swal2-container .swal2-popup.ld-pop .ld-pt.q7 { left: 34%; animation-delay: 2.3s; width: 3px; height: 3px; } .swal2-container .swal2-popup.ld-pop .ld-pt.q8 { left: 66%; animation-delay: .7s; width: 3px; height: 3px; }
+        .swal2-container .swal2-popup.ld-pop .ld-shoot { position: absolute; left: 6%; top: 6%; width: 90px; height: 2px; border-radius: 2px; pointer-events: none; opacity: 0;
+            background: linear-gradient(90deg, rgba(255,255,255,0), #fff); animation: ldShoot 3.6s ease-out 1s infinite; }
+        @keyframes ldShoot { 0% { opacity: 0; transform: translate(0,0) rotate(18deg); } 6% { opacity: 1; } 22% { opacity: 0; transform: translate(220px,72px) rotate(18deg); } 100% { opacity: 0; transform: translate(220px,72px) rotate(18deg); } }
+        .swal2-container .swal2-popup.ld-pop .ld-ttl::after { background: linear-gradient(100deg, #ffffff 0%, #a5f3fc 22%, #e9d5ff 40%, #fbcfe8 58%, #ffffff 74%, #a5f3fc 100%) 0 0 / 200% 1.2em repeat;
+            -webkit-background-clip: text; background-clip: text; animation: ldTtl 3s linear infinite; }
+        @keyframes ldTtl { to { background-position: -200% 0; } }
+        .swal2-container .swal2-popup.ld-pop .ld-key::after { content: ''; position: absolute; inset: -6px; border-radius: 18px; pointer-events: none; opacity: 0;
+            box-shadow: 0 0 0 2px rgba(255,255,255,.85), 0 0 22px 6px rgba(var(--kg),.9); animation: ldKeyGlow 1.2s ease-in-out infinite; animation-delay: inherit; }
+        @keyframes ldKeyGlow { 0%, 55%, 100% { opacity: 0; } 25% { opacity: 1; } }
+        .swal2-container .swal2-popup.ld-pop .ld-eq { display: inline-flex; align-items: flex-end; gap: 2px; height: 12px; margin: 0 8px; vertical-align: -1px; }
+        .swal2-container .swal2-popup.ld-pop .ld-eq i { width: 3px; height: 12px; border-radius: 2px; background: linear-gradient(0deg, #22d3ee, #f472b6); transform-origin: 50% 100%; animation: ldEq .9s ease-in-out infinite alternate; }
+        .swal2-container .swal2-popup.ld-pop .ld-eq i:nth-child(2) { animation-delay: -.3s; } .swal2-container .swal2-popup.ld-pop .ld-eq i:nth-child(3) { animation-delay: -.6s; } .swal2-container .swal2-popup.ld-pop .ld-eq i:nth-child(4) { animation-delay: -.15s; } .swal2-container .swal2-popup.ld-pop .ld-eq i:nth-child(5) { animation-delay: -.45s; }
+        @keyframes ldEq { from { transform: scaleY(.25); } to { transform: scaleY(1); } }
+        @media (prefers-reduced-motion: no-preference) { .swal2-container .swal2-popup.ld-pop .ld-word { animation: ldFlip .7s cubic-bezier(.2,.9,.3,1.2) .25s backwards; } }
+        @keyframes ldFlip { from { opacity: 0; transform: perspective(500px) rotateX(-75deg) translateY(10px); } to { opacity: 1; transform: none; } }
+        @media (max-width: 360px) { .swal2-container .swal2-popup.ld-pop .ld-eq { display: none; } .swal2-container .swal2-popup.ld-pop .ld-orbit { width: 180px; height: 180px; margin: -90px 0 0 -90px; } }
+        @media (prefers-reduced-motion: reduce) { .swal2-container .swal2-popup.ld-pop .ld-orbit b, .swal2-container .swal2-popup.ld-pop .ld-beam, .swal2-container .swal2-popup.ld-pop .ld-ttl::after, .swal2-container .swal2-popup.ld-pop .ld-key::after, .swal2-container .swal2-popup.ld-pop .ld-eq i { animation: none; } .swal2-container .swal2-popup.ld-pop .ld-pt, .swal2-container .swal2-popup.ld-pop .ld-shoot { display: none; } }
+        html.lite .swal2-container .swal2-popup.ld-pop .ld-pt, html.lite .swal2-container .swal2-popup.ld-pop .ld-shoot { display: none; }
+
+        /* ==========================================================================
+           ★ (15 พ.ย. ค่ำ) ตารางสอนครู / ตารางเรียนนักเรียน = ธีม "NEON ARENA" ชุดเดียวกับการ์ดดูคะแนน (ครูเลือก · แทนธีมทองดำ LUXE ที่ครูว่าไม่สวย)
+             บอร์ด = พื้นเมชหลายสี + ลายเฉียงจาง (ไม่มีจุด) ขอบนีออน · ครู: ฟ้าไซแอน + ม่วง + เหลืองอำพัน · นักเรียน: บานเย็น + ม่วง + ส้ม
+             ป้ายหัว = แถบสีสดไล่เฉด ตัวหนังสือขาวตัวใหญ่ · ไอคอน = แผ่นไล่สีเรืองแสง · จอตาราง = กระจกเข้มขอบนีออนสองชั้น + แสงสะท้อนวิ่ง
+             ปุ่มดูภาพเต็ม = แท่งไล่สีสด · เลือกชั้น = แถบกระจก ปุ่มที่เลือกสีชั้น · ปุ่มห้อง = คีย์แคป 3 มิติสีประจำชั้น (กดแล้วยุบ)
+             ถอด: ไม้ก๊อก / หมุด / สติกเกอร์ / เทปกาว / โน้ต / เครื่องบินกระดาษ · ปุ่ม/รูป/สคริปต์เดิมครบ · แอนิเมชันชิ้นเล็ก 2 อย่าง (แสงวาบหัว + แสงสะท้อนจอ)
+           ========================================================================== */
+        #sec-schedule .cb-sky, #sec-schedule .cb-board .cb-sticker, #sec-schedule .cb-board .cb-pin, #sec-schedule .cb-board .cb-memo { display: none !important; }
+        #sec-schedule .cb-board { --a1: 56,189,248; --a2: 167,139,250; --a3: 251,191,36; --h1: #0e7490; --h2: #38bdf8;
+            padding: 16px; border: 5px solid #000; border-radius: 30px;
+            background: radial-gradient(ellipse 60% 35% at 0% 0%, rgba(var(--a1),.5), rgba(var(--a1),0) 70%),
+                        radial-gradient(ellipse 55% 40% at 100% 55%, rgba(var(--a2),.42), rgba(var(--a2),0) 70%),
+                        radial-gradient(ellipse 60% 35% at 15% 100%, rgba(var(--a3),.3), rgba(var(--a3),0) 70%),
+                        repeating-linear-gradient(115deg, rgba(255,255,255,0) 0 90px, rgba(255,255,255,.04) 90px 130px),
+                        linear-gradient(180deg, #110d2b 0%, #0b0920 50%, #160f36 100%) !important;
+            box-shadow: inset 0 0 0 2px rgba(var(--a1),.95), inset 0 0 0 4px rgba(0,0,0,.45), 10px 12px 0 0 #000, 0 0 44px rgba(var(--a1),.35) !important; }
+        #sec-schedule .cb-board.cs-student { --a1: 236,72,153; --a2: 139,92,246; --a3: 251,146,60; --h1: #9d174d; --h2: #f472b6; }
+        #sec-schedule .cb-board::before { content: none !important; } #sec-schedule .cb-board::after { content: none !important; }
+        #sec-schedule .cb-board .cb-cork { padding: 4px; border: 0 !important; border-radius: 22px; background: none !important; box-shadow: none !important; }
+        /* ป้ายหัว: แถบสีสด */
+        #sec-schedule .cb-board .cb-paper { overflow: hidden; margin: 0; padding: 16px 18px; border: 2px solid #000; border-radius: 18px; transform: none;
+            background: linear-gradient(100deg, var(--h1) 0%, var(--h2) 45%, rgba(var(--a2),.55) 80%, rgba(var(--a2),.25) 100%),
+                        repeating-linear-gradient(115deg, rgba(255,255,255,0) 0 18px, rgba(255,255,255,.1) 18px 30px) !important;
+            background-blend-mode: normal;
+            box-shadow: inset 0 2px 0 rgba(255,255,255,.3), inset 0 -4px 0 rgba(0,0,0,.25), 4px 5px 0 0 #000, 0 0 26px rgba(var(--a1),.45) !important; }
+        #sec-schedule .cb-board .cb-paper::before, #sec-schedule .cb-board .cb-paper::after { content: none !important; }
+        #sec-schedule .cb-board .cs-badge { width: 64px; height: 64px; border-radius: 18px; border: 2.5px solid #000; transform: rotate(-6deg); font-size: 2rem;
+            background: radial-gradient(circle at 30% 25%, rgba(255,255,255,.9) 0 10%, rgba(255,255,255,0) 30%), linear-gradient(150deg, rgb(var(--a3)) 0%, rgb(var(--a2)) 100%) !important;
+            box-shadow: inset 0 -4px 0 rgba(0,0,0,.2), 3px 4px 0 0 #000, 0 0 22px rgba(var(--a3),.6) !important; }
+        #sec-schedule .cb-board .cs-kicker { color: #fff; background: rgba(0,0,0,.35); border: 1.5px solid rgba(255,255,255,.7); letter-spacing: .08em; }
+        #sec-schedule .cb-board .cs-title { color: #fff; letter-spacing: .06em; text-shadow: 0 3px 0 #000, 3px 5px 0 rgba(0,0,0,.4), 0 0 22px rgba(255,255,255,.35) !important; }
+        #sec-schedule .cb-board .cs-title::after { content: none; }
+        #sec-schedule .cb-board .lx-sheen { position: absolute; z-index: 3; top: -20%; bottom: -20%; left: -30%; width: 14%; pointer-events: none;
+            background: linear-gradient(90deg, rgba(255,255,255,0), rgba(255,255,255,.4), rgba(255,255,255,0)); transform: translateX(0) skewX(-20deg); animation: lxSheen 7s ease-in-out 1.5s infinite; }
+        #sec-schedule .cb-board.cs-student .lx-sheen { animation-delay: 4.5s; }
+        @keyframes lxSheen { 0%, 70% { transform: translateX(0) skewX(-20deg); } 100% { transform: translateX(1000%) skewX(-20deg); } }
+        #sec-schedule .cb-board .cs-term { align-self: center; margin: 14px 0 0; transform: none; color: #1c1917; border: 2px solid #000; border-radius: 999px; padding: 5px 18px;
+            background: linear-gradient(90deg, rgb(var(--a3)), #fde68a); box-shadow: 3px 3px 0 0 #000, 0 0 18px rgba(var(--a3),.5); }
+        #sec-schedule .cb-board .cs-term::before { content: none !important; }
+        /* จอตาราง: กระจกเข้ม ขอบนีออนสองชั้น */
+        #sec-schedule .cb-board .cs-viewer { position: relative; overflow: hidden; margin-top: 18px; padding: 8px; border: 2px solid #000; border-radius: 18px; transform: none;
+            background: linear-gradient(180deg, rgba(36,30,92,.95), rgba(14,11,36,.97)) !important;
+            box-shadow: 0 0 0 2px rgb(var(--a1)), 0 0 0 4px #000, 0 0 0 6px rgb(var(--a2)), 0 0 0 8px #000, 6px 8px 0 8px rgba(0,0,0,.55), 0 0 36px rgba(var(--a1),.45) !important; }
+        #sec-schedule .cb-board .cs-viewer::before, #sec-schedule .cb-board .cs-viewer::after { content: none !important; }
+        #sec-schedule .cb-board .cs-viewer .sc-bar { margin: 8px -8px -8px; padding: 9px 12px; background: linear-gradient(90deg, rgba(var(--a1),.35), rgba(var(--a2),.35)), #15122e !important;
+            border: 0 !important; border-top: 1.5px solid rgb(var(--a1)) !important; border-radius: 0 0 16px 16px; }
+        #sec-schedule .cb-board .cs-viewer .sc-name { color: #fff !important; background: rgba(0,0,0,.35) !important; border-color: rgba(255,255,255,.5) !important; }
+        #sec-schedule .cb-board .cs-viewer .sc-zoom { color: #1c1917 !important; background: linear-gradient(90deg, rgb(var(--a3)), #fde68a) !important; border-color: #000 !important; }
+        #sec-schedule .cb-board .cs-viewer .sc-body { position: relative; border-radius: 10px !important; border: 0 !important; background: #fff !important; }
+        #sec-schedule .cb-board .lx-glass { position: absolute; z-index: 4; inset: 0; pointer-events: none; overflow: hidden; border-radius: inherit; }
+        #sec-schedule .cb-board .lx-glass::before { content: ''; position: absolute; top: -20%; bottom: -20%; left: -40%; width: 16%; background: linear-gradient(90deg, rgba(255,255,255,0), rgba(255,255,255,.18), rgba(255,255,255,0));
+            transform: translateX(0) skewX(-22deg); animation: lxSheen 9s ease-in-out 3s infinite; }
+        @media (hover: hover) { #sec-schedule .cb-board .cs-viewer.cursor-pointer { transition: transform .3s cubic-bezier(.2,.9,.3,1.2); } #sec-schedule .cb-board .cs-viewer.cursor-pointer:hover { transform: translateY(-4px); } }
+        #sec-schedule .cb-board .hx-btn { margin-top: 22px; color: #fff; border: 2.5px solid #000; border-radius: 16px; text-shadow: 0 2px 0 rgba(0,0,0,.5);
+            background: linear-gradient(90deg, var(--h1) 0%, var(--h2) 50%, rgb(var(--a2)) 100%) !important;
+            box-shadow: inset 0 2px 0 rgba(255,255,255,.35), 0 6px 0 0 #000, 0 0 24px rgba(var(--a1),.5) !important; }
+        #sec-schedule .cb-board .hx-btn:active { transform: translateY(4px); box-shadow: inset 0 2px 0 rgba(255,255,255,.35), 0 2px 0 0 #000 !important; }
+        #sec-schedule .cb-board .hx-btn .hx-arrow { border-left-color: #fff; }
+        #sec-schedule .cb-board .cs-tabs { margin-top: 16px; background: rgba(0,0,0,.4) !important; border: 2px solid #000; border-radius: 16px; box-shadow: inset 0 0 0 1.5px rgba(var(--a2),.9), 0 0 18px rgba(var(--a2),.3); }
+        #sec-schedule .cb-board .cs-tab { color: #fff; }
+        #sec-schedule .cb-board .cs-tab[aria-selected="true"] { color: #1a0f00; border-color: #000; background: linear-gradient(180deg, #fff 0%, var(--c1) 35%, var(--c2) 100%); box-shadow: 0 3px 0 0 #000, 0 0 16px var(--c2); }
+        #sec-schedule .cb-board .cs-room.rm-btn { transform: none !important; border: 2px solid #000; border-radius: 14px; color: #140b00;
+            background: linear-gradient(180deg, #ffffff 0%, var(--c1) 30%, var(--c2) 100%) !important;
+            box-shadow: inset 0 2px 0 rgba(255,255,255,.85), 0 6px 0 0 var(--dk), 0 6px 0 2px #000, 0 10px 16px -6px rgba(0,0,0,.7) !important; transition: transform .12s ease; }
+        @media (hover: hover) { #sec-schedule .cb-board .cs-room.rm-btn:hover { transform: translateY(-2px) !important; box-shadow: inset 0 2px 0 rgba(255,255,255,.85), 0 8px 0 0 var(--dk), 0 8px 0 2px #000, 0 0 18px var(--c2) !important; } }
+        #sec-schedule .cb-board .cs-room.rm-btn:active, #sec-schedule .cb-board .cs-room.rm-btn.rm-on { transform: translateY(5px) !important; }
+        #sec-schedule .cb-board .cs-room.rm-btn.rm-on { color: var(--c1) !important; background: linear-gradient(180deg, #2a1d5c 0%, #140f30 100%) !important;
+            box-shadow: inset 0 0 0 2px var(--c2), 0 1px 0 0 var(--dk), 0 1px 0 2px #000, 0 0 22px var(--c2) !important; text-shadow: 0 0 10px var(--c2); }
+        #sec-schedule .cb-board .cs-room.rm-btn.rm-on small { color: var(--c1); }
+        @media (max-width: 767px) { #sec-schedule .cb-board { padding: 12px; border-radius: 24px; } #sec-schedule .cb-board .cb-paper { padding: 13px 12px; } #sec-schedule .cb-board .cs-badge { width: 54px; height: 54px; font-size: 1.6rem; } }
+        @media (prefers-reduced-motion: reduce) { #sec-schedule .cb-board .lx-sheen, #sec-schedule .cb-board .lx-glass::before { animation: none; display: none; } }
+        /* ★ (15 พ.ย. ค่ำ 2) NEON ARENA ตารางสอน/ตารางเรียน: ของตกแต่ง + เอฟเฟคเพิ่ม (ครูขอ "อลังการ ว้าวกว่านี้")
+             ไฟวิ่งบนขอบบน-ล่าง · ประกายดาว 4 จุดรอบบอร์ด · โฮโลแกรมในป้ายหัว (วงแหวนหมุน+ดาวเทียม, สามเหลี่ยมลอย, บวกลอย, อีควอไลเซอร์เต้น)
+             ตัวหนังสือหัวมีเงาฟ้า/ชมพูแบบโฮโลแกรม + กลิตช์วาบนานๆ ครั้ง · ไอคอนมีวงคลื่นกระจาย · จอตารางมีมุมเล็งแบบ HUD
+             ทุกชิ้นเล็ก ขยับด้วย transform/opacity เท่านั้น · หยุดเองตอนนิ่ง/เลื่อน/นอกจอ/โหมด 💤 */
+        #sec-schedule .cb-board { position: relative; }
+        #sec-schedule .cb-board .cb-cork { position: relative; z-index: 1; }
+        #sec-schedule .cb-board .na-fx { position: absolute; inset: 0; z-index: 2; pointer-events: none; }
+        #sec-schedule .cb-board .na-run { position: absolute; left: 34px; right: 34px; height: 5px; overflow: hidden; border-radius: 99px; }
+        #sec-schedule .cb-board .na-run.r1 { top: -5px; } #sec-schedule .cb-board .na-run.r2 { bottom: -5px; }
+        #sec-schedule .cb-board .na-run b { position: absolute; inset: 0; transform: translateX(-100%); animation: naRun 4.8s linear infinite;
+            background: linear-gradient(90deg, rgba(255,255,255,0) 72%, rgba(var(--a1),.9) 90%, #fff 97%, rgba(255,255,255,0) 100%); }
+        #sec-schedule .cb-board .na-run.r2 b { animation-duration: 6.2s; animation-direction: reverse; background: linear-gradient(90deg, rgba(255,255,255,0) 0%, #fff 3%, rgba(var(--a2),.9) 10%, rgba(255,255,255,0) 28%); }
+        @keyframes naRun { from { transform: translateX(-100%); } to { transform: translateX(100%); } }
+        #sec-schedule .cb-board .na-spark { position: absolute; width: 22px; height: 22px; background: #fff; opacity: .9;
+            clip-path: polygon(50% 0, 61% 39%, 100% 50%, 61% 61%, 50% 100%, 39% 61%, 0 50%, 39% 39%);
+            animation: naTw 2.6s ease-in-out infinite; }
+        #sec-schedule .cb-board .na-spark.k1 { top: -11px; right: 20px; background: rgb(var(--a3)); }
+        #sec-schedule .cb-board .na-spark.k2 { top: 34%; left: -9px; width: 16px; height: 16px; animation-delay: -.9s; }
+        #sec-schedule .cb-board .na-spark.k3 { bottom: 18%; right: -9px; width: 18px; height: 18px; background: rgb(var(--a1)); animation-delay: -1.6s; }
+        #sec-schedule .cb-board .na-spark.k4 { bottom: -10px; left: 22px; width: 14px; height: 14px; background: rgb(var(--a2)); animation-delay: -2.1s; }
+        @keyframes naTw { 0%, 100% { transform: scale(.35) rotate(0deg); opacity: .35; } 50% { transform: scale(1.1) rotate(45deg); opacity: 1; } }
+        /* โฮโลแกรมในป้ายหัว */
+        #sec-schedule .cb-board .cb-paper { position: relative; }
+        #sec-schedule .cb-board .cb-paper > .cs-badge, #sec-schedule .cb-board .cb-paper > .min-w-0 { position: relative; z-index: 2; }
+        #sec-schedule .cb-board .na-holo { position: absolute; z-index: 1; right: 16px; top: 50%; width: 118px; height: 92px; margin-top: -46px; pointer-events: none; }
+        #sec-schedule .cb-board .na-ring { position: absolute; right: 18px; top: 8px; width: 74px; height: 74px; border-radius: 50%;
+            border: 2.5px dashed rgba(255,255,255,.9); box-shadow: inset 0 0 0 7px rgba(255,255,255,.1), inset 0 0 0 9.5px rgba(var(--a3),.75), 0 0 18px rgba(255,255,255,.35);
+            animation: naSpin 12s linear infinite; }
+        #sec-schedule .cb-board .na-ring::after { content: ''; position: absolute; top: -6px; left: 50%; width: 10px; height: 10px; margin-left: -5px; border-radius: 50%;
+            background: #fff; box-shadow: 0 0 0 2px rgb(var(--a3)), 0 0 12px #fff; }
+        @keyframes naSpin { to { transform: rotate(360deg); } }
+        #sec-schedule .cb-board .na-tri { position: absolute; left: 4px; top: 6px; width: 20px; height: 18px; background: rgb(var(--a3));
+            clip-path: polygon(50% 0, 100% 100%, 0 100%); animation: naFloat 3.4s ease-in-out infinite alternate; }
+        #sec-schedule .cb-board .na-plus { position: absolute; font: 900 22px/1 system-ui, sans-serif; font-style: normal; color: #fff; text-shadow: 0 2px 0 rgba(0,0,0,.45);
+            animation: naFloat 2.8s ease-in-out infinite alternate; }
+        #sec-schedule .cb-board .na-plus.p1 { left: 0; bottom: 4px; } #sec-schedule .cb-board .na-plus.p2 { right: 0; top: -2px; font-size: 16px; color: rgb(var(--a3)); animation-delay: -1.4s; }
+        @keyframes naFloat { from { transform: translateY(4px) rotate(-12deg); } to { transform: translateY(-6px) rotate(14deg); } }
+        #sec-schedule .cb-board .na-eq { position: absolute; right: 44px; top: 34px; display: flex; gap: 3px; align-items: flex-end; height: 24px; }
+        #sec-schedule .cb-board .na-eq b { width: 4px; height: 24px; border-radius: 2px; background: #fff; transform-origin: 50% 100%; animation: naEq .9s ease-in-out infinite alternate; }
+        #sec-schedule .cb-board .na-eq b:nth-child(2) { animation-delay: -.3s; background: rgb(var(--a3)); } #sec-schedule .cb-board .na-eq b:nth-child(3) { animation-delay: -.6s; } #sec-schedule .cb-board .na-eq b:nth-child(4) { animation-delay: -.15s; background: rgb(var(--a3)); }
+        @keyframes naEq { from { transform: scaleY(.25); } to { transform: scaleY(1); } }
+        /* หัวข้อ: เงาโฮโลแกรม + กลิตช์ */
+        #sec-schedule .cb-board .cs-title { position: relative; text-shadow: -2px 0 0 rgba(34,211,238,.9), 2px 0 0 rgba(244,63,94,.9), 0 4px 0 #000, 0 0 22px rgba(255,255,255,.35) !important; }
+        #sec-schedule .cb-board .cs-title::before, #sec-schedule .cb-board .cs-title::after { content: attr(data-text); position: absolute; inset: 0; white-space: pre-line; pointer-events: none;
+            text-shadow: none; opacity: 0; animation: naGl 7s steps(1, end) infinite; }
+        #sec-schedule .cb-board .cs-title::before { color: #67e8f9; clip-path: inset(0 0 55% 0); }
+        #sec-schedule .cb-board .cs-title::after { color: #f9a8d4; clip-path: inset(50% 0 0 0); animation-delay: .05s; }
+        #sec-schedule .cb-board.cs-student .cs-title::before, #sec-schedule .cb-board.cs-student .cs-title::after { animation-delay: 3.5s; }
+        @keyframes naGl { 0%, 88% { opacity: 0; transform: none; } 89% { opacity: .95; transform: translate(-5px, 0); } 91% { opacity: .95; transform: translate(4px, 1px); } 93% { opacity: .8; transform: translate(-2px, -1px); } 95%, 100% { opacity: 0; transform: none; } }
+        /* ไอคอน: วงคลื่นกระจาย */
+        #sec-schedule .cb-board .cs-badge { position: relative; }
+        #sec-schedule .cb-board .cs-badge::after { content: '' !important; position: absolute; inset: -4px; border-radius: 20px; border: 2.5px solid rgb(var(--a3)); background: none;
+            opacity: 0; animation: naPulse 2.6s ease-out infinite; pointer-events: none; }
+        @keyframes naPulse { 0% { transform: scale(.9); opacity: .9; } 100% { transform: scale(1.45); opacity: 0; } }
+        /* จอตาราง: มุมเล็ง HUD */
+        #sec-schedule .cb-board .cs-viewer::before { content: '' !important; display: block; position: absolute; z-index: 5; inset: 3px; width: auto; height: auto; transform: none; pointer-events: none; border: 0; border-radius: 14px;
+            --hc: rgb(var(--a1)); --hd: rgb(var(--a3));
+            background: linear-gradient(var(--hc),var(--hc)) 0 0/22px 4px, linear-gradient(var(--hc),var(--hc)) 0 0/4px 22px,
+                        linear-gradient(var(--hd),var(--hd)) 100% 0/22px 4px, linear-gradient(var(--hd),var(--hd)) 100% 0/4px 22px,
+                        linear-gradient(var(--hd),var(--hd)) 0 100%/22px 4px, linear-gradient(var(--hd),var(--hd)) 0 100%/4px 22px,
+                        linear-gradient(var(--hc),var(--hc)) 100% 100%/22px 4px, linear-gradient(var(--hc),var(--hc)) 100% 100%/4px 22px;
+            background-repeat: no-repeat; }
+        @media (max-width: 420px) { #sec-schedule .cb-board .na-holo { right: 4px; transform: scale(.72); transform-origin: 100% 50%; opacity: .75; } }
+        @media (prefers-reduced-motion: reduce) { #sec-schedule .cb-board .na-run, #sec-schedule .cb-board .cs-title::before, #sec-schedule .cb-board .cs-title::after, #sec-schedule .cb-board .cs-badge::after { display: none; } #sec-schedule .cb-board .na-fx *, #sec-schedule .cb-board .na-holo * { animation: none !important; } }
+        html.lite #sec-schedule .cb-board .na-run, html.lite #sec-schedule .cb-board .cs-badge::after { display: none; }
 </style>
     <!-- ★ Tailwind CSS สำเร็จรูป (3.4.19) แทนตัวคอมไพล์สดแบบ CDN: ไม่ต้องคอมไพล์ในเบราว์เซอร์ทุกครั้งที่เปิดเว็บ/เปิดป๊อปอัป
          และไม่พึ่งเซิร์ฟเวอร์ภายนอก (เดิมถ้า cdn.tailwindcss.com ล่ม ทั้งหน้าจะไม่มีสไตล์)
@@ -6504,18 +6736,21 @@
             <div class="cb-boards">
                 <div class="cb-sky" aria-hidden="true"><i class="cb-plane"></i></div>
                 <div class="cb-board cs-teacher animate-bounce-up delay-300">
+                    <span class="na-fx" aria-hidden="true"><i class="na-run r1"><b></b></i><i class="na-run r2"><b></b></i><i class="na-spark k1"></i><i class="na-spark k2"></i><i class="na-spark k3"></i><i class="na-spark k4"></i></span>
                     <div class="cb-cork">
                         <span class="cb-sticker s1" aria-hidden="true">☕</span>
                         <div class="cb-paper">
+                            <i class="lx-sheen" aria-hidden="true"></i>
+                            <span class="na-holo" aria-hidden="true"><i class="na-ring"></i><i class="na-tri"></i><i class="na-plus p1">+</i><i class="na-plus p2">+</i><span class="na-eq"><b></b><b></b><b></b><b></b></span></span>
                             <i class="cb-pin" aria-hidden="true"></i><i class="cb-pin r" aria-hidden="true"></i>
                             <div class="cs-badge" aria-hidden="true">🗓️</div>
                             <div class="min-w-0">
                                 <p class="cs-kicker">👩‍🏫 ตารางสอนของครู</p>
-                                <h2 class="cs-title font-black">MY<br>SCHEDULE</h2>
+                                <h2 class="cs-title font-black" data-text="MY&#10;SCHEDULE">MY<br>SCHEDULE</h2>
                             </div>
                         </div>
                         <p class="cs-term">📌 ภาคเรียนที่ 2 · ปีการศึกษา 2569<span class="cb-memo" aria-hidden="true">Have a<br>nice day!<small>☺ ตั้งใจเรียนนะ</small></span></p>
-                        <div class="sc-viewer cs-viewer cursor-pointer group" onclick="openTsched_()">
+                        <div class="sc-viewer cs-viewer cursor-pointer group" onclick="openTsched_()"><i class="lx-glass" aria-hidden="true"></i>
                             <div class="sc-bar">
                                 <div class="sc-dots"><i style="background:#f87171"></i><i style="background:#fbbf24"></i><i style="background:#4ade80"></i></div>
                                 <span class="sc-name">ตารางสอน · ครูจักรพงษ์</span>
@@ -6530,14 +6765,17 @@
                 </div>
 
                 <div class="cb-board cs-student animate-bounce-up delay-300">
+                    <span class="na-fx" aria-hidden="true"><i class="na-run r1"><b></b></i><i class="na-run r2"><b></b></i><i class="na-spark k1"></i><i class="na-spark k2"></i><i class="na-spark k3"></i><i class="na-spark k4"></i></span>
                     <div class="cb-cork">
                         <span class="cb-sticker s2" aria-hidden="true">⭐</span>
                         <div class="cb-paper">
+                            <i class="lx-sheen" aria-hidden="true"></i>
+                            <span class="na-holo" aria-hidden="true"><i class="na-ring"></i><i class="na-tri"></i><i class="na-plus p1">+</i><i class="na-plus p2">+</i><span class="na-eq"><b></b><b></b><b></b><b></b></span></span>
                             <i class="cb-pin" aria-hidden="true"></i><i class="cb-pin r" aria-hidden="true"></i>
                             <div class="cs-badge" aria-hidden="true">🎒</div>
                             <div class="min-w-0">
                                 <p class="cs-kicker">📚 ตารางเรียนนักเรียน</p>
-                                <h2 class="cs-title font-black">CLASS<br>SCHEDULE</h2>
+                                <h2 class="cs-title font-black" data-text="CLASS&#10;SCHEDULE">CLASS<br>SCHEDULE</h2>
                             </div>
                         </div>
                         <div class="cs-picker">
@@ -6561,7 +6799,7 @@
                         <button type="button" onclick="showRoomSchedule('6/4')" data-room="6/4" data-g="6" class="rm-btn room-sched-btn cs-room g6" hidden><small>ห้อง</small>6/4</button>
                     </div>
                         </div>
-                        <div class="sc-viewer cs-viewer">
+                        <div class="sc-viewer cs-viewer"><i class="lx-glass" aria-hidden="true"></i>
                             <div class="sc-bar">
                                 <div class="sc-dots"><i style="background:#f87171"></i><i style="background:#fbbf24"></i><i style="background:#4ade80"></i></div>
                                 <span class="sc-name" id="roomScheduleName">ยังไม่ได้เลือกห้อง</span>
@@ -7435,13 +7673,15 @@
             var e = emo || '★';
             var head = '<span class="ld-kick"><span aria-hidden="true">' + e + ' </span>PLEASE WAIT<span aria-hidden="true"> ' + e + '</span></span> ' +
                 '<span class="ld-ttl" data-text="' + t.replace(/"/g, '&quot;') + '">' + t + '</span>';
-            var html = '<div class="ld-stage" aria-hidden="true"><i class="ld-rays"></i><i class="ld-podium"></i>' +
+            var html = '<div class="ld-stage" aria-hidden="true"><i class="ld-rays"></i><i class="ld-glow"></i><i class="ld-shoot"></i><i class="ld-ring r2"></i><i class="ld-ring r1"><b></b></i>' +
+                    '<i class="ld-orbit o1"><b></b></i><i class="ld-orbit o2"><b></b></i><i class="ld-beam"></i><i class="ld-podium"></i>' +
+                    '<i class="ld-pt q1"></i><i class="ld-pt q2"></i><i class="ld-pt q3"></i><i class="ld-pt q4"></i><i class="ld-pt q5"></i><i class="ld-pt q6"></i><i class="ld-pt q7"></i><i class="ld-pt q8"></i>' +
                     '<span class="ld-spark p1">✦</span><span class="ld-spark p2">✦</span><span class="ld-spark p3">✦</span>' +
                     '<div class="ld-oat"><span class="ld-key k1">O</span><span class="ld-key k2">A</span><span class="ld-key k3">T</span>' +
                     '<i class="ld-shadow s1"></i><i class="ld-shadow s2"></i><i class="ld-shadow s3"></i></div>' +
                 '</div>' +
-                '<div class="ld-bar" role="progressbar" aria-label="กำลังโหลด"><div class="ld-bar-fill"></div></div>' +
-                '<p class="ld-wait">รอแป๊บนึงน้า ✨</p>' +
+                '<div class="ld-bar" role="progressbar" aria-label="กำลังโหลด"><div class="ld-bar-fill"></div><i class="ld-bar-sheen" aria-hidden="true"></i></div>' +
+                '<p class="ld-wait"><span class="ld-eq" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></span>รอแป๊บนึงน้า ✨<span class="ld-eq" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></span></p>' +
                 '<div class="ld-word"><span class="ld-word-tag">WORD OF THE MOMENT</span>' +
                     '<span class="ld-word-en">' + w[0] + '</span><span class="ld-word-th">' + w[1] + '</span></div>';
             fireSwal({
