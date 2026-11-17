@@ -6663,6 +6663,122 @@
             #sec-deadline .fb-lv { font-size: .82rem; padding: 3px 10px 3px 6px; } #sec-deadline .fb-lv::before { width: 19px !important; height: 19px !important; font-size: .68rem !important; }
             #sec-deadline .fb-gate.g4::before, #sec-deadline .fb-gate.g5::before, #sec-deadline .fb-gate.g6::before { display: none; }
         }
+        /* ★ (17 พ.ย.) Deadline อ่านง่าย: ทุกแถวบอกชัด 2 บรรทัด "🏫 ห้อง [ป้ายห้อง]" + "⏰ หมดเขต วัน/วันที่" ตัวใหญ่สีเด่น
+             สีวันหมดเขตตามความด่วน (วันนี้/เลยกำหนด = แดง · ใน 3 วัน = ส้ม · ใน 7 วัน = เหลือง · ยังมีเวลา = เขียว)
+             ตั๋วงานถัดไป: ป้ายหัวข้อภาษาไทยตัวใหญ่ วันหมดเขตตัวใหญ่ · ป้ายสถานะย่อลงเป็นข้อมูลรอง */
+        #sec-deadline .fb-kv { display: flex; flex-direction: column; gap: 7px; margin-top: 8px; }
+        #sec-deadline .fb-kv-r { display: flex; flex-wrap: wrap; align-items: center; gap: 6px 8px; }
+        #sec-deadline .fb-kv-r .fb-lv { margin-bottom: 4px; }
+        #sec-deadline .fb-k { flex: none; min-width: 82px; padding: 3px 8px; color: #e2e8f0; font-size: .74rem; font-weight: 900; line-height: 1.2;
+            background: rgba(255,255,255,.09); border: 1.5px solid rgba(255,255,255,.28); border-radius: 7px; }
+        #sec-deadline .fb-due { --dc: #4ade80; color: var(--dc); font-size: 1.05rem; font-weight: 900; line-height: 1.2; letter-spacing: .01em; text-shadow: 0 2px 0 #000; }
+        #sec-deadline .u-week .fb-due { --dc: #fde047; } #sec-deadline .u-soon .fb-due { --dc: #fb923c; }
+        #sec-deadline .u-today .fb-due, #sec-deadline .u-over .fb-due { --dc: #f87171; } #sec-deadline .u-none .fb-due { --dc: #cbd5e1; }
+        #sec-deadline .fb-row:not(.fb-next) .fb-rmeta { margin-top: 7px; opacity: .85; }
+        #sec-deadline .fb-row:not(.fb-next) .fb-rtitle { font-size: 1rem; }
+        #sec-deadline .fb-pf small { font-size: .74rem; letter-spacing: .02em; color: #334155; }
+        #sec-deadline .fb-pf-due b { font-size: 1.2rem; color: #b91c1c; }
+        #sec-deadline .fb-pf { align-items: flex-end; gap: 10px 18px; }
+        #sec-deadline .fb-pf-st { flex-basis: 100%; flex-direction: row !important; align-items: center; gap: 8px !important; }
+        @media (max-width: 767px) {
+            #sec-deadline .fb-k { min-width: 0; font-size: .66rem; padding: 2px 6px; }
+            #sec-deadline .fb-due { font-size: .95rem; }
+            #sec-deadline .fb-pf-due b { font-size: 1.08rem; }
+            /* มือถือ: วันที่บอกเป็นตัวหนังสือแล้ว → ซ่อนปฏิทินเล็กซ้ายมือ ให้ "ห้อง/หมดเขต" อยู่บรรทัดเดียวกับป้าย */
+            #sec-deadline .fb-row:not(.fb-next) { grid-template-columns: minmax(0,1fr) 56px; }
+            #sec-deadline .fb-row:not(.fb-next) > .fb-date { display: none; }
+            #sec-deadline .fb-kv-r { flex-wrap: nowrap; } #sec-deadline .fb-kv-r:first-child { flex-wrap: wrap; }
+        }
+        /* ★ (17 พ.ย.) HERO อลังการขึ้น (ครูขอ): ลำแสงกวาดผ่านการ์ด · ประกายดาว 5 จุด · ดาวเทียมอีโมจิ 📚✏️🌏 โคจรรอบรูป
+             แถบสถิติแบบเกม 4 ช่อง (12 ห้อง · ม.4–6 · ENG · LV.MAX + หลอด XP วาว) ใต้ป้ายแท็ก — จอคอมเรียงแถวเดียว มือถือ 4 ช่องเล็ก
+             ชิ้นที่ขยับเล็ก ใช้ transform/opacity · หยุดเองตอนนิ่ง/เลื่อน/โหมด 💤 */
+        .ai-beam { position: absolute; z-index: 3; top: -20%; bottom: -20%; left: -10%; width: 140px; pointer-events: none;
+            background: linear-gradient(90deg, rgba(255,255,255,0), rgba(165,243,252,.16) 35%, rgba(255,255,255,.28) 50%, rgba(240,171,252,.16) 65%, rgba(255,255,255,0));
+            transform: translateX(-200px) skewX(-18deg); animation: aiBeam 9s ease-in-out 2s infinite; }
+        @keyframes aiBeam { 0%, 62% { transform: translateX(-200px) skewX(-18deg); } 100% { transform: translateX(1700px) skewX(-18deg); } }
+        .ai-spk { position: absolute; z-index: 3; width: 18px; height: 18px; pointer-events: none; background: #fff;
+            clip-path: polygon(50% 0, 60% 40%, 100% 50%, 60% 60%, 50% 100%, 40% 60%, 0 50%, 40% 40%); animation: aiSpk 2.8s ease-in-out infinite; }
+        .ai-spk.s1 { top: 14%; left: 31%; background: #67e8f9; } .ai-spk.s2 { top: 9%; right: 9%; width: 22px; height: 22px; animation-delay: -.7s; }
+        .ai-spk.s3 { bottom: 12%; right: 4%; background: #f0abfc; animation-delay: -1.3s; } .ai-spk.s4 { bottom: 9%; left: 4%; width: 14px; height: 14px; background: #fde047; animation-delay: -2s; }
+        .ai-spk.s5 { top: 46%; right: 2.5%; width: 12px; height: 12px; background: #a5b4fc; animation-delay: -1.7s; }
+        @keyframes aiSpk { 0%, 100% { transform: scale(.3) rotate(0deg); opacity: .3; } 50% { transform: scale(1.15) rotate(90deg); opacity: 1; } }
+        .ai-orbit { position: absolute; z-index: 4; inset: -11%; pointer-events: none; animation: aiSpin 26s linear infinite; }
+        .ai-orbit i { position: absolute; display: grid; place-items: center; width: 40px; height: 40px; margin: -20px 0 0 -20px; font-size: 1.25rem; font-style: normal; border-radius: 50%;
+            background: radial-gradient(circle at 35% 30%, #fff 0 20%, #e0e7ff 60%); border: 2.5px solid #000; box-shadow: 0 0 0 2px #67e8f9, 0 0 16px rgba(103,232,249,.7);
+            animation: aiSpinRev 26s linear infinite; }
+        .ai-orbit .o1 { left: 50%; top: 0; } .ai-orbit .o2 { left: 93.3%; top: 75%; } .ai-orbit .o3 { left: 6.7%; top: 75%; }
+        @keyframes aiSpinRev { to { transform: rotate(-360deg); } }
+        .ai-stats { position: relative; z-index: 2; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 10px; width: 100%; max-width: 640px; }
+        .ai-st { --sc: 103,232,249; position: relative; overflow: hidden; display: grid; grid-template-columns: auto 1fr; grid-template-rows: auto auto; column-gap: 8px; align-items: center;
+            padding: 8px 10px 8px 9px; border: 2.5px solid #000; border-radius: 14px;
+            background: linear-gradient(180deg, rgba(var(--sc),.28), rgba(15,23,42,.75) 70%), #0f172a;
+            box-shadow: inset 0 0 0 1.5px rgba(var(--sc),.85), inset 0 3px 0 rgba(255,255,255,.18), 0 4px 0 0 #000, 0 0 18px rgba(var(--sc),.35); }
+        .ai-st.c2 { --sc: 167,139,250; } .ai-st.c3 { --sc: 240,171,252; } .ai-st.c4 { --sc: 253,224,71; }
+        .ai-st i { grid-row: 1 / 3; display: grid; place-items: center; width: 34px; height: 34px; font-size: 1.15rem; font-style: normal; border-radius: 10px;
+            background: rgba(var(--sc),.25); border: 1.5px solid rgba(var(--sc),.9); }
+        .ai-st b { color: #fff; font-size: 1.12rem; font-weight: 900; line-height: 1.05; letter-spacing: .02em; text-shadow: 0 2px 0 #000, 0 0 12px rgba(var(--sc),.7); white-space: nowrap; }
+        .ai-st small { color: rgb(var(--sc)); font-size: .6rem; font-weight: 900; letter-spacing: .1em; line-height: 1.3; white-space: nowrap; }
+        .ai-xp { position: relative; display: block; height: 8px; margin-top: 4px; overflow: hidden; border-radius: 99px; background: #020617; border: 1.5px solid #000;
+            box-shadow: inset 0 0 0 1px rgba(253,224,71,.5); }
+        .ai-xp em { position: absolute; inset: 0; background: linear-gradient(90deg, #f59e0b, #fde047 60%, #fff); }
+        .ai-xp em::after { content: ''; position: absolute; top: 0; bottom: 0; left: 0; width: 40%; background: linear-gradient(90deg, rgba(255,255,255,0), rgba(255,255,255,.95), rgba(255,255,255,0));
+            transform: translateX(-120%); animation: aiXp 2.6s ease-in-out infinite; }
+        @keyframes aiXp { 0%, 30% { transform: translateX(-120%); } 100% { transform: translateX(260%); } }
+        @media (max-width: 1099px) { .ai-st small { font-size: .54rem; letter-spacing: .05em; } .ai-st b { font-size: 1rem; } .ai-st i { width: 28px; height: 28px; font-size: 1rem; } .ai-stats { gap: 7px; } }
+        @media (max-width: 767px) {
+            .ai-grid { grid-template-areas: "top top" "title photo" "name name" "tags tags" "stats stats"; }
+            .ai-stats { grid-area: stats; gap: 5px; margin-top: 2px; }
+            .ai-st { grid-template-columns: 1fr; justify-items: center; text-align: center; padding: 6px 3px 6px; border-radius: 11px; border-width: 2px; }
+            .ai-st i { grid-row: auto; width: auto; height: auto; font-size: .9rem; background: none; border: 0; }
+            .ai-st b { font-size: .82rem; } .ai-st small { font-size: .46rem; letter-spacing: .03em; }
+            .ai-xp { width: 86%; height: 6px; margin-top: 3px; }
+            .ai-orbit i { width: 26px; height: 26px; margin: -13px 0 0 -13px; font-size: .8rem; border-width: 2px; }
+            .ai-orbit { inset: -6%; }
+            .ai-beam { width: 80px; } .ai-spk.s1 { top: 30%; left: 52%; } .ai-spk.s5 { display: none; }
+        }
+        @media (prefers-reduced-motion: reduce) { .ai-beam, .ai-xp em::after { display: none; } .ai-spk, .ai-orbit, .ai-orbit i { animation: none; } }
+        html.lite .ai-beam { display: none; }
+        /* ★ (17 พ.ย.) มือถือ: ปุ่ม ☰ เมนูนักเรียน + 🛠️ เมนูครู รวมเป็น "แท่นเมนู" แคปซูลเดียว (ครูว่าเดิมดูลอยๆ)
+             แคปซูลกรมท่าเข้ม ขอบดำ + วงทอง ชุดเดียวกับแถบเมนูบนจอคอม · ปุ่มเป็นคีย์แคปเหลี่ยมมนมีป้ายคำ "เมนู" / "ครู" ใต้ไอคอน
+             อยู่บนพื้นอะไรก็เห็นชัด (มีพื้นของตัวเอง) · ภาพนิ่ง ไม่มีแอนิเมชันวน */
+        .nv-dock { position: relative; gap: 5px !important; padding: 5px; pointer-events: auto; border: 3px solid #000; border-radius: 19px;
+            background: radial-gradient(circle, rgba(255,255,255,.22) 1px, rgba(255,255,255,0) 1.6px) 0 0/10px 10px, linear-gradient(160deg, #3730a3 0%, #1e1b4b 55%, #0f172a 100%);
+            box-shadow: inset 0 0 0 2px #fbbf24, inset 0 4px 0 rgba(255,255,255,.18), 4px 4px 0 0 #000, 0 8px 22px rgba(15,23,42,.45); }
+        .nv-dock::after { content: ''; position: absolute; left: 50%; top: 9px; bottom: 9px; width: 2px; margin-left: -1px; border-radius: 2px; background: rgba(251,191,36,.45); pointer-events: none; }
+        .nv-dock .nav-glass-btn.nb-stu, .nv-dock .nav-glass-btn.nb-tch { flex-direction: column; gap: 3px; width: 48px; height: 48px; border-radius: 13px !important; border-width: 2.5px !important;
+            box-shadow: inset 0 2px 0 rgba(255,255,255,.75), inset 0 -3px 0 rgba(0,0,0,.18), 0 3px 0 0 #000 !important; }
+        .nv-dock .nb-stu { background: linear-gradient(180deg, #fef9c3, #fde047 45%, #facc15) !important; }
+        .nv-dock .nb-tch { background: linear-gradient(180deg, #eef2ff, #c7d2fe 45%, #a5b4fc) !important; }
+        .nv-dock .nav-glass-btn.nb-stu:active, .nv-dock .nav-glass-btn.nb-tch:active { transform: translateY(3px); box-shadow: inset 0 2px 0 rgba(255,255,255,.75), 0 0 0 0 #000 !important; }
+        .nv-dock .nav-glass-btn.nb-stu:focus-visible, .nv-dock .nav-glass-btn.nb-tch:focus-visible { border-radius: 13px; box-shadow: 0 0 0 3px #fff !important; }
+        .nv-dock .nb-bars { width: 17px; height: 13px; background: linear-gradient(#0f172a 0 3px, rgba(15,23,42,0) 3px 5px, #0f172a 5px 8px, rgba(15,23,42,0) 8px 10px, #0f172a 10px 13px); }
+        .nv-dock .nb-emo { font-size: .95rem; }
+        .nv-lab { color: #0f172a; font-size: .6rem; font-weight: 900; line-height: 1; letter-spacing: .02em; }
+        @media (max-width: 767px) { nav.top-nav { padding: 26px 26px 0 0; } .ai-top { padding-right: 126px; } }
+        @media (max-width: 360px) { .nv-dock .nav-glass-btn.nb-stu, .nv-dock .nav-glass-btn.nb-tch { width: 44px; height: 44px; } .ai-top { padding-right: 116px; } }
+        /* ★ (17 พ.ย.) มือถือ: แท่นเมนูอยู่ด้านบนของเว็บที่เดียว ไม่ลอยตามตอนเลื่อน (ครูขอ) — เลื่อนขึ้นบนสุดเพื่อกดเมนู / ปุ่ม ▲ กลับขึ้นบนยังมีเหมือนเดิม */
+        @media (max-width: 767px) { nav.top-nav { position: absolute !important; } #sec-deadline, #sec-schedule, #sec-quiz, #sec-links, #sec-footer, #scoreStudentsSection { scroll-margin-top: 14px; } }
+        /* ★ (17 พ.ย.) มือถือ: แท่นเมนูให้กลมกลืนกับ HERO (ครูว่าบังรูป) — กระจกกรมท่า ขอบเรืองฟ้าแบบวงรูปครู · ปุ่มโฮโลพาสเทลฟ้า/ชมพูชุดเดียวกับป้าย WELCOME
+             ปุ่มเล็กลง (40px) + เลื่อนรูปครูลงเล็กน้อย ไม่ให้แท่นทับวงรูป/ดาวเทียม */
+        @media (max-width: 767px) {
+            .nv-dock { gap: 4px !important; padding: 4px; border-width: 2.5px; border-radius: 16px;
+                background: linear-gradient(160deg, rgba(49,46,129,.92), rgba(15,23,42,.92));
+                box-shadow: inset 0 0 0 1.5px #67e8f9, 0 0 16px rgba(103,232,249,.45), 3px 3px 0 0 #000; }
+            .nv-dock::after { background: rgba(103,232,249,.45); top: 8px; bottom: 8px; }
+            .nv-dock .nav-glass-btn.nb-stu, .nv-dock .nav-glass-btn.nb-tch { width: 40px; height: 40px; gap: 2px; border-radius: 11px !important; border-width: 2px !important; }
+            .nv-dock .nb-stu { background: linear-gradient(180deg, #ecfeff, #a5f3fc 50%, #67e8f9) !important; }
+            .nv-dock .nb-tch { background: linear-gradient(180deg, #fdf4ff, #f5d0fe 50%, #e879f9) !important; }
+            .nv-dock .nb-bars { width: 15px; height: 11px; background: linear-gradient(#0f172a 0 2.5px, rgba(15,23,42,0) 2.5px 4.25px, #0f172a 4.25px 6.75px, rgba(15,23,42,0) 6.75px 8.5px, #0f172a 8.5px 11px); }
+            .nv-dock .nb-emo { font-size: .8rem; } .nv-lab { font-size: .52rem; }
+            nav.top-nav { padding: 25px 25px 0 0; }
+            .ai-top { padding-right: 108px; }
+            .ai-photo { margin-top: 22px; }
+        }
+        @media (max-width: 360px) { .nv-dock .nav-glass-btn.nb-stu, .nv-dock .nav-glass-btn.nb-tch { width: 38px; height: 38px; } .ai-top { padding-right: 100px; } }
+        /* ★ (17 พ.ย.) มือถือ: ย้ายแท่นเมนูเข้าไปอยู่ "ในการ์ด HERO" (เดิมอยู่ในแถบ nav วางตามขอบจอ → บางเครื่องล้นทับกรอบเส้นในของการ์ด)
+             ตอนนี้ยึดมุมขวาบนของการ์ดเอง อยู่ในกรอบเสมอทุกขนาดจอ */
+        @media (max-width: 767px) { .ai-hero > .nv-dock { position: absolute; z-index: 6; top: 20px; right: 20px; } }
+        @media (max-width: 360px) { .ai-hero > .nv-dock { top: 18px; right: 18px; } }
 </style>
     <!-- ★ Tailwind CSS สำเร็จรูป (3.4.19) แทนตัวคอมไพล์สดแบบ CDN: ไม่ต้องคอมไพล์ในเบราว์เซอร์ทุกครั้งที่เปิดเว็บ/เปิดป๊อปอัป
          และไม่พึ่งเซิร์ฟเวอร์ภายนอก (เดิมถ้า cdn.tailwindcss.com ล่ม ทั้งหน้าจะไม่มีสไตล์)
@@ -6702,10 +6818,6 @@
             </div>
             <i class="nav-prog" aria-hidden="true"><b></b></i>
         </div>
-        <div class="md:hidden flex items-center gap-2">
-            <button type="button" onclick="openStudentMenu()" aria-label="เมนูนักเรียน" class="nav-glass-btn nb-stu"><span class="nb-bars" aria-hidden="true"></span></button>
-            <button type="button" onclick="openAdminMenu()" aria-label="เมนูครู" class="nav-glass-btn nb-tch"><span class="nb-emo" aria-hidden="true">🛠️</span></button>
-        </div>
     </nav>
 
     <div class="max-w-7xl mx-auto px-3 md:px-4 mt-2 md:mt-8 relative z-10 oat-main">
@@ -6717,10 +6829,16 @@
              ★ ห้ามตั้ง animation ให้ตัวการ์ด (มี .animate-bounce-up อยู่) — เอฟเฟกต์ทั้งหมดอยู่ที่ลูกเท่านั้น
              (คลาส .hx ที่การ์ดเก็บไว้ให้สคริปต์จัดตำแหน่งจอตอนเปิดหน้า) -->
         <div class="hero-card hx ai-hero animate-bounce-up delay-100">
+            <div class="nv-dock md:hidden flex items-center gap-2">
+                <button type="button" onclick="openStudentMenu()" aria-label="เมนูนักเรียน" class="nav-glass-btn nb-stu"><span class="nb-bars" aria-hidden="true"></span><span class="nv-lab" aria-hidden="true">เมนู</span></button>
+                <button type="button" onclick="openAdminMenu()" aria-label="เมนูครู" class="nav-glass-btn nb-tch"><span class="nb-emo" aria-hidden="true">🛠️</span><span class="nv-lab" aria-hidden="true">ครู</span></button>
+            </div>
             <i class="ai-floor" aria-hidden="true"></i>
             <i class="ai-circuit c1" aria-hidden="true"></i>
             <i class="ai-circuit c2" aria-hidden="true"></i>
             <span class="ai-word" aria-hidden="true">ENGLISH</span>
+            <i class="ai-beam" aria-hidden="true"></i>
+            <i class="ai-spk s1" aria-hidden="true"></i><i class="ai-spk s2" aria-hidden="true"></i><i class="ai-spk s3" aria-hidden="true"></i><i class="ai-spk s4" aria-hidden="true"></i><i class="ai-spk s5" aria-hidden="true"></i>
             <i class="ai-corners" aria-hidden="true"></i>
             <div class="ai-grid">
                 <div class="ai-photo">
@@ -6728,6 +6846,7 @@
                     <i class="ai-scan" aria-hidden="true"></i>
                     <i class="ai-hud hx-in" aria-hidden="true"></i>
                     <i class="ai-sat" aria-hidden="true"></i>
+                    <span class="ai-orbit" aria-hidden="true"><i class="o1">📚</i><i class="o2">✏️</i><i class="o3">🌏</i></span>
                     <div class="ai-disc hx-in" aria-hidden="true">
                         <div class="ai-ring"><svg viewBox="0 0 200 200" focusable="false">
                             <defs><path id="hxRingPath" d="M 16,100 a 84,84 0 1,1 168,0 a 84,84 0 1,1 -168,0"/></defs>
@@ -6755,6 +6874,12 @@
                         <span class="ai-tag g1 hx-in"><i aria-hidden="true">📡</i>ภาษาต่างประเทศ</span>
                         <span class="ai-tag g2 hx-in"><i aria-hidden="true">🏫</i>ร.ร. ธนาคารออมสิน</span>
                         <span class="ai-tag g3 hx-in"><i aria-hidden="true">💻</i>หัวหน้าวิชาการมัธยมปลาย</span>
+                    </div>
+                    <div class="ai-stats hx-in">
+                        <span class="ai-st c1"><i aria-hidden="true">🏫</i><b>12</b><small>ห้อง · ROOMS</small></span>
+                        <span class="ai-st c2"><i aria-hidden="true">🎓</i><b>ม.4–6</b><small>LEVELS</small></span>
+                        <span class="ai-st c3"><i aria-hidden="true">🇬🇧</i><b>ENG</b><small>SUBJECT</small></span>
+                        <span class="ai-st c4 xp"><i aria-hidden="true">⚡</i><b>LV.MAX</b><small class="ai-xp" aria-hidden="true"><em></em></small></span>
                     </div>
                 </div>
             </div>
@@ -9787,9 +9912,9 @@
                             '<p class="fb-htitle">' + escapeHtml(d.title) + '</p>' +
                             (desc ? '<p class="fb-rdesc">' + escapeHtml(desc) + '</p>' : '') +
                             '<div class="fb-pf">' +
-                                '<p><small>วันส่ง · DATE</small><b>' + displayDate + '</b></p>' +
-                                '<p><small>ห้อง · GATE</small><span class="fb-lvs">' + rooms.html + '</span></p>' +
-                                '<p class="fb-pf-st"><small>สถานะ · STATUS</small>' + status + '</p>' +
+                                '<p class="fb-pf-due"><small>⏰ หมดเขต</small><b>' + displayDate + '</b></p>' +
+                                '<p class="fb-pf-room"><small>🏫 ห้อง</small><span class="fb-lvs">' + rooms.html + '</span></p>' +
+                                '<p class="fb-pf-st"><small>สถานะ</small>' + status + '</p>' +
                             '</div></div>' +
                             '<div class="fb-pass-stub">' + dTile(' big' + (big.length >= 3 && isNaN(+big) ? ' long' : '')) + '<i class="fb-code" aria-hidden="true"></i></div>' +
                             '<i class="fb-shine" aria-hidden="true"></i>' +
@@ -9803,7 +9928,9 @@
                                  : '<i>ยังไม่</i><b>?</b><small>ระบุ</small>') + '</div>' +
                     '<div class="fb-info"><p class="fb-rtitle">' + escapeHtml(d.title) + '</p>' +
                         (desc ? '<p class="fb-rdesc">' + escapeHtml(desc) + '</p>' : '') +
-                        '<p class="fb-rmeta">' + rooms.html + status + '</p></div>' +
+                        '<div class="fb-kv"><p class="fb-kv-r"><span class="fb-k">🏫 ห้อง</span>' + rooms.html + '</p>' +
+                        '<p class="fb-kv-r"><span class="fb-k">⏰ หมดเขต</span><b class="fb-due">' + displayDate + '</b></p></div>' +
+                        '<p class="fb-rmeta">' + status + '</p></div>' +
                     dTile((big.length >= 3 && isNaN(+big)) || big.length >= 4 ? ' long' : '') +
                 '</div>';
                 k++;
