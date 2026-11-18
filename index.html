@@ -6310,25 +6310,6 @@
         @media (prefers-reduced-motion: reduce) { .swal2-container .swal2-popup.ld-pop .ld-orbit b, .swal2-container .swal2-popup.ld-pop .ld-beam, .swal2-container .swal2-popup.ld-pop .ld-ttl::after, .swal2-container .swal2-popup.ld-pop .ld-key::after, .swal2-container .swal2-popup.ld-pop .ld-eq i { animation: none; } .swal2-container .swal2-popup.ld-pop .ld-pt, .swal2-container .swal2-popup.ld-pop .ld-shoot { display: none; } }
         html.lite .swal2-container .swal2-popup.ld-pop .ld-pt, html.lite .swal2-container .swal2-popup.ld-pop .ld-shoot { display: none; }
 
-        /* ==========================================================================
-           ★ (15 พ.ย. ค่ำ) ตารางสอนครู / ตารางเรียนนักเรียน = ธีม "NEON ARENA" ชุดเดียวกับการ์ดดูคะแนน (ครูเลือก · แทนธีมทองดำ LUXE ที่ครูว่าไม่สวย)
-             บอร์ด = พื้นเมชหลายสี + ลายเฉียงจาง (ไม่มีจุด) ขอบนีออน · ครู: ฟ้าไซแอน + ม่วง + เหลืองอำพัน · นักเรียน: บานเย็น + ม่วง + ส้ม
-             ป้ายหัว = แถบสีสดไล่เฉด ตัวหนังสือขาวตัวใหญ่ · ไอคอน = แผ่นไล่สีเรืองแสง · จอตาราง = กระจกเข้มขอบนีออนสองชั้น + แสงสะท้อนวิ่ง
-             ปุ่มดูภาพเต็ม = แท่งไล่สีสด · เลือกชั้น = แถบกระจก ปุ่มที่เลือกสีชั้น · ปุ่มห้อง = คีย์แคป 3 มิติสีประจำชั้น (กดแล้วยุบ)
-             ถอด: ไม้ก๊อก / หมุด / สติกเกอร์ / เทปกาว / โน้ต / เครื่องบินกระดาษ · ปุ่ม/รูป/สคริปต์เดิมครบ · แอนิเมชันชิ้นเล็ก 2 อย่าง (แสงวาบหัว + แสงสะท้อนจอ)
-           ========================================================================== */
-        #sec-schedule .cb-sky, #sec-schedule .cb-board .cb-sticker, #sec-schedule .cb-board .cb-pin, #sec-schedule .cb-board .cb-memo { display: none !important; }
-        #sec-schedule .cb-board { --a1: 56,189,248; --a2: 167,139,250; --a3: 251,191,36; --h1: #0e7490; --h2: #38bdf8;
-            padding: 16px; border: 5px solid #000; border-radius: 30px;
-            background: radial-gradient(ellipse 60% 35% at 0% 0%, rgba(var(--a1),.5), rgba(var(--a1),0) 70%),
-                        radial-gradient(ellipse 55% 40% at 100% 55%, rgba(var(--a2),.42), rgba(var(--a2),0) 70%),
-                        radial-gradient(ellipse 60% 35% at 15% 100%, rgba(var(--a3),.3), rgba(var(--a3),0) 70%),
-                        repeating-linear-gradient(115deg, rgba(255,255,255,0) 0 90px, rgba(255,255,255,.04) 90px 130px),
-                        linear-gradient(180deg, #110d2b 0%, #0b0920 50%, #160f36 100%) !important;
-            box-shadow: inset 0 0 0 2px rgba(var(--a1),.95), inset 0 0 0 4px rgba(0,0,0,.45), 10px 12px 0 0 #000, 0 0 44px rgba(var(--a1),.35) !important; }
-        #sec-schedule .cb-board.cs-student { --a1: 236,72,153; --a2: 139,92,246; --a3: 251,146,60; --h1: #9d174d; --h2: #f472b6; }
-        #sec-schedule .cb-board::before { content: none !important; } #sec-schedule .cb-board::after { content: none !important; }
-        #sec-schedule .cb-board .cb-cork { padding: 4px; border: 0 !important; border-radius: 22px; background: none !important; box-shadow: none !important; }
         /* ป้ายหัว: แถบสีสด */
         #sec-schedule .cb-board .cb-paper { overflow: hidden; margin: 0; padding: 16px 18px; border: 2px solid #000; border-radius: 18px; transform: none;
             background: linear-gradient(100deg, var(--h1) 0%, var(--h2) 45%, rgba(var(--a2),.55) 80%, rgba(var(--a2),.25) 100%),
@@ -6381,27 +6362,6 @@
         #sec-schedule .cb-board .cs-room.rm-btn.rm-on small { color: var(--c1); }
         @media (max-width: 767px) { #sec-schedule .cb-board { padding: 12px; border-radius: 24px; } #sec-schedule .cb-board .cb-paper { padding: 13px 12px; } #sec-schedule .cb-board .cs-badge { width: 54px; height: 54px; font-size: 1.6rem; } }
         @media (prefers-reduced-motion: reduce) { #sec-schedule .cb-board .lx-sheen, #sec-schedule .cb-board .lx-glass::before { animation: none; display: none; } }
-        /* ★ (15 พ.ย. ค่ำ 2) NEON ARENA ตารางสอน/ตารางเรียน: ของตกแต่ง + เอฟเฟคเพิ่ม (ครูขอ "อลังการ ว้าวกว่านี้")
-             ไฟวิ่งบนขอบบน-ล่าง · ประกายดาว 4 จุดรอบบอร์ด · โฮโลแกรมในป้ายหัว (วงแหวนหมุน+ดาวเทียม, สามเหลี่ยมลอย, บวกลอย, อีควอไลเซอร์เต้น)
-             ตัวหนังสือหัวมีเงาฟ้า/ชมพูแบบโฮโลแกรม + กลิตช์วาบนานๆ ครั้ง · ไอคอนมีวงคลื่นกระจาย · จอตารางมีมุมเล็งแบบ HUD
-             ทุกชิ้นเล็ก ขยับด้วย transform/opacity เท่านั้น · หยุดเองตอนนิ่ง/เลื่อน/นอกจอ/โหมด 💤 */
-        #sec-schedule .cb-board { position: relative; }
-        #sec-schedule .cb-board .cb-cork { position: relative; z-index: 1; }
-        #sec-schedule .cb-board .na-fx { position: absolute; inset: 0; z-index: 2; pointer-events: none; }
-        #sec-schedule .cb-board .na-run { position: absolute; left: 34px; right: 34px; height: 5px; overflow: hidden; border-radius: 99px; }
-        #sec-schedule .cb-board .na-run.r1 { top: -5px; } #sec-schedule .cb-board .na-run.r2 { bottom: -5px; }
-        #sec-schedule .cb-board .na-run b { position: absolute; inset: 0; transform: translateX(-100%); animation: naRun 4.8s linear infinite;
-            background: linear-gradient(90deg, rgba(255,255,255,0) 72%, rgba(var(--a1),.9) 90%, #fff 97%, rgba(255,255,255,0) 100%); }
-        #sec-schedule .cb-board .na-run.r2 b { animation-duration: 6.2s; animation-direction: reverse; background: linear-gradient(90deg, rgba(255,255,255,0) 0%, #fff 3%, rgba(var(--a2),.9) 10%, rgba(255,255,255,0) 28%); }
-        @keyframes naRun { from { transform: translateX(-100%); } to { transform: translateX(100%); } }
-        #sec-schedule .cb-board .na-spark { position: absolute; width: 22px; height: 22px; background: #fff; opacity: .9;
-            clip-path: polygon(50% 0, 61% 39%, 100% 50%, 61% 61%, 50% 100%, 39% 61%, 0 50%, 39% 39%);
-            animation: naTw 2.6s ease-in-out infinite; }
-        #sec-schedule .cb-board .na-spark.k1 { top: -11px; right: 20px; background: rgb(var(--a3)); }
-        #sec-schedule .cb-board .na-spark.k2 { top: 34%; left: -9px; width: 16px; height: 16px; animation-delay: -.9s; }
-        #sec-schedule .cb-board .na-spark.k3 { bottom: 18%; right: -9px; width: 18px; height: 18px; background: rgb(var(--a1)); animation-delay: -1.6s; }
-        #sec-schedule .cb-board .na-spark.k4 { bottom: -10px; left: 22px; width: 14px; height: 14px; background: rgb(var(--a2)); animation-delay: -2.1s; }
-        @keyframes naTw { 0%, 100% { transform: scale(.35) rotate(0deg); opacity: .35; } 50% { transform: scale(1.1) rotate(45deg); opacity: 1; } }
         /* โฮโลแกรมในป้ายหัว */
         #sec-schedule .cb-board .cb-paper { position: relative; }
         #sec-schedule .cb-board .cb-paper > .cs-badge, #sec-schedule .cb-board .cb-paper > .min-w-0 { position: relative; z-index: 2; }
@@ -7263,6 +7223,212 @@
             .swal2-container .swal2-popup.qh-pop .swal2-html-container { padding-top: 54px !important; }
             .swal2-container .swal2-popup.qh-pop .qh-grid { padding-left: 14px !important; }
         }
+        /* ★ (18 พ.ย.) การ์ดควิซใน QUIZ HUB: รูปเต็มกรอบ · ไม่มีอะไรทับรูป · ข้อความตรงแนว (ครูแจ้ง)
+             รูปปก = กรอบรูปขาวบาง + มุมทองแบบอัลบั้มรูป · รูปเต็มกรอบ 16:10 (object-fit: cover) · ชี้แล้วรูปซูมนิดๆ + แสงวาบกวาดผ่านรูป
+             เลขลำดับ = ตราประทับแดงยื่นออกนอกกรอบมุมซ้ายบน · ป้ายใส่รหัส = ป้ายห้อยใต้รูปมุมซ้าย (ไม่ทับรูป)
+             ป้ายชื่อควิซ = กระดาษครีมเรียบ เส้นกั้นหน้าแดง ข้อความจัดกึ่งกลางแนวตั้ง (เลิกลายเส้นบรรทัดที่ไม่ตรงกับตัวหนังสือ) */
+        .swal2-container .swal2-popup.qh-pop .qh-cover { overflow: visible !important; aspect-ratio: auto !important; padding: 9px !important; margin: 4px 2px 0 !important; transform: none !important;
+            background: linear-gradient(135deg, #fbbf24 0 14px, rgba(0,0,0,0) 14px) 0 0 / 50% 50% no-repeat, linear-gradient(225deg, #fbbf24 0 14px, rgba(0,0,0,0) 14px) 100% 0 / 50% 50% no-repeat,
+                        linear-gradient(45deg, #fbbf24 0 14px, rgba(0,0,0,0) 14px) 0 100% / 50% 50% no-repeat, linear-gradient(-45deg, #fbbf24 0 14px, rgba(0,0,0,0) 14px) 100% 100% / 50% 50% no-repeat, #fff !important; }
+        .swal2-container .swal2-popup.qh-pop .qh-cover::before { display: none !important; }
+        .swal2-container .swal2-popup.qh-pop .qh-img { position: relative; display: block; overflow: hidden; aspect-ratio: 16 / 10; border: 2.5px solid #000; border-radius: 4px; background: #e0e7ff; }
+        .swal2-container .swal2-popup.qh-pop .qh-img img { position: absolute !important; inset: 0; width: 100% !important; height: 100% !important; max-width: none !important; object-fit: cover !important; border: 0 !important; border-radius: 0 !important; margin: 0 !important; transition: transform .45s ease !important; }
+        @media (hover: hover) { .swal2-container .swal2-popup.qh-pop .qh-card:hover .qh-img img { transform: scale(1.07); } }
+        .swal2-container .swal2-popup.qh-pop .qh-shine { position: absolute; z-index: 2; inset: 9px; overflow: hidden; pointer-events: none; border-radius: 4px; }
+        .swal2-container .swal2-popup.qh-pop .qh-shine::before { content: ''; position: absolute; top: -20%; bottom: -20%; left: -60%; width: 40%; transform: skewX(-20deg); transition: left .7s ease;
+            background: linear-gradient(90deg, rgba(255,255,255,0), rgba(255,255,255,.65), rgba(255,255,255,0)); }
+        @media (hover: hover) { .swal2-container .swal2-popup.qh-pop .qh-card:hover .qh-shine::before { left: 130%; } }
+        .swal2-container .swal2-popup.qh-pop .qh-num { position: absolute !important; z-index: 4 !important; top: -16px !important; left: -16px !important; right: auto !important; width: 44px !important; height: 44px !important; font-size: .82rem !important; background: #fff !important; box-shadow: 2px 3px 0 0 rgba(0,0,0,.4) !important; }
+        .swal2-container .swal2-popup.qh-pop .qh-lock { position: absolute !important; z-index: 4 !important; top: auto !important; bottom: -14px !important; left: 34px !important; right: auto !important; padding: 3px 10px !important; font-size: .72rem !important; transform: rotate(-3deg) !important; }
+        .swal2-container .swal2-popup.qh-pop .qh-info { display: flex !important; align-items: center !important; gap: 10px !important; min-height: 64px; margin-top: 8px; padding: 8px 10px 8px 22px !important;
+            background: linear-gradient(90deg, rgba(0,0,0,0) 12px, rgba(248,113,113,.75) 12px 14px, rgba(0,0,0,0) 14px), linear-gradient(180deg, #fffef8, #fdf6e3) !important; }
+        .swal2-container .swal2-popup.qh-pop .qh-text { display: flex !important; flex-direction: column; justify-content: center; gap: 2px; min-width: 0; line-height: 1.25 !important; }
+        .swal2-container .swal2-popup.qh-pop .qh-text b { line-height: 1.25 !important; } .swal2-container .swal2-popup.qh-pop .qh-text small { line-height: 1.3 !important; margin: 0 !important; }
+        .swal2-container .swal2-popup.qh-pop .qh-emoji { flex: none; }
+        .swal2-container .swal2-popup.qh-pop .qh-card { animation: none; }
+        .swal2-container .swal2-popup.qh-pop .qh-grid { padding-top: 26px !important; }
+        /* ==========================================================================
+           ★ (18 พ.ย.) ตารางสอนครู / ตารางเรียนนักเรียน = "GRAND CHALKBOARD" ธีมกระดานห้องเรียน (แทน NEON ARENA · ครูขอ)
+             กรอบไม้มะฮอกกานีคาดทอง + โคมไฟทองส่องแสงอุ่น (ของเดิม) · ข้างใน = กระดานดำเขียว + ลายชอล์กวาดเล่น + มุมทอง 4 มุม + ธงราวสีรุ้ง
+             หัว: ตัวชอล์กสีรุ้ง MY / CLASS SCHEDULE + เส้นชอล์กขีดใต้ + แสงวาบ · ไอคอนบนสติกเกอร์วงขาว · ป้ายภาคเรียน = โพสต์อิทเหลืองติดเทป
+             รูปตาราง: กรอบรูปทอง (ของเดิม) + แสงสะท้อนกระจกวิ่งผ่าน · แถบชื่อ = ป้ายไม้
+             เลือกชั้น = รางไม้ ปุ่มที่เลือกเป็นป้ายสีประจำชั้น · ปุ่มห้อง = บัตรคำกระดาษติดหมุด สีประจำชั้น (เอียงสลับ) ห้องที่เลือก = ดาวทอง
+             ปุ่มดูภาพเต็ม = ดินสอเหลืองยักษ์ · ล่างสุด = รางชอล์ก + ชอล์กสี + แปรงลบ · ดาวชอล์ก/ทองกะพริบ 4 จุด
+             แอนิเมชันชิ้นเล็ก transform/opacity · หยุดเองตอนนิ่ง/เลื่อน/นอกจอ/โหมด 💤
+           ========================================================================== */
+        #sec-schedule .cb-sky, #sec-schedule .cb-board .cb-sticker, #sec-schedule .cb-board .cb-pin, #sec-schedule .cb-board .cb-memo, #sec-schedule .cb-board .na-holo, #sec-schedule .cb-board .na-run { display: none !important; }
+        #sec-schedule .cb-board { position: relative; }
+        #sec-schedule .cb-board .cb-cork { position: relative; z-index: 1; padding: 46px 20px 46px !important; border: 3px solid #000 !important; border-radius: 14px !important;
+            background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1200 52' preserveAspectRatio='none'%3E%3Cpath d='M0 6 Q600 22 1200 6' fill='none' stroke='%23fff' stroke-opacity='.85' stroke-width='2.5'/%3E%3Cpath d='M3 5.3 L47 5.3 L25 33.3Z' fill='%23ef4444' stroke='%23000' stroke-width='2' stroke-linejoin='round'/%3E%3Cpath d='M53 7.8 L97 7.8 L75 35.8Z' fill='%23f59e0b' stroke='%23000' stroke-width='2' stroke-linejoin='round'/%3E%3Cpath d='M103 10.0 L147 10.0 L125 38.0Z' fill='%23facc15' stroke='%23000' stroke-width='2' stroke-linejoin='round'/%3E%3Cpath d='M153 12.0 L197 12.0 L175 40.0Z' fill='%2322c55e' stroke='%23000' stroke-width='2' stroke-linejoin='round'/%3E%3Cpath d='M203 13.8 L247 13.8 L225 41.8Z' fill='%233b82f6' stroke='%23000' stroke-width='2' stroke-linejoin='round'/%3E%3Cpath d='M253 15.3 L297 15.3 L275 43.3Z' fill='%23a855f7' stroke='%23000' stroke-width='2' stroke-linejoin='round'/%3E%3Cpath d='M303 16.6 L347 16.6 L325 44.6Z' fill='%23ec4899' stroke='%23000' stroke-width='2' stroke-linejoin='round'/%3E%3Cpath d='M353 17.8 L397 17.8 L375 45.8Z' fill='%23ef4444' stroke='%23000' stroke-width='2' stroke-linejoin='round'/%3E%3Cpath d='M403 18.6 L447 18.6 L425 46.6Z' fill='%23f59e0b' stroke='%23000' stroke-width='2' stroke-linejoin='round'/%3E%3Cpath d='M453 19.3 L497 19.3 L475 47.3Z' fill='%23facc15' stroke='%23000' stroke-width='2' stroke-linejoin='round'/%3E%3Cpath d='M503 19.8 L547 19.8 L525 47.8Z' fill='%2322c55e' stroke='%23000' stroke-width='2' stroke-linejoin='round'/%3E%3Cpath d='M553 20.0 L597 20.0 L575 48.0Z' fill='%233b82f6' stroke='%23000' stroke-width='2' stroke-linejoin='round'/%3E%3Cpath d='M603 20.0 L647 20.0 L625 48.0Z' fill='%23a855f7' stroke='%23000' stroke-width='2' stroke-linejoin='round'/%3E%3Cpath d='M653 19.8 L697 19.8 L675 47.8Z' fill='%23ec4899' stroke='%23000' stroke-width='2' stroke-linejoin='round'/%3E%3Cpath d='M703 19.3 L747 19.3 L725 47.3Z' fill='%23ef4444' stroke='%23000' stroke-width='2' stroke-linejoin='round'/%3E%3Cpath d='M753 18.6 L797 18.6 L775 46.6Z' fill='%23f59e0b' stroke='%23000' stroke-width='2' stroke-linejoin='round'/%3E%3Cpath d='M803 17.8 L847 17.8 L825 45.8Z' fill='%23facc15' stroke='%23000' stroke-width='2' stroke-linejoin='round'/%3E%3Cpath d='M853 16.6 L897 16.6 L875 44.6Z' fill='%2322c55e' stroke='%23000' stroke-width='2' stroke-linejoin='round'/%3E%3Cpath d='M903 15.3 L947 15.3 L925 43.3Z' fill='%233b82f6' stroke='%23000' stroke-width='2' stroke-linejoin='round'/%3E%3Cpath d='M953 13.8 L997 13.8 L975 41.8Z' fill='%23a855f7' stroke='%23000' stroke-width='2' stroke-linejoin='round'/%3E%3Cpath d='M1003 12.0 L1047 12.0 L1025 40.0Z' fill='%23ec4899' stroke='%23000' stroke-width='2' stroke-linejoin='round'/%3E%3Cpath d='M1053 10.0 L1097 10.0 L1075 38.0Z' fill='%23ef4444' stroke='%23000' stroke-width='2' stroke-linejoin='round'/%3E%3Cpath d='M1103 7.8 L1147 7.8 L1125 35.8Z' fill='%23f59e0b' stroke='%23000' stroke-width='2' stroke-linejoin='round'/%3E%3Cpath d='M1153 5.3 L1197 5.3 L1175 33.3Z' fill='%23facc15' stroke='%23000' stroke-width='2' stroke-linejoin='round'/%3E%3C/svg%3E") 26px 10px / calc(100% - 52px) 34px no-repeat,
+                        linear-gradient(180deg, #8b4513, #5a280b) 0 100% / 100% 26px no-repeat,
+                        linear-gradient(90deg, rgba(0,0,0,0) 10%, #fff 10% 15%, rgba(0,0,0,0) 15% 19%, #f9a8d4 19% 23%, rgba(0,0,0,0) 23% 27%, #fde047 27% 31%, rgba(0,0,0,0) 31% 74%, #e2e8f0 74% 75%, #475569 75% 85%, rgba(0,0,0,0) 85%) 0 calc(100% - 20px) / 100% 8px no-repeat,
+                        radial-gradient(ellipse 50% 30% at 50% 0%, rgba(255,226,150,.3), rgba(255,226,150,0) 75%),
+                        url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='520' height='420' viewBox='0 0 520 420'%3E%3Cg fill='none' stroke='%23fff' stroke-opacity='.16' stroke-width='3' stroke-linecap='round' stroke-linejoin='round' font-family='Comic Sans MS,cursive' font-weight='700'%3E%3Ctext x='30' y='70' font-size='40' fill='%23fff' fill-opacity='.13' stroke='none'%3EABC%3C/text%3E%3Cpath d='M400 40l9 20 22 2-17 14 5 22-19-12-19 12 5-22-17-14 22-2z'/%3E%3Ccircle cx='90' cy='300' r='28'/%3E%3Cpath d='M78 292v4M102 292v4M76 310q14 14 28 0'/%3E%3Cpath d='M300 330q20-30 40 0q20-30 40 0'/%3E%3Ctext x='250' y='190' font-size='30' fill='%23fff' fill-opacity='.12' stroke='none'%3EHello!%3C/text%3E%3Cpath d='M440 300c-10-18 14-30 22-12c8-18 32-6 22 12l-22 22z'/%3E%3Cpath d='M150 150l40 10l-8-14M190 160l-10 12'/%3E%3Ctext x='380' y='230' font-size='28' fill='%23fff' fill-opacity='.12' stroke='none'%3EA+%3C/text%3E%3C/g%3E%3C/svg%3E") 0 40px / 520px 420px repeat,
+                        radial-gradient(ellipse 40% 30% at 25% 30%, rgba(255,255,255,.07), rgba(255,255,255,0) 70%),
+                        linear-gradient(160deg, #2d553b 0%, #1f3d2a 55%, #183020 100%) !important;
+            box-shadow: 0 0 0 3px #fbbf24, 0 0 0 5px #000, inset 0 0 30px rgba(0,0,0,.35) !important; }
+        #sec-schedule .cb-board .cb-cork::before { content: '' !important; display: block !important; position: absolute; z-index: 3; inset: 5px; pointer-events: none; border: 0 !important; transform: none !important; width: auto !important; height: auto !important; background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 60 60'%3E%3Cg transform='translate(0 0)'%3E%3Cpath d='M4 56V18Q4 4 18 4h38' fill='none' stroke='%23000' stroke-width='9' stroke-linecap='round'/%3E%3Cpath d='M4 56V18Q4 4 18 4h38' fill='none' stroke='%23fbbf24' stroke-width='5' stroke-linecap='round'/%3E%3Ccircle cx='16' cy='16' r='7' fill='%23fde68a' stroke='%23000' stroke-width='3'/%3E%3C/g%3E%3C/svg%3E") 0 0/40px 40px no-repeat, url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 60 60'%3E%3Cg transform='translate(60 0) scale(-1 1)'%3E%3Cpath d='M4 56V18Q4 4 18 4h38' fill='none' stroke='%23000' stroke-width='9' stroke-linecap='round'/%3E%3Cpath d='M4 56V18Q4 4 18 4h38' fill='none' stroke='%23fbbf24' stroke-width='5' stroke-linecap='round'/%3E%3Ccircle cx='16' cy='16' r='7' fill='%23fde68a' stroke='%23000' stroke-width='3'/%3E%3C/g%3E%3C/svg%3E") 100% 0/40px 40px no-repeat, url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 60 60'%3E%3Cg transform='translate(0 60) scale(1 -1)'%3E%3Cpath d='M4 56V18Q4 4 18 4h38' fill='none' stroke='%23000' stroke-width='9' stroke-linecap='round'/%3E%3Cpath d='M4 56V18Q4 4 18 4h38' fill='none' stroke='%23fbbf24' stroke-width='5' stroke-linecap='round'/%3E%3Ccircle cx='16' cy='16' r='7' fill='%23fde68a' stroke='%23000' stroke-width='3'/%3E%3C/g%3E%3C/svg%3E") 0 100%/40px 40px no-repeat, url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 60 60'%3E%3Cg transform='translate(60 60) scale(-1 -1)'%3E%3Cpath d='M4 56V18Q4 4 18 4h38' fill='none' stroke='%23000' stroke-width='9' stroke-linecap='round'/%3E%3Cpath d='M4 56V18Q4 4 18 4h38' fill='none' stroke='%23fbbf24' stroke-width='5' stroke-linecap='round'/%3E%3Ccircle cx='16' cy='16' r='7' fill='%23fde68a' stroke='%23000' stroke-width='3'/%3E%3C/g%3E%3C/svg%3E") 100% 100%/40px 40px no-repeat !important; }
+        #sec-schedule .cb-board .cb-cork::after { display: none !important; }
+        #sec-schedule .cb-board .na-fx { position: absolute; inset: 0; z-index: 4; pointer-events: none; }
+        #sec-schedule .cb-board .na-spark { position: absolute; width: 20px; height: 20px; background: rgba(255,255,255,.85); clip-path: polygon(50% 0, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%); animation: aiSpk 3s ease-in-out infinite; }
+        #sec-schedule .cb-board .na-spark.k1 { top: 18%; right: 9%; background: #fde68a; } #sec-schedule .cb-board .na-spark.k2 { top: 46%; left: 5%; width: 14px; height: 14px; animation-delay: -1s; }
+        #sec-schedule .cb-board .na-spark.k3 { bottom: 22%; right: 5%; width: 16px; height: 16px; background: #f9a8d4; animation-delay: -1.8s; } #sec-schedule .cb-board .na-spark.k4 { bottom: 9%; left: 40%; width: 13px; height: 13px; background: #a5f3fc; animation-delay: -2.4s; }
+        /* หัวกระดาน */
+        #sec-schedule .cb-board .cb-paper { position: relative; overflow: hidden; margin: 0 !important; padding: 10px 12px !important; transform: none !important; background: none !important; border: 0 !important; box-shadow: none !important; }
+        #sec-schedule .cb-board .cb-paper::before, #sec-schedule .cb-board .cb-paper::after { display: none !important; }
+        #sec-schedule .cb-board .cs-badge { width: 66px !important; height: 66px !important; font-size: 2rem !important; border-radius: 50% !important; border: 3px solid #000 !important; transform: rotate(-8deg) !important;
+            background: radial-gradient(circle at 35% 30%, #fff 0 30%, #fef3c7 75%) !important; box-shadow: 0 0 0 3px #fbbf24, 3px 4px 0 3px #000 !important; }
+        #sec-schedule .cb-board .cs-kicker { color: #1f3d2a !important; background: #fde68a !important; border: 2px solid #000 !important; box-shadow: 2px 2px 0 0 #000 !important; text-shadow: none !important; }
+        #sec-schedule .cb-board .cs-title { background: linear-gradient(90deg, #ffffff 0%, #fde68a 25%, #f9a8d4 50%, #a5f3fc 75%, #bbf7d0 100%) !important; -webkit-background-clip: text !important; background-clip: text !important;
+            color: transparent !important; -webkit-text-fill-color: transparent !important; text-shadow: none !important; filter: none; letter-spacing: .04em !important; }
+        #sec-schedule .cb-board .cs-title::before, #sec-schedule .cb-board .cs-title::after { display: none !important; content: none !important; }
+        #sec-schedule .cb-board .cb-paper .min-w-0 { position: relative; padding-bottom: 10px; }
+        #sec-schedule .cb-board .cb-paper .min-w-0::after { content: ''; position: absolute; left: 0; bottom: 0; width: min(260px, 90%); height: 8px; opacity: .85;
+            background: linear-gradient(90deg, rgba(255,255,255,.9), rgba(255,255,255,.6) 80%, rgba(255,255,255,0)); clip-path: polygon(0 30%, 100% 0, 100% 70%, 0 100%); }
+        #sec-schedule .cb-board .lx-sheen { position: absolute; z-index: 3; top: -20%; bottom: -20%; left: -30%; width: 14%; pointer-events: none; background: linear-gradient(90deg, rgba(255,255,255,0), rgba(255,255,255,.22), rgba(255,255,255,0));
+            transform: translateX(0) skewX(-20deg); animation: gcSheen 8s ease-in-out 2s infinite; }
+        #sec-schedule .cb-board.cs-student .lx-sheen { animation-delay: 5s; }
+        @keyframes gcSheen { 0%, 72% { transform: translateX(0) skewX(-20deg); } 100% { transform: translateX(1000%) skewX(-20deg); } }
+        #sec-schedule .cb-board .cs-term { position: relative; align-self: center; margin: 10px 0 0 !important; padding: 7px 18px !important; color: #422006 !important; border: 2px solid #000 !important; border-radius: 2px !important;
+            background: linear-gradient(180deg, #fef08a, #fde047) !important; box-shadow: 3px 4px 0 0 rgba(0,0,0,.5) !important; transform: rotate(-2deg) !important; }
+        #sec-schedule .cb-board .cs-term::before { content: '' !important; display: block !important; position: absolute; top: -10px; left: 50%; width: 60px; height: 18px; margin-left: -30px; transform: rotate(3deg); border: 0 !important;
+            background: repeating-linear-gradient(135deg, rgba(249,168,212,.9) 0 6px, rgba(252,231,243,.9) 6px 12px) !important; box-shadow: 0 1px 2px rgba(0,0,0,.3) !important; }
+        /* รูปตาราง */
+        #sec-schedule .cb-board .cs-viewer { position: relative; margin-top: 16px !important; }
+        #sec-schedule .cb-board .lx-glass { position: absolute; z-index: 4; inset: 0; pointer-events: none; overflow: hidden; border-radius: inherit; }
+        #sec-schedule .cb-board .lx-glass::before { content: ''; position: absolute; top: -20%; bottom: -20%; left: -40%; width: 16%; background: linear-gradient(90deg, rgba(255,255,255,0), rgba(255,255,255,.35), rgba(255,255,255,0));
+            transform: translateX(0) skewX(-22deg); animation: gcSheen 9s ease-in-out 3s infinite; }
+        #sec-schedule .cb-board .cs-viewer .sc-bar { margin: 0 !important; padding: 10px 2px 11px !important; background: none !important; border: 0 !important; }
+        #sec-schedule .cb-board .cs-viewer .sc-name { color: #fde68a !important; background: linear-gradient(180deg, #a0522d, #6b3410) !important; border: 2px solid #000 !important; box-shadow: inset 0 0 0 1.5px #fbbf24, 2px 2px 0 0 #000 !important; }
+        #sec-schedule .cb-board .cs-viewer .sc-zoom { color: #422006 !important; background: #fde047 !important; border: 2px solid #000 !important; box-shadow: 2px 2px 0 0 #000 !important; }
+        @media (hover: hover) { #sec-schedule .cb-board .cs-viewer.cursor-pointer:hover { transform: translateY(-4px) rotate(-.4deg); } }
+        /* เลือกชั้น / ห้อง */
+        #sec-schedule .cb-board .cs-tabs { margin-top: 12px !important; padding: 5px !important; border: 2.5px solid #000 !important; border-radius: 12px !important;
+            background: repeating-linear-gradient(178deg, rgba(0,0,0,.12) 0 2px, rgba(0,0,0,0) 2px 8px), linear-gradient(180deg, #a0522d, #6b3410) !important; box-shadow: inset 0 0 0 1.5px #fbbf24, 0 3px 0 0 #000 !important; }
+        #sec-schedule .cb-board .cs-tab { color: #fde68a !important; text-shadow: 0 1px 0 #000 !important; }
+        #sec-schedule .cb-board .cs-tab[aria-selected="true"] { color: #1a0f00 !important; text-shadow: none !important; border: 2px solid #000 !important; background: linear-gradient(180deg, #fff 0%, var(--c1) 40%, var(--c2) 100%) !important; box-shadow: 0 3px 0 0 #000 !important; }
+        #sec-schedule .cb-board .cs-rooms { gap: 14px 12px !important; margin-top: 16px !important; }
+        #sec-schedule .cb-board .cs-room.rm-btn { position: relative; overflow: visible !important; color: #1a0f00 !important; border: 2.5px solid #000 !important; border-radius: 4px !important;
+            background: linear-gradient(180deg, var(--c2) 0 9px, rgba(0,0,0,0) 9px), repeating-linear-gradient(180deg, rgba(0,0,0,0) 0 15px, rgba(147,197,253,.5) 15px 16px), #fffef8 !important;
+            box-shadow: 3px 4px 0 0 rgba(0,0,0,.55) !important; transform: rotate(-2deg) !important; transition: transform .2s cubic-bezier(.2,.9,.3,1.4) !important; text-shadow: none !important; }
+        #sec-schedule .cb-board .cs-room.rm-btn:nth-child(even) { transform: rotate(2deg) !important; }
+        #sec-schedule .cb-board .cs-room.rm-btn::before { content: '' !important; display: block !important; position: absolute; z-index: 2; top: -9px; left: 50%; width: 16px; height: 16px; margin-left: -8px; border-radius: 50%; border: 2px solid #000 !important;
+            background: radial-gradient(circle at 35% 30%, #fff 0 18%, var(--c2) 45%, var(--dk) 100%) !important; box-shadow: 1px 2px 0 rgba(0,0,0,.5) !important; transform: none !important; }
+        @media (hover: hover) { #sec-schedule .cb-board .cs-room.rm-btn:hover { transform: translateY(-4px) rotate(0deg) !important; box-shadow: 4px 7px 0 0 rgba(0,0,0,.55), 0 0 0 3px #fde047 !important; } }
+        #sec-schedule .cb-board .cs-room.rm-btn.rm-on { color: #1a0f00 !important; transform: scale(1.06) rotate(0deg) !important; background: linear-gradient(180deg, #fbbf24 0 9px, rgba(0,0,0,0) 9px), #fef9c3 !important;
+            box-shadow: 0 0 0 3px #fbbf24, 3px 5px 0 3px #000, 0 0 22px rgba(253,224,71,.8) !important; }
+        #sec-schedule .cb-board .cs-room.rm-btn.rm-on::after { content: '★' !important; display: grid !important; place-items: center; position: absolute; z-index: 3; top: -12px; right: -10px; width: 24px; height: 24px; font-size: .85rem; color: #78350f; border-radius: 50%; border: 2px solid #000;
+            background: radial-gradient(circle at 35% 30%, #fff 0 15%, #fde68a 45%, #f59e0b) !important; }
+        #sec-schedule .cb-board .cs-room.rm-btn small, #sec-schedule .cb-board .cs-room.rm-btn.rm-on small { color: #475569 !important; }
+        /* ปุ่มดูภาพเต็ม = ดินสอยักษ์ */
+        #sec-schedule .cb-board .hx-btn { position: relative; margin: 20px 34px 0 30px !important; color: #422006 !important; text-shadow: none !important; border: 3px solid #000 !important; border-left: 0 !important; border-right: 0 !important; border-radius: 0 !important;
+            background: linear-gradient(180deg, #fef08a 0 30%, #facc15 30% 70%, #eab308 70%) !important; box-shadow: 0 5px 0 0 #000 !important; }
+        #sec-schedule .cb-board .hx-btn::before { content: '' !important; display: block !important; position: absolute; left: -30px; top: -3px; bottom: -3px; width: 30px; border: 3px solid #000; border-radius: 10px 0 0 10px;
+            background: linear-gradient(90deg, #f9a8d4 0 58%, #cbd5e1 58% 70%, #94a3b8 70% 78%, #cbd5e1 78%) !important; box-shadow: 0 5px 0 0 #000; }
+        #sec-schedule .cb-board .hx-btn::after { content: '' !important; display: block !important; position: absolute; right: -34px; top: -3px; bottom: -3px; width: 34px; background: linear-gradient(90deg, #fcd9a8 0 62%, #374151 62%) !important; clip-path: polygon(0 0, 100% 50%, 0 100%); }
+        #sec-schedule .cb-board .hx-btn .hx-arrow { border-left-color: #422006 !important; }
+        @media (hover: hover) { #sec-schedule .cb-board .hx-btn:hover { transform: translateX(6px); } }
+        #sec-schedule .cb-board .hx-btn:active { transform: translateY(3px); box-shadow: 0 2px 0 0 #000 !important; }
+        @media (max-width: 767px) {
+            #sec-schedule .cb-board .cb-cork { padding: 40px 12px 42px !important; background-size: calc(100% - 40px) 28px, 100% 24px, 100% 8px, 100% 100%, 520px 420px, 100% 100%, 100% 100% !important; background-position: 20px 8px, 0 100%, 0 calc(100% - 18px), 0 0, 0 40px, 0 0, 0 0 !important; }
+            #sec-schedule .cb-board .cs-badge { width: 54px !important; height: 54px !important; font-size: 1.6rem !important; }
+            #sec-schedule .cb-board .cs-rooms { gap: 12px 8px !important; }
+        }
+        @media (prefers-reduced-motion: reduce) { #sec-schedule .cb-board .na-spark { animation: none; } #sec-schedule .cb-board .lx-sheen, #sec-schedule .cb-board .lx-glass::before { display: none; } }
+        #sec-schedule .cb-board::after { height: 26% !important; z-index: 2 !important; background: linear-gradient(180deg, rgba(255,236,170,.4) 0%, rgba(255,236,170,.12) 60%, rgba(255,236,170,0) 100%) !important; }
+        #sec-schedule .cb-board .cs-viewer { padding: 12px 12px 0 !important; border: 3px solid #000 !important; border-radius: 6px !important;
+            background: linear-gradient(135deg, rgba(255,255,255,0) 0 38%, rgba(255,255,255,.34) 44% 47%, rgba(255,255,255,0) 53%), repeating-linear-gradient(90deg, rgba(120,53,15,.16) 0 1px, rgba(120,53,15,0) 1px 4px),
+                        linear-gradient(180deg, #fff3b0 0%, #fbbf24 28%, #d97706 60%, #fbbf24 84%, #fde68a 100%) !important;
+            box-shadow: inset 0 0 0 2px #fff7d1, inset 0 0 0 4px #b45309, 6px 8px 0 0 rgba(0,0,0,.6), 0 0 34px rgba(251,191,36,.35) !important; }
+        #sec-schedule .cb-board .cs-viewer .sc-body { border: 2px solid #7c2d12 !important; border-radius: 2px !important; background: #f7f1e3 !important; padding: 6px !important; }
+        #sec-schedule .cb-board .cs-viewer .sc-body img { display: block; width: 100%; height: auto; }
+        #sec-schedule .cb-board .cb-cork { padding-bottom: 54px !important; }
+        @media (max-width: 767px) { #sec-schedule .cb-board .cb-cork { padding-bottom: 48px !important; } #sec-schedule .cb-board .cs-viewer { padding: 8px 8px 0 !important; } }
+        /* ★ (18 พ.ย.) การ์ดดูคะแนนรายคน = "กระดานห้องเรียน REPORT BOARD" (ครูขอ: อลังการ แนวกระดานเรียน ดูชื่องานง่าย)
+             ตัวการ์ด = กระดานดำกรอบไม้คาดทอง + ลายชอล์ก + ธงราวสีรุ้ง + รางชอล์ก · หัว = ป้ายไม้ ชื่อนักเรียนตัวทอง
+             ผลรวม (วงคะแนน + เกรด) = ใบประกาศกระดาษครีมกรอบทอง ติดเทป · คะแนนสอบ = กรอบไม้ ช่องล็อกเป็นซองติดเทป
+             หัวแต่ละหมวด = ป้ายไม้ตัวทอง + ไอคอนบนสติกเกอร์ · ช่องสรุปคะแนน = โพสต์อิท 3 สี
+             งานแต่ละชิ้น = บัตรคำกระดาษขาว ชื่องานตัวใหญ่สีกรมท่า (อ่านง่าย) · คะแนนตัวใหญ่ · สถานะ = ตราประทับ
+             หัวกลุ่ม (ยังไม่ผ่าน / ยังไม่มีคะแนน / ผ่านแล้ว) = ตัวชอล์กบนกระดาน + ขีดเส้นใต้สีชอล์ก */
+        html body .swal2-container .swal2-popup.sw-pop.dt-pop { padding-bottom: 34px !important;
+            background: linear-gradient(180deg, #8b4513, #5a280b) 0 100% / 100% 30px no-repeat,
+                        linear-gradient(90deg, rgba(0,0,0,0) 10%, #fff 10% 14%, rgba(0,0,0,0) 14% 17%, #f9a8d4 17% 20%, rgba(0,0,0,0) 20% 23%, #fde047 23% 26%, rgba(0,0,0,0) 26% 80%, #e2e8f0 80% 81%, #475569 81% 89%, rgba(0,0,0,0) 89%) 0 calc(100% - 22px) / 100% 8px no-repeat,
+                        radial-gradient(ellipse 55% 20% at 50% 0%, rgba(255,226,150,.3), rgba(255,226,150,0) 75%),
+                        url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='520' height='420' viewBox='0 0 520 420'%3E%3Cg fill='none' stroke='%23fff' stroke-opacity='.16' stroke-width='3' stroke-linecap='round' stroke-linejoin='round' font-family='Comic Sans MS,cursive' font-weight='700'%3E%3Ctext x='30' y='70' font-size='40' fill='%23fff' fill-opacity='.13' stroke='none'%3EABC%3C/text%3E%3Cpath d='M400 40l9 20 22 2-17 14 5 22-19-12-19 12 5-22-17-14 22-2z'/%3E%3Ccircle cx='90' cy='300' r='28'/%3E%3Cpath d='M78 292v4M102 292v4M76 310q14 14 28 0'/%3E%3Cpath d='M300 330q20-30 40 0q20-30 40 0'/%3E%3Ctext x='250' y='190' font-size='30' fill='%23fff' fill-opacity='.12' stroke='none'%3EHello!%3C/text%3E%3Cpath d='M440 300c-10-18 14-30 22-12c8-18 32-6 22 12l-22 22z'/%3E%3Cpath d='M150 150l40 10l-8-14M190 160l-10 12'/%3E%3Ctext x='380' y='230' font-size='28' fill='%23fff' fill-opacity='.12' stroke='none'%3EA+%3C/text%3E%3C/g%3E%3C/svg%3E") 0 60px / 520px 420px repeat,
+                        radial-gradient(ellipse 40% 30% at 20% 30%, rgba(255,255,255,.07), rgba(255,255,255,0) 70%),
+                        linear-gradient(160deg, #2d553b 0%, #1f3d2a 55%, #183020 100%) !important;
+            box-shadow: inset 0 0 0 4px #c58a4f, inset 0 0 0 11px #8b4513, inset 0 0 0 13px #fbbf24, inset 0 0 0 15px #000, 12px 12px 0 0 #000, 0 0 50px rgba(251,191,36,.3) !important; }
+        html body .swal2-container .swal2-popup.sw-pop.dt-pop::before, html body .swal2-container .swal2-popup.sw-pop.dt-pop::after { display: none !important; }
+        html body .swal2-container .swal2-popup.sw-pop.dt-pop .swal2-title { background: repeating-linear-gradient(178deg, rgba(0,0,0,.14) 0 2px, rgba(0,0,0,0) 2px 9px, rgba(255,255,255,.07) 9px 11px, rgba(0,0,0,0) 11px 19px), linear-gradient(180deg, #b0642f 0%, #8b4513 55%, #5e2d0d 100%) !important; box-shadow: inset 0 -3px 0 #fbbf24, inset 0 -5px 0 rgba(0,0,0,.55) !important; border-bottom: 4px solid #000 !important; }
+        html body .swal2-container .swal2-popup.sw-pop.dt-pop .swal2-title::before, html body .swal2-container .swal2-popup.sw-pop.dt-pop .swal2-title::after, html body .swal2-container .swal2-popup.sw-pop.dt-pop .dt-twk, html body .swal2-container .swal2-popup.sw-pop.dt-pop .dt-tsheen { display: none !important; }
+        html body .swal2-container .swal2-popup.sw-pop.dt-pop .swal2-html-container { padding-top: 40px !important; background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1200 52' preserveAspectRatio='none'%3E%3Cpath d='M0 6 Q600 22 1200 6' fill='none' stroke='%23fff' stroke-opacity='.85' stroke-width='2.5'/%3E%3Cpath d='M3 5.3 L47 5.3 L25 33.3Z' fill='%23ef4444' stroke='%23000' stroke-width='2' stroke-linejoin='round'/%3E%3Cpath d='M53 7.8 L97 7.8 L75 35.8Z' fill='%23f59e0b' stroke='%23000' stroke-width='2' stroke-linejoin='round'/%3E%3Cpath d='M103 10.0 L147 10.0 L125 38.0Z' fill='%23facc15' stroke='%23000' stroke-width='2' stroke-linejoin='round'/%3E%3Cpath d='M153 12.0 L197 12.0 L175 40.0Z' fill='%2322c55e' stroke='%23000' stroke-width='2' stroke-linejoin='round'/%3E%3Cpath d='M203 13.8 L247 13.8 L225 41.8Z' fill='%233b82f6' stroke='%23000' stroke-width='2' stroke-linejoin='round'/%3E%3Cpath d='M253 15.3 L297 15.3 L275 43.3Z' fill='%23a855f7' stroke='%23000' stroke-width='2' stroke-linejoin='round'/%3E%3Cpath d='M303 16.6 L347 16.6 L325 44.6Z' fill='%23ec4899' stroke='%23000' stroke-width='2' stroke-linejoin='round'/%3E%3Cpath d='M353 17.8 L397 17.8 L375 45.8Z' fill='%23ef4444' stroke='%23000' stroke-width='2' stroke-linejoin='round'/%3E%3Cpath d='M403 18.6 L447 18.6 L425 46.6Z' fill='%23f59e0b' stroke='%23000' stroke-width='2' stroke-linejoin='round'/%3E%3Cpath d='M453 19.3 L497 19.3 L475 47.3Z' fill='%23facc15' stroke='%23000' stroke-width='2' stroke-linejoin='round'/%3E%3Cpath d='M503 19.8 L547 19.8 L525 47.8Z' fill='%2322c55e' stroke='%23000' stroke-width='2' stroke-linejoin='round'/%3E%3Cpath d='M553 20.0 L597 20.0 L575 48.0Z' fill='%233b82f6' stroke='%23000' stroke-width='2' stroke-linejoin='round'/%3E%3Cpath d='M603 20.0 L647 20.0 L625 48.0Z' fill='%23a855f7' stroke='%23000' stroke-width='2' stroke-linejoin='round'/%3E%3Cpath d='M653 19.8 L697 19.8 L675 47.8Z' fill='%23ec4899' stroke='%23000' stroke-width='2' stroke-linejoin='round'/%3E%3Cpath d='M703 19.3 L747 19.3 L725 47.3Z' fill='%23ef4444' stroke='%23000' stroke-width='2' stroke-linejoin='round'/%3E%3Cpath d='M753 18.6 L797 18.6 L775 46.6Z' fill='%23f59e0b' stroke='%23000' stroke-width='2' stroke-linejoin='round'/%3E%3Cpath d='M803 17.8 L847 17.8 L825 45.8Z' fill='%23facc15' stroke='%23000' stroke-width='2' stroke-linejoin='round'/%3E%3Cpath d='M853 16.6 L897 16.6 L875 44.6Z' fill='%2322c55e' stroke='%23000' stroke-width='2' stroke-linejoin='round'/%3E%3Cpath d='M903 15.3 L947 15.3 L925 43.3Z' fill='%233b82f6' stroke='%23000' stroke-width='2' stroke-linejoin='round'/%3E%3Cpath d='M953 13.8 L997 13.8 L975 41.8Z' fill='%23a855f7' stroke='%23000' stroke-width='2' stroke-linejoin='round'/%3E%3Cpath d='M1003 12.0 L1047 12.0 L1025 40.0Z' fill='%23ec4899' stroke='%23000' stroke-width='2' stroke-linejoin='round'/%3E%3Cpath d='M1053 10.0 L1097 10.0 L1075 38.0Z' fill='%23ef4444' stroke='%23000' stroke-width='2' stroke-linejoin='round'/%3E%3Cpath d='M1103 7.8 L1147 7.8 L1125 35.8Z' fill='%23f59e0b' stroke='%23000' stroke-width='2' stroke-linejoin='round'/%3E%3Cpath d='M1153 5.3 L1197 5.3 L1175 33.3Z' fill='%23facc15' stroke='%23000' stroke-width='2' stroke-linejoin='round'/%3E%3C/svg%3E") 0 0 / 100% 34px no-repeat !important; }
+        html body .swal2-container .swal2-popup.sw-pop.dt-pop .dt-chip { color: #1c1917 !important; background: #fffef8 !important; border: 2px solid #000 !important; box-shadow: 2px 3px 0 0 rgba(0,0,0,.5) !important; text-shadow: none !important; transform: rotate(-2deg); }
+        html body .swal2-container .swal2-popup.sw-pop.dt-pop .dt-chip + .dt-chip { transform: rotate(2deg); }
+        /* ใบประกาศผลรวม */
+        html body .swal2-container .swal2-popup.sw-pop.dt-pop .dt-hero { position: relative; overflow: visible !important; border: 3px solid #000 !important; border-radius: 6px !important;
+            background: radial-gradient(ellipse 60% 70% at 25% 50%, rgba(253,230,138,.55), rgba(253,230,138,0) 70%), linear-gradient(180deg, #fffdf5, #fdf4dc) !important;
+            box-shadow: inset 0 0 0 5px #fffdf5, inset 0 0 0 7px #d97706, inset 0 0 0 9px #fde68a, 5px 7px 0 0 rgba(0,0,0,.55) !important; transform: rotate(-.6deg); }
+        html body .swal2-container .swal2-popup.sw-pop.dt-pop .dt-hero::before { content: '' !important; display: block !important; position: absolute; z-index: 5; top: -12px; left: 50%; width: 90px; height: 22px; margin-left: -45px; transform: rotate(-3deg); background: repeating-linear-gradient(135deg, rgba(253,224,71,.9) 0 6px, rgba(254,249,195,.9) 6px 12px) !important; box-shadow: 0 1px 2px rgba(0,0,0,.3); border: 0 !important; inset: auto; }
+        html body .swal2-container .swal2-popup.sw-pop.dt-pop .dt-hero .dt-rays, html body .swal2-container .swal2-popup.sw-pop.dt-pop .dt-hero .dt-stripe, html body .swal2-container .swal2-popup.sw-pop.dt-pop .dt-hero .dt-confetti, html body .swal2-container .swal2-popup.sw-pop.dt-pop .dt-hero .dt-holo, html body .swal2-container .swal2-popup.sw-pop.dt-pop .dt-hero .dt-shock, html body .swal2-container .swal2-popup.sw-pop.dt-pop .dt-hero .dt-star { opacity: .35; }
+        html body .swal2-container .swal2-popup.sw-pop.dt-pop .dt-hero .dt-rays, html body .swal2-container .swal2-popup.sw-pop.dt-pop .dt-hero .dt-stripe { display: none !important; }
+        html body .swal2-container .swal2-popup.sw-pop.dt-pop .dt-hero .dt-msg { color: #1c1917 !important; }
+        /* หัวหมวด = ป้ายไม้ */
+        html body .swal2-container .swal2-popup.sw-pop.dt-pop .dt-sec { border: 3px solid #000 !important; border-radius: 10px !important; background: rgba(0,0,0,.18) !important; box-shadow: 0 0 0 2px rgba(251,191,36,.6), 5px 6px 0 0 rgba(0,0,0,.45) !important; }
+        html body .swal2-container .swal2-popup.sw-pop.dt-pop .dt-sec-h { background: repeating-linear-gradient(178deg, rgba(0,0,0,.14) 0 2px, rgba(0,0,0,0) 2px 9px, rgba(255,255,255,.07) 9px 11px, rgba(0,0,0,0) 11px 19px), linear-gradient(180deg, #b0642f 0%, #8b4513 55%, #5e2d0d 100%) !important; border-bottom: 3px solid #000 !important; box-shadow: inset 0 -3px 0 #fbbf24 !important; }
+        html body .swal2-container .swal2-popup.sw-pop.dt-pop .dt-sec-h .dt-run { display: none !important; }
+        html body .swal2-container .swal2-popup.sw-pop.dt-pop .dt-sec-t, html body .swal2-container .swal2-popup.sw-pop.dt-pop .dt-sec-t b { color: #fde68a !important; text-shadow: 0 2px 0 #000 !important; } html body .swal2-container .swal2-popup.sw-pop.dt-pop .dt-sec-t small { color: #fef3c7 !important; }
+        html body .swal2-container .swal2-popup.sw-pop.dt-pop .dt-sec-ico { background: radial-gradient(circle at 35% 30%, #fff 0 25%, #fef3c7 75%) !important; border: 3px solid #000 !important; box-shadow: 0 0 0 2px #fbbf24, 2px 3px 0 1px #000 !important; }
+        html body .swal2-container .swal2-popup.sw-pop.dt-pop .dt-sec-n { color: #422006 !important; background: #fde047 !important; border: 2px solid #000 !important; }
+        html body .swal2-container .swal2-popup.sw-pop.dt-pop .dt-boss { background: none !important; }
+        html body .swal2-container .swal2-popup.sw-pop.dt-pop .dt-lock { position: relative; overflow: visible !important; border: 3px solid #000 !important; border-radius: 4px !important; transform: rotate(-1deg); }
+        html body .swal2-container .swal2-popup.sw-pop.dt-pop .dt-lock + .dt-lock { transform: rotate(1deg); }
+        html body .swal2-container .swal2-popup.sw-pop.dt-pop .dt-lock::before { content: ''; position: absolute; z-index: 3; top: -11px; left: 50%; width: 64px; height: 20px; margin-left: -32px; transform: rotate(-3deg); background: repeating-linear-gradient(135deg, rgba(253,224,71,.9) 0 6px, rgba(254,249,195,.9) 6px 12px); box-shadow: 0 1px 2px rgba(0,0,0,.3); }
+        /* โพสต์อิทสรุปคะแนน */
+        html body .swal2-container .swal2-popup.sw-pop.dt-pop .dt-parts { background: none !important; }
+        html body .swal2-container .swal2-popup.sw-pop.dt-pop .dt-part { position: relative; overflow: visible !important; border: 2.5px solid #000 !important; border-radius: 3px 3px 18px 3px !important; box-shadow: 3px 4px 0 0 rgba(0,0,0,.5) !important;
+            background: linear-gradient(180deg, rgba(255,255,255,.4), rgba(255,255,255,0) 30%), #fef08a !important; transform: rotate(-1.2deg); }
+        html body .swal2-container .swal2-popup.sw-pop.dt-pop .dt-part:nth-child(2) { background: linear-gradient(180deg, rgba(255,255,255,.4), rgba(255,255,255,0) 30%), #bfdbfe !important; transform: rotate(1deg); }
+        html body .swal2-container .swal2-popup.sw-pop.dt-pop .dt-part:nth-child(3) { background: linear-gradient(180deg, rgba(255,255,255,.4), rgba(255,255,255,0) 30%), #fbcfe8 !important; transform: rotate(-.6deg); }
+        html body .swal2-container .swal2-popup.sw-pop.dt-pop .dt-part-top, html body .swal2-container .swal2-popup.sw-pop.dt-pop .dt-part-top span { background: none !important; color: #1c1917 !important; text-shadow: none !important; border: 0 !important; }
+        html body .swal2-container .swal2-popup.sw-pop.dt-pop .dt-part-top b, html body .swal2-container .swal2-popup.sw-pop.dt-pop .dt-part-top b i, html body .swal2-container .swal2-popup.sw-pop.dt-pop .dt-wait { color: #1e1b4b !important; text-shadow: none !important; -webkit-text-fill-color: #1e1b4b !important; background: none !important; }
+        html body .swal2-container .swal2-popup.sw-pop.dt-pop .dt-bar { background: rgba(255,255,255,.7) !important; border: 2px solid #000 !important; }
+        html body .swal2-container .swal2-popup.sw-pop.dt-pop .dt-part.lock .dt-bar { background: repeating-linear-gradient(-45deg, rgba(0,0,0,.12) 0 4px, rgba(255,255,255,.6) 4px 8px) !important; }
+        /* แถบความคืบหน้างาน */
+        html body .swal2-container .swal2-popup.sw-pop.dt-pop .dt-quest { border: 2.5px solid #000 !important; border-radius: 10px !important; background: #fffef8 !important; box-shadow: 3px 4px 0 0 rgba(0,0,0,.45) !important; }
+        html body .swal2-container .swal2-popup.sw-pop.dt-pop .dt-qinfo, html body .swal2-container .swal2-popup.sw-pop.dt-pop .dt-qinfo b, html body .swal2-container .swal2-popup.sw-pop.dt-pop .dt-qsum { color: #1c1917 !important; text-shadow: none !important; } html body .swal2-container .swal2-popup.sw-pop.dt-pop .dt-qinfo small { color: #15803d !important; }
+        html body .swal2-container .swal2-popup.sw-pop.dt-pop .dt-qbar { background: #e5e7eb !important; border: 2px solid #000 !important; }
+        /* หัวกลุ่ม = ตัวชอล์ก */
+        html body .swal2-container .swal2-popup.sw-pop.dt-pop .dt-group-h { background: none !important; border: 0 !important; box-shadow: none !important; padding: 2px 4px 6px !important; }
+        html body .swal2-container .swal2-popup.sw-pop.dt-pop .dt-group-h span { color: #fff !important; font-size: 1.05rem !important; text-shadow: 0 0 1px #fff, 2px 2px 0 rgba(0,0,0,.35) !important; border-bottom: 4px solid #fde68a; padding-bottom: 2px; }
+        html body .swal2-container .swal2-popup.sw-pop.dt-pop .dt-group.r .dt-group-h span, html body .swal2-container .swal2-popup.sw-pop.dt-pop .dt-group-r .dt-group-h span { border-bottom-color: #fca5a5; }
+        html body .swal2-container .swal2-popup.sw-pop.dt-pop .dt-group-h b { color: #1c1917 !important; background: #fde68a !important; border: 2px solid #000 !important; }
+        /* บัตรงาน */
+        html body .swal2-container .swal2-popup.sw-pop.dt-pop .dt-row { position: relative; overflow: visible !important; border: 2.5px solid #000 !important; border-radius: 4px !important; box-shadow: 3px 4px 0 0 rgba(0,0,0,.5) !important;
+            background: linear-gradient(90deg, rgba(0,0,0,0) 30px, rgba(248,113,113,.75) 30px 32px, rgba(0,0,0,0) 32px), #fffef8 !important; }
+        html body .swal2-container .swal2-popup.sw-pop.dt-pop .dt-row.bad { background: linear-gradient(90deg, rgba(0,0,0,0) 30px, rgba(248,113,113,.75) 30px 32px, rgba(0,0,0,0) 32px), linear-gradient(180deg, #fff1f2, #fffef8) !important; }
+        html body .swal2-container .swal2-popup.sw-pop.dt-pop .dt-row.ok { background: linear-gradient(90deg, rgba(0,0,0,0) 30px, rgba(74,222,128,.8) 30px 32px, rgba(0,0,0,0) 32px), linear-gradient(180deg, #f0fdf4, #fffef8) !important; }
+        html body .swal2-container .swal2-popup.sw-pop.dt-pop .dt-rname { color: #1e1b4b !important; font-size: 1.12rem !important; font-weight: 900 !important; line-height: 1.25 !important; text-shadow: none !important; -webkit-text-fill-color: #1e1b4b !important; }
+        html body .swal2-container .swal2-popup.sw-pop.dt-pop .dt-rmeta { color: #57534e !important; font-size: .74rem !important; }
+        html body .swal2-container .swal2-popup.sw-pop.dt-pop .dt-got b { font-size: 1.5rem !important; color: #1e3a8a !important; text-shadow: none !important; } html body .swal2-container .swal2-popup.sw-pop.dt-pop .dt-got i { color: #57534e !important; }
+        html body .swal2-container .swal2-popup.sw-pop.dt-pop .dt-row.bad .dt-got b { color: #b91c1c !important; } html body .swal2-container .swal2-popup.sw-pop.dt-pop .dt-row.ok .dt-got b { color: #15803d !important; }
+        html body .swal2-container .swal2-popup.sw-pop.dt-pop .dt-stat { border: 2.5px double currentColor !important; background: rgba(255,255,255,.85) !important; transform: rotate(-6deg); font-weight: 900 !important; box-shadow: none !important; }
+        html body .swal2-container .swal2-popup.sw-pop.dt-pop .dt-mbar { background: rgba(0,0,0,.08) !important; }
+        html body .swal2-container .swal2-popup.sw-pop.dt-pop .dt-grid .dt-rname { font-size: 1rem !important; }
+        html body .swal2-container .swal2-popup.sw-pop.dt-pop .dt-note { color: #1c1917 !important; background: #fef08a !important; border: 2px solid #000 !important; transform: rotate(-.5deg); }
+        html body .swal2-container .swal2-popup.sw-pop.dt-pop .dt-note * { color: #1c1917 !important; }
+        html body .swal2-container .swal2-popup.sw-pop.dt-pop .dt-actions button, html body .swal2-container .swal2-popup.sw-pop.dt-pop .dt-close { }
+        @media (max-width: 599px) { html body .swal2-container .swal2-popup.sw-pop.dt-pop .dt-rname { font-size: 1.02rem !important; } html body .swal2-container .swal2-popup.sw-pop.dt-pop .swal2-html-container { padding-top: 34px !important; background-size: 100% 28px !important; } }
+        html body .swal2-container .swal2-popup.sw-pop.dt-pop .dt-hero::before { top: -12px !important; left: 50% !important; right: auto !important; bottom: auto !important; width: 90px !important; height: 22px !important; margin-left: -45px !important; transform: rotate(-3deg) !important; border-radius: 0 !important; animation: none !important; opacity: 1 !important; }
+        html body .swal2-container .swal2-popup.sw-pop.dt-pop .dt-sec .dt-parts > .dt-part { background: linear-gradient(180deg, rgba(255,255,255,.45), rgba(255,255,255,0) 30%), #fef08a !important; box-shadow: 3px 4px 0 0 rgba(0,0,0,.5) !important; }
+        html body .swal2-container .swal2-popup.sw-pop.dt-pop .dt-sec .dt-parts > .dt-part:nth-child(2) { background: linear-gradient(180deg, rgba(255,255,255,.45), rgba(255,255,255,0) 30%), #bfdbfe !important; }
+        html body .swal2-container .swal2-popup.sw-pop.dt-pop .dt-sec .dt-parts > .dt-part:nth-child(3) { background: linear-gradient(180deg, rgba(255,255,255,.45), rgba(255,255,255,0) 30%), #fbcfe8 !important; }
+        html body .swal2-container .swal2-popup.sw-pop.dt-pop .dt-sec .dt-parts > .dt-part.lock { background: repeating-linear-gradient(-45deg, rgba(0,0,0,.05) 0 8px, rgba(0,0,0,0) 8px 16px), linear-gradient(180deg, rgba(255,255,255,.45), rgba(255,255,255,0) 30%), #e9d5ff !important; }
+        html body .swal2-container .swal2-popup.sw-pop.dt-pop .dt-sec .dt-parts > .dt-part:nth-child(2).lock { background: repeating-linear-gradient(-45deg, rgba(0,0,0,.05) 0 8px, rgba(0,0,0,0) 8px 16px), #bfdbfe !important; } html body .swal2-container .swal2-popup.sw-pop.dt-pop .dt-sec .dt-parts > .dt-part:nth-child(3).lock { background: repeating-linear-gradient(-45deg, rgba(0,0,0,.05) 0 8px, rgba(0,0,0,0) 8px 16px), #fbcfe8 !important; }
+        html body .swal2-container .swal2-popup.sw-pop.dt-pop .dt-part .dt-tsheen { display: none !important; }
+        html body .swal2-container .swal2-popup.sw-pop.dt-pop .dt-part-top b, html body .swal2-container .swal2-popup.sw-pop.dt-pop .dt-part-top b i, html body .swal2-container .swal2-popup.sw-pop.dt-pop .dt-part.lock .dt-part-top b.dt-wait { color: #1e1b4b !important; text-shadow: none !important; }
+        html body .swal2-container .swal2-popup.sw-pop.dt-pop .dt-part-top span { background: rgba(255,255,255,.7) !important; color: #1c1917 !important; border-radius: 99px; }
+        html body .swal2-container .swal2-popup.sw-pop.dt-pop .dt-quest .dt-qsum span, html body .swal2-container .swal2-popup.sw-pop.dt-pop .dt-quest .dt-qsum span * { color: #1c1917 !important; -webkit-text-fill-color: #1c1917 !important; -webkit-text-stroke: 0 !important; text-shadow: none !important; background: none !important; }
+        html body .swal2-container .swal2-popup.sw-pop.dt-pop .dt-quest .dt-qsum span b { color: #dc2626 !important; -webkit-text-fill-color: #dc2626 !important; }
 </style>
     <!-- ★ Tailwind CSS สำเร็จรูป (3.4.19) แทนตัวคอมไพล์สดแบบ CDN: ไม่ต้องคอมไพล์ในเบราว์เซอร์ทุกครั้งที่เปิดเว็บ/เปิดป๊อปอัป
          และไม่พึ่งเซิร์ฟเวอร์ภายนอก (เดิมถ้า cdn.tailwindcss.com ล่ม ทั้งหน้าจะไม่มีสไตล์)
@@ -9954,8 +10120,8 @@
             const img = escapeHtml(c.imageUrl || 'data:image/svg+xml,%3Csvg%20xmlns=%27http://www.w3.org/2000/svg%27%20width=%27600%27%20height=%27400%27%20viewBox=%270%200%20600%20400%27%3E%3Crect%20width=%27100%25%27%20height=%27100%25%27%20fill=%27%23e0e7ff%27/%3E%3Ctext%20x=%2750%25%27%20y=%2746%25%27%20font-size=%27112%27%20text-anchor=%27middle%27%20dominant-baseline=%27middle%27%3E%F0%9F%8E%AE%3C/text%3E%3C/svg%3E');
             const locked = !!c.hasPassword;
             let h = '<div role="button" tabindex="0" onclick="' + onclickAttr + '" onkeydown="if(event.key===\'Enter\'||event.key===\' \'){event.preventDefault();this.click();}" class="qh-card quiz-card group" style="--quiz-ring:' + theme.ring + ';--qa:' + theme.accent + ';--qp:' + theme.play + ';--i:' + Math.min(i || 0, 10) + ';">';
-            h += '<div class="qh-cover"><img src="' + img + '" alt="" onerror="this.onerror=null;this.src=\'data:image/svg+xml,%3Csvg%20xmlns=%27http://www.w3.org/2000/svg%27%20width=%27600%27%20height=%27400%27%20viewBox=%270%200%20600%20400%27%3E%3Crect%20width=%27100%25%27%20height=%27100%25%27%20fill=%27%23e0e7ff%27/%3E%3Ctext%20x=%2750%25%27%20y=%2746%25%27%20font-size=%27112%27%20text-anchor=%27middle%27%20dominant-baseline=%27middle%27%3E%F0%9F%8E%AE%3C/text%3E%3C/svg%3E\'" loading="lazy">';
-            h += '<span class="qh-num">#' + ((i || 0) + 1) + '</span>';
+            h += '<div class="qh-cover"><span class="qh-img"><img src="' + img + '" alt="" onerror="this.onerror=null;this.src=\'data:image/svg+xml,%3Csvg%20xmlns=%27http://www.w3.org/2000/svg%27%20width=%27600%27%20height=%27400%27%20viewBox=%270%200%20600%20400%27%3E%3Crect%20width=%27100%25%27%20height=%27100%25%27%20fill=%27%23e0e7ff%27/%3E%3Ctext%20x=%2750%25%27%20y=%2746%25%27%20font-size=%27112%27%20text-anchor=%27middle%27%20dominant-baseline=%27middle%27%3E%F0%9F%8E%AE%3C/text%3E%3C/svg%3E\'" loading="lazy">';
+            h += '</span><i class="qh-shine" aria-hidden="true"></i><span class="qh-num">#' + ((i || 0) + 1) + '</span>';
             if (locked) h += '<span class="qh-lock">🔒 ใส่รหัส</span>';
             h += '</div>';
             h += '<div class="qh-info"><span class="qh-emoji" aria-hidden="true">' + escapeHtml(c.emoji || '🎮') + '</span>';
