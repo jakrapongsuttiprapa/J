@@ -6820,6 +6820,449 @@
         @media (hover: hover) { .nav-pill .nv-ctl .nav-pill-btn:hover { transform: translateY(-3px); box-shadow: inset 0 2px 0 rgba(255,255,255,.8), inset 0 -4px 0 rgba(0,0,0,.2), 0 6px 0 0 #000, 0 0 16px 2px rgba(var(--kc),.7) !important; } }
         .nav-pill .nv-ctl .nav-pill-btn:active { transform: translateY(3px); box-shadow: inset 0 2px 0 rgba(255,255,255,.6), 0 0 0 0 #000 !important; }
         .nav-pill .nv-ctl .nav-pill-btn:focus-visible { outline: 3px solid #fde047; outline-offset: 3px; }
+        /* ★ (17 พ.ย. ค่ำ) STUDENT HUB รอบ 2 (ครู: "ทำได้สวยกว่านี้") — เก็บงานแบบดีไซเนอร์
+             ไม้ก๊อกจริงจังขึ้น: เลิกลายจุดตาราง ใช้เท็กซ์เจอร์เม็ดก๊อกแบบสุ่ม (SVG noise วาดครั้งเดียว) + แสงเงานุ่ม
+             การ์ด: เอียงน้อยลง เส้นในบางลง เงาสองชั้น (ดำแข็ง + เงานุ่ม) · ป้าย No. ย้ายเข้าในมุมการ์ด ไม่ล้นขอบ
+             ปุ่มล่าง: เปลี่ยนจากแคปซูลดำหนา เป็นแถบสีเข้มของการ์ดเอง ตัวขาว ลูกศรในวงขาว — เบาตา เข้าชุด
+             มือถือ: การ์ดใบที่ 5 เป็นการ์ดแนวนอนเต็มแถว (ไอคอนซ้าย · ข้อความกลาง · ปุ่มขวา) ไม่ลอยเดี่ยวตรงกลาง */
+        .bb-cork { background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .32  0 0 0 0 .18  0 0 0 0 .07  0 0 0 1.6 -.55'/%3E%3C/filter%3E%3Crect width='220' height='220' filter='url%28%23n%29'/%3E%3C/svg%3E") 0 0/220px 220px,
+                        radial-gradient(ellipse 70% 50% at 50% 0%, rgba(255,236,200,.38), rgba(255,236,200,0) 70%),
+                        radial-gradient(ellipse 60% 60% at 100% 100%, rgba(90,45,12,.28), rgba(90,45,12,0) 70%),
+                        linear-gradient(135deg, #d9a465 0%, #c88f50 45%, #b97d40 100%); }
+        .bb-card { --pd: #1e3a8a; } .bb-card.c2 { --pd: #991b1b; } .bb-card.c3 { --pd: #5b21b6; } .bb-card.c4 { --pd: #065f46; } .bb-card.c5 { --pd: #9a3412; }
+        .bb-card { box-shadow: inset 0 0 0 2px rgba(255,255,255,.28), inset 0 -6px 0 rgba(0,0,0,.12), 5px 6px 0 0 #000, 10px 16px 22px -6px rgba(60,30,8,.55);
+            background: linear-gradient(160deg, rgba(255,255,255,.3), rgba(255,255,255,0) 38%), radial-gradient(ellipse at 100% 100%, rgba(0,0,0,.14), rgba(0,0,0,0) 60%), var(--pc); }
+        .bb-in { border: 2px solid rgba(0,0,0,.85); box-shadow: 0 2px 0 rgba(0,0,0,.25), 0 6px 10px -4px rgba(0,0,0,.35); }
+        .bb-num { top: 9px; right: auto; left: 9px; padding: 2px 7px; color: #fff; font-size: .6rem; letter-spacing: .08em; background: rgba(0,0,0,.28);
+            border: 1.5px solid rgba(255,255,255,.65); border-radius: 99px; transform: none; box-shadow: none; }
+        .bb-cta { margin-top: 11px; padding: 6px 6px 6px 12px; background: linear-gradient(180deg, rgba(255,255,255,.14), rgba(255,255,255,0) 50%), var(--pd);
+            border: 2px solid #000; box-shadow: inset 0 1.5px 0 rgba(255,255,255,.3), 0 3px 0 0 #000; letter-spacing: .06em; }
+        .bb-go { background: #fff; border-width: 2px; } .bb-go::after { border-left-color: var(--pd); }
+        .bb-name { background: linear-gradient(180deg, rgba(255,255,255,0) 62%, var(--hl) 62% 90%, rgba(255,255,255,0) 90%); }
+        .bb-kick2 { background: var(--pd); }
+        @media (max-width: 767px) {
+            .bb-grid { gap: 26px 14px; }
+            .bb-card { --rt: -1deg; } .bb-card.c2, .bb-card.c4 { --rt: 1deg; } .bb-card.c3 { --rt: -.6deg; } .bb-card.c5 { --rt: .4deg; }
+            .bb-num { top: 7px; left: 7px; font-size: .52rem; padding: 1px 5px; }
+            .bb-in { margin-top: 30px; }
+            .bb-cta { padding: 5px 5px 5px 9px; } .bb-go { width: 22px; height: 22px; } .bb-go::after { left: 7px; top: 4px; }
+            /* การ์ดใบที่ 5 = แนวนอนเต็มแถว */
+            .bb-card.c5 { flex-basis: 100%; flex-direction: row; align-items: stretch; gap: 10px; padding: 12px 10px 12px 12px; }
+            .bb-card.c5 .bb-in { margin-top: 0; padding: 10px 8px 10px 74px; align-items: flex-start; justify-content: center; text-align: left; }
+            .bb-card.c5 .bb-ico { top: 50%; left: 9px; width: 56px; height: 56px; margin: -28px 0 0; font-size: 1.6rem; }
+            .bb-card.c5 .bb-cta { flex: none; flex-direction: column; justify-content: center; gap: 6px; width: 74px; margin: 0; padding: 8px 4px; border-radius: 14px; white-space: normal; text-align: center; line-height: 1.15; }
+            .bb-card.c5 .bb-ct { font-size: .62rem; }
+            .bb-card.c5 .bb-num { top: -10px; left: 14px; background: var(--pd); }
+        }
+        /* ★ (18 พ.ย.) เก็บงานทั้งเว็บ รอบ 1
+             1) ฉากหลังตอนเปิดหน้าต่าง (popup): จากสีเทาทึบเรียบ เป็นแสงกลางจอสีครามจางๆ ไล่มืดออกขอบแบบโรงหนัง (ภาพนิ่ง ไม่ใช้ blur)
+             2) แถบเลื่อนของทั้งหน้า (จอคอม): รางกรมท่า + ด้ามจับไล่สีฟ้า→ม่วง→ชมพู ขอบดำ เข้าชุดเว็บ
+             3) เมนูนักเรียน "เครื่องเกมพกพา": ตัวเครื่องจากม่วงอ่อนเรียบ → พลาสติกม่วงเงาวาว มีแสงสะท้อนเฉียง
+                กรอบจอสีเข้มมีแสงสะท้อน · ปุ่มกากบาท/ปุ่ม A B นูนมันวาว · ช่องลำโพง · ชื่อเครื่องสลักนูน */
+        .swal2-container.swal2-backdrop-show { background: radial-gradient(ellipse 75% 65% at 50% 45%, rgba(49,46,129,.45) 0%, rgba(15,23,42,.72) 60%, rgba(2,6,23,.88) 100%) !important; }
+        @media (pointer: fine) {
+            html { scrollbar-color: #8b5cf6 #0f172a; }
+            ::-webkit-scrollbar { width: 14px; height: 14px; }
+            ::-webkit-scrollbar-track { background: linear-gradient(90deg, #0b1030, #1e1b4b); }
+            ::-webkit-scrollbar-thumb { border: 3px solid #0b1030; border-radius: 99px; background: linear-gradient(180deg, #67e8f9 0%, #8b5cf6 50%, #f472b6 100%); }
+            ::-webkit-scrollbar-thumb:hover { background: linear-gradient(180deg, #a5f3fc 0%, #a78bfa 50%, #f9a8d4 100%); }
+        }
+        .swal2-container .swal2-popup.mn-stu {
+            background: linear-gradient(118deg, rgba(255,255,255,0) 0 8%, rgba(255,255,255,.2) 8% 15%, rgba(255,255,255,0) 15% 19%, rgba(255,255,255,.1) 19% 21%, rgba(255,255,255,0) 21%),
+                        radial-gradient(ellipse 80% 40% at 50% 0%, rgba(255,255,255,.22), rgba(255,255,255,0) 70%),
+                        radial-gradient(ellipse 70% 50% at 100% 100%, rgba(30,10,60,.45), rgba(30,10,60,0) 70%),
+                        linear-gradient(165deg, #a78bfa 0%, #7c3aed 38%, #5b21b6 72%, #4c1d95 100%) !important;
+            box-shadow: inset 0 3px 0 rgba(255,255,255,.4), inset 0 -6px 0 rgba(0,0,0,.25), 10px 12px 0 0 #000 !important; }
+        .swal2-container .mn-stu .swal2-title { overflow: hidden;
+            background: linear-gradient(118deg, rgba(255,255,255,0) 0 62%, rgba(255,255,255,.12) 62% 70%, rgba(255,255,255,0) 70%), linear-gradient(180deg, #2e2a52 0%, #18152f 100%) !important;
+            box-shadow: inset 0 2px 0 rgba(255,255,255,.18), 0 4px 0 0 #000 !important; }
+        .mn-stu .gc-scr { box-shadow: inset 0 0 22px rgba(0,0,0,.75), 0 0 0 2px rgba(129,140,248,.35); }
+        .gc-led { color: #e9d5ff; }
+        .gc-foot { position: relative; margin: 14px 4px 0; padding: 10px 12px; border-radius: 18px; background: rgba(30,10,60,.35); box-shadow: inset 0 2px 6px rgba(0,0,0,.45), 0 1.5px 0 rgba(255,255,255,.25); }
+        .gc-dpad path { fill: #1f1b3a; stroke: #000; } .gc-dpad circle { fill: #3b3566; }
+        .gc-brand { color: #f5f3ff; font-size: .62rem; letter-spacing: .2em; text-shadow: 0 1px 0 rgba(0,0,0,.55), 0 -1px 0 rgba(255,255,255,.25); }
+        .gc-brand::after { content: ''; display: block; width: 46px; height: 12px; margin: 6px auto 0;
+            background: repeating-linear-gradient(90deg, #1e1b3a 0 4px, rgba(0,0,0,0) 4px 8px); border-radius: 3px; opacity: .8; }
+        .gc-ab i { background: radial-gradient(circle at 35% 28%, #fff 0 10%, #fda4af 28%, #e11d48 70%); box-shadow: inset 0 -3px 0 rgba(0,0,0,.25), 0 3px 0 0 #000; }
+        .gc-ab i:last-child { background: radial-gradient(circle at 35% 28%, #fff 0 10%, #fde68a 28%, #f59e0b 70%); color: #1c1917; }
+        .mn-stu .mn-tile { box-shadow: 4px 5px 0 0 #000, 0 10px 18px -8px rgba(20,0,50,.6); }
+        /* ★ (18 พ.ย.) QUIZ ZONE + โต๊ะครูท้ายเว็บ: เอฟเฟคเพิ่ม "ว้าวขึ้น" (ชิ้นเล็ก transform/opacity เท่านั้น · หยุดเองตอนนิ่ง/เลื่อน/นอกจอ/โหมด 💤)
+             QUIZ: ดาวพิกเซลกะพริบ 6 ดวง · ดาวตกพาดฟ้าเป็นระยะ · แสงวาบกวาดผ่านป้ายไฟ QUIZ ZONE · ป้าย "▶ PRESS START ◀" กะพริบแบบตู้เกม
+             โต๊ะครู: แสงวาบกวาดผ่านป้ายชื่อทอง · ประกายทอง 5 จุดรอบป้ายชื่อ · แสงโคมไฟหายใจเบาๆ */
+        .qz-px { position: absolute; z-index: 1; width: 12px; height: 12px; pointer-events: none; background: #fff;
+            clip-path: polygon(33% 0, 67% 0, 67% 33%, 100% 33%, 100% 67%, 67% 67%, 67% 100%, 33% 100%, 33% 67%, 0 67%, 0 33%, 33% 33%); animation: qzPx 2.4s steps(3, end) infinite; }
+        .qz-px.p1 { top: 22%; left: 6%; background: #f0abfc; } .qz-px.p2 { top: 12%; left: 30%; animation-delay: -.6s; } .qz-px.p3 { top: 16%; right: 28%; background: #67e8f9; animation-delay: -1.2s; }
+        .qz-px.p4 { top: 30%; right: 6%; background: #fde047; animation-delay: -1.8s; } .qz-px.p5 { top: 46%; left: 3%; width: 9px; height: 9px; background: #67e8f9; animation-delay: -.9s; }
+        .qz-px.p6 { top: 50%; right: 3%; width: 9px; height: 9px; background: #f0abfc; animation-delay: -1.5s; }
+        @keyframes qzPx { 0% { opacity: .2; transform: scale(.6); } 33% { opacity: 1; transform: scale(1.15); } 66% { opacity: .55; transform: scale(.85); } }
+        .qz-shoot { position: absolute; z-index: 1; top: 8%; left: 8%; width: 130px; height: 3px; border-radius: 3px; pointer-events: none; opacity: 0;
+            background: linear-gradient(90deg, rgba(255,255,255,0), rgba(255,255,255,.95)); transform: rotate(18deg) translateX(0); animation: qzShoot 7s ease-in 3s infinite; }
+        @keyframes qzShoot { 0%, 82% { opacity: 0; transform: rotate(18deg) translateX(0); } 86% { opacity: 1; } 100% { opacity: 0; transform: rotate(18deg) translateX(520px); } }
+        .qz-shine { position: absolute; z-index: 3; inset: 0; overflow: hidden; border-radius: inherit; pointer-events: none; }
+        .qz-shine::before { content: ''; position: absolute; top: -20%; bottom: -20%; left: -30%; width: 18%; background: linear-gradient(90deg, rgba(255,255,255,0), rgba(255,255,255,.3), rgba(255,255,255,0));
+            transform: translateX(0) skewX(-20deg); animation: qzShine 6s ease-in-out 2s infinite; }
+        @keyframes qzShine { 0%, 70% { transform: translateX(0) skewX(-20deg); } 100% { transform: translateX(900%) skewX(-20deg); } }
+        .qz-start { position: relative; z-index: 2; margin: 10px auto 0; width: fit-content; color: #fde047; font-weight: 900; font-size: .78rem; letter-spacing: .3em;
+            text-shadow: 0 0 10px rgba(253,224,71,.85), 2px 2px 0 #000; animation: qzStart 1.2s steps(1, end) infinite; }
+        @keyframes qzStart { 50% { opacity: .15; } }
+        .ft-bar .ft-id { overflow: visible; }
+        .ft-shine { position: absolute; z-index: 1; inset: 0; overflow: hidden; border-radius: 9px; pointer-events: none; }
+        .ft-shine::before { content: ''; position: absolute; top: -20%; bottom: -20%; left: -30%; width: 16%; background: linear-gradient(90deg, rgba(255,255,255,0), rgba(255,255,255,.65), rgba(255,255,255,0));
+            transform: translateX(0) skewX(-20deg); animation: qzShine 7s ease-in-out 1s infinite; }
+        .ft-bar .ft-id > .min-w-0 { position: relative; z-index: 2; } .ft-bar .ft-id > .ft-logo { z-index: 3; }
+        .ft-spk { position: absolute; z-index: 3; width: 16px; height: 16px; pointer-events: none; background: #fde68a;
+            clip-path: polygon(50% 0, 60% 40%, 100% 50%, 60% 60%, 50% 100%, 40% 60%, 0 50%, 40% 40%); animation: aiSpk 2.6s ease-in-out infinite; }
+        .ft-spk.k1 { top: 14%; left: 33%; } .ft-spk.k2 { top: 22%; right: 32%; width: 20px; height: 20px; background: #fff; animation-delay: -.8s; }
+        .ft-spk.k3 { bottom: 26%; left: 30%; width: 12px; height: 12px; animation-delay: -1.5s; } .ft-spk.k4 { bottom: 30%; right: 29%; animation-delay: -2.1s; }
+        .ft-spk.k5 { top: 8%; left: 50%; width: 12px; height: 12px; background: #fff; animation-delay: -1.1s; }
+        @media (max-width: 767px) { .qz-px.p2, .qz-px.p3, .ft-spk.k5 { display: none; } .ft-spk.k1 { left: 8%; top: 30%; } .ft-spk.k2 { right: 8%; } .ft-spk.k3 { left: 6%; } .ft-spk.k4 { right: 6%; } .qz-start { font-size: .66rem; } }
+        @media (prefers-reduced-motion: reduce) { .qz-px, .qz-start, .ft-spk { animation: none; } .qz-shoot, .qz-shine, .ft-shine { display: none; } }
+        html.lite .qz-shoot { display: none; }
+        /* ★ (18 พ.ย. รอบ 2) ครู: "มืดไปหมด ไม่ต้องธีมเดียวกัน" → ทำใหม่แบบสว่าง สดใส คนละธีม
+             รายชื่อนักเรียน = "PLAYER SELECT สีพาสเทล": พื้นสว่างไล่สีโลก (ส้ม/เขียว/ชมพู) ลายกระดาษกราฟจาง · แถว = การ์ดขาวขอบดำ แถบสีโลกซ้าย
+                              อวาตาร์ 👦/👧 ในวงพาสเทล · ชื่อสีกรมท่าเข้ม · ปุ่มเล่นทอง · ชี้แล้วยกขึ้น
+             ภาพรวมทั้งห้อง = "สมุดพก REPORT CARD": พื้นกระดาษขาวครีมลายตาราง · แถวการ์ดขาว แถบสีโลก · คะแนนรวมตัวใหญ่สีโลก
+                              เกรด = เหรียญทอง · ช่องงาน/กลางภาค/ปลายภาค = ป้ายพาสเทลฟ้า/ม่วง/ชมพู */
+        .swal2-container .swal2-popup.sw-pop.pp-pop:has(#ppStudentList), .swal2-container .swal2-popup.sw-pop.pp-pop:has(.ov-list) { --lt: 253,242,248; }
+        .sw-g4.swal2-container .swal2-popup.sw-pop.pp-pop:has(#ppStudentList), .sw-g4.swal2-container .swal2-popup.sw-pop.pp-pop:has(.ov-list) { --lt: 255,237,213; } .sw-g5.swal2-container .swal2-popup.sw-pop.pp-pop:has(#ppStudentList), .sw-g5.swal2-container .swal2-popup.sw-pop.pp-pop:has(.ov-list) { --lt: 220,252,231; } .sw-g6.swal2-container .swal2-popup.sw-pop.pp-pop:has(#ppStudentList), .sw-g6.swal2-container .swal2-popup.sw-pop.pp-pop:has(.ov-list) { --lt: 252,231,243; }
+        .swal2-container .swal2-popup.sw-pop.pp-pop:has(#ppStudentList) { background: linear-gradient(rgba(var(--wgr),.08) 1px, rgba(0,0,0,0) 1px) 0 0/22px 22px, linear-gradient(90deg, rgba(var(--wgr),.08) 1px, rgba(0,0,0,0) 1px) 0 0/22px 22px,
+                        radial-gradient(ellipse 80% 40% at 50% 0%, rgba(255,255,255,.9), rgba(255,255,255,0) 70%), linear-gradient(180deg, rgb(var(--lt)) 0%, #ffffff 55%, #f5f3ff 100%) !important;
+            box-shadow: 12px 12px 0 0 #000, 0 0 60px rgba(var(--wgr),.45) !important; }
+        .swal2-container .swal2-popup.sw-pop.pp-pop:has(#ppStudentList) .pp-search { background: #fff !important; box-shadow: 0 0 0 2px rgba(var(--wgr),1), 3px 4px 0 2px #000 !important; }
+        .swal2-container .swal2-popup.sw-pop.pp-pop:has(#ppStudentList) .pp-search input { color: #0f172a !important; } .swal2-container .swal2-popup.sw-pop.pp-pop:has(#ppStudentList) .pp-search input::placeholder { color: #64748b !important; }
+        .swal2-container .swal2-popup.sw-pop.pp-pop:has(#ppStudentList) .pp-row { gap: 10px; padding: 10px 12px 10px 15px; background: #fff !important; border-color: #000 !important;
+            box-shadow: inset 0 -3px 0 rgba(var(--wgr),.25), 3px 4px 0 0 #000 !important; }
+        .swal2-container .swal2-popup.sw-pop.pp-pop:has(#ppStudentList) .pp-row::before { content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 6px; background: linear-gradient(180deg, rgb(var(--wgr)), rgba(var(--wgr),.55)); }
+        .swal2-container .swal2-popup.sw-pop.pp-pop:has(#ppStudentList) .pp-row::after { display: none; }
+        @media (hover: hover) { .swal2-container .swal2-popup.sw-pop.pp-pop:has(#ppStudentList) .pp-row:hover { background: rgb(var(--lt)) !important; transform: translate(-1px,-3px); box-shadow: inset 0 -3px 0 rgba(var(--wgr),.4), 4px 7px 0 0 #000, 0 0 18px rgba(var(--wgr),.45) !important; } }
+        .swal2-container .swal2-popup.sw-pop.pp-pop:has(#ppStudentList) .pp-av { flex: 0 0 auto; display: grid; place-items: center; width: 38px; height: 38px; font-size: 1.3rem; border-radius: 50%;
+            background: radial-gradient(circle at 35% 30%, #fff 0 25%, rgb(var(--lt)) 70%); border: 2.5px solid #000; box-shadow: 0 0 0 2px rgba(var(--wgr),.8); }
+        .swal2-container .swal2-popup.sw-pop.pp-pop:has(#ppStudentList) .pp-name { color: #1e1b4b !important; text-shadow: none !important; font-size: 1.02rem; }
+        .swal2-container .swal2-popup.sw-pop.pp-pop:has(#ppStudentList) .pp-no { box-shadow: 0 2px 0 0 #000 !important; }
+        .swal2-container .swal2-popup.sw-pop.pp-pop:has(#ppStudentList) .pp-arrow { box-shadow: 0 0 0 2px #000, 0 3px 0 2px #000 !important; }
+        .swal2-container .swal2-popup.sw-pop.pp-pop:has(#ppStudentList) .pp-none { color: #475569 !important; }
+        .swal2-container .swal2-popup.sw-pop.pp-pop:has(#ppStudentList) .pp-big { background: linear-gradient(118deg, rgba(255,255,255,0) 0 55%, rgba(255,255,255,.35) 55% 62%, rgba(255,255,255,0) 62%), linear-gradient(90deg, #fde047, #fbbf24 50%, #fde68a) !important;
+            box-shadow: inset 0 2px 0 rgba(255,255,255,.8), 4px 5px 0 0 #000 !important; }
+        .swal2-container .swal2-popup.sw-pop.pp-pop:has(#ppStudentList) .pp-big-txt b { color: #1c1917 !important; text-shadow: none !important; } .swal2-container .swal2-popup.sw-pop.pp-pop:has(#ppStudentList) .pp-big-txt small { color: #78350f !important; }
+        @media (max-width: 599px) { .swal2-container .swal2-popup.sw-pop.pp-pop:has(#ppStudentList) .pp-av { width: 32px; height: 32px; font-size: 1.05rem; } .swal2-container .swal2-popup.sw-pop.pp-pop:has(#ppStudentList) .pp-name { font-size: .95rem; } .swal2-container .swal2-popup.sw-pop.pp-pop:has(#ppStudentList) .pp-row { gap: 8px; padding-left: 13px; } }
+
+        .swal2-container .swal2-popup.sw-pop.pp-pop:has(.ov-list) { background: linear-gradient(rgba(148,163,184,.14) 1px, rgba(0,0,0,0) 1px) 0 0/20px 20px, linear-gradient(90deg, rgba(148,163,184,.14) 1px, rgba(0,0,0,0) 1px) 0 0/20px 20px,
+                        linear-gradient(180deg, rgb(var(--lt)) 0%, #fffdf7 30%, #ffffff 100%) !important; box-shadow: 12px 12px 0 0 #000, 0 0 60px rgba(var(--wgr),.4) !important; }
+        .swal2-container .swal2-popup.sw-pop.pp-pop:has(.ov-list) .ov-stat { background: #fff !important; box-shadow: inset 0 -5px 0 var(--c), 3px 4px 0 0 #000 !important; }
+        .swal2-container .swal2-popup.sw-pop.pp-pop:has(.ov-list) .ov-stat b { color: #0f172a !important; text-shadow: none !important; } .swal2-container .swal2-popup.sw-pop.pp-pop:has(.ov-list) .ov-stat i { color: #334155 !important; }
+        .swal2-container .swal2-popup.sw-pop.pp-pop:has(.ov-list) .ov-row { position: relative; overflow: hidden; padding-left: 16px; background: #fff !important; box-shadow: 4px 5px 0 0 #000 !important; }
+        .swal2-container .swal2-popup.sw-pop.pp-pop:has(.ov-list) .ov-row::before { content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 6px; background: linear-gradient(180deg, rgb(var(--wgr)), rgba(var(--wgr),.55)); }
+        .swal2-container .swal2-popup.sw-pop.pp-pop:has(.ov-list) .ov-name { color: #1e1b4b; font-size: 1rem; }
+        .swal2-container .swal2-popup.sw-pop.pp-pop:has(.ov-list) .ov-total b { font-size: 1.6rem; color: #0f172a; text-shadow: 2px 2px 0 rgba(var(--wgr),.55); }
+        .swal2-container .swal2-popup.sw-pop.pp-pop:has(.ov-list) .ov-grade { min-width: 44px; height: 44px; border-radius: 50%; border-color: #000 !important; color: #1c1917 !important;
+            background: radial-gradient(circle at 35% 28%, #fff 0 14%, #fde68a 40%, #f59e0b 100%) !important; box-shadow: 0 3px 0 0 #000 !important; }
+        .swal2-container .swal2-popup.sw-pop.pp-pop:has(.ov-list) .ov-chip { border: 2px solid #000; border-radius: 12px; box-shadow: 0 2px 0 0 #000 !important; padding: 5px 6px; }
+        .swal2-container .swal2-popup.sw-pop.pp-pop:has(.ov-list) .ov-chip:nth-child(1) { background: #e0f2fe !important; } .swal2-container .swal2-popup.sw-pop.pp-pop:has(.ov-list) .ov-chip:nth-child(2) { background: #ede9fe !important; } .swal2-container .swal2-popup.sw-pop.pp-pop:has(.ov-list) .ov-chip:nth-child(3) { background: #fce7f3 !important; }
+        .swal2-container .swal2-popup.sw-pop.pp-pop:has(.ov-list) .ov-chip i { color: #334155; } .swal2-container .swal2-popup.sw-pop.pp-pop:has(.ov-list) .ov-chip b { font-size: .9rem; }
+
+        /* ★ (18 พ.ย. รอบ 3) ครู: "ทำเป็นแนวกระดานห้องเรียน สวยดี เพิ่มความอลังการเยอะๆ"
+             รายชื่อนักเรียน + ภาพรวมทั้งห้อง = กระดานดำห้องเรียนในกรอบไม้มะฮอกกานีคาดทอง
+               หัว = ป้ายไม้ตัวทอง · ใต้หัว = ธงราวสีรุ้งห้อย · พื้น = กระดานเขียวมีรอยชอล์กจาง · ล่างสุด = รางชอล์กไม้ + ชอล์กสี + แปรงลบ
+               แถวรายชื่อ/แถวคะแนน = บัตรกระดาษขาวติดกระดาน (เอียงสลับนิดๆ) · ข้อความบนกระดาน = สีชอล์กขาว
+             แถบนาฬิกา = กลับเป็นกระดานดำกรอบไม้ (ที่ครูชอบ) + ธงราวสีรุ้ง + ลายมือชอล์ก "Good morning, class! ☀" + ดาวชอล์กกะพริบ 3 ดวง */
+        .swal2-container .swal2-popup.sw-pop.pp-pop:has(#ppStudentList), .swal2-container .swal2-popup.sw-pop.pp-pop:has(.ov-list) { background: linear-gradient(180deg, #8b4513 0%, #5a280b 100%) 0 100% / 100% 30px no-repeat,
+                        linear-gradient(90deg, rgba(0,0,0,0) 12%, #fff 12% 17%, rgba(0,0,0,0) 17% 21%, #f9a8d4 21% 25%, rgba(0,0,0,0) 25% 29%, #fde047 29% 33%, rgba(0,0,0,0) 33% 78%, #334155 78% 86%, rgba(0,0,0,0) 86%) 0 calc(100% - 22px) / 100% 7px no-repeat,
+                        radial-gradient(ellipse 40% 30% at 20% 25%, rgba(255,255,255,.07), rgba(255,255,255,0) 70%),
+                        radial-gradient(ellipse 35% 25% at 80% 70%, rgba(255,255,255,.06), rgba(255,255,255,0) 70%),
+                        linear-gradient(160deg, #2b5138 0%, #1f3d2a 55%, #193323 100%) !important;
+            box-shadow: inset 0 0 0 4px #c58a4f, inset 0 0 0 11px #8b4513, inset 0 0 0 13px #fbbf24, inset 0 0 0 15px #000, 12px 12px 0 0 #000, 0 0 50px rgba(251,191,36,.25) !important; padding-bottom: 34px !important; }
+        .swal2-container .swal2-popup.sw-pop.pp-pop:has(#ppStudentList)::after, .swal2-container .swal2-popup.sw-pop.pp-pop:has(.ov-list)::after { display: none; }
+        .swal2-container .swal2-popup.sw-pop.pp-pop:has(#ppStudentList) .swal2-title, .swal2-container .swal2-popup.sw-pop.pp-pop:has(.ov-list) .swal2-title { background: linear-gradient(180deg, rgba(255,255,255,.22) 0 2px, rgba(255,255,255,0) 2px 30%),
+                        repeating-linear-gradient(178deg, rgba(0,0,0,.14) 0 2px, rgba(0,0,0,0) 2px 9px, rgba(255,255,255,.07) 9px 11px, rgba(0,0,0,0) 11px 19px),
+                        linear-gradient(180deg, #b0642f 0%, #8b4513 55%, #5e2d0d 100%) !important;
+            box-shadow: inset 0 -3px 0 #fbbf24, inset 0 -5px 0 rgba(0,0,0,.55) !important; }
+        .swal2-container .swal2-popup.sw-pop.pp-pop:has(#ppStudentList) .swal2-html-container, .swal2-container .swal2-popup.sw-pop.pp-pop:has(.ov-list) .swal2-html-container { padding-top: 30px !important; background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1200 52' preserveAspectRatio='none'%3E%3Cpath d='M0 6 Q600 22 1200 6' fill='none' stroke='%23fff' stroke-opacity='.85' stroke-width='2.5'/%3E%3Cpath d='M3 5.3 L47 5.3 L25 33.3Z' fill='%23ef4444' stroke='%23000' stroke-width='2' stroke-linejoin='round'/%3E%3Cpath d='M53 7.8 L97 7.8 L75 35.8Z' fill='%23f59e0b' stroke='%23000' stroke-width='2' stroke-linejoin='round'/%3E%3Cpath d='M103 10.0 L147 10.0 L125 38.0Z' fill='%23facc15' stroke='%23000' stroke-width='2' stroke-linejoin='round'/%3E%3Cpath d='M153 12.0 L197 12.0 L175 40.0Z' fill='%2322c55e' stroke='%23000' stroke-width='2' stroke-linejoin='round'/%3E%3Cpath d='M203 13.8 L247 13.8 L225 41.8Z' fill='%233b82f6' stroke='%23000' stroke-width='2' stroke-linejoin='round'/%3E%3Cpath d='M253 15.3 L297 15.3 L275 43.3Z' fill='%23a855f7' stroke='%23000' stroke-width='2' stroke-linejoin='round'/%3E%3Cpath d='M303 16.6 L347 16.6 L325 44.6Z' fill='%23ec4899' stroke='%23000' stroke-width='2' stroke-linejoin='round'/%3E%3Cpath d='M353 17.8 L397 17.8 L375 45.8Z' fill='%23ef4444' stroke='%23000' stroke-width='2' stroke-linejoin='round'/%3E%3Cpath d='M403 18.6 L447 18.6 L425 46.6Z' fill='%23f59e0b' stroke='%23000' stroke-width='2' stroke-linejoin='round'/%3E%3Cpath d='M453 19.3 L497 19.3 L475 47.3Z' fill='%23facc15' stroke='%23000' stroke-width='2' stroke-linejoin='round'/%3E%3Cpath d='M503 19.8 L547 19.8 L525 47.8Z' fill='%2322c55e' stroke='%23000' stroke-width='2' stroke-linejoin='round'/%3E%3Cpath d='M553 20.0 L597 20.0 L575 48.0Z' fill='%233b82f6' stroke='%23000' stroke-width='2' stroke-linejoin='round'/%3E%3Cpath d='M603 20.0 L647 20.0 L625 48.0Z' fill='%23a855f7' stroke='%23000' stroke-width='2' stroke-linejoin='round'/%3E%3Cpath d='M653 19.8 L697 19.8 L675 47.8Z' fill='%23ec4899' stroke='%23000' stroke-width='2' stroke-linejoin='round'/%3E%3Cpath d='M703 19.3 L747 19.3 L725 47.3Z' fill='%23ef4444' stroke='%23000' stroke-width='2' stroke-linejoin='round'/%3E%3Cpath d='M753 18.6 L797 18.6 L775 46.6Z' fill='%23f59e0b' stroke='%23000' stroke-width='2' stroke-linejoin='round'/%3E%3Cpath d='M803 17.8 L847 17.8 L825 45.8Z' fill='%23facc15' stroke='%23000' stroke-width='2' stroke-linejoin='round'/%3E%3Cpath d='M853 16.6 L897 16.6 L875 44.6Z' fill='%2322c55e' stroke='%23000' stroke-width='2' stroke-linejoin='round'/%3E%3Cpath d='M903 15.3 L947 15.3 L925 43.3Z' fill='%233b82f6' stroke='%23000' stroke-width='2' stroke-linejoin='round'/%3E%3Cpath d='M953 13.8 L997 13.8 L975 41.8Z' fill='%23a855f7' stroke='%23000' stroke-width='2' stroke-linejoin='round'/%3E%3Cpath d='M1003 12.0 L1047 12.0 L1025 40.0Z' fill='%23ec4899' stroke='%23000' stroke-width='2' stroke-linejoin='round'/%3E%3Cpath d='M1053 10.0 L1097 10.0 L1075 38.0Z' fill='%23ef4444' stroke='%23000' stroke-width='2' stroke-linejoin='round'/%3E%3Cpath d='M1103 7.8 L1147 7.8 L1125 35.8Z' fill='%23f59e0b' stroke='%23000' stroke-width='2' stroke-linejoin='round'/%3E%3Cpath d='M1153 5.3 L1197 5.3 L1175 33.3Z' fill='%23facc15' stroke='%23000' stroke-width='2' stroke-linejoin='round'/%3E%3C/svg%3E") 0 0 / 100% 34px no-repeat !important; }
+        .swal2-container .swal2-popup.sw-pop.pp-pop:has(#ppStudentList) .pp-chip, .swal2-container .swal2-popup.sw-pop.pp-pop:has(.ov-list) .pp-chip { box-shadow: 2px 3px 0 0 #000; }
+        .swal2-container .swal2-popup.sw-pop.pp-pop:has(#ppStudentList) .pp-row:nth-child(odd), .swal2-container .swal2-popup.sw-pop.pp-pop:has(.ov-list) .ov-row:nth-child(odd) { transform: rotate(-.35deg); } .swal2-container .swal2-popup.sw-pop.pp-pop:has(#ppStudentList) .pp-row:nth-child(even), .swal2-container .swal2-popup.sw-pop.pp-pop:has(.ov-list) .ov-row:nth-child(even) { transform: rotate(.35deg); }
+        @media (hover: hover) { .swal2-container .swal2-popup.sw-pop.pp-pop:has(#ppStudentList) .pp-row:hover { transform: translateY(-3px) rotate(0deg) !important; } }
+        .swal2-container .swal2-popup.sw-pop.pp-pop:has(#ppStudentList) .pp-row, .swal2-container .swal2-popup.sw-pop.pp-pop:has(.ov-list) .ov-row { background: linear-gradient(180deg, rgba(254,226,226,.7) 0 3px, rgba(255,255,255,0) 3px), #fffef8 !important; box-shadow: 3px 5px 0 0 rgba(0,0,0,.55) !important; }
+        .swal2-container .swal2-popup.sw-pop.pp-pop:has(#ppStudentList) .pp-search { background: #fffef8 !important; box-shadow: 0 0 0 2px #fbbf24, 3px 4px 0 2px #000 !important; }
+        .swal2-container .swal2-popup.sw-pop.pp-pop:has(#ppStudentList) .pp-none, .swal2-container .swal2-popup.sw-pop.pp-pop:has(.ov-list) .ov-note { color: #ecfdf5 !important; } .swal2-container .swal2-popup.sw-pop.pp-pop:has(.ov-list) .ov-note b { color: #fde68a !important; }
+        .swal2-container .swal2-popup.sw-pop.pp-pop:has(.ov-list) .pp-back { background: #fffef8 !important; color: #0f172a !important; }
+        .swal2-container .swal2-popup.sw-pop.pp-pop:has(.ov-list) .ov-stat { background: #fffef8 !important; }
+        .swal2-container .swal2-popup.sw-pop.pp-pop:has(#ppStudentList) .pp-list::-webkit-scrollbar-thumb, .swal2-container .swal2-popup.sw-pop.pp-pop:has(.ov-list) .ov-list::-webkit-scrollbar-thumb { background: #fde68a; }
+
+        #sec-schedule .cb-time { padding-top: 46px; }
+        .cb-bunt { position: absolute; z-index: 1; left: 22px; right: 22px; top: 14px; height: 36px; pointer-events: none; background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1200 52' preserveAspectRatio='none'%3E%3Cpath d='M0 6 Q600 22 1200 6' fill='none' stroke='%23fff' stroke-opacity='.85' stroke-width='2.5'/%3E%3Cpath d='M3 5.3 L47 5.3 L25 33.3Z' fill='%23ef4444' stroke='%23000' stroke-width='2' stroke-linejoin='round'/%3E%3Cpath d='M53 7.8 L97 7.8 L75 35.8Z' fill='%23f59e0b' stroke='%23000' stroke-width='2' stroke-linejoin='round'/%3E%3Cpath d='M103 10.0 L147 10.0 L125 38.0Z' fill='%23facc15' stroke='%23000' stroke-width='2' stroke-linejoin='round'/%3E%3Cpath d='M153 12.0 L197 12.0 L175 40.0Z' fill='%2322c55e' stroke='%23000' stroke-width='2' stroke-linejoin='round'/%3E%3Cpath d='M203 13.8 L247 13.8 L225 41.8Z' fill='%233b82f6' stroke='%23000' stroke-width='2' stroke-linejoin='round'/%3E%3Cpath d='M253 15.3 L297 15.3 L275 43.3Z' fill='%23a855f7' stroke='%23000' stroke-width='2' stroke-linejoin='round'/%3E%3Cpath d='M303 16.6 L347 16.6 L325 44.6Z' fill='%23ec4899' stroke='%23000' stroke-width='2' stroke-linejoin='round'/%3E%3Cpath d='M353 17.8 L397 17.8 L375 45.8Z' fill='%23ef4444' stroke='%23000' stroke-width='2' stroke-linejoin='round'/%3E%3Cpath d='M403 18.6 L447 18.6 L425 46.6Z' fill='%23f59e0b' stroke='%23000' stroke-width='2' stroke-linejoin='round'/%3E%3Cpath d='M453 19.3 L497 19.3 L475 47.3Z' fill='%23facc15' stroke='%23000' stroke-width='2' stroke-linejoin='round'/%3E%3Cpath d='M503 19.8 L547 19.8 L525 47.8Z' fill='%2322c55e' stroke='%23000' stroke-width='2' stroke-linejoin='round'/%3E%3Cpath d='M553 20.0 L597 20.0 L575 48.0Z' fill='%233b82f6' stroke='%23000' stroke-width='2' stroke-linejoin='round'/%3E%3Cpath d='M603 20.0 L647 20.0 L625 48.0Z' fill='%23a855f7' stroke='%23000' stroke-width='2' stroke-linejoin='round'/%3E%3Cpath d='M653 19.8 L697 19.8 L675 47.8Z' fill='%23ec4899' stroke='%23000' stroke-width='2' stroke-linejoin='round'/%3E%3Cpath d='M703 19.3 L747 19.3 L725 47.3Z' fill='%23ef4444' stroke='%23000' stroke-width='2' stroke-linejoin='round'/%3E%3Cpath d='M753 18.6 L797 18.6 L775 46.6Z' fill='%23f59e0b' stroke='%23000' stroke-width='2' stroke-linejoin='round'/%3E%3Cpath d='M803 17.8 L847 17.8 L825 45.8Z' fill='%23facc15' stroke='%23000' stroke-width='2' stroke-linejoin='round'/%3E%3Cpath d='M853 16.6 L897 16.6 L875 44.6Z' fill='%2322c55e' stroke='%23000' stroke-width='2' stroke-linejoin='round'/%3E%3Cpath d='M903 15.3 L947 15.3 L925 43.3Z' fill='%233b82f6' stroke='%23000' stroke-width='2' stroke-linejoin='round'/%3E%3Cpath d='M953 13.8 L997 13.8 L975 41.8Z' fill='%23a855f7' stroke='%23000' stroke-width='2' stroke-linejoin='round'/%3E%3Cpath d='M1003 12.0 L1047 12.0 L1025 40.0Z' fill='%23ec4899' stroke='%23000' stroke-width='2' stroke-linejoin='round'/%3E%3Cpath d='M1053 10.0 L1097 10.0 L1075 38.0Z' fill='%23ef4444' stroke='%23000' stroke-width='2' stroke-linejoin='round'/%3E%3Cpath d='M1103 7.8 L1147 7.8 L1125 35.8Z' fill='%23f59e0b' stroke='%23000' stroke-width='2' stroke-linejoin='round'/%3E%3Cpath d='M1153 5.3 L1197 5.3 L1175 33.3Z' fill='%23facc15' stroke='%23000' stroke-width='2' stroke-linejoin='round'/%3E%3C/svg%3E") 0 0 / 100% 100% no-repeat; }
+        .cb-chalk { position: absolute; z-index: 1; right: 7%; top: 54px; color: rgba(255,255,255,.55); font-weight: 700; font-size: 1.05rem; font-style: italic; letter-spacing: .03em; transform: rotate(-4deg); pointer-events: none; }
+        .cb-star { position: absolute; z-index: 1; width: 16px; height: 16px; pointer-events: none; background: rgba(255,255,255,.8);
+            clip-path: polygon(50% 0, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%); animation: aiSpk 3s ease-in-out infinite; }
+        .cb-star.s1 { top: 58px; right: 34%; } .cb-star.s2 { bottom: 22px; right: 3%; background: #fde68a; animation-delay: -1s; } .cb-star.s3 { bottom: 18px; left: 40%; width: 12px; height: 12px; background: #f9a8d4; animation-delay: -2s; }
+        @media (min-width: 1100px) { .cb-chalk { top: auto; bottom: 18px; right: 18%; } }
+        @media (max-width: 767px) { #sec-schedule .cb-time { padding-top: 40px; } .cb-bunt { left: 16px; right: 16px; top: 12px; height: 28px; } .cb-chalk { display: none; } .cb-star.s1 { top: 46px; right: 8%; } }
+        @media (prefers-reduced-motion: reduce) { .cb-star { animation: none; } }
+        /* ★ (18 พ.ย. รอบ 4) กระดานห้องเรียน "อลังการขึ้นอีก"
+             ป๊อปอัปรายชื่อ/ภาพรวม: ลายชอล์กวาดเล่นบนกระดาน (ABC · Hello! · A+ · ดาว · หน้ายิ้ม · หัวใจ) · มุมทอง 4 มุมมีหมุดดาว
+               แสงโคมไฟอุ่นส่องลงจากป้ายหัว · บัตรรายชื่อมีเทปกาวลายทางแปะ · ประกายทองกะพริบรอบชื่อหน้า
+             แถบนาฬิกา: ลายชอล์กวาดเล่นแบบเดียวกัน + มุมทอง 4 มุม · ภาพนิ่ง (มีแค่ประกายเล็กๆ) */
+        .swal2-container .swal2-popup.sw-pop.pp-pop:has(#ppStudentList), .swal2-container .swal2-popup.sw-pop.pp-pop:has(.ov-list) { --dood: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='520' height='420' viewBox='0 0 520 420'%3E%3Cg fill='none' stroke='%23fff' stroke-opacity='.16' stroke-width='3' stroke-linecap='round' stroke-linejoin='round' font-family='Comic Sans MS,cursive' font-weight='700'%3E%3Ctext x='30' y='70' font-size='40' fill='%23fff' fill-opacity='.13' stroke='none'%3EABC%3C/text%3E%3Cpath d='M400 40l9 20 22 2-17 14 5 22-19-12-19 12 5-22-17-14 22-2z'/%3E%3Ccircle cx='90' cy='300' r='28'/%3E%3Cpath d='M78 292v4M102 292v4M76 310q14 14 28 0'/%3E%3Cpath d='M300 330q20-30 40 0q20-30 40 0'/%3E%3Ctext x='250' y='190' font-size='30' fill='%23fff' fill-opacity='.12' stroke='none'%3EHello!%3C/text%3E%3Cpath d='M440 300c-10-18 14-30 22-12c8-18 32-6 22 12l-22 22z'/%3E%3Cpath d='M150 150l40 10l-8-14M190 160l-10 12'/%3E%3Ctext x='380' y='230' font-size='28' fill='%23fff' fill-opacity='.12' stroke='none'%3EA+%3C/text%3E%3C/g%3E%3C/svg%3E"); }
+        .swal2-container .swal2-popup.sw-pop.pp-pop:has(#ppStudentList), .swal2-container .swal2-popup.sw-pop.pp-pop:has(.ov-list) { background-image: linear-gradient(180deg, #8b4513 0%, #5a280b 100%),
+                        linear-gradient(90deg, rgba(0,0,0,0) 12%, #fff 12% 17%, rgba(0,0,0,0) 17% 21%, #f9a8d4 21% 25%, rgba(0,0,0,0) 25% 29%, #fde047 29% 33%, rgba(0,0,0,0) 33% 78%, #334155 78% 86%, rgba(0,0,0,0) 86%),
+                        radial-gradient(ellipse 55% 28% at 50% 0%, rgba(255,226,150,.32), rgba(255,226,150,0) 75%),
+                        url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='520' height='420' viewBox='0 0 520 420'%3E%3Cg fill='none' stroke='%23fff' stroke-opacity='.16' stroke-width='3' stroke-linecap='round' stroke-linejoin='round' font-family='Comic Sans MS,cursive' font-weight='700'%3E%3Ctext x='30' y='70' font-size='40' fill='%23fff' fill-opacity='.13' stroke='none'%3EABC%3C/text%3E%3Cpath d='M400 40l9 20 22 2-17 14 5 22-19-12-19 12 5-22-17-14 22-2z'/%3E%3Ccircle cx='90' cy='300' r='28'/%3E%3Cpath d='M78 292v4M102 292v4M76 310q14 14 28 0'/%3E%3Cpath d='M300 330q20-30 40 0q20-30 40 0'/%3E%3Ctext x='250' y='190' font-size='30' fill='%23fff' fill-opacity='.12' stroke='none'%3EHello!%3C/text%3E%3Cpath d='M440 300c-10-18 14-30 22-12c8-18 32-6 22 12l-22 22z'/%3E%3Cpath d='M150 150l40 10l-8-14M190 160l-10 12'/%3E%3Ctext x='380' y='230' font-size='28' fill='%23fff' fill-opacity='.12' stroke='none'%3EA+%3C/text%3E%3C/g%3E%3C/svg%3E"),
+                        radial-gradient(ellipse 40% 30% at 20% 25%, rgba(255,255,255,.07), rgba(255,255,255,0) 70%),
+                        linear-gradient(160deg, #2b5138 0%, #1f3d2a 55%, #193323 100%) !important;
+            background-size: 100% 30px, 100% 7px, 100% 100%, 520px 420px, 100% 100%, 100% 100% !important;
+            background-position: 0 100%, 0 calc(100% - 22px), 0 0, 0 60px, 0 0, 0 0 !important;
+            background-repeat: no-repeat, no-repeat, no-repeat, repeat, no-repeat, no-repeat !important; }
+        .swal2-container .swal2-popup.sw-pop.pp-pop:has(#ppStudentList)::after, .swal2-container .swal2-popup.sw-pop.pp-pop:has(.ov-list)::after { content: '' !important; display: block !important; position: absolute; z-index: 2; inset: 6px; border: 0 !important; box-shadow: none !important; border-radius: 0 !important; pointer-events: none;
+            background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 60 60'%3E%3Cg transform='translate(0 0)'%3E%3Cpath d='M4 56V18Q4 4 18 4h38' fill='none' stroke='%23000' stroke-width='9' stroke-linecap='round'/%3E%3Cpath d='M4 56V18Q4 4 18 4h38' fill='none' stroke='%23fbbf24' stroke-width='5' stroke-linecap='round'/%3E%3Ccircle cx='16' cy='16' r='7' fill='%23fde68a' stroke='%23000' stroke-width='3'/%3E%3C/g%3E%3C/svg%3E") 0 0/46px 46px no-repeat, url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 60 60'%3E%3Cg transform='translate(60 0) scale(-1 1)'%3E%3Cpath d='M4 56V18Q4 4 18 4h38' fill='none' stroke='%23000' stroke-width='9' stroke-linecap='round'/%3E%3Cpath d='M4 56V18Q4 4 18 4h38' fill='none' stroke='%23fbbf24' stroke-width='5' stroke-linecap='round'/%3E%3Ccircle cx='16' cy='16' r='7' fill='%23fde68a' stroke='%23000' stroke-width='3'/%3E%3C/g%3E%3C/svg%3E") 100% 0/46px 46px no-repeat, url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 60 60'%3E%3Cg transform='translate(0 60) scale(1 -1)'%3E%3Cpath d='M4 56V18Q4 4 18 4h38' fill='none' stroke='%23000' stroke-width='9' stroke-linecap='round'/%3E%3Cpath d='M4 56V18Q4 4 18 4h38' fill='none' stroke='%23fbbf24' stroke-width='5' stroke-linecap='round'/%3E%3Ccircle cx='16' cy='16' r='7' fill='%23fde68a' stroke='%23000' stroke-width='3'/%3E%3C/g%3E%3C/svg%3E") 0 100%/46px 46px no-repeat, url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 60 60'%3E%3Cg transform='translate(60 60) scale(-1 -1)'%3E%3Cpath d='M4 56V18Q4 4 18 4h38' fill='none' stroke='%23000' stroke-width='9' stroke-linecap='round'/%3E%3Cpath d='M4 56V18Q4 4 18 4h38' fill='none' stroke='%23fbbf24' stroke-width='5' stroke-linecap='round'/%3E%3Ccircle cx='16' cy='16' r='7' fill='%23fde68a' stroke='%23000' stroke-width='3'/%3E%3C/g%3E%3C/svg%3E") 100% 100%/46px 46px no-repeat; }
+        .swal2-container .swal2-popup.sw-pop.pp-pop:has(#ppStudentList) .swal2-title::before, .swal2-container .swal2-popup.sw-pop.pp-pop:has(.ov-list) .swal2-title::before, .swal2-container .swal2-popup.sw-pop.pp-pop:has(#ppStudentList) .swal2-title::after, .swal2-container .swal2-popup.sw-pop.pp-pop:has(.ov-list) .swal2-title::after { content: ''; position: absolute; top: 50%; width: 20px; height: 20px; background: #fde68a; pointer-events: none;
+            clip-path: polygon(50% 0, 60% 40%, 100% 50%, 60% 60%, 50% 100%, 40% 60%, 0 50%, 40% 40%); animation: aiSpk 2.6s ease-in-out infinite; }
+        .swal2-container .swal2-popup.sw-pop.pp-pop:has(#ppStudentList) .swal2-title::before, .swal2-container .swal2-popup.sw-pop.pp-pop:has(.ov-list) .swal2-title::before { left: 18%; } .swal2-container .swal2-popup.sw-pop.pp-pop:has(#ppStudentList) .swal2-title::after, .swal2-container .swal2-popup.sw-pop.pp-pop:has(.ov-list) .swal2-title::after { right: 18%; background: #fff; animation-delay: -1.3s; }
+        .swal2-container .swal2-popup.sw-pop.pp-pop:has(#ppStudentList) .pp-row { overflow: visible !important; }
+        .swal2-container .swal2-popup.sw-pop.pp-pop:has(#ppStudentList) .pp-row::after, .swal2-container .swal2-popup.sw-pop.pp-pop:has(.ov-list) .ov-row::after { content: '' !important; display: block !important; position: absolute; z-index: 2; top: -8px; left: auto; right: 22%; width: 46px; height: 15px; bottom: auto; transform: rotate(4deg);
+            background: repeating-linear-gradient(135deg, rgba(253,224,71,.85) 0 6px, rgba(254,249,195,.85) 6px 12px) !important; box-shadow: 0 1px 2px rgba(0,0,0,.3); transition: none; }
+        .swal2-container .swal2-popup.sw-pop.pp-pop:has(#ppStudentList) .pp-row:nth-child(even)::after, .swal2-container .swal2-popup.sw-pop.pp-pop:has(.ov-list) .ov-row:nth-child(even)::after { right: auto; left: 30%; transform: rotate(-5deg); background: repeating-linear-gradient(135deg, rgba(249,168,212,.85) 0 6px, rgba(252,231,243,.85) 6px 12px) !important; }
+        .swal2-container .swal2-popup.sw-pop.pp-pop:has(.ov-list) .ov-row { overflow: visible !important; }
+        .swal2-container .swal2-popup.sw-pop.pp-pop:has(#ppStudentList) .pp-list, .swal2-container .swal2-popup.sw-pop.pp-pop:has(.ov-list) .ov-list { padding-top: 10px !important; }
+        .cb-doodle { position: absolute; z-index: 0; inset: 14px; pointer-events: none; border-radius: 1.5rem; background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='520' height='420' viewBox='0 0 520 420'%3E%3Cg fill='none' stroke='%23fff' stroke-opacity='.16' stroke-width='3' stroke-linecap='round' stroke-linejoin='round' font-family='Comic Sans MS,cursive' font-weight='700'%3E%3Ctext x='30' y='70' font-size='40' fill='%23fff' fill-opacity='.13' stroke='none'%3EABC%3C/text%3E%3Cpath d='M400 40l9 20 22 2-17 14 5 22-19-12-19 12 5-22-17-14 22-2z'/%3E%3Ccircle cx='90' cy='300' r='28'/%3E%3Cpath d='M78 292v4M102 292v4M76 310q14 14 28 0'/%3E%3Cpath d='M300 330q20-30 40 0q20-30 40 0'/%3E%3Ctext x='250' y='190' font-size='30' fill='%23fff' fill-opacity='.12' stroke='none'%3EHello!%3C/text%3E%3Cpath d='M440 300c-10-18 14-30 22-12c8-18 32-6 22 12l-22 22z'/%3E%3Cpath d='M150 150l40 10l-8-14M190 160l-10 12'/%3E%3Ctext x='380' y='230' font-size='28' fill='%23fff' fill-opacity='.12' stroke='none'%3EA+%3C/text%3E%3C/g%3E%3C/svg%3E") 0 30px/520px 420px repeat; }
+        #sec-schedule .cb-time > *:not(.cb-doodle):not(.cb-gc):not(.cb-bunt):not(.cb-star):not(.cb-chalk) { position: relative; z-index: 1; }
+        .cb-gc { position: absolute; z-index: 2; width: 40px; height: 40px; pointer-events: none; background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 60 60'%3E%3Cpath d='M4 56V18Q4 4 18 4h38' fill='none' stroke='%23000' stroke-width='9' stroke-linecap='round'/%3E%3Cpath d='M4 56V18Q4 4 18 4h38' fill='none' stroke='%23fbbf24' stroke-width='5' stroke-linecap='round'/%3E%3Ccircle cx='16' cy='16' r='7' fill='%23fde68a' stroke='%23000' stroke-width='3'/%3E%3Cpath d='M16 11l1.5 3.5 3.5.5-2.6 2.4.6 3.6-3-1.7-3 1.7.6-3.6-2.6-2.4 3.5-.5z' fill='%23b45309'/%3E%3C/svg%3E") 0 0/100% 100% no-repeat; }
+        .cb-gc.g1 { top: 6px; left: 6px; } .cb-gc.g2 { top: 6px; right: 6px; transform: scaleX(-1); } .cb-gc.g3 { bottom: 6px; left: 6px; transform: scaleY(-1); } .cb-gc.g4 { bottom: 6px; right: 6px; transform: scale(-1,-1); }
+        @media (max-width: 767px) { .cb-gc { width: 30px; height: 30px; } .swal2-container .swal2-popup.sw-pop.pp-pop:has(#ppStudentList) .swal2-title::before, .swal2-container .swal2-popup.sw-pop.pp-pop:has(.ov-list) .swal2-title::before { left: 7%; top: 30%; width: 14px; height: 14px; } .swal2-container .swal2-popup.sw-pop.pp-pop:has(#ppStudentList) .swal2-title::after, .swal2-container .swal2-popup.sw-pop.pp-pop:has(.ov-list) .swal2-title::after { right: 13%; top: 74%; width: 14px; height: 14px; } }
+        @media (prefers-reduced-motion: reduce) { .swal2-container .swal2-popup.sw-pop.pp-pop:has(#ppStudentList) .swal2-title::before, .swal2-container .swal2-popup.sw-pop.pp-pop:has(.ov-list) .swal2-title::before, .swal2-container .swal2-popup.sw-pop.pp-pop:has(#ppStudentList) .swal2-title::after, .swal2-container .swal2-popup.sw-pop.pp-pop:has(.ov-list) .swal2-title::after { animation: none; } }
+        /* ==========================================================================
+           ★ (18 พ.ย.) QUIZ ZONE ใหม่ทั้งหมด = "ห้องเรียนควิซ CLASSROOM QUIZ ROOM" (แทนตู้เกมนีออน · ครูขอธีมห้องเรียน อลังการ)
+             ผนังห้องเรียนสีครีมลายวอลเปเปอร์ + บัวไม้ด้านล่าง · แถบตัวอักษร A–N แขวนบนผนัง (แกว่งเบาๆ) · หน้าต่างแสงแดดสองข้าง
+             กระดานดำใหญ่กรอบไม้คาดทอง + มุมทอง: "QUIZ TIME!" ตัวชอล์กหลากสี (ตัวอักษรกระดิกเป็นระยะ) + เส้นชอล์กขีดเส้นใต้ + ลายชอล์ก + รางชอล์ก
+             ลูกโลก 🌍 + กองหนังสือ 📚🍎 วางขอบกระดาน · ดาวทองกะพริบ
+             ปุ่ม 4 อัน = สมุดปกแข็งคนละสี: สันห่วงเหล็ก · ป้ายชื่อติดปก (ไอคอน / GRADE / ม.4 ตัวใหญ่) · เหรียญ A+ · ริบบิ้นคั่นหน้า
+                          ปุ่มกด = ดินสอเหลืองยางลบชมพู "PLAY ▶" · ชี้แล้วสมุดยกตั้ง + ดินสอยื่นออก
+             ล่างสุด = ขอบโต๊ะไม้ + ไม้บรรทัด · คำสั่ง onclick เดิมครบ · แอนิเมชันชิ้นเล็ก transform เท่านั้น
+           ========================================================================== */
+        .qb-zone { position: relative; }
+        .qb-room { position: relative; overflow: hidden; padding: 62px 26px 0; border: 6px solid #000; border-radius: 2.5rem;
+            background: linear-gradient(180deg, #8b4513 0, #6b3410 100%) 0 100% / 100% 64px no-repeat,
+                        linear-gradient(180deg, #fbbf24 0 4px, rgba(0,0,0,0) 4px) 0 calc(100% - 64px) / 100% 8px no-repeat,
+                        repeating-linear-gradient(90deg, rgba(234,179,8,.10) 0 26px, rgba(255,255,255,0) 26px 52px),
+                        radial-gradient(ellipse 60% 40% at 50% 30%, rgba(255,255,255,.7), rgba(255,255,255,0) 70%),
+                        linear-gradient(180deg, #fff7e0 0%, #fdecc8 70%, #f7dfb0 100%);
+            box-shadow: inset 0 0 0 3px #fff, 12px 12px 0 0 #000, 0 0 50px rgba(251,191,36,.3); }
+        /* แถบตัวอักษร */
+        .qb-abc { position: absolute; z-index: 1; top: 0; left: 24px; right: 24px; display: flex; justify-content: space-between; padding-top: 12px; pointer-events: none;
+            background: linear-gradient(180deg, rgba(0,0,0,0) 12px, #7c2d12 12px 15px, rgba(0,0,0,0) 15px); }
+        .qb-abc i { display: grid; place-items: center; width: 32px; height: 36px; margin-top: 4px; font-style: normal; font-weight: 900; font-size: 1.15rem; color: #fff;
+            border: 2.5px solid #000; border-radius: 6px; box-shadow: 2px 3px 0 0 #000; text-shadow: 0 2px 0 rgba(0,0,0,.35); transform-origin: 50% -6px;
+            transform: rotate(var(--r)); animation: qbSway 4s ease-in-out infinite alternate; }
+        .qb-abc i:nth-child(6n+1) { background: #ef4444; } .qb-abc i:nth-child(6n+2) { background: #f59e0b; } .qb-abc i:nth-child(6n+3) { background: #22c55e; animation-delay: -1s; }
+        .qb-abc i:nth-child(6n+4) { background: #3b82f6; animation-delay: -2s; } .qb-abc i:nth-child(6n+5) { background: #a855f7; animation-delay: -3s; } .qb-abc i:nth-child(6n+6) { background: #ec4899; animation-delay: -1.5s; }
+        @keyframes qbSway { from { transform: rotate(var(--r)); } to { transform: rotate(calc(var(--r) * -1)); } }
+        /* หน้าต่าง */
+        .qb-win { position: absolute; z-index: 0; top: 80px; width: 150px; height: 190px; border: 5px solid #fff; border-radius: 80px 80px 8px 8px; pointer-events: none;
+            box-shadow: 0 0 0 3px #000, 4px 6px 0 2px rgba(0,0,0,.25);
+            background: linear-gradient(90deg, rgba(0,0,0,0) calc(50% - 3px), #fff calc(50% - 3px) calc(50% + 3px), rgba(0,0,0,0) calc(50% + 3px)),
+                        linear-gradient(180deg, rgba(0,0,0,0) 48%, #fff 48% 52%, rgba(0,0,0,0) 52%),
+                        radial-gradient(circle at 70% 30%, #fff7c2 0 14px, rgba(255,247,194,0) 32px), linear-gradient(180deg, #7dd3fc 0%, #bae6fd 70%, #bbf7d0 100%); }
+        .qb-win.l { left: 3.5%; } .qb-win.r { right: 3.5%; }
+        /* กระดานดำ */
+        .qb-head { position: relative; z-index: 2; display: flex; justify-content: center; }
+        .qb-board { position: relative; width: min(640px, 100%); padding: 26px 30px 36px; text-align: center; border: 4px solid #000; border-radius: 16px;
+            background: radial-gradient(ellipse 40% 40% at 25% 30%, rgba(255,255,255,.08), rgba(255,255,255,0) 70%), radial-gradient(ellipse 35% 35% at 80% 70%, rgba(255,255,255,.06), rgba(255,255,255,0) 70%),
+                        linear-gradient(160deg, #2b5138 0%, #1f3d2a 60%, #183020 100%);
+            box-shadow: inset 0 0 0 4px #c58a4f, inset 0 0 0 11px #8b4513, inset 0 0 0 13px #fbbf24, inset 0 0 0 15px #000, 8px 9px 0 0 #000, 0 0 40px rgba(251,191,36,.3); }
+        .qb-gc { position: absolute; z-index: 2; width: 34px; height: 34px; pointer-events: none; background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 60 60'%3E%3Cpath d='M4 56V18Q4 4 18 4h38' fill='none' stroke='%23000' stroke-width='9' stroke-linecap='round'/%3E%3Cpath d='M4 56V18Q4 4 18 4h38' fill='none' stroke='%23fbbf24' stroke-width='5' stroke-linecap='round'/%3E%3Ccircle cx='16' cy='16' r='7' fill='%23fde68a' stroke='%23000' stroke-width='3'/%3E%3C/svg%3E") 0 0/100% 100% no-repeat; }
+        .qb-gc.g1 { top: 5px; left: 5px; } .qb-gc.g2 { top: 5px; right: 5px; transform: scaleX(-1); } .qb-gc.g3 { bottom: 5px; left: 5px; transform: scaleY(-1); } .qb-gc.g4 { bottom: 5px; right: 5px; transform: scale(-1,-1); }
+        .qb-dd { position: absolute; color: rgba(255,255,255,.22); font-weight: 700; pointer-events: none; }
+        .qb-dd.d1 { top: 22px; left: 36px; font-size: 1.6rem; color: rgba(253,230,138,.5); transform: rotate(-12deg); } .qb-dd.d2 { top: 26px; right: 40px; font-size: 1.5rem; color: rgba(249,168,212,.5); }
+        .qb-dd.d3 { bottom: 30px; left: 34px; font-size: .9rem; font-style: italic; transform: rotate(-6deg); } .qb-dd.d4 { bottom: 30px; right: 40px; font-size: 1.5rem; }
+        .qb-kick { display: inline-block; margin: 0 0 8px; padding: 2px 12px; color: #1f3d2a; font-weight: 900; font-size: .72rem; letter-spacing: .14em; background: #fde68a; border: 2px solid #000; border-radius: 99px; box-shadow: 2px 2px 0 0 #000; }
+        .qb-sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+        .qb-title { margin: 0; line-height: 1; font-size: clamp(2.6rem, 7vw, 4.6rem); }
+        .qb-chalk { display: inline-flex; flex-wrap: wrap; justify-content: center; }
+        .qb-chalk b { display: inline-block; color: #fff; letter-spacing: .02em; text-shadow: 0 0 1px rgba(255,255,255,.9), 2px 2px 0 rgba(0,0,0,.35), 0 0 16px rgba(255,255,255,.25);
+            animation: qbWig 5s ease-in-out infinite; }
+        .qb-chalk b.k1 { color: #fde68a; animation-delay: .15s; } .qb-chalk b.k2 { color: #f9a8d4; animation-delay: .3s; } .qb-chalk b.k3 { color: #a5f3fc; animation-delay: .45s; } .qb-chalk b.k4 { color: #bbf7d0; animation-delay: .6s; }
+        .qb-chalk b.sp { width: .35em; animation: none; }
+        @keyframes qbWig { 0%, 86%, 100% { transform: none; } 90% { transform: translateY(-6px) rotate(-6deg); } 94% { transform: translateY(1px) rotate(4deg); } }
+        .qb-under { display: block; width: min(360px, 70%); height: 10px; margin: 6px auto 0; border-radius: 99px; opacity: .85;
+            background: linear-gradient(90deg, rgba(255,255,255,0), rgba(255,255,255,.9) 8% 92%, rgba(255,255,255,0)); clip-path: polygon(0 40%, 100% 0, 100% 60%, 0 100%); }
+        .qb-sub { margin: 12px 0 0; color: #ecfdf5; font-weight: 700; font-size: .95rem; }
+        .qb-tray { position: absolute; left: 10%; right: 10%; bottom: -14px; height: 16px; border: 3px solid #000; border-radius: 4px; background: linear-gradient(180deg, #a0522d, #6b3410); box-shadow: 0 4px 0 rgba(0,0,0,.35); }
+        .qb-tray b { position: absolute; top: -8px; height: 8px; border: 1.5px solid #000; border-radius: 3px; }
+        .qb-tray .c1 { left: 12%; width: 34px; background: #fff; } .qb-tray .c2 { left: 22%; width: 26px; background: #f9a8d4; } .qb-tray .c3 { left: 30%; width: 30px; background: #fde047; }
+        .qb-tray .er { right: 14%; top: -12px; width: 52px; height: 13px; background: linear-gradient(180deg, #f1f5f9 0 45%, #475569 45%); }
+        .qb-globe { position: absolute; left: calc(50% - 400px); bottom: -6px; font-size: 3.4rem; transform: rotate(-8deg); }
+        .qb-globe::after { content: ''; position: absolute; left: 50%; bottom: -10px; width: 40px; height: 12px; margin-left: -20px; background: #8b4513; border: 2.5px solid #000; border-radius: 50% 50% 4px 4px; }
+        .qb-stack { position: absolute; right: calc(50% - 400px); bottom: -2px; font-size: 3rem; }
+        .qb-stack em { position: absolute; top: -26px; left: 14px; font-size: 1.8rem; font-style: normal; }
+        .qb-star { position: absolute; width: 26px; height: 26px; background: #facc15; pointer-events: none;
+            clip-path: polygon(50% 0, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%); animation: aiSpk 2.8s ease-in-out infinite; }
+        .qb-star.s1 { top: -6px; left: calc(50% - 360px); } .qb-star.s2 { top: 30%; right: calc(50% - 352px); width: 20px; height: 20px; background: #f472b6; animation-delay: -1s; } .qb-star.s3 { top: 54%; left: calc(50% - 350px); width: 16px; height: 16px; background: #38bdf8; animation-delay: -2s; }
+        /* สมุด */
+        .qb-grid { position: relative; z-index: 2; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 26px; margin: 44px auto 0; max-width: 1080px; padding: 0 6px; }
+        .qb-book { --b1: #8b5cf6; --b2: #5b21b6; --lb: #ede9fe; --rt: -1.5deg; position: relative; display: flex; flex-direction: column; align-items: stretch; gap: 14px;
+            padding: 20px 16px 16px 30px; text-align: center; cursor: pointer; border: 3.5px solid #000; border-radius: 8px 18px 18px 8px;
+            background: linear-gradient(90deg, rgba(0,0,0,.28) 0 18px, rgba(255,255,255,.18) 18px 20px, rgba(0,0,0,0) 20px),
+                        linear-gradient(135deg, rgba(255,255,255,.25) 0 20%, rgba(255,255,255,0) 40%),
+                        repeating-linear-gradient(45deg, rgba(255,255,255,.06) 0 6px, rgba(255,255,255,0) 6px 12px), linear-gradient(160deg, var(--b1), var(--b2));
+            box-shadow: inset -6px 0 0 rgba(255,255,255,.85), inset -9px 0 0 #000, 6px 8px 0 0 #000, 0 16px 24px -10px rgba(80,40,10,.55);
+            transform: rotate(var(--rt)); transition: transform .3s cubic-bezier(.2,.9,.3,1.3), box-shadow .3s; }
+        .qb-book.b2 { --b1: #38bdf8; --b2: #1d4ed8; --lb: #e0f2fe; --rt: 1.2deg; } .qb-book.b3 { --b1: #34d399; --b2: #047857; --lb: #d1fae5; --rt: -.8deg; } .qb-book.b4 { --b1: #fb923c; --b2: #dc2626; --lb: #ffedd5; --rt: 1.6deg; }
+        @media (hover: hover) { .qb-book:hover { transform: translateY(-12px) rotate(0deg) scale(1.03); box-shadow: inset -6px 0 0 rgba(255,255,255,.85), inset -9px 0 0 #000, 10px 16px 0 0 #000, 0 26px 30px -10px rgba(80,40,10,.6); } }
+        .qb-book:active { transform: translateY(2px) rotate(0deg); }
+        .qb-book:focus-visible { outline: 4px dashed #000; outline-offset: 6px; }
+        .qb-rings { position: absolute; left: -9px; top: 22px; bottom: 22px; width: 22px; pointer-events: none;
+            background: radial-gradient(ellipse 11px 6px at 50% 50%, #e5e7eb 0 4px, #6b7280 4.5px 6px, rgba(0,0,0,0) 6.5px) 0 0 / 22px 34px repeat-y; }
+        .qb-ribbon { position: absolute; right: 26%; bottom: -22px; width: 16px; height: 34px; background: #ef4444; border: 2.5px solid #000; border-top: 0;
+            clip-path: polygon(0 0, 100% 0, 100% 100%, 50% 75%, 0 100%); }
+        .qb-medal { position: absolute; top: -14px; right: -12px; display: grid; place-items: center; width: 48px; height: 48px; color: #7c2d12; font-style: normal; font-weight: 900; font-size: .95rem;
+            border-radius: 50%; border: 3px solid #000; background: radial-gradient(circle at 35% 30%, #fff 0 12%, #fde68a 40%, #f59e0b 100%); box-shadow: 0 0 0 3px #fbbf24 inset, 2px 3px 0 0 #000; transform: rotate(12deg); }
+        .qb-label { position: relative; display: flex; flex-direction: column; align-items: center; gap: 4px; padding: 44px 10px 14px; margin-top: 30px; border: 3px solid #000; border-radius: 10px;
+            background: linear-gradient(180deg, var(--lb) 0 26px, #fffef8 26px), #fffef8;
+            box-shadow: inset 0 0 0 2px #fff, 3px 4px 0 0 rgba(0,0,0,.45); }
+        .qb-label::before, .qb-label::after { content: ''; position: absolute; top: 34px; left: 10px; right: 10px; height: 2px; background: repeating-linear-gradient(90deg, #cbd5e1 0 6px, rgba(0,0,0,0) 6px 10px); }
+        .qb-label::after { top: auto; bottom: 8px; }
+        .qb-ico { position: absolute; top: -34px; left: 50%; display: grid; place-items: center; width: 66px; height: 66px; margin-left: -33px; font-size: 2rem; border-radius: 50%;
+            background: radial-gradient(circle at 35% 30%, #fff 0 25%, var(--lb) 75%); border: 3px solid #000; box-shadow: 3px 4px 0 0 #000; transition: transform .35s cubic-bezier(.2,.9,.3,1.5); }
+        @media (hover: hover) { .qb-book:hover .qb-ico { transform: rotate(-12deg) scale(1.15); } }
+        .qb-lv { color: var(--b2); font-weight: 900; font-size: .72rem; letter-spacing: .18em; }
+        .qb-big { color: #0f172a; font-weight: 900; font-size: 2.6rem; line-height: 1; text-shadow: 3px 3px 0 var(--lb), 4px 4px 0 rgba(0,0,0,.15); }
+        .qb-small { padding: 2px 10px; color: #fff; font-weight: 800; font-size: .74rem; background: var(--b2); border-radius: 99px; }
+        /* ดินสอ */
+        .qb-pencil { position: relative; display: flex; align-items: center; justify-content: center; gap: 8px; height: 40px; margin: 4px 26px 4px 22px; color: #422006; font-weight: 900; font-size: .95rem; letter-spacing: .14em;
+            border: 3px solid #000; border-left: 0; border-right: 0;
+            background: linear-gradient(180deg, #fef08a 0 30%, #facc15 30% 70%, #eab308 70%); box-shadow: 0 4px 0 0 #000; transition: transform .25s cubic-bezier(.2,.9,.3,1.4); }
+        .qb-pencil::before { content: ''; position: absolute; left: -26px; top: -3px; bottom: -3px; width: 26px; border: 3px solid #000; border-radius: 8px 0 0 8px;
+            background: linear-gradient(90deg, #f9a8d4 0 58%, #cbd5e1 58% 70%, #94a3b8 70% 78%, #cbd5e1 78%); box-shadow: 0 4px 0 0 #000; }
+        .qb-pencil::after { content: ''; position: absolute; right: -26px; top: -3px; bottom: -3px; width: 28px; background: #000;
+            clip-path: polygon(0 0, 100% 50%, 0 100%); }
+        .qb-tri { position: relative; z-index: 1; font-size: .75rem; }
+        .qb-pt { position: relative; z-index: 1; }
+        @media (hover: hover) { .qb-book:hover .qb-pencil { transform: translateX(8px); } }
+        .qb-pencil > .qb-tri::before { content: ''; position: absolute; right: -40px; top: 50%; width: 22px; height: 28px; margin-top: -14px;
+            background: linear-gradient(90deg, #fcd9a8 0 64%, #374151 64%); clip-path: polygon(0 0, 100% 50%, 0 100%); }
+        /* โต๊ะ */
+        .qb-desk { position: relative; z-index: 2; display: flex; align-items: center; justify-content: space-between; gap: 12px; height: 64px; margin: 34px -26px 0; padding: 0 34px; color: #fde68a; }
+        .qb-desk span { font-size: 1.5rem; }
+        .qb-desk b { font-size: .8rem; letter-spacing: .24em; text-shadow: 0 2px 0 #000; }
+        .qb-ruler { width: 180px; height: 18px; border: 2.5px solid #000; border-radius: 3px; transform: rotate(-3deg);
+            background: repeating-linear-gradient(90deg, #000 0 1.5px, rgba(0,0,0,0) 1.5px 9px) 0 0 / 100% 7px no-repeat, linear-gradient(180deg, #fde68a, #fbbf24); }
+        @media (max-width: 1099px) {
+            .qb-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); max-width: 640px; gap: 34px 26px; }
+            .qb-globe, .qb-stack, .qb-star, .qb-win { display: none; }
+        }
+        @media (max-width: 767px) {
+            .qb-room { padding: 52px 12px 0; border-width: 5px; border-radius: 1.8rem; box-shadow: inset 0 0 0 3px #fff, 8px 8px 0 0 #000; }
+            .qb-abc { left: 12px; right: 12px; } .qb-abc i { width: 22px; height: 26px; font-size: .8rem; border-width: 2px; border-radius: 5px; }
+            .qb-abc i:nth-child(n+11) { display: none; }
+            .qb-board { padding: 22px 14px 30px; } .qb-dd.d3 { display: none; }
+            .qb-sub { font-size: .8rem; }
+            .qb-grid { gap: 30px 14px; margin-top: 38px; padding: 0; }
+            .qb-book { padding: 14px 10px 12px 22px; gap: 10px; } .qb-rings { left: -8px; width: 18px; background-size: 18px 28px; }
+            .qb-medal { width: 38px; height: 38px; font-size: .78rem; top: -12px; right: -8px; }
+            .qb-label { padding: 36px 6px 10px; margin-top: 26px; } .qb-ico { width: 54px; height: 54px; margin-left: -27px; top: -28px; font-size: 1.6rem; }
+            .qb-big { font-size: 2rem; } .qb-lv { font-size: .6rem; letter-spacing: .1em; } .qb-small { font-size: .64rem; padding: 1px 7px; }
+            .qb-pencil { height: 34px; margin: 2px 20px 2px 18px; font-size: .78rem; letter-spacing: .08em; } .qb-pencil::before { left: -18px; width: 18px; } .qb-pencil::after { right: -20px; width: 22px; }
+            .qb-pencil > .qb-tri::before { right: -32px; width: 17px; height: 22px; margin-top: -11px; }
+            .qb-desk { height: 54px; margin: 30px -12px 0; padding: 0 16px; } .qb-desk b { display: none; } .qb-ruler { width: 120px; }
+            .qb-room { background-size: 100% 54px, 100% 8px, auto, auto, auto !important; background-position: 0 100%, 0 calc(100% - 54px), 0 0, 0 0, 0 0 !important; }
+        }
+        @media (max-width: 360px) { .qb-pencil { font-size: .68rem; letter-spacing: .04em; } .qb-big { font-size: 1.75rem; } }
+        @media (prefers-reduced-motion: reduce) { .qb-abc i, .qb-chalk b, .qb-star { animation: none; } }
+        /* ★ (18 พ.ย. รอบ 2) QUIZ ห้องเรียน "อลังการสุดๆ" + หน้าต่างด้านใน
+             ห้อง: โคมไฟห้อยสองดวงส่องแสงอุ่นลงกระดาน · โปสเตอร์ CLASS RULES / STAR OF THE WEEK ติดผนัง · ธงราวสามเหลี่ยมใต้สมุด
+                   ฝุ่นชอล์กระยิบลอยขึ้นจากราง (5 จุด) · โต๊ะ: ถ้วยรางวัล + แอปเปิ้ล
+             หน้าต่าง QUIZ HUB (ทุกชั้น + GAME QUIZ) = กระดานดำในกรอบไม้คาดทอง: หัว = ป้ายไม้ตัวทอง + ธงราว
+                   การ์ดควิซ = บัตรคำกระดาษขาว เทปกาวแปะ · รูปปก = โพลารอยด์ · เลขลำดับ = ตราประทับแดง · ป้ายล็อก = ป้ายกุญแจแขวน
+                   ปุ่ม PLAY = ดินสอเหลืองยางลบชมพู · ไม่มีควิซ = ข้อความชอล์ก "COMING SOON" บนกระดาน · รางชอล์ก + แปรงลบล่างสุด */
+        .qb-lamp { position: absolute; z-index: 3; top: -46px; width: 64px; height: 64px; pointer-events: none;
+            background: linear-gradient(90deg, rgba(0,0,0,0) 30px, #1f2937 30px 34px, rgba(0,0,0,0) 34px) 0 0/100% 36px no-repeat,
+                        radial-gradient(ellipse 32px 22px at 50% 100%, #fbbf24 0 60%, #000 62% 72%, rgba(0,0,0,0) 74%) 0 30px/100% 34px no-repeat; }
+        .qb-lamp::after { content: ''; position: absolute; top: 60px; left: 50%; width: 220px; height: 210px; margin-left: -110px; pointer-events: none;
+            clip-path: polygon(42% 0, 58% 0, 100% 100%, 0 100%); background: linear-gradient(180deg, rgba(255,236,170,.55), rgba(255,236,170,0)); }
+        .qb-lamp.l { left: 30%; } .qb-lamp.r { right: 30%; }
+        .qb-dust.d1 { left: 16%; } .qb-dust.d2 { left: 24%; animation-delay: -1s; width: 4px; height: 4px; } .qb-dust.d3 { left: 32%; animation-delay: -2.2s; } .qb-dust.d4 { right: 20%; animation-delay: -3s; width: 4px; height: 4px; } .qb-dust.d5 { right: 28%; animation-delay: -1.6s; }
+        .qb-poster { position: absolute; z-index: 2; display: flex; flex-direction: column; align-items: center; gap: 2px; width: 120px; padding: 12px 8px 10px; border: 3px solid #000; border-radius: 4px; box-shadow: 4px 5px 0 0 #000; pointer-events: none; }
+        .qb-poster b { font-size: .72rem; font-weight: 900; letter-spacing: .08em; text-align: center; line-height: 1.15; }
+        .qb-poster i { font-style: normal; font-size: .72rem; font-weight: 800; }
+        .qb-poster::before { content: ''; position: absolute; top: -10px; left: 50%; width: 16px; height: 16px; margin-left: -8px; border-radius: 50%; border: 2px solid #000; background: radial-gradient(circle at 35% 30%, #fff 0 18%, #ef4444 40%); }
+        .qb-poster.p1 { left: 3%; top: 300px; color: #1e3a8a; background: linear-gradient(180deg, #bfdbfe 0 30px, #eff6ff 30px); transform: rotate(-4deg); }
+        .qb-poster.p2 { right: 3%; top: 300px; color: #9a3412; background: linear-gradient(180deg, #fde68a 0 44px, #fffbeb 44px); transform: rotate(4deg); }
+        .qb-poster.p2 em { font-style: normal; font-size: 1.8rem; line-height: 1.1; }
+        .qb-head .qb-poster { top: 250px; }
+        .qb-dust { position: absolute; z-index: 3; bottom: 4px; width: 6px; height: 6px; border-radius: 50%; background: #fff; pointer-events: none; opacity: 0; animation: qbDust 4.5s ease-out infinite; }
+        @keyframes qbDust { 0% { opacity: 0; transform: translate(0,0) scale(.6); } 15% { opacity: .9; } 100% { opacity: 0; transform: translate(14px,-90px) scale(1.2); } }
+        .qb-flags { position: relative; z-index: 2; height: 40px; margin: 26px -26px 0; pointer-events: none; background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1200 52' preserveAspectRatio='none'%3E%3Cpath d='M0 6 Q600 22 1200 6' fill='none' stroke='%23fff' stroke-opacity='.85' stroke-width='2.5'/%3E%3Cpath d='M3 5.3 L47 5.3 L25 33.3Z' fill='%23ef4444' stroke='%23000' stroke-width='2' stroke-linejoin='round'/%3E%3Cpath d='M53 7.8 L97 7.8 L75 35.8Z' fill='%23f59e0b' stroke='%23000' stroke-width='2' stroke-linejoin='round'/%3E%3Cpath d='M103 10.0 L147 10.0 L125 38.0Z' fill='%23facc15' stroke='%23000' stroke-width='2' stroke-linejoin='round'/%3E%3Cpath d='M153 12.0 L197 12.0 L175 40.0Z' fill='%2322c55e' stroke='%23000' stroke-width='2' stroke-linejoin='round'/%3E%3Cpath d='M203 13.8 L247 13.8 L225 41.8Z' fill='%233b82f6' stroke='%23000' stroke-width='2' stroke-linejoin='round'/%3E%3Cpath d='M253 15.3 L297 15.3 L275 43.3Z' fill='%23a855f7' stroke='%23000' stroke-width='2' stroke-linejoin='round'/%3E%3Cpath d='M303 16.6 L347 16.6 L325 44.6Z' fill='%23ec4899' stroke='%23000' stroke-width='2' stroke-linejoin='round'/%3E%3Cpath d='M353 17.8 L397 17.8 L375 45.8Z' fill='%23ef4444' stroke='%23000' stroke-width='2' stroke-linejoin='round'/%3E%3Cpath d='M403 18.6 L447 18.6 L425 46.6Z' fill='%23f59e0b' stroke='%23000' stroke-width='2' stroke-linejoin='round'/%3E%3Cpath d='M453 19.3 L497 19.3 L475 47.3Z' fill='%23facc15' stroke='%23000' stroke-width='2' stroke-linejoin='round'/%3E%3Cpath d='M503 19.8 L547 19.8 L525 47.8Z' fill='%2322c55e' stroke='%23000' stroke-width='2' stroke-linejoin='round'/%3E%3Cpath d='M553 20.0 L597 20.0 L575 48.0Z' fill='%233b82f6' stroke='%23000' stroke-width='2' stroke-linejoin='round'/%3E%3Cpath d='M603 20.0 L647 20.0 L625 48.0Z' fill='%23a855f7' stroke='%23000' stroke-width='2' stroke-linejoin='round'/%3E%3Cpath d='M653 19.8 L697 19.8 L675 47.8Z' fill='%23ec4899' stroke='%23000' stroke-width='2' stroke-linejoin='round'/%3E%3Cpath d='M703 19.3 L747 19.3 L725 47.3Z' fill='%23ef4444' stroke='%23000' stroke-width='2' stroke-linejoin='round'/%3E%3Cpath d='M753 18.6 L797 18.6 L775 46.6Z' fill='%23f59e0b' stroke='%23000' stroke-width='2' stroke-linejoin='round'/%3E%3Cpath d='M803 17.8 L847 17.8 L825 45.8Z' fill='%23facc15' stroke='%23000' stroke-width='2' stroke-linejoin='round'/%3E%3Cpath d='M853 16.6 L897 16.6 L875 44.6Z' fill='%2322c55e' stroke='%23000' stroke-width='2' stroke-linejoin='round'/%3E%3Cpath d='M903 15.3 L947 15.3 L925 43.3Z' fill='%233b82f6' stroke='%23000' stroke-width='2' stroke-linejoin='round'/%3E%3Cpath d='M953 13.8 L997 13.8 L975 41.8Z' fill='%23a855f7' stroke='%23000' stroke-width='2' stroke-linejoin='round'/%3E%3Cpath d='M1003 12.0 L1047 12.0 L1025 40.0Z' fill='%23ec4899' stroke='%23000' stroke-width='2' stroke-linejoin='round'/%3E%3Cpath d='M1053 10.0 L1097 10.0 L1075 38.0Z' fill='%23ef4444' stroke='%23000' stroke-width='2' stroke-linejoin='round'/%3E%3Cpath d='M1103 7.8 L1147 7.8 L1125 35.8Z' fill='%23f59e0b' stroke='%23000' stroke-width='2' stroke-linejoin='round'/%3E%3Cpath d='M1153 5.3 L1197 5.3 L1175 33.3Z' fill='%23facc15' stroke='%23000' stroke-width='2' stroke-linejoin='round'/%3E%3C/svg%3E") 0 0 / 100% 100% no-repeat; }
+        @media (max-width: 1099px) { .qb-lamp, .qb-poster { display: none; } }
+        @media (max-width: 767px) { .qb-flags { margin: 24px -12px 0; height: 28px; } }
+        @media (prefers-reduced-motion: reduce) { .qb-dust { display: none !important; } }
+
+        /* ★ (18 พ.ย. รอบ 4) หน้าต่าง QUIZ HUB = "ห้องเรียนสุดอลังการ แนวนักเรียน" (ครู: ยังเป็นธีมห้องเรียน/กระดาน)
+             กระดานดำกรอบไม้คาดทอง + มุมทอง · ลายชอล์กวาดเล่น (ABC · Hello! · A+ · ดาว · หน้ายิ้ม) · แสงโคมไฟอุ่นจากด้านบน
+             หัว = ป้ายไม้แขวนเชือก ตัวทอง + ประกายดาว · ใต้หัว = บัตรตัวอักษร A–L สีรุ้งห้อยบนเชือก (ชุดเดียวกับหน้า QUIZ)
+             การ์ดควิซ = สมุดปกแข็งสีประจำชั้นแบบหน้าแรก (สันห่วงเหล็ก · เหรียญ A+ · ริบบิ้นคั่น) · รูปปก = โพลารอยด์ติดเทป
+                         ชื่อควิซบนป้ายกระดาษเส้นบรรทัด · ปุ่ม = ดินสอ PLAY ▶ (ใส่รหัส = ดินสอชมพู)
+             ล่างสุด = รางชอล์ก + ชอล์กสี + แปรงลบ · ชี้แล้วสมุดยกตั้ง ดินสอยื่น */
+        .swal2-container .swal2-popup.qh-pop { --b1: #8b5cf6; --b2: #5b21b6; --lb: #ede9fe; padding-bottom: 40px !important;
+            background: linear-gradient(180deg, #8b4513 0%, #5a280b 100%) 0 100% / 100% 32px no-repeat,
+                        linear-gradient(90deg, rgba(0,0,0,0) 10%, #fff 10% 14%, rgba(0,0,0,0) 14% 17%, #f9a8d4 17% 20%, rgba(0,0,0,0) 20% 23%, #fde047 23% 26%, rgba(0,0,0,0) 26% 78%, #e2e8f0 78% 79%, #475569 79% 88%, rgba(0,0,0,0) 88%) 0 calc(100% - 24px) / 100% 8px no-repeat,
+                        radial-gradient(ellipse 55% 26% at 50% 0%, rgba(255,226,150,.35), rgba(255,226,150,0) 75%),
+                        url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='520' height='420' viewBox='0 0 520 420'%3E%3Cg fill='none' stroke='%23fff' stroke-opacity='.16' stroke-width='3' stroke-linecap='round' stroke-linejoin='round' font-family='Comic Sans MS,cursive' font-weight='700'%3E%3Ctext x='30' y='70' font-size='40' fill='%23fff' fill-opacity='.13' stroke='none'%3EABC%3C/text%3E%3Cpath d='M400 40l9 20 22 2-17 14 5 22-19-12-19 12 5-22-17-14 22-2z'/%3E%3Ccircle cx='90' cy='300' r='28'/%3E%3Cpath d='M78 292v4M102 292v4M76 310q14 14 28 0'/%3E%3Cpath d='M300 330q20-30 40 0q20-30 40 0'/%3E%3Ctext x='250' y='190' font-size='30' fill='%23fff' fill-opacity='.12' stroke='none'%3EHello!%3C/text%3E%3Cpath d='M440 300c-10-18 14-30 22-12c8-18 32-6 22 12l-22 22z'/%3E%3Cpath d='M150 150l40 10l-8-14M190 160l-10 12'/%3E%3Ctext x='380' y='230' font-size='28' fill='%23fff' fill-opacity='.12' stroke='none'%3EA+%3C/text%3E%3C/g%3E%3C/svg%3E") 0 70px / 520px 420px repeat,
+                        radial-gradient(ellipse 40% 30% at 20% 30%, rgba(255,255,255,.07), rgba(255,255,255,0) 70%),
+                        linear-gradient(160deg, #2d553b 0%, #1f3d2a 55%, #183020 100%) !important;
+            box-shadow: inset 0 0 0 4px #c58a4f, inset 0 0 0 11px #8b4513, inset 0 0 0 13px #fbbf24, inset 0 0 0 15px #000, 12px 12px 0 0 #000, 0 0 50px rgba(251,191,36,.3) !important; }
+        .swal2-container .swal2-popup.qh-pop.qh-g11 { --b1: #38bdf8; --b2: #1d4ed8; --lb: #e0f2fe; } .swal2-container .swal2-popup.qh-pop.qh-g12 { --b1: #34d399; --b2: #047857; --lb: #d1fae5; } .swal2-container .swal2-popup.qh-pop.qh-game { --b1: #fb923c; --b2: #dc2626; --lb: #ffedd5; }
+        .swal2-container .swal2-popup.qh-pop::before { display: none !important; }
+        .swal2-container .swal2-popup.qh-pop::after { content: '' !important; display: block !important; position: absolute; z-index: 2; inset: 6px; border: 0 !important; box-shadow: none !important; border-radius: 0 !important; pointer-events: none;
+            background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 60 60'%3E%3Cpath d='M4 56V18Q4 4 18 4h38' fill='none' stroke='%23000' stroke-width='9' stroke-linecap='round'/%3E%3Cpath d='M4 56V18Q4 4 18 4h38' fill='none' stroke='%23fbbf24' stroke-width='5' stroke-linecap='round'/%3E%3Ccircle cx='16' cy='16' r='7' fill='%23fde68a' stroke='%23000' stroke-width='3'/%3E%3C/svg%3E") 0 0/44px 44px no-repeat,
+                        url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 60 60'%3E%3Cg transform='translate(0 60) scale(1 -1)'%3E%3Cpath d='M4 56V18Q4 4 18 4h38' fill='none' stroke='%23000' stroke-width='9' stroke-linecap='round'/%3E%3Cpath d='M4 56V18Q4 4 18 4h38' fill='none' stroke='%23fbbf24' stroke-width='5' stroke-linecap='round'/%3E%3Ccircle cx='16' cy='16' r='7' fill='%23fde68a' stroke='%23000' stroke-width='3'/%3E%3C/g%3E%3C/svg%3E") 0 100%/44px 44px no-repeat,
+                        url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 60 60'%3E%3Cg transform='translate(60 60) scale(-1 -1)'%3E%3Cpath d='M4 56V18Q4 4 18 4h38' fill='none' stroke='%23000' stroke-width='9' stroke-linecap='round'/%3E%3Cpath d='M4 56V18Q4 4 18 4h38' fill='none' stroke='%23fbbf24' stroke-width='5' stroke-linecap='round'/%3E%3Ccircle cx='16' cy='16' r='7' fill='%23fde68a' stroke='%23000' stroke-width='3'/%3E%3C/g%3E%3C/svg%3E") 100% 100%/44px 44px no-repeat; }
+        .swal2-container .swal2-popup.qh-pop .swal2-title { position: relative; z-index: 3; margin: 30px auto 0 !important; width: fit-content; max-width: calc(100% - 110px); padding: 12px 40px 14px !important; color: #fde68a !important; font-size: 1.7rem !important; letter-spacing: .12em !important;
+            text-shadow: 0 2px 0 #000, 0 0 14px rgba(253,224,71,.6) !important; border: 3px solid #000 !important; border-radius: 10px !important;
+            background: linear-gradient(180deg, rgba(255,255,255,.25) 0 2px, rgba(255,255,255,0) 2px 35%), repeating-linear-gradient(178deg, rgba(0,0,0,.14) 0 2px, rgba(0,0,0,0) 2px 9px, rgba(255,255,255,.08) 9px 11px, rgba(0,0,0,0) 11px 19px), linear-gradient(180deg, #b0642f 0%, #8b4513 55%, #5e2d0d 100%) !important;
+            box-shadow: inset 0 0 0 2px #fbbf24, 0 5px 0 0 #000, 0 0 26px rgba(253,224,71,.35) !important; }
+        .swal2-container .swal2-popup.qh-pop .swal2-title::before, .swal2-container .swal2-popup.qh-pop .swal2-title::after { content: '' !important; display: block !important; position: absolute; top: -34px; width: 4px; height: 34px; background: #e7c08a !important; border: 0 !important; box-shadow: 0 0 0 1.5px #000; animation: none !important; clip-path: none; }
+        .swal2-container .swal2-popup.qh-pop .swal2-title::before { left: 22%; } .swal2-container .swal2-popup.qh-pop .swal2-title::after { right: 22%; }
+        .swal2-container .swal2-popup.qh-pop .swal2-html-container { position: relative; z-index: 3; padding-top: 68px !important; background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 700 60' preserveAspectRatio='xMidYMin meet'%3E%3Cpath d='M0 10Q350 20 700 10' fill='none' stroke='%23fde68a' stroke-width='3'/%3E%3Cg transform='translate(8 12) rotate(-5 18 0)'%3E%3Crect width='38' height='42' rx='6' fill='%23ef4444' stroke='%23000' stroke-width='3'/%3E%3Ctext x='19' y='31' font-family='Arial Black,Arial' font-weight='900' font-size='24' text-anchor='middle' fill='%23fff' stroke='%23000' stroke-width='1'%3EA%3C/text%3E%3C/g%3E%3Cg transform='translate(66 12) rotate(4 18 0)'%3E%3Crect width='38' height='42' rx='6' fill='%23f59e0b' stroke='%23000' stroke-width='3'/%3E%3Ctext x='19' y='31' font-family='Arial Black,Arial' font-weight='900' font-size='24' text-anchor='middle' fill='%23fff' stroke='%23000' stroke-width='1'%3EB%3C/text%3E%3C/g%3E%3Cg transform='translate(124 12) rotate(-3 18 0)'%3E%3Crect width='38' height='42' rx='6' fill='%2322c55e' stroke='%23000' stroke-width='3'/%3E%3Ctext x='19' y='31' font-family='Arial Black,Arial' font-weight='900' font-size='24' text-anchor='middle' fill='%23fff' stroke='%23000' stroke-width='1'%3EC%3C/text%3E%3C/g%3E%3Cg transform='translate(182 12) rotate(5 18 0)'%3E%3Crect width='38' height='42' rx='6' fill='%233b82f6' stroke='%23000' stroke-width='3'/%3E%3Ctext x='19' y='31' font-family='Arial Black,Arial' font-weight='900' font-size='24' text-anchor='middle' fill='%23fff' stroke='%23000' stroke-width='1'%3ED%3C/text%3E%3C/g%3E%3Cg transform='translate(240 12) rotate(-4 18 0)'%3E%3Crect width='38' height='42' rx='6' fill='%23a855f7' stroke='%23000' stroke-width='3'/%3E%3Ctext x='19' y='31' font-family='Arial Black,Arial' font-weight='900' font-size='24' text-anchor='middle' fill='%23fff' stroke='%23000' stroke-width='1'%3EE%3C/text%3E%3C/g%3E%3Cg transform='translate(298 12) rotate(3 18 0)'%3E%3Crect width='38' height='42' rx='6' fill='%23ec4899' stroke='%23000' stroke-width='3'/%3E%3Ctext x='19' y='31' font-family='Arial Black,Arial' font-weight='900' font-size='24' text-anchor='middle' fill='%23fff' stroke='%23000' stroke-width='1'%3EF%3C/text%3E%3C/g%3E%3Cg transform='translate(356 12) rotate(-5 18 0)'%3E%3Crect width='38' height='42' rx='6' fill='%23ef4444' stroke='%23000' stroke-width='3'/%3E%3Ctext x='19' y='31' font-family='Arial Black,Arial' font-weight='900' font-size='24' text-anchor='middle' fill='%23fff' stroke='%23000' stroke-width='1'%3EG%3C/text%3E%3C/g%3E%3Cg transform='translate(414 12) rotate(4 18 0)'%3E%3Crect width='38' height='42' rx='6' fill='%23f59e0b' stroke='%23000' stroke-width='3'/%3E%3Ctext x='19' y='31' font-family='Arial Black,Arial' font-weight='900' font-size='24' text-anchor='middle' fill='%23fff' stroke='%23000' stroke-width='1'%3EH%3C/text%3E%3C/g%3E%3Cg transform='translate(472 12) rotate(-3 18 0)'%3E%3Crect width='38' height='42' rx='6' fill='%2322c55e' stroke='%23000' stroke-width='3'/%3E%3Ctext x='19' y='31' font-family='Arial Black,Arial' font-weight='900' font-size='24' text-anchor='middle' fill='%23fff' stroke='%23000' stroke-width='1'%3EI%3C/text%3E%3C/g%3E%3Cg transform='translate(530 12) rotate(5 18 0)'%3E%3Crect width='38' height='42' rx='6' fill='%233b82f6' stroke='%23000' stroke-width='3'/%3E%3Ctext x='19' y='31' font-family='Arial Black,Arial' font-weight='900' font-size='24' text-anchor='middle' fill='%23fff' stroke='%23000' stroke-width='1'%3EJ%3C/text%3E%3C/g%3E%3Cg transform='translate(588 12) rotate(-4 18 0)'%3E%3Crect width='38' height='42' rx='6' fill='%23a855f7' stroke='%23000' stroke-width='3'/%3E%3Ctext x='19' y='31' font-family='Arial Black,Arial' font-weight='900' font-size='24' text-anchor='middle' fill='%23fff' stroke='%23000' stroke-width='1'%3EK%3C/text%3E%3C/g%3E%3Cg transform='translate(646 12) rotate(3 18 0)'%3E%3Crect width='38' height='42' rx='6' fill='%23ec4899' stroke='%23000' stroke-width='3'/%3E%3Ctext x='19' y='31' font-family='Arial Black,Arial' font-weight='900' font-size='24' text-anchor='middle' fill='%23fff' stroke='%23000' stroke-width='1'%3EL%3C/text%3E%3C/g%3E%3C/svg%3E") 50% 6px / min(640px, 96%) auto no-repeat !important; }
+        .swal2-container .swal2-popup.qh-pop .qh-chip { color: #fff !important; border: 2.5px solid #000 !important; background: linear-gradient(160deg, var(--b1), var(--b2)) !important; box-shadow: 0 3px 0 0 #000 !important; }
+        .swal2-container .swal2-popup.qh-pop .qh-admin { background: #fffef8 !important; color: #0f172a !important; border: 2.5px solid #000 !important; box-shadow: 0 3px 0 0 #000 !important; }
+        .swal2-container .swal2-popup.qh-pop .qh-grid { gap: 34px 24px !important; padding: 20px 10px 14px 16px !important; background: none !important; }
+        .swal2-container .swal2-popup.qh-pop .qh-card { position: relative; overflow: visible !important; display: flex; flex-direction: column; gap: 10px; padding: 14px 14px 14px 28px !important; border: 3.5px solid #000 !important; border-radius: 8px 18px 18px 8px !important;
+            background: linear-gradient(90deg, rgba(0,0,0,.28) 0 16px, rgba(255,255,255,.2) 16px 18px, rgba(0,0,0,0) 18px), linear-gradient(135deg, rgba(255,255,255,.25) 0 20%, rgba(255,255,255,0) 40%),
+                        repeating-linear-gradient(45deg, rgba(255,255,255,.07) 0 6px, rgba(255,255,255,0) 6px 12px), linear-gradient(160deg, var(--b1), var(--b2)) !important;
+            box-shadow: inset -6px 0 0 rgba(255,255,255,.85), inset -9px 0 0 #000, 6px 8px 0 0 #000, 0 16px 24px -10px rgba(0,0,0,.6) !important; transform: rotate(-1.2deg); transition: transform .3s cubic-bezier(.2,.9,.3,1.3), box-shadow .3s !important; }
+        .swal2-container .swal2-popup.qh-pop .qh-card:nth-child(even) { transform: rotate(1.2deg); }
+        .swal2-container .swal2-popup.qh-pop .qh-card::before { content: '' !important; display: block !important; position: absolute; left: -9px !important; top: 20px !important; bottom: auto !important; right: auto !important; height: calc(100% - 40px) !important; width: 20px !important; margin: 0 !important; opacity: 1 !important; border: 0 !important; box-shadow: none !important; transform: none; pointer-events: none;
+            background: radial-gradient(ellipse 10px 6px at 50% 50%, #e5e7eb 0 4px, #6b7280 4.5px 6px, rgba(0,0,0,0) 6.5px) 0 0 / 20px 30px repeat-y !important; }
+        .swal2-container .swal2-popup.qh-pop .qh-card::after { content: 'A+' !important; display: grid !important; place-items: center; position: absolute; top: -14px; right: -12px; width: 44px; height: 44px; color: #7c2d12; font-weight: 900; font-size: .9rem;
+            border-radius: 50%; border: 3px solid #000; background: radial-gradient(circle at 35% 30%, #fff 0 12%, #fde68a 40%, #f59e0b 100%) !important; box-shadow: 0 0 0 3px #fbbf24 inset, 2px 3px 0 0 #000; transform: rotate(12deg); }
+        @media (hover: hover) { .swal2-container .swal2-popup.qh-pop .qh-card:hover { transform: translateY(-10px) rotate(0deg) scale(1.02) !important; box-shadow: inset -6px 0 0 rgba(255,255,255,.85), inset -9px 0 0 #000, 10px 16px 0 0 #000, 0 0 0 4px #fde047 !important; } }
+        .swal2-container .swal2-popup.qh-pop .qh-cover { position: relative; padding: 8px 8px 22px !important; background: #fff !important; border: 2.5px solid #000 !important; border-radius: 3px !important; box-shadow: 3px 4px 0 0 rgba(0,0,0,.4) !important; transform: rotate(1.5deg); }
+        .swal2-container .swal2-popup.qh-pop .qh-cover::before { content: ''; position: absolute; z-index: 3; top: -11px; left: 50%; width: 64px; height: 20px; margin-left: -32px; transform: rotate(-4deg); background: repeating-linear-gradient(135deg, rgba(253,224,71,.9) 0 6px, rgba(254,249,195,.9) 6px 12px); box-shadow: 0 1px 2px rgba(0,0,0,.3); }
+        .swal2-container .swal2-popup.qh-pop .qh-cover img { border: 2px solid #000 !important; border-radius: 2px !important; }
+        .swal2-container .swal2-popup.qh-pop .qh-num { display: grid !important; place-items: center; width: 40px; height: 40px; padding: 0 !important; color: #dc2626 !important; font-weight: 900; background: rgba(255,255,255,.94) !important;
+            border: 3px double #dc2626 !important; border-radius: 50% !important; box-shadow: none !important; transform: rotate(-14deg); }
+        .swal2-container .swal2-popup.qh-pop .qh-lock { color: #422006 !important; background: linear-gradient(180deg, #fef08a, #facc15) !important; border: 2px solid #000 !important; border-radius: 6px 14px 14px 6px !important; box-shadow: 2px 2px 0 0 #000 !important; transform: rotate(6deg); }
+        .swal2-container .swal2-popup.qh-pop .qh-info { padding: 10px 10px !important; border: 2.5px solid #000 !important; border-radius: 8px !important; box-shadow: 2px 3px 0 0 rgba(0,0,0,.4) !important;
+            background: linear-gradient(90deg, rgba(0,0,0,0) 12px, rgba(248,113,113,.7) 12px 14px, rgba(0,0,0,0) 14px), repeating-linear-gradient(180deg, rgba(0,0,0,0) 0 20px, rgba(147,197,253,.6) 20px 21px), #fffef8 !important; }
+        .swal2-container .swal2-popup.qh-pop .qh-emoji { background: radial-gradient(circle at 35% 30%, #fff 0 25%, var(--lb) 75%) !important; border: 2.5px solid #000 !important; box-shadow: 2px 2px 0 0 #000 !important; }
+        .swal2-container .swal2-popup.qh-pop .qh-text b { color: #1e1b4b !important; text-shadow: none !important; font-size: 1.05rem; } .swal2-container .swal2-popup.qh-pop .qh-text small { color: #475569 !important; }
+        .swal2-container .swal2-popup.qh-pop .qh-play { position: relative; margin: 4px 30px 6px 26px !important; height: 42px; padding: 0 !important; display: flex !important; align-items: center; justify-content: center; gap: 8px; overflow: visible !important;
+            color: #422006 !important; font-weight: 900; letter-spacing: .16em; border: 3px solid #000 !important; border-left: 0 !important; border-right: 0 !important; border-radius: 0 !important;
+            background: linear-gradient(180deg, #fef08a 0 30%, #facc15 30% 70%, #eab308 70%) !important; box-shadow: 0 4px 0 0 #000 !important; text-shadow: none !important; transition: transform .25s cubic-bezier(.2,.9,.3,1.4); }
+        .swal2-container .swal2-popup.qh-pop .qh-play::before { content: '' !important; display: block !important; position: absolute; left: -26px; top: -3px; bottom: -3px; width: 26px; border: 3px solid #000 !important; border-radius: 8px 0 0 8px !important; transform: none;
+            background: linear-gradient(90deg, #f9a8d4 0 58%, #cbd5e1 58% 70%, #94a3b8 70% 78%, #cbd5e1 78%) !important; box-shadow: 0 4px 0 0 #000 !important; }
+        .swal2-container .swal2-popup.qh-pop .qh-play::after { content: '' !important; display: block !important; position: absolute; right: -30px; top: -3px; bottom: -3px; width: 30px; border: 0 !important;
+            background: linear-gradient(90deg, #fcd9a8 0 62%, #374151 62%) !important; clip-path: polygon(0 0, 100% 50%, 0 100%); }
+        .swal2-container .swal2-popup.qh-pop .qh-play.qh-key { font-size: .8rem; letter-spacing: .02em; background: linear-gradient(180deg, #fbcfe8 0 30%, #f9a8d4 30% 70%, #f472b6 70%) !important; }
+        @media (hover: hover) { .swal2-container .swal2-popup.qh-pop .qh-card:hover .qh-play { transform: translateX(8px); } }
+        .swal2-container .swal2-popup.qh-pop .qh-empty { background: none !important; border: 3px dashed rgba(255,255,255,.6) !important; box-shadow: none !important; border-radius: 16px !important; }
+        .swal2-container .swal2-popup.qh-pop .qh-soon { color: #fff !important; -webkit-text-fill-color: #fff !important; background: none !important; text-shadow: 0 0 1px #fff, 3px 3px 0 rgba(0,0,0,.35) !important; letter-spacing: .14em; font-size: 2rem; }
+        .swal2-container .swal2-popup.qh-pop .qh-empty b { color: #fde68a !important; } .swal2-container .swal2-popup.qh-pop .qh-empty small { color: #ecfdf5 !important; }
+        .swal2-container .swal2-popup.qh-pop .qh-credit { color: #fde68a !important; letter-spacing: .24em; text-shadow: 0 2px 0 #000; }
+        .swal2-container .swal2-popup.qh-pop .swal2-close { position: relative; z-index: 6; background: #fffef8 !important; color: #0f172a !important; border: 2.5px solid #000 !important; border-radius: 50% !important; box-shadow: 0 3px 0 0 #000 !important; text-shadow: none !important; }
+        @media (max-width: 599px) {
+            .swal2-container .swal2-popup.qh-pop .swal2-title { font-size: 1.2rem !important; padding: 9px 22px 11px !important; max-width: calc(100% - 90px); margin-top: 26px !important; }
+            .swal2-container .swal2-popup.qh-pop .swal2-title::before, .swal2-container .swal2-popup.qh-pop .swal2-title::after { top: -28px; height: 28px; }
+            .swal2-container .swal2-popup.qh-pop .swal2-html-container { padding-top: 54px !important; }
+            .swal2-container .swal2-popup.qh-pop .qh-grid { padding-left: 14px !important; }
+        }
 </style>
     <!-- ★ Tailwind CSS สำเร็จรูป (3.4.19) แทนตัวคอมไพล์สดแบบ CDN: ไม่ต้องคอมไพล์ในเบราว์เซอร์ทุกครั้งที่เปิดเว็บ/เปิดป๊อปอัป
          และไม่พึ่งเซิร์ฟเวอร์ภายนอก (เดิมถ้า cdn.tailwindcss.com ล่ม ทั้งหน้าจะไม่มีสไตล์)
@@ -7100,6 +7543,7 @@
              ปุ่ม/ฟังก์ชันเดิมครบ (เลือกชั้น → เลือกห้อง → ดูตาราง / แตะเพื่อดูภาพเต็ม) ลวดลายทั้งหมดเป็นภาพนิ่ง ไม่มีแอนิเมชันวน -->
         <div id="sec-schedule" class="cb-wall">
             <div class="cb-time" id="schoolClock">
+                <i class="cb-bunt" aria-hidden="true"></i><i class="cb-doodle" aria-hidden="true"></i><i class="cb-gc g1" aria-hidden="true"></i><i class="cb-gc g2" aria-hidden="true"></i><i class="cb-gc g3" aria-hidden="true"></i><i class="cb-gc g4" aria-hidden="true"></i><span class="cb-chalk" aria-hidden="true">Good morning, class! ☀</span><i class="cb-star s1" aria-hidden="true"></i><i class="cb-star s2" aria-hidden="true"></i><i class="cb-star s3" aria-hidden="true"></i>
                 <div class="cb-clock" aria-hidden="true"><i class="cb-hh" id="scHour"></i><i class="cb-mm" id="scMin"></i><i class="cb-ss" id="scSec"></i></div>
                 <div class="cb-now">
                     <p class="cb-today"><span class="cb-day" id="scDay">วันนี้</span><span class="cb-tnow" id="scTime">--:--</span><span class="cb-tag">⏰ SCHOOL TIME</span></p>
@@ -7203,75 +7647,69 @@
              ป้ายนีออน QUIZ ZONE มีไฟวิ่งรอบป้าย + สปอตไลต์ชมพู/ฟ้า + พื้นกริดนีออน
              การ์ด 4 ใบ = ตู้เกมอาร์เคด: ป้ายบนตู้ (GRADE) / จอ CRT (ไอคอน + ชั้น) / แผงจอยสติ๊ก / ปุ่ม PLAY — ทั้งตู้กดได้ เปิดหน้าเดิมทุกปุ่ม
              ลวดลายทั้งหมดเป็นภาพนิ่ง ของที่ขยับมีแค่ไฟรอบป้าย (สลับดวง) + INSERT COIN กะพริบ (opacity ล้วน หยุดเองนอกจอ/โหมดเย็นเครื่อง) -->
-        <section id="sec-quiz" class="qz-zone">
-          <div class="qz-hall">
-            <i class="qz-spot l" aria-hidden="true"></i>
-            <i class="qz-spot r" aria-hidden="true"></i>
-            <i class="qz-floor" aria-hidden="true"></i>
-            <i class="qz-corners" aria-hidden="true"></i>
-            <i class="qz-alien a1" aria-hidden="true"></i><i class="qz-alien a2" aria-hidden="true"></i>
-            <i class="qz-coins c1" aria-hidden="true"></i><i class="qz-coins c2" aria-hidden="true"></i>
-            <div class="qz-hud" aria-hidden="true"><span class="qz-hud-l"><b>1UP</b><i class="qz-lives"></i></span><span class="qz-hud-r"><b>HI-SCORE</b><em>100</em></span></div>
-            <div class="qz-head">
-                <div class="qz-sign">
-                    <i class="qz-sun" aria-hidden="true"></i>
-                    <i class="qz-bulbs" aria-hidden="true"></i>
-                    <span class="qz-kick">★ INSERT COIN ★</span>
-                    <h2 class="qz-title font-black"><span class="n1 qz-in">QUIZ</span> <span class="n2 qz-in">ZONE</span></h2>
+        <section id="sec-quiz" class="qb-zone">
+          <div class="qb-room">
+            <div class="qb-abc" aria-hidden="true"><i style="--r:-4deg">A</i><i style="--r:3deg">B</i><i style="--r:-2deg">C</i><i style="--r:4deg">D</i><i style="--r:-3deg">E</i><i style="--r:2deg">F</i><i style="--r:-4deg">G</i><i style="--r:3deg">H</i><i style="--r:-2deg">I</i><i style="--r:4deg">J</i><i style="--r:-3deg">K</i><i style="--r:2deg">L</i><i style="--r:-4deg">M</i><i style="--r:3deg">N</i></div>
+            <i class="qb-win l" aria-hidden="true"></i><i class="qb-win r" aria-hidden="true"></i>
+            <div class="qb-head">
+                <div class="qb-board">
+                    <i class="qb-gc g1" aria-hidden="true"></i><i class="qb-gc g2" aria-hidden="true"></i><i class="qb-gc g3" aria-hidden="true"></i><i class="qb-gc g4" aria-hidden="true"></i>
+                    <span class="qb-dd d1" aria-hidden="true">★</span><span class="qb-dd d2" aria-hidden="true">✿</span><span class="qb-dd d3" aria-hidden="true">2 + 2 = 4</span><span class="qb-dd d4" aria-hidden="true">☺</span>
+                    <p class="qb-kick">✎ ห้องเรียนควิซ · QUIZ ROOM</p>
+                    <h2 class="qb-title font-black"><span class="qb-sr">QUIZ TIME!</span><span class="qb-chalk" aria-hidden="true"><b class="k0">Q</b><b class="k1">U</b><b class="k2">I</b><b class="k3">Z</b><b class="sp"> </b><b class="k0">T</b><b class="k1">I</b><b class="k2">M</b><b class="k3">E</b><b class="k4">!</b></span></h2>
+                    <i class="qb-under" aria-hidden="true"></i>
+                    <p class="qb-sub">🎯 เลือกสมุดของชั้นตัวเอง แล้วเริ่มทำควิซ / เล่นเกมได้เลย</p>
+                    <i class="qb-tray" aria-hidden="true"><b class="c1"></b><b class="c2"></b><b class="c3"></b><b class="er"></b></i><i class="qb-dust d1" aria-hidden="true"></i><i class="qb-dust d2" aria-hidden="true"></i><i class="qb-dust d3" aria-hidden="true"></i><i class="qb-dust d4" aria-hidden="true"></i><i class="qb-dust d5" aria-hidden="true"></i>
                 </div>
-                <p class="qz-sub">🎯 เลือกระดับชั้นแล้วเข้าไปทำควิซ / เล่นเกม</p>
+                <i class="qb-lamp l" aria-hidden="true"></i><i class="qb-lamp r" aria-hidden="true"></i>
+                <span class="qb-globe" aria-hidden="true">🌍</span>
+                <span class="qb-stack" aria-hidden="true">📚<em>🍎</em></span>
+                <span class="qb-star s1" aria-hidden="true"></span><span class="qb-star s2" aria-hidden="true"></span><span class="qb-star s3" aria-hidden="true"></span>
             </div>
-            <div class="qz-grid">
-                <button type="button" onclick="openGradeQuizHub('10')" class="qz-tile quiz-neon animate-bounce-up" style="--c1:#b06fff;--c2:#e040fb;--rgb:224,64,251;--pl:#39ff14;">
-                    <span class="qz-marq"><span class="qz-lv">GRADE 10</span></span>
-                    <span class="qz-screen">
-                        <span class="qz-ico" aria-hidden="true">👾</span>
-                        <span class="qz-big">ม.4</span>
-                        <span class="qz-small">สอบย่อย ม.4</span>
-                        <i class="qz-crt qz-in" aria-hidden="true"></i>
+            <div class="qb-grid">
+                <button type="button" onclick="openGradeQuizHub('10')" class="qb-book b1 animate-bounce-up">
+                    <i class="qb-rings" aria-hidden="true"></i><i class="qb-ribbon" aria-hidden="true"></i><i class="qb-medal" aria-hidden="true">A+</i>
+                    <span class="qb-label">
+                        <span class="qb-ico" aria-hidden="true">👾</span>
+                        <span class="qb-lv">GRADE 10</span>
+                        <span class="qb-big">ม.4</span>
+                        <span class="qb-small">สอบย่อย ม.4</span>
                     </span>
-                    <span class="qz-deck" aria-hidden="true"></span>
-                    <span class="qz-play">PLAY <span class="qz-tri" aria-hidden="true"></span></span>
-                    <span class="qz-slot" aria-hidden="true"></span>
+                    <span class="qb-pencil"><span class="qb-pt">PLAY</span><span class="qb-tri" aria-hidden="true">▶</span></span>
                 </button>
-                <button type="button" onclick="openGradeQuizHub('11')" class="qz-tile quiz-neon animate-bounce-up" style="--c1:#29b6f6;--c2:#7c4dff;--rgb:124,77,255;--pl:#ffe600;">
-                    <span class="qz-marq"><span class="qz-lv">GRADE 11</span></span>
-                    <span class="qz-screen">
-                        <span class="qz-ico" aria-hidden="true">🚀</span>
-                        <span class="qz-big">ม.5</span>
-                        <span class="qz-small">สอบย่อย ม.5</span>
-                        <i class="qz-crt qz-in" aria-hidden="true"></i>
+                <button type="button" onclick="openGradeQuizHub('11')" class="qb-book b2 animate-bounce-up">
+                    <i class="qb-rings" aria-hidden="true"></i><i class="qb-ribbon" aria-hidden="true"></i><i class="qb-medal" aria-hidden="true">A+</i>
+                    <span class="qb-label">
+                        <span class="qb-ico" aria-hidden="true">🚀</span>
+                        <span class="qb-lv">GRADE 11</span>
+                        <span class="qb-big">ม.5</span>
+                        <span class="qb-small">สอบย่อย ม.5</span>
                     </span>
-                    <span class="qz-deck" aria-hidden="true"></span>
-                    <span class="qz-play">PLAY <span class="qz-tri" aria-hidden="true"></span></span>
-                    <span class="qz-slot" aria-hidden="true"></span>
+                    <span class="qb-pencil"><span class="qb-pt">PLAY</span><span class="qb-tri" aria-hidden="true">▶</span></span>
                 </button>
-                <button type="button" onclick="openGradeQuizHub('12')" class="qz-tile quiz-neon animate-bounce-up" style="--c1:#1e3a8a;--c2:#0e7490;--rgb:6,182,212;--pl:#ffd700;">
-                    <span class="qz-marq"><span class="qz-lv">GRADE 12</span></span>
-                    <span class="qz-screen">
-                        <span class="qz-ico" aria-hidden="true">⚔️</span>
-                        <span class="qz-big">ม.6</span>
-                        <span class="qz-small">สอบย่อย ม.6</span>
-                        <i class="qz-crt qz-in" aria-hidden="true"></i>
+                <button type="button" onclick="openGradeQuizHub('12')" class="qb-book b3 animate-bounce-up">
+                    <i class="qb-rings" aria-hidden="true"></i><i class="qb-ribbon" aria-hidden="true"></i><i class="qb-medal" aria-hidden="true">A+</i>
+                    <span class="qb-label">
+                        <span class="qb-ico" aria-hidden="true">⚔️</span>
+                        <span class="qb-lv">GRADE 12</span>
+                        <span class="qb-big">ม.6</span>
+                        <span class="qb-small">สอบย่อย ม.6</span>
                     </span>
-                    <span class="qz-deck" aria-hidden="true"></span>
-                    <span class="qz-play">PLAY <span class="qz-tri" aria-hidden="true"></span></span>
-                    <span class="qz-slot" aria-hidden="true"></span>
+                    <span class="qb-pencil"><span class="qb-pt">PLAY</span><span class="qb-tri" aria-hidden="true">▶</span></span>
                 </button>
-                <button type="button" onclick="openQuizHub()" class="qz-tile quiz-neon animate-bounce-up" style="--c1:#ff6f00;--c2:#f50057;--rgb:255,111,0;--pl:#00e5ff;">
-                    <span class="qz-marq"><span class="qz-lv">GAME QUIZ</span></span>
-                    <span class="qz-screen">
-                        <span class="qz-ico" aria-hidden="true">🧩</span>
-                        <span class="qz-big">เกม</span>
-                        <span class="qz-small">เกม &amp; แบบฝึก</span>
-                        <i class="qz-crt qz-in" aria-hidden="true"></i>
+                <button type="button" onclick="openQuizHub()" class="qb-book b4 animate-bounce-up">
+                    <i class="qb-rings" aria-hidden="true"></i><i class="qb-ribbon" aria-hidden="true"></i><i class="qb-medal" aria-hidden="true">A+</i>
+                    <span class="qb-label">
+                        <span class="qb-ico" aria-hidden="true">🧩</span>
+                        <span class="qb-lv">GAME QUIZ</span>
+                        <span class="qb-big">เกม</span>
+                        <span class="qb-small">เกม &amp; แบบฝึก</span>
                     </span>
-                    <span class="qz-deck" aria-hidden="true"></span>
-                    <span class="qz-play">PLAY <span class="qz-tri" aria-hidden="true"></span></span>
-                    <span class="qz-slot" aria-hidden="true"></span>
+                    <span class="qb-pencil"><span class="qb-pt">PLAY</span><span class="qb-tri" aria-hidden="true">▶</span></span>
                 </button>
             </div>
-            <p class="qz-credit" aria-hidden="true">— FREE PLAY · 1 PLAYER —</p>
+            <div class="qb-flags" aria-hidden="true"></div>
+            <div class="qb-desk" aria-hidden="true"><i class="qb-ruler"></i><span>🏆 📏 ✏️ 📐 🍎</span><b>★ READY, SET, LEARN! ★</b></div>
           </div>
         </section>
 
@@ -7411,8 +7849,10 @@
             <!-- (21 ต.ค.) แถบเครดิต = "โต๊ะครู" หน้ากระดานดำ: ป้ายชื่อทองเหลืองบนฐานไม้ + กระดาษโน้ตลิขสิทธิ์ + ปุ่มกลับขึ้นบน + ของบนโต๊ะ (ภาพนิ่ง) -->
             <div class="ft-bar">
                 <span class="ft-props l" aria-hidden="true"><i class="ft-lamp"><b></b></i><i class="ft-books">📚</i><i class="ft-cup">✏️</i></span>
+                <i class="ft-spk k1" aria-hidden="true"></i><i class="ft-spk k2" aria-hidden="true"></i><i class="ft-spk k3" aria-hidden="true"></i><i class="ft-spk k4" aria-hidden="true"></i><i class="ft-spk k5" aria-hidden="true"></i>
                 <span class="ft-props r" aria-hidden="true"><i class="ft-paper">A+</i><i class="ft-trophy">🏆</i><i class="ft-mug">☕</i><i class="ft-apple">🍎</i></span>
                 <div class="ft-id">
+                    <i class="ft-shine" aria-hidden="true"></i>
                     <svg class="ft-laurel l" viewBox="0 0 64 128" aria-hidden="true" focusable="false"><defs><linearGradient id="ftGoldL" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#fff3b0"/><stop offset=".5" stop-color="#fbbf24"/><stop offset="1" stop-color="#b45309"/></linearGradient></defs><g fill="none" stroke="#000" stroke-width="3" stroke-linecap="round"><path d="M51.8 126.2 L48.7 124.6 L45.6 122.9 L42.7 120.9 L39.8 118.9 L37.1 116.6 L34.5 114.2 L32.1 111.7 L29.8 109.0 L27.7 106.2 L25.7 103.3 L23.9 100.3 L22.3 97.2 L20.8 94.0 L19.6 90.7 L18.5 87.3 L17.6 83.9 L16.9 80.5 L16.4 77.0 L16.1 73.5 L16.0 70.0 L16.1 66.5 L16.4 63.0 L16.9 59.5 L17.6 56.1 L18.5 52.7 L19.6 49.3 L20.8 46.0 L22.3 42.8 L23.9 39.7 L25.7 36.7 L27.7 33.8 L29.8 31.0 L32.1 28.3 L34.5 25.8 L37.1 23.4 L39.8 21.1 L42.7 19.1 L45.6 17.1 L48.7 15.4 L51.8 13.8"/></g><g fill="url(#ftGoldL)" stroke="#000" stroke-width="1.6"><ellipse cx="38.8" cy="124.3" rx="10.7" ry="4.5" transform="rotate(-182 38.8 124.3)"/><ellipse cx="44.6" cy="116.2" rx="10.7" ry="4.5" transform="rotate(-106 44.6 116.2)"/><ellipse cx="23.9" cy="109.5" rx="10.1" ry="4.2" transform="rotate(-164 23.9 109.5)"/><ellipse cx="32.0" cy="103.6" rx="10.1" ry="4.2" transform="rotate(-88 32.0 103.6)"/><ellipse cx="14.3" cy="90.8" rx="9.6" ry="4.0" transform="rotate(-146 14.3 90.8)"/><ellipse cx="23.8" cy="87.7" rx="9.6" ry="4.0" transform="rotate(-70 23.8 87.7)"/><ellipse cx="11.0" cy="70.0" rx="9.1" ry="3.8" transform="rotate(-128 11.0 70.0)"/><ellipse cx="21.0" cy="70.0" rx="9.1" ry="3.8" transform="rotate(-52 21.0 70.0)"/><ellipse cx="14.3" cy="49.2" rx="8.5" ry="3.6" transform="rotate(-110 14.3 49.2)"/><ellipse cx="23.8" cy="52.3" rx="8.5" ry="3.6" transform="rotate(-34 23.8 52.3)"/><ellipse cx="23.9" cy="30.5" rx="8.0" ry="3.3" transform="rotate(-92 23.9 30.5)"/><ellipse cx="32.0" cy="36.4" rx="8.0" ry="3.3" transform="rotate(-16 32.0 36.4)"/><ellipse cx="38.8" cy="15.7" rx="7.5" ry="3.1" transform="rotate(-74 38.8 15.7)"/><ellipse cx="44.6" cy="23.8" rx="7.5" ry="3.1" transform="rotate(2 44.6 23.8)"/></g></svg><svg class="ft-laurel r" viewBox="0 0 64 128" aria-hidden="true" focusable="false"><defs><linearGradient id="ftGoldR" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#fff3b0"/><stop offset=".5" stop-color="#fbbf24"/><stop offset="1" stop-color="#b45309"/></linearGradient></defs><g fill="none" stroke="#000" stroke-width="3" stroke-linecap="round"><path d="M51.8 126.2 L48.7 124.6 L45.6 122.9 L42.7 120.9 L39.8 118.9 L37.1 116.6 L34.5 114.2 L32.1 111.7 L29.8 109.0 L27.7 106.2 L25.7 103.3 L23.9 100.3 L22.3 97.2 L20.8 94.0 L19.6 90.7 L18.5 87.3 L17.6 83.9 L16.9 80.5 L16.4 77.0 L16.1 73.5 L16.0 70.0 L16.1 66.5 L16.4 63.0 L16.9 59.5 L17.6 56.1 L18.5 52.7 L19.6 49.3 L20.8 46.0 L22.3 42.8 L23.9 39.7 L25.7 36.7 L27.7 33.8 L29.8 31.0 L32.1 28.3 L34.5 25.8 L37.1 23.4 L39.8 21.1 L42.7 19.1 L45.6 17.1 L48.7 15.4 L51.8 13.8"/></g><g fill="url(#ftGoldR)" stroke="#000" stroke-width="1.6"><ellipse cx="38.8" cy="124.3" rx="10.7" ry="4.5" transform="rotate(-182 38.8 124.3)"/><ellipse cx="44.6" cy="116.2" rx="10.7" ry="4.5" transform="rotate(-106 44.6 116.2)"/><ellipse cx="23.9" cy="109.5" rx="10.1" ry="4.2" transform="rotate(-164 23.9 109.5)"/><ellipse cx="32.0" cy="103.6" rx="10.1" ry="4.2" transform="rotate(-88 32.0 103.6)"/><ellipse cx="14.3" cy="90.8" rx="9.6" ry="4.0" transform="rotate(-146 14.3 90.8)"/><ellipse cx="23.8" cy="87.7" rx="9.6" ry="4.0" transform="rotate(-70 23.8 87.7)"/><ellipse cx="11.0" cy="70.0" rx="9.1" ry="3.8" transform="rotate(-128 11.0 70.0)"/><ellipse cx="21.0" cy="70.0" rx="9.1" ry="3.8" transform="rotate(-52 21.0 70.0)"/><ellipse cx="14.3" cy="49.2" rx="8.5" ry="3.6" transform="rotate(-110 14.3 49.2)"/><ellipse cx="23.8" cy="52.3" rx="8.5" ry="3.6" transform="rotate(-34 23.8 52.3)"/><ellipse cx="23.9" cy="30.5" rx="8.0" ry="3.3" transform="rotate(-92 23.9 30.5)"/><ellipse cx="32.0" cy="36.4" rx="8.0" ry="3.3" transform="rotate(-16 32.0 36.4)"/><ellipse cx="38.8" cy="15.7" rx="7.5" ry="3.1" transform="rotate(-74 38.8 15.7)"/><ellipse cx="44.6" cy="23.8" rx="7.5" ry="3.1" transform="rotate(2 44.6 23.8)"/></g></svg>
                     <span class="ft-logo"><img src="https://i.postimg.cc/ydtX6mMS/logo.png" alt="" loading="lazy" decoding="async" data-img-slot="logo" onerror="if(!window.hubImgErr_||!hubImgErr_(this)){this.onerror=null;this.parentNode.textContent='🏫'}"></span>
                     <div class="min-w-0"><b>T.JAKRAPONG SUTTIPRAPA</b><small>ครูภาษาอังกฤษ ม.4–6 · โรงเรียนธนาคารออมสิน</small></div>
@@ -8668,6 +9108,8 @@
         }
         function swKick_(txt) { return '<span class="sw-kick">' + txt + '</span>'; }
         // (4 พ.ย.) ชื่อในรายชื่อ: ตัดบรรทัดที่ช่องว่างระหว่างชื่อ-นามสกุลก่อน (ไม่หักกลางนามสกุลบนจอแคบ) — ข้อความเดิมทุกตัวอักษร
+        // (18 พ.ย.) อวาตาร์ผู้เล่นในรายชื่อ: ดูจากคำนำหน้าชื่อ (นาย/ด.ช. = 👦 · นางสาว/น.ส./ด.ญ./นาง = 👧 · อื่นๆ = 🎓)
+        function ppAv_(name) { var n = String(name || '').trim(); return /^(นางสาว|น\.ส\.|ด\.ญ\.|เด็กหญิง|นาง)/.test(n) ? '👧' : (/^(นาย|ด\.ช\.|เด็กชาย)/.test(n) ? '👦' : '🎓'); }
         function nameHtml_(name) { return String(name == null ? '' : name).split(' ').map(function (w) { return w ? '<span class="nm-w">' + escapeHtml(w) + '</span>' : ''; }).join(' '); }
         // (26 ต.ค.) ชื่อหน้าแบบตัวทองนูน: ข้อความ (escape แล้ว) ซ้ำใน data-text ให้ ::after วาดหน้าทอง / อีโมจิแยกออกมา ไม่โดนระบายทอง
         function swTtl_(t, emo) { return (emo ? '<span class="sw-emo" aria-hidden="true">' + emo + '</span>' : '') + '<span class="sw-ttl" data-text="' + t + '">' + t + '</span>'; }
@@ -8702,6 +9144,7 @@
             students.forEach(function(std, index) {
                 html += '<button type="button" onclick="showScoreDetail(' + index + ')" class="pp-row" data-q="' + escapeHtml((std.no + ' ' + std.name).toLowerCase()) + '">' +
                     '<span class="pp-no" style="background:' + theme.grad + ';">' + escapeHtml(std.no) + '</span>' +
+                    '<span class="pp-av" aria-hidden="true">' + ppAv_(std.name) + '</span>' +
                     '<span class="pp-name">' + nameHtml_(std.name) + '</span><span class="pp-arrow" aria-hidden="true"></span></button>';
             });
             html += '<p class="pp-none" id="ppNoMatch" hidden>ไม่พบชื่อที่ค้นหา 🙈</p></div>';
@@ -8773,7 +9216,7 @@
                 const tasksColor = (tasksTotal > 0 && tasksPassed === tasksTotal) ? 'text-green-700' : (tasksPassed < tasksTotal ? 'text-orange-700' : 'text-gray-500');
                 rowsHtml += '<div class="ov-row" style="--d:' + Math.min(idx, 14) + ';">' +
                     '<div class="ov-top"><span class="ov-no">' + escapeHtml(std.no || (idx + 1)) + '</span>' +
-                        '<span class="ov-name" data-v>' + escapeHtml(std.name) + '</span>' +
+                        '<span class="ov-name" data-v>' + nameHtml_(std.name) + '</span>' +
                         '<span class="ov-total"><b data-v>' + (rFlag ? 'ร' : (ovProg ? ovSoFar : totalScore100)) + '</b>' + (!rFlag && bonusPts > 0 ? '<small>+' + bonusPts + ' พิเศษ</small>' : '<small>/' + (ovProg ? ovMax : 100) + '</small>') + '</span>' +
                         '<span class="ov-grade border-[3px] ' + gradeColor + '" data-v>' + grade + '</span></div>' +
                     '<div class="ov-chips">' +
@@ -9505,7 +9948,7 @@
         function qhEmptyHtml_(title, hint) {
             return '<div class="qh-empty"><span class="qh-soon">COMING SOON</span><b>' + title + '</b><small>' + hint + '</small></div>';
         }
-        var QH_CREDIT_ = '<p class="qh-credit" aria-hidden="true">— FREE PLAY · 1 PLAYER —</p>';
+        var QH_CREDIT_ = '<p class="qh-credit" aria-hidden="true">✎ READY, SET, LEARN! ✎</p>';
 
         function quizCardHtml_(c, theme, onclickAttr, i) {
             const img = escapeHtml(c.imageUrl || 'data:image/svg+xml,%3Csvg%20xmlns=%27http://www.w3.org/2000/svg%27%20width=%27600%27%20height=%27400%27%20viewBox=%270%200%20600%20400%27%3E%3Crect%20width=%27100%25%27%20height=%27100%25%27%20fill=%27%23e0e7ff%27/%3E%3Ctext%20x=%2750%25%27%20y=%2746%25%27%20font-size=%27112%27%20text-anchor=%27middle%27%20dominant-baseline=%27middle%27%3E%F0%9F%8E%AE%3C/text%3E%3C/svg%3E');
