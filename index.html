@@ -8232,6 +8232,260 @@
         /* ★ (19 พ.ย.) สมุด QUIZ TIME ด้านนอก: เหรียญ A+ ไม่หมุนตอนชี้เมาส์ + สมุดยกขึ้นนิดเดียว (เดิมยก 12px+ขยาย = กระตุก/มึน) */
         @media (hover: hover) { #sec-quiz .qb-book:hover .qb-medal { transform: none !important; } #sec-quiz .qb-book .qb-medal { transition: none !important; }
             #sec-quiz .qb-book:hover { transform: translateY(-4px) !important; } }
+        /* ★ (19 พ.ย.) RESCUE HQ (ตรวจ 0·ร·มส) → ธีม "กระดานห้องเรียน" (ครูขอ: กระดานห้องเรียน ทันสมัย อลังการ แนวการ์ตูน)
+             แถบหัวทุกหน้าของชุดนี้: เทปเหลืองดำ/ไฟฉุกเฉิน/ไซเรน → กระดานดำ + ธงราว + ป้ายไม้ตัวทอง + ชื่อชอล์กขาว + ขอบล่างรางไม้คาดทอง
+             หน้าเลือกห้อง: ตัวการ์ดเป็นกระดานดำกรอบไม้โอ๊ก (ชุดเดียวกับการ์ดโหลด) · ป้าย 0/ร/มส = โพสต์อิท 3 สี
+             แผงเหล็กแต่ละชั้น → ชั้นไม้ตอกหมุดทอง · แถบล่าง → ข้อความชอล์กกรอบเส้นประ — static ทั้งหมด ไม่มีอะไรกะพริบ */
+        html body .swal2-container .swal2-popup.rs-pop .rs-tape, html body .swal2-container .swal2-popup.rs-pop .rs-beam, html body .swal2-container .swal2-popup.rs-pop .rs-siren { display: none !important; }
+        html body .swal2-container .swal2-popup.rs-pop .swal2-title { padding: 40px 50px 20px !important; color: #fff !important; letter-spacing: .05em; text-shadow: 0 0 1px #fff, 3px 3px 0 rgba(0,0,0,.4), 0 0 14px rgba(255,255,255,.25) !important;
+            border-bottom: 0 !important; box-shadow: inset 0 -6px 0 #8b4513, inset 0 -8px 0 #fbbf24, inset 0 -10px 0 #000 !important;
+            background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1200 52' preserveAspectRatio='none'%3E%3Cpath d='M0 6 Q600 22 1200 6' fill='none' stroke='%23fff' stroke-opacity='.85' stroke-width='2.5'/%3E%3Cpath d='M3 5.3 L47 5.3 L25 33.3Z' fill='%23ef4444' stroke='%23000' stroke-width='2' stroke-linejoin='round'/%3E%3Cpath d='M53 7.8 L97 7.8 L75 35.8Z' fill='%23f59e0b' stroke='%23000' stroke-width='2' stroke-linejoin='round'/%3E%3Cpath d='M103 10.0 L147 10.0 L125 38.0Z' fill='%23facc15' stroke='%23000' stroke-width='2' stroke-linejoin='round'/%3E%3Cpath d='M153 12.0 L197 12.0 L175 40.0Z' fill='%2322c55e' stroke='%23000' stroke-width='2' stroke-linejoin='round'/%3E%3Cpath d='M203 13.8 L247 13.8 L225 41.8Z' fill='%233b82f6' stroke='%23000' stroke-width='2' stroke-linejoin='round'/%3E%3Cpath d='M253 15.3 L297 15.3 L275 43.3Z' fill='%23a855f7' stroke='%23000' stroke-width='2' stroke-linejoin='round'/%3E%3Cpath d='M303 16.6 L347 16.6 L325 44.6Z' fill='%23ec4899' stroke='%23000' stroke-width='2' stroke-linejoin='round'/%3E%3Cpath d='M353 17.8 L397 17.8 L375 45.8Z' fill='%23ef4444' stroke='%23000' stroke-width='2' stroke-linejoin='round'/%3E%3Cpath d='M403 18.6 L447 18.6 L425 46.6Z' fill='%23f59e0b' stroke='%23000' stroke-width='2' stroke-linejoin='round'/%3E%3Cpath d='M453 19.3 L497 19.3 L475 47.3Z' fill='%23facc15' stroke='%23000' stroke-width='2' stroke-linejoin='round'/%3E%3Cpath d='M503 19.8 L547 19.8 L525 47.8Z' fill='%2322c55e' stroke='%23000' stroke-width='2' stroke-linejoin='round'/%3E%3Cpath d='M553 20.0 L597 20.0 L575 48.0Z' fill='%233b82f6' stroke='%23000' stroke-width='2' stroke-linejoin='round'/%3E%3Cpath d='M603 20.0 L647 20.0 L625 48.0Z' fill='%23a855f7' stroke='%23000' stroke-width='2' stroke-linejoin='round'/%3E%3Cpath d='M653 19.8 L697 19.8 L675 47.8Z' fill='%23ec4899' stroke='%23000' stroke-width='2' stroke-linejoin='round'/%3E%3Cpath d='M703 19.3 L747 19.3 L725 47.3Z' fill='%23ef4444' stroke='%23000' stroke-width='2' stroke-linejoin='round'/%3E%3Cpath d='M753 18.6 L797 18.6 L775 46.6Z' fill='%23f59e0b' stroke='%23000' stroke-width='2' stroke-linejoin='round'/%3E%3Cpath d='M803 17.8 L847 17.8 L825 45.8Z' fill='%23facc15' stroke='%23000' stroke-width='2' stroke-linejoin='round'/%3E%3Cpath d='M853 16.6 L897 16.6 L875 44.6Z' fill='%2322c55e' stroke='%23000' stroke-width='2' stroke-linejoin='round'/%3E%3Cpath d='M903 15.3 L947 15.3 L925 43.3Z' fill='%233b82f6' stroke='%23000' stroke-width='2' stroke-linejoin='round'/%3E%3Cpath d='M953 13.8 L997 13.8 L975 41.8Z' fill='%23a855f7' stroke='%23000' stroke-width='2' stroke-linejoin='round'/%3E%3Cpath d='M1003 12.0 L1047 12.0 L1025 40.0Z' fill='%23ec4899' stroke='%23000' stroke-width='2' stroke-linejoin='round'/%3E%3Cpath d='M1053 10.0 L1097 10.0 L1075 38.0Z' fill='%23ef4444' stroke='%23000' stroke-width='2' stroke-linejoin='round'/%3E%3Cpath d='M1103 7.8 L1147 7.8 L1125 35.8Z' fill='%23f59e0b' stroke='%23000' stroke-width='2' stroke-linejoin='round'/%3E%3Cpath d='M1153 5.3 L1197 5.3 L1175 33.3Z' fill='%23facc15' stroke='%23000' stroke-width='2' stroke-linejoin='round'/%3E%3C/svg%3E") 10px 4px / calc(100% - 20px) 26px no-repeat, radial-gradient(ellipse 60% 60% at 50% 0%, rgba(255,236,170,.22), rgba(255,236,170,0) 75%), url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='520' height='420' viewBox='0 0 520 420'%3E%3Cg fill='none' stroke='%23fff' stroke-opacity='.16' stroke-width='3' stroke-linecap='round' stroke-linejoin='round' font-family='Comic Sans MS,cursive' font-weight='700'%3E%3Ctext x='30' y='70' font-size='40' fill='%23fff' fill-opacity='.13' stroke='none'%3EABC%3C/text%3E%3Cpath d='M400 40l9 20 22 2-17 14 5 22-19-12-19 12 5-22-17-14 22-2z'/%3E%3Ccircle cx='90' cy='300' r='28'/%3E%3Cpath d='M78 292v4M102 292v4M76 310q14 14 28 0'/%3E%3Cpath d='M300 330q20-30 40 0q20-30 40 0'/%3E%3Ctext x='250' y='190' font-size='30' fill='%23fff' fill-opacity='.12' stroke='none'%3EHello!%3C/text%3E%3Cpath d='M440 300c-10-18 14-30 22-12c8-18 32-6 22 12l-22 22z'/%3E%3Cpath d='M150 150l40 10l-8-14M190 160l-10 12'/%3E%3Ctext x='380' y='230' font-size='28' fill='%23fff' fill-opacity='.12' stroke='none'%3EA+%3C/text%3E%3C/g%3E%3C/svg%3E") 0 0 / 520px 420px repeat, linear-gradient(165deg, #2f5a40 0%, #234a33 50%, #1b3a28 100%) !important; }
+        html body .swal2-container .swal2-popup.rs-pop .swal2-title::before, html body .swal2-container .swal2-popup.rs-pop .swal2-title::after { display: none !important; animation: none !important; }
+        html body .swal2-container .swal2-popup.rs-pop .rs-kick { color: #fde68a !important; background: repeating-linear-gradient(176deg, rgba(120,70,20,.16) 0 1.5px, rgba(0,0,0,0) 1.5px 6px, rgba(255,240,210,.14) 6px 7.5px, rgba(0,0,0,0) 7.5px 13px), linear-gradient(180deg, #b0642f 0%, #8b4513 50%, #5e2d0d 100%) !important; border: 2.5px solid #000 !important;
+            box-shadow: inset 0 0 0 1.5px #fbbf24, 0 3px 0 #000 !important; text-shadow: 0 1px 0 #000 !important; border-radius: 6px !important; padding: 3px 14px 2px !important; }
+        html body .swal2-container .swal2-popup.rs-pop .rs-ttl { position: relative; display: inline-block; padding-bottom: 6px; }
+        html body .swal2-container .swal2-popup.rs-pop .rs-ttl::after { content: ''; position: absolute; left: 4%; right: 4%; bottom: -2px; height: 7px;
+            background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 8' preserveAspectRatio='none'%3E%3Cpath d='M2 5Q25 1 50 4T100 4T150 4T198 3' fill='none' stroke='%23fde68a' stroke-width='2.6' stroke-linecap='round'/%3E%3C/svg%3E") 0 0 / 100% 100% no-repeat; }
+        html body .swal2-container .swal2-popup.rs-pop .swal2-close { color: #fff !important; text-shadow: 2px 2px 0 #000; top: 8px !important; }
+        /* ---- หน้าเลือกห้อง ---- */
+        html body .swal2-container .swal2-popup.rs-pop.rs-pick { border: 12px solid transparent !important; border-radius: 18px !important; overflow: hidden;
+            background: linear-gradient(180deg, #a86a35, #7c4a1e) 0 100% / 100% 14px no-repeat padding-box,
+                linear-gradient(90deg, rgba(0,0,0,0) 14%, #fff 14% 19%, rgba(0,0,0,0) 19% 22%, #f9a8d4 22% 27%, rgba(0,0,0,0) 27% 30%, #fde047 30% 35%, rgba(0,0,0,0) 35% 72%, #e2e8f0 72% 73%, #475569 73% 85%, rgba(0,0,0,0) 85%) 0 calc(100% - 11px) / 100% 6px no-repeat padding-box,
+                url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='520' height='420' viewBox='0 0 520 420'%3E%3Cg fill='none' stroke='%23fff' stroke-opacity='.16' stroke-width='3' stroke-linecap='round' stroke-linejoin='round' font-family='Comic Sans MS,cursive' font-weight='700'%3E%3Ctext x='30' y='70' font-size='40' fill='%23fff' fill-opacity='.13' stroke='none'%3EABC%3C/text%3E%3Cpath d='M400 40l9 20 22 2-17 14 5 22-19-12-19 12 5-22-17-14 22-2z'/%3E%3Ccircle cx='90' cy='300' r='28'/%3E%3Cpath d='M78 292v4M102 292v4M76 310q14 14 28 0'/%3E%3Cpath d='M300 330q20-30 40 0q20-30 40 0'/%3E%3Ctext x='250' y='190' font-size='30' fill='%23fff' fill-opacity='.12' stroke='none'%3EHello!%3C/text%3E%3Cpath d='M440 300c-10-18 14-30 22-12c8-18 32-6 22 12l-22 22z'/%3E%3Cpath d='M150 150l40 10l-8-14M190 160l-10 12'/%3E%3Ctext x='380' y='230' font-size='28' fill='%23fff' fill-opacity='.12' stroke='none'%3EA+%3C/text%3E%3C/g%3E%3C/svg%3E") 0 0 / 520px 420px repeat padding-box, linear-gradient(165deg, #2f5a40 0%, #234a33 50%, #1b3a28 100%) padding-box,
+                linear-gradient(180deg, rgba(255,255,255,.35), rgba(255,255,255,0) 4%, rgba(0,0,0,0) 95%, rgba(0,0,0,.25)) border-box,
+                repeating-linear-gradient(174deg, rgba(120,70,20,.16) 0 1.5px, rgba(0,0,0,0) 1.5px 6px, rgba(255,240,210,.12) 6px 7.5px, rgba(0,0,0,0) 7.5px 13px) border-box,
+                linear-gradient(135deg, #e6bd82 0%, #d09a5c 40%, #c08348 70%, #dcae72 100%) border-box !important;
+            box-shadow: inset 0 0 0 1.5px #6b3a14, inset 0 0 0 3.5px #fcd34d, inset 0 0 0 5px #6b3a14, 0 0 0 1.5px #6b3a14, 0 0 0 3px #000, 8px 9px 0 3px #000, 0 24px 60px rgba(0,0,0,.4) !important;
+            padding-bottom: 22px !important; }
+        html body .swal2-container .swal2-popup.rs-pop.rs-pick .swal2-title { background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1200 52' preserveAspectRatio='none'%3E%3Cpath d='M0 6 Q600 22 1200 6' fill='none' stroke='%23fff' stroke-opacity='.85' stroke-width='2.5'/%3E%3Cpath d='M3 5.3 L47 5.3 L25 33.3Z' fill='%23ef4444' stroke='%23000' stroke-width='2' stroke-linejoin='round'/%3E%3Cpath d='M53 7.8 L97 7.8 L75 35.8Z' fill='%23f59e0b' stroke='%23000' stroke-width='2' stroke-linejoin='round'/%3E%3Cpath d='M103 10.0 L147 10.0 L125 38.0Z' fill='%23facc15' stroke='%23000' stroke-width='2' stroke-linejoin='round'/%3E%3Cpath d='M153 12.0 L197 12.0 L175 40.0Z' fill='%2322c55e' stroke='%23000' stroke-width='2' stroke-linejoin='round'/%3E%3Cpath d='M203 13.8 L247 13.8 L225 41.8Z' fill='%233b82f6' stroke='%23000' stroke-width='2' stroke-linejoin='round'/%3E%3Cpath d='M253 15.3 L297 15.3 L275 43.3Z' fill='%23a855f7' stroke='%23000' stroke-width='2' stroke-linejoin='round'/%3E%3Cpath d='M303 16.6 L347 16.6 L325 44.6Z' fill='%23ec4899' stroke='%23000' stroke-width='2' stroke-linejoin='round'/%3E%3Cpath d='M353 17.8 L397 17.8 L375 45.8Z' fill='%23ef4444' stroke='%23000' stroke-width='2' stroke-linejoin='round'/%3E%3Cpath d='M403 18.6 L447 18.6 L425 46.6Z' fill='%23f59e0b' stroke='%23000' stroke-width='2' stroke-linejoin='round'/%3E%3Cpath d='M453 19.3 L497 19.3 L475 47.3Z' fill='%23facc15' stroke='%23000' stroke-width='2' stroke-linejoin='round'/%3E%3Cpath d='M503 19.8 L547 19.8 L525 47.8Z' fill='%2322c55e' stroke='%23000' stroke-width='2' stroke-linejoin='round'/%3E%3Cpath d='M553 20.0 L597 20.0 L575 48.0Z' fill='%233b82f6' stroke='%23000' stroke-width='2' stroke-linejoin='round'/%3E%3Cpath d='M603 20.0 L647 20.0 L625 48.0Z' fill='%23a855f7' stroke='%23000' stroke-width='2' stroke-linejoin='round'/%3E%3Cpath d='M653 19.8 L697 19.8 L675 47.8Z' fill='%23ec4899' stroke='%23000' stroke-width='2' stroke-linejoin='round'/%3E%3Cpath d='M703 19.3 L747 19.3 L725 47.3Z' fill='%23ef4444' stroke='%23000' stroke-width='2' stroke-linejoin='round'/%3E%3Cpath d='M753 18.6 L797 18.6 L775 46.6Z' fill='%23f59e0b' stroke='%23000' stroke-width='2' stroke-linejoin='round'/%3E%3Cpath d='M803 17.8 L847 17.8 L825 45.8Z' fill='%23facc15' stroke='%23000' stroke-width='2' stroke-linejoin='round'/%3E%3Cpath d='M853 16.6 L897 16.6 L875 44.6Z' fill='%2322c55e' stroke='%23000' stroke-width='2' stroke-linejoin='round'/%3E%3Cpath d='M903 15.3 L947 15.3 L925 43.3Z' fill='%233b82f6' stroke='%23000' stroke-width='2' stroke-linejoin='round'/%3E%3Cpath d='M953 13.8 L997 13.8 L975 41.8Z' fill='%23a855f7' stroke='%23000' stroke-width='2' stroke-linejoin='round'/%3E%3Cpath d='M1003 12.0 L1047 12.0 L1025 40.0Z' fill='%23ec4899' stroke='%23000' stroke-width='2' stroke-linejoin='round'/%3E%3Cpath d='M1053 10.0 L1097 10.0 L1075 38.0Z' fill='%23ef4444' stroke='%23000' stroke-width='2' stroke-linejoin='round'/%3E%3Cpath d='M1103 7.8 L1147 7.8 L1125 35.8Z' fill='%23f59e0b' stroke='%23000' stroke-width='2' stroke-linejoin='round'/%3E%3Cpath d='M1153 5.3 L1197 5.3 L1175 33.3Z' fill='%23facc15' stroke='%23000' stroke-width='2' stroke-linejoin='round'/%3E%3C/svg%3E") 6px 2px / calc(100% - 12px) 26px no-repeat, radial-gradient(ellipse 60% 70% at 50% 0%, rgba(255,236,170,.2), rgba(255,236,170,0) 75%) !important; box-shadow: none !important; padding: 36px 46px 6px !important; }
+        html body .swal2-container .swal2-popup.rs-pop.rs-pick .swal2-html-container { padding-top: 10px !important; }
+        html body .swal2-container .swal2-popup.rs-pop.rs-pick .rs-lead { color: #fff; text-shadow: 0 0 1px #fff, 2px 2px 0 rgba(0,0,0,.35); font-size: .95rem; }
+        html body .swal2-container .swal2-popup.rs-pop.rs-pick .rs-lead::before { content: '✏️ '; }
+        html body .swal2-container .swal2-popup.rs-pop.rs-pick .rs-lamp { border: 2.5px solid #000 !important; border-radius: 3px 3px 14px 3px !important; box-shadow: 3px 4px 0 rgba(0,0,0,.45) !important; background: linear-gradient(180deg, rgba(255,255,255,.5), rgba(255,255,255,0) 35%), var(--l1) !important; transform: rotate(-1.5deg); }
+        html body .swal2-container .swal2-popup.rs-pop.rs-pick .rs-lamp.r { transform: rotate(1deg); } html body .swal2-container .swal2-popup.rs-pop.rs-pick .rs-lamp.ms { transform: rotate(-.5deg); }
+        html body .swal2-container .swal2-popup.rs-pop.rs-pick .rs-lamp i { color: #1f2937 !important; }
+        html body .swal2-container .swal2-popup.rs-pop.rs-pick .rs-lamp b { box-shadow: 0 2px 0 #000 !important; }
+        html body .swal2-container .swal2-popup.rs-pop.rs-pick .rs-mod { border-radius: 14px !important; box-shadow: inset 0 3px 0 rgba(255,255,255,.35), inset 0 -5px 0 rgba(0,0,0,.18), 4px 5px 0 0 #000 !important;
+            background: radial-gradient(circle at 9px 9px, #fffbe6 0 1.2px, #facc15 1.8px, #b45309 3.2px, #000 3.6px 4.2px, rgba(0,0,0,0) 4.6px),
+                radial-gradient(circle at calc(100% - 9px) 9px, #fffbe6 0 1.2px, #facc15 1.8px, #b45309 3.2px, #000 3.6px 4.2px, rgba(0,0,0,0) 4.6px),
+                radial-gradient(circle at 9px calc(100% - 9px), #fffbe6 0 1.2px, #facc15 1.8px, #b45309 3.2px, #000 3.6px 4.2px, rgba(0,0,0,0) 4.6px),
+                radial-gradient(circle at calc(100% - 9px) calc(100% - 9px), #fffbe6 0 1.2px, #facc15 1.8px, #b45309 3.2px, #000 3.6px 4.2px, rgba(0,0,0,0) 4.6px),
+                repeating-linear-gradient(176deg, rgba(120,70,20,.16) 0 1.5px, rgba(0,0,0,0) 1.5px 6px, rgba(255,240,210,.14) 6px 7.5px, rgba(0,0,0,0) 7.5px 13px), linear-gradient(180deg, #e2b679 0%, #cf9858 50%, #b97f42 100%) !important; }
+        html body .swal2-container .swal2-popup.rs-pop.rs-pick .rs-mod::before, html body .swal2-container .swal2-popup.rs-pop.rs-pick .rs-mod::after { display: none !important; }
+        html body .swal2-container .swal2-popup.rs-pop.rs-pick .rs-lvl { box-shadow: inset 0 2px 0 rgba(255,255,255,.5), 0 3px 0 #000 !important; }
+        html body .swal2-container .swal2-popup.rs-pop.rs-pick .rs-foot { background: rgba(0,0,0,.18) !important; color: #fff !important; border: 2.5px dashed rgba(255,255,255,.7) !important; box-shadow: none !important; text-shadow: 1px 1px 0 rgba(0,0,0,.4); }
+        html body .swal2-container .swal2-popup.rs-pop.rs-pick .rs-foot i { background: #fde047 !important; box-shadow: 0 0 6px #fde047 !important; animation: none !important; }
+        /* ★ (19 พ.ย.) โต๊ะครูท้ายเว็บ: แผ่นป้ายกลางสีน้ำเงินเข้ม → กระดานดำเขียว (เข้ากับกระดานใหญ่ด้านบน) เส้นทอง/มุมทองคงเดิม · ปุ่มเอฟเฟกต์เป็นสีเขียวกระดาน */
+        .ft-bar::before { background: radial-gradient(circle at 18px 18px, #fde68a 0 3px, #000 3.5px 4.3px, rgba(0,0,0,0) 4.8px), radial-gradient(circle at calc(100% - 18px) 18px, #fde68a 0 3px, #000 3.5px 4.3px, rgba(0,0,0,0) 4.8px),
+                radial-gradient(circle at 18px calc(100% - 18px), #fde68a 0 3px, #000 3.5px 4.3px, rgba(0,0,0,0) 4.8px), radial-gradient(circle at calc(100% - 18px) calc(100% - 18px), #fde68a 0 3px, #000 3.5px 4.3px, rgba(0,0,0,0) 4.8px),
+                linear-gradient(#e0b23a, #e0b23a) 18px 18px / calc(100% - 36px) 2px no-repeat, linear-gradient(#e0b23a, #e0b23a) 18px calc(100% - 18px) / calc(100% - 36px) 2px no-repeat,
+                linear-gradient(#e0b23a, #e0b23a) 18px 18px / 2px calc(100% - 36px) no-repeat, linear-gradient(#e0b23a, #e0b23a) calc(100% - 18px) 18px / 2px calc(100% - 36px) no-repeat,
+                radial-gradient(ellipse 55% 45% at 30% 20%, rgba(255,230,170,.16), rgba(255,230,170,0) 70%), url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='520' height='420' viewBox='0 0 520 420'%3E%3Cg fill='none' stroke='%23fff' stroke-opacity='.16' stroke-width='3' stroke-linecap='round' stroke-linejoin='round' font-family='Comic Sans MS,cursive' font-weight='700'%3E%3Ctext x='30' y='70' font-size='40' fill='%23fff' fill-opacity='.13' stroke='none'%3EABC%3C/text%3E%3Cpath d='M400 40l9 20 22 2-17 14 5 22-19-12-19 12 5-22-17-14 22-2z'/%3E%3Ccircle cx='90' cy='300' r='28'/%3E%3Cpath d='M78 292v4M102 292v4M76 310q14 14 28 0'/%3E%3Cpath d='M300 330q20-30 40 0q20-30 40 0'/%3E%3Ctext x='250' y='190' font-size='30' fill='%23fff' fill-opacity='.12' stroke='none'%3EHello!%3C/text%3E%3Cpath d='M440 300c-10-18 14-30 22-12c8-18 32-6 22 12l-22 22z'/%3E%3Cpath d='M150 150l40 10l-8-14M190 160l-10 12'/%3E%3Ctext x='380' y='230' font-size='28' fill='%23fff' fill-opacity='.12' stroke='none'%3EA+%3C/text%3E%3C/g%3E%3C/svg%3E") 0 0 / 520px 420px repeat, linear-gradient(165deg, #2f5a40 0%, #234a33 50%, #1b3a28 100%) !important; }
+        .ft-bar .ft-fx { background: #14532d; color: #fde68a; }
+        /* ★ (19 พ.ย.) ครูขอให้กระดานเขียวท้ายเว็บ "เต็ม" — ขยายเต็มความกว้างโต๊ะทุกขนาดจอ (เดิมจอใหญ่กว้างแค่ 62% ตรงกลาง) เหลือขอบไม้รอบนิดเดียว ของบนโต๊ะวางอยู่บนกระดาน */
+        .ft-bar::before { left: 14px !important; right: 14px !important; width: auto !important; transform: none !important; top: 14px !important; bottom: 26px !important; }
+        @media (min-width: 768px) { .ft-bar::before { left: 18px !important; right: 18px !important; top: 16px !important; bottom: 28px !important; } }
+        .ft-bar > .ft-props { z-index: 1; }
+        /* ★ (19 พ.ย.) ลูกเล่นเบาๆ ทั้งเว็บ: คลุมข้อความ = ไฮไลต์ชอล์กเหลือง · แถบเลื่อนหน้าเว็บ = รางไม้ + ตัวจับสีทอง
+             ฝุ่นชอล์กตอนคลิก (.ck-burst) · ธงราวกระดานท้ายเว็บเด้งขยายนิดๆ ตอนชี้เมาส์ (ใช้ scale แยก ไม่ชนแอนิเมชันเดิม) */
+        ::selection { background: #fde047; color: #1f2937; }
+        html { scrollbar-color: #f59e0b #3b1a06; }
+        html::-webkit-scrollbar { width: 12px; } html::-webkit-scrollbar-track { background: linear-gradient(90deg, #3b1a06, #5e2d0d 50%, #3b1a06); }
+        html::-webkit-scrollbar-thumb { background: linear-gradient(90deg, #fde68a, #f59e0b 60%, #d97706); border: 2px solid #3b1a06; border-radius: 999px; }
+        .ck-burst { position: fixed; z-index: 3000; width: 0; height: 0; pointer-events: none; }
+        .ck-burst i { position: absolute; left: -5px; top: -7px; font-style: normal; font-size: 11px; line-height: 1; text-shadow: 0 0 4px currentColor; animation: ckBurst .55s cubic-bezier(.2,.8,.3,1) forwards; }
+        @keyframes ckBurst { 0% { transform: translate(0,0) scale(.4); opacity: 1; } 70% { opacity: 1; } 100% { transform: translate(var(--tx), var(--ty)) scale(1) rotate(90deg); opacity: 0; } }
+        @media (hover: hover) { .ft-bunting i { transition: scale .18s ease; } .ft-bunting i:hover { scale: 1.18; } }
+        /* =====================================================================
+           ★ (19 พ.ย.) HERO = "กระดานห้องเรียนสุดอลังการ" (ครูขอ: แนวกระดานห้องเรียน จัดเต็ม ลูกเล่นเยอะ ลื่น ไม่กระตุก)
+             ตัวการ์ด: กระดานดำเขียว + กรอบไม้โอ๊กลายเสี้ยน 16px + เส้นทองด้านใน + ธงราวสีรุ้ง + รางชอล์กไม้ (ชอล์ก 3 สี + แปรงลบ)
+             ไฟโคมส่องจาก 2 มุมบน · นาฬิกาห้องเรียนเข็มเดิน · เครื่องบินกระดาษบินผ่าน · ดาวชอล์กวิ้ง · ลายชอล์กจางๆ
+             รูปครู: วงตัวอักษรหมุน = ชอล์กทอง บนวงกระดาน · กรอบรูปทองคาดดำ · ป้าย ม.4–6 = ป้ายไม้ · "I AM OAT!" = ป้ายไม้ตัวทอง
+             ข้อความ: WELCOME = โพสต์อิทเหลือง · ONLINE NOW = ชอล์กเขียว · HELLO = ชอล์กขาว · HUMAN! = ชอล์กสีรุ้ง + เส้นใต้ชอล์ก
+             ชื่อครู = แผ่นไม้สลักตัวทอง (ID = ป้ายแดง) · แท็ก = กรอบชอล์กเส้นประ · สถิติ 4 ช่อง = โพสต์อิท 4 สีเอียงนิดๆ
+             ของบนโต๊ะ/รางชอล์ก: 🍎 📚 🌏 ✏️ · ของหลอดไฟ/วงจร/สแกน AI ทั้งหมดซ่อน
+             ลื่น: ขยับเฉพาะชิ้นเล็กด้วย transform/opacity · ฉากใหญ่ทุกชั้นนิ่ง · โหมด 💤/ลดการเคลื่อนไหว = นิ่งหมด
+           ===================================================================== */
+        html body .hero-card.ai-hero { border: 16px solid transparent !important; color: #fff;
+            background: linear-gradient(90deg, rgba(0,0,0,0) 8%, #fff 8% 11.5%, rgba(0,0,0,0) 11.5% 13%, #f9a8d4 13% 16.5%, rgba(0,0,0,0) 16.5% 18%, #fde047 18% 21.5%, rgba(0,0,0,0) 21.5% 82%, #e2e8f0 82% 83%, #475569 83% 91%, rgba(0,0,0,0) 91%) 0 calc(100% - 13px) / 100% 7px no-repeat padding-box,
+                linear-gradient(180deg, #a86a35, #6b3a14) 0 100% / 100% 16px no-repeat padding-box,
+                radial-gradient(ellipse 40% 55% at 26% 46%, rgba(255,255,255,.07), rgba(255,255,255,0) 70%) padding-box,
+                radial-gradient(ellipse 50% 60% at 70% 30%, rgba(255,255,255,.04), rgba(255,255,255,0) 70%) padding-box,
+                url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='520' height='420' viewBox='0 0 520 420'%3E%3Cg fill='none' stroke='%23fff' stroke-opacity='.16' stroke-width='3' stroke-linecap='round' stroke-linejoin='round' font-family='Comic Sans MS,cursive' font-weight='700'%3E%3Ctext x='30' y='70' font-size='40' fill='%23fff' fill-opacity='.13' stroke='none'%3EABC%3C/text%3E%3Cpath d='M400 40l9 20 22 2-17 14 5 22-19-12-19 12 5-22-17-14 22-2z'/%3E%3Ccircle cx='90' cy='300' r='28'/%3E%3Cpath d='M78 292v4M102 292v4M76 310q14 14 28 0'/%3E%3Cpath d='M300 330q20-30 40 0q20-30 40 0'/%3E%3Ctext x='250' y='190' font-size='30' fill='%23fff' fill-opacity='.12' stroke='none'%3EHello!%3C/text%3E%3Cpath d='M440 300c-10-18 14-30 22-12c8-18 32-6 22 12l-22 22z'/%3E%3Cpath d='M150 150l40 10l-8-14M190 160l-10 12'/%3E%3Ctext x='380' y='230' font-size='28' fill='%23fff' fill-opacity='.12' stroke='none'%3EA+%3C/text%3E%3C/g%3E%3C/svg%3E") 0 0 / 560px 450px repeat padding-box,
+                linear-gradient(165deg, #305c41 0%, #24503a 45%, #1c3e2b 100%) padding-box,
+                linear-gradient(180deg, rgba(255,240,210,.4), rgba(255,255,255,0) 3%, rgba(0,0,0,0) 96%, rgba(0,0,0,.3)) border-box,
+                linear-gradient(90deg, rgba(255,240,210,.25), rgba(255,255,255,0) 2%, rgba(0,0,0,0) 98%, rgba(0,0,0,.25)) border-box,
+                repeating-linear-gradient(174deg, rgba(120,70,20,.18) 0 1.5px, rgba(0,0,0,0) 1.5px 6px, rgba(255,240,210,.12) 6px 7.5px, rgba(0,0,0,0) 7.5px 13px) border-box,
+                linear-gradient(135deg, #e6bd82 0%, #cf9858 38%, #b97f42 68%, #dcae72 100%) border-box !important;
+            box-shadow: inset 0 0 0 2px #6b3a14, inset 0 10px 24px rgba(0,0,0,.35), 0 0 0 2px #6b3a14, 0 0 0 5px #000, 12px 12px 0 5px #000, 0 0 50px rgba(251,191,36,.25) !important; }
+        html body .hero-card.ai-hero::before { inset: 4px !important; border-radius: 2.2rem !important; padding: 2.5px !important; background: linear-gradient(115deg, #fde68a, #f59e0b 40%, #fde047 70%, #fbbf24) !important; z-index: 2; }
+        html body .hero-card.ai-hero::after { background: radial-gradient(ellipse 34% 46% at 0% 0%, rgba(255,236,170,.2), rgba(255,236,170,0) 70%), radial-gradient(ellipse 34% 46% at 100% 0%, rgba(255,236,170,.16), rgba(255,236,170,0) 70%) !important; }
+        html body .hero-card.ai-hero .ai-floor, html body .hero-card.ai-hero .ai-circuit, html body .hero-card.ai-hero .ai-beam, html body .hero-card.ai-hero .ai-scan, html body .hero-card.ai-hero .ai-hud, html body .hero-card.ai-hero .ai-sat, html body .hero-card.ai-hero .ai-scanline, html body .hero-card.ai-hero .ai-shield, html body .hero-card.ai-hero .ai-corners, html body .hero-card.ai-hero .ai-burst { display: none !important; }
+        html body .hero-card.ai-hero .ai-word { color: rgba(255,255,255,.035) !important; -webkit-text-stroke: 2px rgba(255,255,255,.12) !important; transform: rotate(-4deg); }
+        /* ---- รูปครู ---- */
+        html body .hero-card.ai-hero .ai-photo::before { background: conic-gradient(from 0deg, #f87171, #fbbf24, #4ade80, #60a5fa, #c084fc, #f472b6, #f87171) !important; opacity: .55; }
+        html body .hero-card.ai-hero .ai-photo::after { display: none !important; }
+        html body .hero-card.ai-hero .ai-disc { border-color: #000 !important; box-shadow: 0 0 0 3px #fde68a, 0 0 0 6px #000, 0 10px 24px rgba(0,0,0,.35) !important;
+            background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='520' height='420' viewBox='0 0 520 420'%3E%3Cg fill='none' stroke='%23fff' stroke-opacity='.16' stroke-width='3' stroke-linecap='round' stroke-linejoin='round' font-family='Comic Sans MS,cursive' font-weight='700'%3E%3Ctext x='30' y='70' font-size='40' fill='%23fff' fill-opacity='.13' stroke='none'%3EABC%3C/text%3E%3Cpath d='M400 40l9 20 22 2-17 14 5 22-19-12-19 12 5-22-17-14 22-2z'/%3E%3Ccircle cx='90' cy='300' r='28'/%3E%3Cpath d='M78 292v4M102 292v4M76 310q14 14 28 0'/%3E%3Cpath d='M300 330q20-30 40 0q20-30 40 0'/%3E%3Ctext x='250' y='190' font-size='30' fill='%23fff' fill-opacity='.12' stroke='none'%3EHello!%3C/text%3E%3Cpath d='M440 300c-10-18 14-30 22-12c8-18 32-6 22 12l-22 22z'/%3E%3Cpath d='M150 150l40 10l-8-14M190 160l-10 12'/%3E%3Ctext x='380' y='230' font-size='28' fill='%23fff' fill-opacity='.12' stroke='none'%3EA+%3C/text%3E%3C/g%3E%3C/svg%3E") 0 0 / 300px 240px, radial-gradient(circle at 50% 35%, #3a6b4c 0%, #24503a 60%, #173524 100%) !important; }
+        html body .hero-card.ai-hero .ai-ring text { fill: #fff !important; }
+        html body .hero-card.ai-hero .ai-ring .hx-ring-dash { stroke: #fde68a !important; stroke-opacity: .85 !important; stroke-width: 1.6 !important; stroke-dasharray: 2 6 !important; }
+        html body .hero-card.ai-hero .ai-frame { background: #24503a !important; box-shadow: 0 0 0 4px #fff, 0 0 0 7px #000, 0 0 0 11px #fbbf24, 0 0 0 13px #000, 0 8px 20px 8px rgba(0,0,0,.3) !important; }
+        html body .hero-card.ai-hero .ai-badge::before { background: repeating-linear-gradient(176deg, rgba(0,0,0,.14) 0 2px, rgba(0,0,0,0) 2px 9px, rgba(255,255,255,.07) 9px 11px, rgba(0,0,0,0) 11px 19px), linear-gradient(180deg, #b0642f 0%, #8b4513 55%, #5e2d0d 100%) !important; }
+        html body .hero-card.ai-hero .ai-badge b { color: #fde68a !important; text-shadow: 0 1px 0 #000, 0 0 6px rgba(253,230,138,.5) !important; }
+        html body .hero-card.ai-hero .ai-oat { color: #fde68a !important; background: repeating-linear-gradient(176deg, rgba(0,0,0,.14) 0 2px, rgba(0,0,0,0) 2px 9px, rgba(255,255,255,.07) 9px 11px, rgba(0,0,0,0) 11px 19px), linear-gradient(180deg, #b0642f 0%, #8b4513 55%, #5e2d0d 100%) !important; box-shadow: inset 0 0 0 2px #fbbf24, 4px 4px 0 0 #000 !important; text-shadow: 0 1px 0 #000 !important; border-radius: 8px !important; }
+        html body .hero-card.ai-hero .ai-orbit i { background: #fffbeb !important; box-shadow: 0 0 0 2.5px #000, 0 0 0 5px #fbbf24, 0 0 0 6.5px #000 !important; border-color: #000 !important; }
+        html body .hero-card.ai-hero .ai-spk { background: #fde68a !important; }
+        /* ---- แผงข้อความ ---- */
+        @media (min-width: 768px) { html body .hero-card.ai-hero .ai-text { background: rgba(0,0,0,.12) !important; box-shadow: inset 0 0 0 2.5px rgba(255,255,255,.35), 0 0 0 0 transparent !important; outline: 2px dashed rgba(255,255,255,.28); outline-offset: -10px; } }
+        html body .hero-card.ai-hero .ai-logo { box-shadow: 0 0 0 3px #fde68a, 0 0 0 5.5px #000, 0 4px 10px rgba(0,0,0,.35) !important; }
+        html body .hero-card.ai-hero .ai-chip.wel { color: #3f2a00 !important; background: linear-gradient(180deg, rgba(255,255,255,.5), rgba(255,255,255,0) 40%), #fde047 !important; border-radius: 3px 3px 12px 3px !important; transform: rotate(-3deg); box-shadow: 3px 4px 0 0 rgba(0,0,0,.5) !important; }
+        html body .hero-card.ai-hero .ai-chip.live { color: #dcfce7 !important; background: rgba(0,0,0,.18) !important; border: 2.5px dashed #86efac !important; box-shadow: none !important; }
+        html body .hero-card.ai-hero .ai-title .t1, html body .hero-card.ai-hero .ai-title .t2 { text-shadow: 0 2px 0 #14532d, 0 4px 0 #0b2e1a, 4px 7px 0 rgba(0,0,0,.35) !important; }
+        html body .hero-card.ai-hero .ai-title .t1::after { background-image: linear-gradient(180deg, #ffffff 0%, #f8fafc 60%, #e2e8f0 100%) !important; -webkit-text-stroke-color: rgba(0,0,0,.55) !important; }
+        html body .hero-card.ai-hero .ai-title .t2::after { background-image: linear-gradient(100deg, #fde047 0%, #fdba74 25%, #f9a8d4 50%, #c4b5fd 75%, #a5f3fc 100%) !important; -webkit-text-stroke-color: rgba(0,0,0,.55) !important; }
+        html body .hero-card.ai-hero .ai-title { background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 300 10' preserveAspectRatio='none'%3E%3Cpath d='M3 6Q40 1 80 5T160 5T240 4T297 5' fill='none' stroke='%23fde68a' stroke-width='3.4' stroke-linecap='round'/%3E%3C/svg%3E") 0 100% / min(100%, 7.8em) 10px no-repeat !important; }
+        html body .hero-card.ai-hero .ai-name { border-color: #000 !important; box-shadow: 5px 5px 0 0 #000 !important; background: repeating-linear-gradient(176deg, rgba(0,0,0,.14) 0 2px, rgba(0,0,0,0) 2px 9px, rgba(255,255,255,.07) 9px 11px, rgba(0,0,0,0) 11px 19px), linear-gradient(180deg, #b0642f 0%, #8b4513 55%, #5e2d0d 100%) !important; }
+        html body .hero-card.ai-hero .ai-name::before { background: linear-gradient(180deg, #f87171, #dc2626) !important; color: #fff !important; text-shadow: 0 1px 0 rgba(0,0,0,.4); }
+        html body .hero-card.ai-hero .ai-name-in { color: transparent !important; background: linear-gradient(180deg, #fffbe6, #fde68a 30%, #facc15 52%, #f59e0b 78%, #fde047) !important; -webkit-background-clip: text !important; background-clip: text !important; filter: drop-shadow(0 2px 0 rgba(0,0,0,.6)); }
+        html body .hero-card.ai-hero .ai-name-in .hx-flag { -webkit-text-fill-color: initial; }
+        html body .hero-card.ai-hero .ai-name-in::after { border-color: #fde68a !important; }
+        html body .hero-card.ai-hero .ai-tag { color: #fff !important; background: rgba(0,0,0,.16) !important; border: 2.5px dashed rgba(255,255,255,.75) !important; box-shadow: none !important; }
+        html body .hero-card.ai-hero .ai-tag i { background: #fffbeb !important; border-color: #000 !important; }
+        html body .hero-card.ai-hero .ai-st { border-color: #000 !important; border-radius: 4px 4px 16px 4px !important; box-shadow: 3px 5px 0 0 rgba(0,0,0,.5) !important; background: linear-gradient(180deg, rgba(255,255,255,.55), rgba(255,255,255,0) 35%), #fef08a !important; transform: rotate(-1.5deg); }
+        html body .hero-card.ai-hero .ai-st.c2 { background: linear-gradient(180deg, rgba(255,255,255,.55), rgba(255,255,255,0) 35%), #fbcfe8 !important; transform: rotate(1.2deg); }
+        html body .hero-card.ai-hero .ai-st.c3 { background: linear-gradient(180deg, rgba(255,255,255,.55), rgba(255,255,255,0) 35%), #bae6fd !important; transform: rotate(-.8deg); }
+        html body .hero-card.ai-hero .ai-st.c4 { background: linear-gradient(180deg, rgba(255,255,255,.55), rgba(255,255,255,0) 35%), #bbf7d0 !important; transform: rotate(1.6deg); }
+        html body .hero-card.ai-hero .ai-st b { color: #1f2937 !important; text-shadow: none !important; }
+        html body .hero-card.ai-hero .ai-st small { color: #7c2d12 !important; }
+        html body .hero-card.ai-hero .ai-st i { background: #fff !important; border-color: #000 !important; box-shadow: 0 2px 0 #000 !important; }
+        html body .hero-card.ai-hero .ai-xp { background: #fff !important; border-color: #000 !important; }
+        /* ---- ของตกแต่งกระดาน ---- */
+        html body .hero-card.ai-hero .hc-fx { position: absolute; inset: 0; z-index: 3; pointer-events: none; font-style: normal; }
+        html body .hero-card.ai-hero .hc-fx i { position: absolute; font-style: normal; line-height: 1; }
+        html body .hero-card.ai-hero .hc-bunt { left: 4%; right: 4%; top: 0; height: 40px; background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1200 52' preserveAspectRatio='none'%3E%3Cpath d='M0 6 Q600 22 1200 6' fill='none' stroke='%23fff' stroke-opacity='.85' stroke-width='2.5'/%3E%3Cpath d='M3 5.3 L47 5.3 L25 33.3Z' fill='%23ef4444' stroke='%23000' stroke-width='2' stroke-linejoin='round'/%3E%3Cpath d='M53 7.8 L97 7.8 L75 35.8Z' fill='%23f59e0b' stroke='%23000' stroke-width='2' stroke-linejoin='round'/%3E%3Cpath d='M103 10.0 L147 10.0 L125 38.0Z' fill='%23facc15' stroke='%23000' stroke-width='2' stroke-linejoin='round'/%3E%3Cpath d='M153 12.0 L197 12.0 L175 40.0Z' fill='%2322c55e' stroke='%23000' stroke-width='2' stroke-linejoin='round'/%3E%3Cpath d='M203 13.8 L247 13.8 L225 41.8Z' fill='%233b82f6' stroke='%23000' stroke-width='2' stroke-linejoin='round'/%3E%3Cpath d='M253 15.3 L297 15.3 L275 43.3Z' fill='%23a855f7' stroke='%23000' stroke-width='2' stroke-linejoin='round'/%3E%3Cpath d='M303 16.6 L347 16.6 L325 44.6Z' fill='%23ec4899' stroke='%23000' stroke-width='2' stroke-linejoin='round'/%3E%3Cpath d='M353 17.8 L397 17.8 L375 45.8Z' fill='%23ef4444' stroke='%23000' stroke-width='2' stroke-linejoin='round'/%3E%3Cpath d='M403 18.6 L447 18.6 L425 46.6Z' fill='%23f59e0b' stroke='%23000' stroke-width='2' stroke-linejoin='round'/%3E%3Cpath d='M453 19.3 L497 19.3 L475 47.3Z' fill='%23facc15' stroke='%23000' stroke-width='2' stroke-linejoin='round'/%3E%3Cpath d='M503 19.8 L547 19.8 L525 47.8Z' fill='%2322c55e' stroke='%23000' stroke-width='2' stroke-linejoin='round'/%3E%3Cpath d='M553 20.0 L597 20.0 L575 48.0Z' fill='%233b82f6' stroke='%23000' stroke-width='2' stroke-linejoin='round'/%3E%3Cpath d='M603 20.0 L647 20.0 L625 48.0Z' fill='%23a855f7' stroke='%23000' stroke-width='2' stroke-linejoin='round'/%3E%3Cpath d='M653 19.8 L697 19.8 L675 47.8Z' fill='%23ec4899' stroke='%23000' stroke-width='2' stroke-linejoin='round'/%3E%3Cpath d='M703 19.3 L747 19.3 L725 47.3Z' fill='%23ef4444' stroke='%23000' stroke-width='2' stroke-linejoin='round'/%3E%3Cpath d='M753 18.6 L797 18.6 L775 46.6Z' fill='%23f59e0b' stroke='%23000' stroke-width='2' stroke-linejoin='round'/%3E%3Cpath d='M803 17.8 L847 17.8 L825 45.8Z' fill='%23facc15' stroke='%23000' stroke-width='2' stroke-linejoin='round'/%3E%3Cpath d='M853 16.6 L897 16.6 L875 44.6Z' fill='%2322c55e' stroke='%23000' stroke-width='2' stroke-linejoin='round'/%3E%3Cpath d='M903 15.3 L947 15.3 L925 43.3Z' fill='%233b82f6' stroke='%23000' stroke-width='2' stroke-linejoin='round'/%3E%3Cpath d='M953 13.8 L997 13.8 L975 41.8Z' fill='%23a855f7' stroke='%23000' stroke-width='2' stroke-linejoin='round'/%3E%3Cpath d='M1003 12.0 L1047 12.0 L1025 40.0Z' fill='%23ec4899' stroke='%23000' stroke-width='2' stroke-linejoin='round'/%3E%3Cpath d='M1053 10.0 L1097 10.0 L1075 38.0Z' fill='%23ef4444' stroke='%23000' stroke-width='2' stroke-linejoin='round'/%3E%3Cpath d='M1103 7.8 L1147 7.8 L1125 35.8Z' fill='%23f59e0b' stroke='%23000' stroke-width='2' stroke-linejoin='round'/%3E%3Cpath d='M1153 5.3 L1197 5.3 L1175 33.3Z' fill='%23facc15' stroke='%23000' stroke-width='2' stroke-linejoin='round'/%3E%3C/svg%3E") 0 0 / 100% 100% no-repeat; }
+        html body .hero-card.ai-hero .hc-light { top: 0; width: 240px; height: 330px; opacity: .5; background: linear-gradient(180deg, rgba(255,240,200,.32), rgba(255,240,200,0) 85%); }
+        html body .hero-card.ai-hero .hc-light.l1 { left: 4%; clip-path: polygon(0 0, 25% 0, 100% 100%, 50% 100%); } html body .hero-card.ai-hero .hc-light.l2 { right: 4%; clip-path: polygon(75% 0, 100% 0, 50% 100%, 0 100%); }
+        html body .hero-card.ai-hero .hc-clock { right: 28px; top: 50px; width: 42px; height: 42px; border-radius: 50%; background: #fffbeb; border: 4px solid #8b4513; box-shadow: 0 0 0 2px #fbbf24, 0 0 0 4px #000, 3px 4px 0 3px rgba(0,0,0,.35); }
+        html body .hero-card.ai-hero .hc-clock::before { content: ''; position: absolute; left: 50%; top: 50%; width: 3px; height: 11px; margin: -11px 0 0 -1.5px; background: #111; border-radius: 2px; transform-origin: 50% 100%; transform: rotate(50deg); }
+        html body .hero-card.ai-hero .hc-clock b { position: absolute; left: 50%; top: 50%; width: 2px; height: 14px; margin: -14px 0 0 -1px; background: #dc2626; transform-origin: 50% 100%; animation: cbTick 60s steps(60) infinite; }
+        html body .hero-card.ai-hero .hc-plane { left: 0; top: 46px; font-size: 26px; opacity: 0; animation: hcPlane 16s linear 2s infinite; }
+        @keyframes hcPlane { 0% { transform: translate(-40px,30px) rotate(-6deg); opacity: 0; } 5% { opacity: 1; } 50% { transform: translate(640px,-4px) rotate(5deg); } 92% { opacity: 1; } 100% { transform: translate(1320px,24px) rotate(-4deg); opacity: 0; } }
+        html body .hero-card.ai-hero .hc-tw { color: #fde68a; font-size: 16px; animation: aiSpk 2.6s ease-in-out infinite; }
+        html body .hero-card.ai-hero .hc-tw.t1 { left: 36%; top: 12%; } html body .hero-card.ai-hero .hc-tw.t2 { left: 44%; bottom: 14%; animation-delay: -.8s; color: #f9a8d4; } html body .hero-card.ai-hero .hc-tw.t3 { right: 6%; top: 46%; animation-delay: -1.5s; color: #a5f3fc; } html body .hero-card.ai-hero .hc-tw.t4 { left: 3%; top: 40%; animation-delay: -2s; font-size: 12px; }
+        html body .hero-card.ai-hero .hc-chalk { color: rgba(255,255,255,.22); font-weight: 900; font-size: 26px; transform: rotate(-10deg); }
+        html body .hero-card.ai-hero .hc-chalk.c1 { left: 2.5%; bottom: 22%; color: rgba(252,165,165,.35); } html body .hero-card.ai-hero .hc-chalk.c2 { right: 18%; top: 8%; font-size: 22px; transform: rotate(6deg); } html body .hero-card.ai-hero .hc-chalk.c3 { right: 3%; bottom: 24%; font-size: 30px; color: rgba(253,230,138,.3); }
+        html body .hero-card.ai-hero .hc-tray { display: none; }
+        html body .hero-card.ai-hero .hc-desk { bottom: 14px; font-size: 26px; filter: drop-shadow(2px 3px 0 rgba(0,0,0,.4)); }
+        html body .hero-card.ai-hero .hc-desk.d1 { left: 26%; } html body .hero-card.ai-hero .hc-desk.d2 { left: 30%; font-size: 24px; } html body .hero-card.ai-hero .hc-desk.d3 { right: 4%; bottom: 16px; font-size: 24px; } html body .hero-card.ai-hero .hc-desk.d4 { right: 8%; font-size: 20px; transform: rotate(60deg); bottom: 12px; }
+        html body .hero-card.ai-hero .ai-grid { z-index: 4; }
+        @media (max-width: 767px) { html body .hero-card.ai-hero { border-width: 10px !important; } html body .hero-card.ai-hero::before { border-radius: 1.3rem !important; inset: 3px !important; }
+            html body .hero-card.ai-hero .hc-light, html body .hero-card.ai-hero .hc-clock, html body .hero-card.ai-hero .hc-chalk, html body .hero-card.ai-hero .hc-desk.d3, html body .hero-card.ai-hero .hc-desk.d4, html body .hero-card.ai-hero .hc-tw.t3 { display: none; }
+            html body .hero-card.ai-hero .hc-bunt { height: 26px; } html body .hero-card.ai-hero .hc-desk { font-size: 18px; bottom: 6px; } html body .hero-card.ai-hero .hc-desk.d1 { left: 6%; } html body .hero-card.ai-hero .hc-desk.d2 { left: 13%; font-size: 17px; } html body .hero-card.ai-hero .hc-plane { font-size: 18px; top: 30px; } }
+        @media (prefers-reduced-motion: reduce) { html body .hero-card.ai-hero .hc-clock b, html body .hero-card.ai-hero .hc-plane, html body .hero-card.ai-hero .hc-tw { animation: none !important; } html body .hero-card.ai-hero .hc-plane { display: none; } }
+        html.lite body .hero-card.ai-hero .hc-plane { display: none; } html.lite body .hero-card.ai-hero .hc-tw, html.lite body .hero-card.ai-hero .hc-clock b { animation: none !important; }
+        html body .hero-card.ai-hero .ai-name-in { color: #fde68a !important; background: none !important; -webkit-background-clip: border-box !important; background-clip: border-box !important; filter: none; text-shadow: 0 1px 0 #fff3, 0 2px 0 #000, 0 0 10px rgba(253,230,138,.35) !important; }
+        html body .hero-card.ai-hero .hc-clock { right: 4px; top: 150px; }
+        @media (max-width: 767px) { html body .hero-card.ai-hero .hc-desk { display: none; } }
+        @media (max-width: 1199px) { html body .hero-card.ai-hero .hc-clock { display: none; } }
+        /* ★ (19 พ.ย.) HERO ตัวอักษรใหม่ "ชอล์กอาร์ตการ์ตูน" (ครูขอ: คิดตัวอักษรใหม่ เน้นอลังการ)
+             แยกเป็นตัวต่อตัว (<b data-l>) — แต่ละตัว: หน้าชอล์กไล่สี + เกล็ดชอล์ก + ขอบดำ + ฐานนูน 3D สีเข้มของตัวเอง + เงาตกบนกระดาน
+             HELLO = ชอล์กขาว ฐานเขียวกระดาน · HUMAN! = 6 สีคนละตัว (เหลือง ส้ม ชมพู ม่วง ฟ้า เขียว)
+             ตัวอักษรเอียงสลับขึ้นลงแบบตัวหนังสือการ์ตูน · ชี้เมาส์ที่ตัวไหน ตัวนั้นกระโดดขึ้น (เฉพาะตัวเล็ก ลื่น)
+             ประกายชอล์กรอบ HUMAN! · ชื่อครูเป็นตัวทองสลักบนแผ่นไม้ มีหมุดทองหัวท้าย — ทุกอย่างนิ่ง (ยกเว้นตอนชี้เมาส์) */
+        html body .hero-card.ai-hero .ai-title .t1::after, html body .hero-card.ai-hero .ai-title .t2::after { content: none !important; }
+        html body .hero-card.ai-hero .ai-title .t1, html body .hero-card.ai-hero .ai-title .t2 { color: inherit !important; text-shadow: none !important; letter-spacing: .02em; }
+        html body .hero-card.ai-hero .ai-title b { --c: #ffffff; --c2: #e2e8f0; --d: #14532d; position: relative; display: inline-block; font-weight: 900; color: var(--d);
+            text-shadow: 0 1px 0 var(--d), 0 2px 0 var(--d), 0 3px 0 var(--d), 0 4px 0 var(--d), -2px 0 0 #000, 2px 0 0 #000, 0 -2px 0 #000, -2px 5px 0 #000, 2px 5px 0 #000, 0 7px 0 #000, 6px 12px 0 rgba(0,0,0,.3);
+            transform: rotate(-3deg) translateY(1px); transition: translate .22s cubic-bezier(.3,1.6,.5,1); }
+        html body .hero-card.ai-hero .ai-title b::after { content: attr(data-l); position: absolute; left: 0; top: 0; color: transparent; -webkit-text-stroke: 1.5px #000;
+            background: radial-gradient(circle, rgba(255,255,255,.55) 0 .6px, rgba(255,255,255,0) 1px) 0 0 / 5px 5px, linear-gradient(180deg, #ffffff 0 14%, var(--c) 14% 58%, var(--c2) 100%);
+            -webkit-background-clip: text; background-clip: text; }
+        html body .hero-card.ai-hero .ai-title b:nth-child(even) { transform: rotate(3deg) translateY(-3px); }
+        html body .hero-card.ai-hero .ai-title b:nth-child(3n) { transform: rotate(-1deg) translateY(2px); }
+        html body .hero-card.ai-hero .ai-title .t2 b { --c: #fde047; --c2: #f59e0b; --d: #92400e; }
+        html body .hero-card.ai-hero .ai-title .t2 b:nth-child(2) { --c: #fdba74; --c2: #f97316; --d: #9a3412; }
+        html body .hero-card.ai-hero .ai-title .t2 b:nth-child(3) { --c: #f9a8d4; --c2: #ec4899; --d: #9d174d; }
+        html body .hero-card.ai-hero .ai-title .t2 b:nth-child(4) { --c: #d8b4fe; --c2: #a855f7; --d: #6b21a8; }
+        html body .hero-card.ai-hero .ai-title .t2 b:nth-child(5) { --c: #a5f3fc; --c2: #22d3ee; --d: #155e75; }
+        html body .hero-card.ai-hero .ai-title .t2 b:nth-child(6) { --c: #bbf7d0; --c2: #22c55e; --d: #166534; }
+        @media (hover: hover) { html body .hero-card.ai-hero .ai-title b:hover { translate: 0 -8px; } }
+        html body .hero-card.ai-hero .ai-title .t2 { position: relative; }
+        html body .hero-card.ai-hero .ai-title .t2::before { content: ''; position: absolute; right: -.32em; top: -.34em; width: .62em; height: .62em; pointer-events: none;
+            background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 40 40' fill='none' stroke='%23fde68a' stroke-width='3' stroke-linecap='round'%3E%3Cpath d='M8 30L16 22M20 6V16M32 12L25 19M34 26H26'/%3E%3C/svg%3E") 0 0 / 100% 100% no-repeat; }
+        html body .hero-card.ai-hero .ai-title .t1 { position: relative; }
+        html body .hero-card.ai-hero .ai-title .t1::before { content: ''; position: absolute; left: -.18em; top: -.3em; width: .5em; height: .42em; pointer-events: none; transform: rotate(-14deg);
+            background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 50 40'%3E%3Cpath d='M4 34L8 10L18 22L25 4L32 22L42 10L46 34Z' fill='%23facc15' stroke='%23000' stroke-width='3' stroke-linejoin='round'/%3E%3Ccircle cx='25' cy='4' r='3' fill='%23f87171' stroke='%23000' stroke-width='2'/%3E%3C/svg%3E") 0 0 / 100% 100% no-repeat; }
+        @media (max-width: 767px) { html body .hero-card.ai-hero .ai-title b { text-shadow: 0 1px 0 var(--d), 0 2px 0 var(--d), 0 3px 0 var(--d), -1.5px 0 0 #000, 1.5px 0 0 #000, 0 -1.5px 0 #000, 0 5px 0 #000, 4px 8px 0 rgba(0,0,0,.3); } html body .hero-card.ai-hero .ai-title b::after { -webkit-text-stroke-width: 1px; } }
+        @media (prefers-reduced-motion: reduce) { html body .hero-card.ai-hero .ai-title b { transition: none; } }
+        /* ชื่อครู: ตัวทองสลัก + หมุดทองหัวท้ายแผ่นไม้ */
+        html body .hero-card.ai-hero .ai-name-in { letter-spacing: .08em; color: transparent !important; position: relative; }
+        html body .hero-card.ai-hero .ai-name-in { background: linear-gradient(180deg, #fffbe6 0%, #fde68a 35%, #facc15 55%, #d97706 85%, #fde047 100%) !important; -webkit-background-clip: text !important; background-clip: text !important; text-shadow: none !important; filter: drop-shadow(0 2px 0 #3b1a06) drop-shadow(0 0 6px rgba(253,224,71,.35)); }
+        html body .hero-card.ai-hero .ai-name-in .hx-flag { display: none; }
+        html body .hero-card.ai-hero .ai-name { position: relative; }
+        html body .hero-card.ai-hero .ai-name::after { content: ''; position: absolute; right: 8px; top: 50%; width: 9px; height: 9px; margin-top: -4.5px; border-radius: 50%; background: radial-gradient(circle at 35% 30%, #fffbe6, #facc15 50%, #b45309); box-shadow: 0 0 0 1.5px #000; }
+        html body .hero-card.ai-hero .ai-title b::after { text-shadow: none !important; }   /* เงาของตัวแม่สืบทอดมาทับหน้าชอล์ก → ปิด */
+        /* ★ (19 พ.ย.) ริบบิ้นประกาศใต้ HERO → ธีมห้องเรียน (ครูขอ): แถบหน้า = กระดานดำเขียวขอบไม้ตัวชอล์ก + เส้นประชอล์ก
+             แถบหลัง = ไม้บรรทัดสีเหลืองมีขีดเซนติเมตร · ปุ่มซ้าย = กระดิ่งโรงเรียนทอง 🔔 · ปุ่มขวา = แอปเปิลบนเหรียญแดง 🍎
+             ตัววิ่งเดิม (transform อย่างเดียว) ไม่เปลี่ยน */
+        html body .tk-wrap .tk-front { border-color: #000 !important; border-radius: 10px !important;
+            background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='520' height='420' viewBox='0 0 520 420'%3E%3Cg fill='none' stroke='%23fff' stroke-opacity='.16' stroke-width='3' stroke-linecap='round' stroke-linejoin='round' font-family='Comic Sans MS,cursive' font-weight='700'%3E%3Ctext x='30' y='70' font-size='40' fill='%23fff' fill-opacity='.13' stroke='none'%3EABC%3C/text%3E%3Cpath d='M400 40l9 20 22 2-17 14 5 22-19-12-19 12 5-22-17-14 22-2z'/%3E%3Ccircle cx='90' cy='300' r='28'/%3E%3Cpath d='M78 292v4M102 292v4M76 310q14 14 28 0'/%3E%3Cpath d='M300 330q20-30 40 0q20-30 40 0'/%3E%3Ctext x='250' y='190' font-size='30' fill='%23fff' fill-opacity='.12' stroke='none'%3EHello!%3C/text%3E%3Cpath d='M440 300c-10-18 14-30 22-12c8-18 32-6 22 12l-22 22z'/%3E%3Cpath d='M150 150l40 10l-8-14M190 160l-10 12'/%3E%3Ctext x='380' y='230' font-size='28' fill='%23fff' fill-opacity='.12' stroke='none'%3EA+%3C/text%3E%3C/g%3E%3C/svg%3E") 0 0 / 420px 340px, linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,0) 50%), linear-gradient(165deg, #305c41 0%, #24503a 50%, #1c3e2b 100%) !important;
+            box-shadow: inset 0 0 0 3px #b97f42, inset 0 0 0 4.5px #fbbf24, inset 0 0 0 6px #5e2d0d, 5px 5px 0 0 #000 !important; }
+        html body .tk-wrap .tk-front .tk-in::after { border-top: 1.5px dashed rgba(255,255,255,.28) !important; border-bottom: 1.5px dashed rgba(255,255,255,.28) !important; top: 8px !important; bottom: 8px !important; }
+        html body .tk-wrap .tk-item { color: #fff !important; text-shadow: 0 0 1px #fff, 1px 2px 0 rgba(0,0,0,.35); }
+        html body .tk-wrap .tk-item b { color: #fde68a !important; }
+        html body .tk-wrap .tk-wotd .tk-wotd-m { color: #f9a8d4 !important; }
+        html body .tk-wrap .tk-dot.d1 { color: #fdba74 !important; } html body .tk-wrap .tk-dot.d2 { color: #86efac !important; } html body .tk-wrap .tk-dot.d3 { color: #f9a8d4 !important; }
+        html body .tk-wrap .tk-back { border-radius: 4px !important;
+            background: linear-gradient(90deg, rgba(0,0,0,.55) 0 1.5px, rgba(0,0,0,0) 1.5px) 0 0 / 40px 13px repeat-x,
+                linear-gradient(90deg, rgba(0,0,0,.45) 0 1px, rgba(0,0,0,0) 1px) 20px 0 / 40px 9px repeat-x,
+                linear-gradient(90deg, rgba(0,0,0,.35) 0 1px, rgba(0,0,0,0) 1px) 0 0 / 8px 5px repeat-x,
+                linear-gradient(90deg, rgba(0,0,0,.55) 0 1.5px, rgba(0,0,0,0) 1.5px) 0 100% / 40px 13px repeat-x,
+                linear-gradient(90deg, rgba(0,0,0,.35) 0 1px, rgba(0,0,0,0) 1px) 0 100% / 8px 5px repeat-x,
+                linear-gradient(180deg, #fef08a 0%, #fde047 45%, #facc15 100%) !important; }
+        html body .tk-wrap .tk-cap.cap-l { background: radial-gradient(circle at 34% 28%, #fffbe6 0 18%, #fde047 50%, #d97706 100%) !important; box-shadow: 0 0 0 2.5px #fde68a, 0 0 0 4.5px #8b4513, 3px 3px 0 4.5px #000 !important; }
+        html body .tk-wrap .tk-cap.cap-r { background: radial-gradient(circle at 34% 28%, #fecaca 0 16%, #ef4444 55%, #991b1b 100%) !important; box-shadow: 0 0 0 2.5px #fde68a, 0 0 0 4.5px #8b4513, 3px 3px 0 4.5px #000 !important; }
+        /* ★ (19 พ.ย.) ริบบิ้นห้องเรียน รอบ 2 (ครู: "ตรงริมดูกลืน อลังการได้อีก") — ขอบชัดขึ้น:
+             แถบหน้า = กระดานในกรอบไม้หนา 2 ชั้นคาดทอง + เส้นทองรอบนอกก่อนขอบดำ + เงาแข็ง + แสงเงาวาวบนกระดาน
+             แถบหลัง = ไม้บรรทัดมีตัวเลข 1–10 วนไป + ขอบทองรอบนอก + ปลายทองเหลือง — static ทั้งหมด */
+        html body .tk-wrap .tk-front { background: linear-gradient(180deg, rgba(255,255,255,.16) 0 30%, rgba(255,255,255,0) 31%), url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='520' height='420' viewBox='0 0 520 420'%3E%3Cg fill='none' stroke='%23fff' stroke-opacity='.16' stroke-width='3' stroke-linecap='round' stroke-linejoin='round' font-family='Comic Sans MS,cursive' font-weight='700'%3E%3Ctext x='30' y='70' font-size='40' fill='%23fff' fill-opacity='.13' stroke='none'%3EABC%3C/text%3E%3Cpath d='M400 40l9 20 22 2-17 14 5 22-19-12-19 12 5-22-17-14 22-2z'/%3E%3Ccircle cx='90' cy='300' r='28'/%3E%3Cpath d='M78 292v4M102 292v4M76 310q14 14 28 0'/%3E%3Cpath d='M300 330q20-30 40 0q20-30 40 0'/%3E%3Ctext x='250' y='190' font-size='30' fill='%23fff' fill-opacity='.12' stroke='none'%3EHello!%3C/text%3E%3Cpath d='M440 300c-10-18 14-30 22-12c8-18 32-6 22 12l-22 22z'/%3E%3Cpath d='M150 150l40 10l-8-14M190 160l-10 12'/%3E%3Ctext x='380' y='230' font-size='28' fill='%23fff' fill-opacity='.12' stroke='none'%3EA+%3C/text%3E%3C/g%3E%3C/svg%3E") 0 0 / 420px 340px, linear-gradient(165deg, #33644a 0%, #24503a 50%, #1a3a28 100%) !important;
+            box-shadow: inset 0 0 0 2px #fde68a, inset 0 0 0 5px #c98f55, inset 0 0 0 7px #8b4513, inset 0 0 0 8.5px #fbbf24, inset 0 0 0 10px #3b1a06, inset 0 6px 10px 6px rgba(0,0,0,.25),
+                0 0 0 2.5px #fbbf24, 0 0 0 5px #000, 6px 7px 0 4px #000, 0 0 26px rgba(251,191,36,.45) !important; }
+        html body .tk-wrap .tk-front .tk-in::after { top: 11px !important; bottom: 11px !important; }
+        html body .tk-wrap .tk-back { border-radius: 3px !important;
+            background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='30'%3E%3Ctext x='3' y='18.5' font-family='Arial' font-weight='700' font-size='8' fill='%23713f12'%3E1%3C/text%3E%3Ctext x='43' y='18.5' font-family='Arial' font-weight='700' font-size='8' fill='%23713f12'%3E2%3C/text%3E%3Ctext x='83' y='18.5' font-family='Arial' font-weight='700' font-size='8' fill='%23713f12'%3E3%3C/text%3E%3Ctext x='123' y='18.5' font-family='Arial' font-weight='700' font-size='8' fill='%23713f12'%3E4%3C/text%3E%3Ctext x='163' y='18.5' font-family='Arial' font-weight='700' font-size='8' fill='%23713f12'%3E5%3C/text%3E%3Ctext x='203' y='18.5' font-family='Arial' font-weight='700' font-size='8' fill='%23713f12'%3E6%3C/text%3E%3Ctext x='243' y='18.5' font-family='Arial' font-weight='700' font-size='8' fill='%23713f12'%3E7%3C/text%3E%3Ctext x='283' y='18.5' font-family='Arial' font-weight='700' font-size='8' fill='%23713f12'%3E8%3C/text%3E%3Ctext x='323' y='18.5' font-family='Arial' font-weight='700' font-size='8' fill='%23713f12'%3E9%3C/text%3E%3Ctext x='363' y='18.5' font-family='Arial' font-weight='700' font-size='8' fill='%23713f12'%3E10%3C/text%3E%3C/svg%3E") 0 0 / 400px 100% repeat-x,
+                linear-gradient(90deg, #fde68a, #b45309) 0 0 / 10px 100% no-repeat, linear-gradient(270deg, #fde68a, #b45309) 100% 0 / 10px 100% no-repeat,
+                linear-gradient(90deg, rgba(0,0,0,.6) 0 1.5px, rgba(0,0,0,0) 1.5px) 0 0 / 40px 11px repeat-x,
+                linear-gradient(90deg, rgba(0,0,0,.45) 0 1px, rgba(0,0,0,0) 1px) 20px 0 / 40px 8px repeat-x,
+                linear-gradient(90deg, rgba(0,0,0,.35) 0 1px, rgba(0,0,0,0) 1px) 0 0 / 8px 5px repeat-x,
+                linear-gradient(90deg, rgba(0,0,0,.6) 0 1.5px, rgba(0,0,0,0) 1.5px) 0 100% / 40px 11px repeat-x,
+                linear-gradient(90deg, rgba(0,0,0,.35) 0 1px, rgba(0,0,0,0) 1px) 0 100% / 8px 5px repeat-x,
+                linear-gradient(180deg, rgba(255,255,255,.5) 0 18%, rgba(255,255,255,0) 19%), linear-gradient(180deg, #fef08a 0%, #fde047 45%, #f5c518 100%) !important;
+            box-shadow: 0 0 0 2.5px #fbbf24, 0 0 0 5px #000, 5px 6px 0 4px #000 !important; }
+        html body .tk-wrap .tk-cap { z-index: 3; }
+        html body .tk-wrap { height: 84px !important; margin-bottom: 20px !important; }
+        html body .tk-wrap .tk-front { top: 12px !important; height: 58px !important; }
+        html body .tk-wrap .tk-back { top: 24px !important; height: 34px !important; }
+        html body .tk-wrap .tk-front { box-shadow: inset 0 0 0 2px #fde68a, inset 0 0 0 4px #c98f55, inset 0 0 0 5.5px #8b4513, inset 0 0 0 7px #fbbf24, inset 0 0 0 8.5px #3b1a06, inset 0 6px 10px 6px rgba(0,0,0,.22),
+                0 0 0 2.5px #fbbf24, 0 0 0 5px #000, 6px 7px 0 4px #000, 0 0 26px rgba(251,191,36,.45) !important; }
+        html body .tk-wrap .tk-item { font-size: .95rem !important; }
+        html body .tk-wrap .tk-front .tk-in::after { top: 12px !important; bottom: 12px !important; }
+        @media (max-width: 767px) { html body .tk-wrap { height: 74px !important; } html body .tk-wrap .tk-front { top: 10px !important; height: 50px !important; } html body .tk-wrap .tk-back { top: 18px !important; height: 32px !important; } html body .tk-wrap .tk-item { font-size: .8rem !important; } }
+        @media (min-width: 768px) { html body .tk-wrap .tk-back { transform: rotate(2.6deg) !important; top: 25px !important; } html body .tk-wrap .tk-front { transform: rotate(-1deg) !important; } }
+        /* ★ (19 พ.ย.) ปุ่มหัวท้ายริบบิ้น (ครู: กระดิ่ง/แอปเปิลไม่สวย) → ซ้าย = กระดานกลมจิ๋วกรอบไม้ทอง เขียนชอล์ก "★ NEWS"
+             ขวา = เหรียญรางวัลทองแฉกรัศมี ตรงกลางวงขาวตัวแดง "A+" — วาดด้วย CSS ไม่ใช้อีโมจิ */
+        html body .tk-wrap .tk-cap { flex-direction: column; gap: 0; line-height: 1; }
+        html body .tk-wrap .tk-cap.cap-l { background: radial-gradient(circle at 50% 30%, rgba(255,255,255,.12), rgba(255,255,255,0) 60%), url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='520' height='420' viewBox='0 0 520 420'%3E%3Cg fill='none' stroke='%23fff' stroke-opacity='.16' stroke-width='3' stroke-linecap='round' stroke-linejoin='round' font-family='Comic Sans MS,cursive' font-weight='700'%3E%3Ctext x='30' y='70' font-size='40' fill='%23fff' fill-opacity='.13' stroke='none'%3EABC%3C/text%3E%3Cpath d='M400 40l9 20 22 2-17 14 5 22-19-12-19 12 5-22-17-14 22-2z'/%3E%3Ccircle cx='90' cy='300' r='28'/%3E%3Cpath d='M78 292v4M102 292v4M76 310q14 14 28 0'/%3E%3Cpath d='M300 330q20-30 40 0q20-30 40 0'/%3E%3Ctext x='250' y='190' font-size='30' fill='%23fff' fill-opacity='.12' stroke='none'%3EHello!%3C/text%3E%3Cpath d='M440 300c-10-18 14-30 22-12c8-18 32-6 22 12l-22 22z'/%3E%3Cpath d='M150 150l40 10l-8-14M190 160l-10 12'/%3E%3Ctext x='380' y='230' font-size='28' fill='%23fff' fill-opacity='.12' stroke='none'%3EA+%3C/text%3E%3C/g%3E%3C/svg%3E") 0 0 / 160px 130px, linear-gradient(165deg, #33644a, #1c3e2b) !important;
+            box-shadow: inset 0 0 0 2px #c98f55, inset 0 0 0 3.5px #fbbf24, 0 0 0 2.5px #fde68a, 0 0 0 4.5px #8b4513, 3px 3px 0 4.5px #000 !important; }
+        html body .tk-wrap .tk-cap.cap-l b { font-size: 11px; color: #fde047; text-shadow: 0 0 4px rgba(253,224,71,.6); }
+        html body .tk-wrap .tk-cap.cap-l i { font-style: normal; font-size: 9.5px; font-weight: 900; letter-spacing: .06em; color: #fff; text-shadow: 0 0 1px #fff, 1px 1px 0 rgba(0,0,0,.4); margin-top: 1px; }
+        html body .tk-wrap .tk-cap.cap-r { background: radial-gradient(circle, #fffbeb 0 38%, #000 38.5% 42%, rgba(0,0,0,0) 42.5%), repeating-conic-gradient(from 0deg, #fde047 0 10deg, #f59e0b 10deg 20deg) !important;
+            box-shadow: 0 0 0 2.5px #000, 0 0 0 5px #dc2626, 0 0 0 7px #000, 3px 3px 0 7px rgba(0,0,0,.9) !important; }
+        html body .tk-wrap .tk-cap.cap-r b { font-size: 13px; font-weight: 900; color: #dc2626; text-shadow: 0 1px 0 #fff; }
+        @media (max-width: 767px) { html body .tk-wrap .tk-cap.cap-l b { font-size: 9px; } html body .tk-wrap .tk-cap.cap-l i { font-size: 8px; } html body .tk-wrap .tk-cap.cap-r b { font-size: 11px; }
+            html body .tk-wrap .tk-cap.cap-r { box-shadow: 0 0 0 2px #000, 0 0 0 4px #dc2626, 0 0 0 5.5px #000, 2px 2px 0 5.5px rgba(0,0,0,.9) !important; } }
+        html body .tk-wrap .tk-cap.cap-r { background: radial-gradient(circle, #fffbeb 0 47%, #000 47.5% 51%, rgba(0,0,0,0) 51.5%), repeating-conic-gradient(from 0deg, #fde047 0 10deg, #f59e0b 10deg 20deg) !important; }
+        html body .tk-wrap .tk-cap.cap-r b { font-size: 15px; letter-spacing: -.02em; }
+        @media (max-width: 767px) { html body .tk-wrap .tk-cap.cap-r b { font-size: 12px; } }
 </style>
     <!-- ★ Tailwind CSS สำเร็จรูป (3.4.19) แทนตัวคอมไพล์สดแบบ CDN: ไม่ต้องคอมไพล์ในเบราว์เซอร์ทุกครั้งที่เปิดเว็บ/เปิดป๊อปอัป
          และไม่พึ่งเซิร์ฟเวอร์ภายนอก (เดิมถ้า cdn.tailwindcss.com ล่ม ทั้งหน้าจะไม่มีสไตล์)
@@ -8292,7 +8546,7 @@
             <span class="ai-word" aria-hidden="true">ENGLISH</span>
             <i class="ai-beam" aria-hidden="true"></i>
             <i class="ai-spk s1" aria-hidden="true"></i><i class="ai-spk s2" aria-hidden="true"></i><i class="ai-spk s3" aria-hidden="true"></i><i class="ai-spk s4" aria-hidden="true"></i><i class="ai-spk s5" aria-hidden="true"></i>
-            <i class="ai-corners" aria-hidden="true"></i>
+            <i class="ai-corners" aria-hidden="true"></i><span class="hc-fx" aria-hidden="true"><i class="hc-bunt"></i><i class="hc-light l1"></i><i class="hc-light l2"></i><i class="hc-clock"><b></b></i><i class="hc-plane">✈️</i><i class="hc-tw t1">✦</i><i class="hc-tw t2">✦</i><i class="hc-tw t3">✦</i><i class="hc-tw t4">✦</i><i class="hc-chalk c1">A+</i><i class="hc-chalk c2">ABC</i><i class="hc-chalk c3">☺</i><i class="hc-tray"><b class="k1"></b><b class="k2"></b><b class="k3"></b><b class="er"></b></i><i class="hc-desk d1">🍎</i><i class="hc-desk d2">📚</i><i class="hc-desk d3">🌏</i><i class="hc-desk d4">✏️</i></span>
             <div class="ai-grid">
                 <div class="ai-photo">
                     <i class="ai-burst" aria-hidden="true"></i>
@@ -8321,7 +8575,7 @@
                         <span class="ai-chip wel hx-in">WELCOME 🏀</span>
                         <span class="ai-chip live hx-in"><i class="live-dot"></i>ONLINE NOW</span>
                     </div>
-                    <h1 class="ai-title"><span class="t1 hx-in" data-text="HELLO">HELLO</span> <span class="t2 hx-in" data-text="HUMAN!">HUMAN!</span><span class="wave-hand" aria-hidden="true">👋</span></h1>
+                    <h1 class="ai-title" aria-label="HELLO HUMAN!"><span class="t1 hx-in" data-text="HELLO" aria-hidden="true"><b data-l="H">H</b><b data-l="E">E</b><b data-l="L">L</b><b data-l="L">L</b><b data-l="O">O</b></span> <span class="t2 hx-in" data-text="HUMAN!" aria-hidden="true"><b data-l="H">H</b><b data-l="U">U</b><b data-l="M">M</b><b data-l="A">A</b><b data-l="N">N</b><b data-l="!">!</b></span><span class="wave-hand" aria-hidden="true">👋</span></h1>
                     <div class="ai-name hx-in"><span class="ai-name-in">T.JAKRAPONG SUTTIPRAPA <span class="hx-flag" aria-hidden="true">🇬🇧</span></span></div>
                     <div class="ai-tags">
                         <span class="ai-tag g1 hx-in"><i aria-hidden="true">📡</i>ภาษาต่างประเทศ</span>
@@ -8364,8 +8618,8 @@
                         </div>
                     </div>
                 </div>
-                <span class="tk-cap cap-l">📣</span>
-                <span class="tk-cap cap-r">✨</span>
+                <span class="tk-cap cap-l"><b>★</b><i>NEWS</i></span>
+                <span class="tk-cap cap-r"><b>A+</b></span>
             </div>
         </div>
 
@@ -12353,6 +12607,49 @@
         // ★ (5 พ.ย.) โซน QUIZ "เปิดเครื่อง" ครั้งเดียวตอนเลื่อนมาถึง: ป้ายนีออนกะพริบติด → จอตู้เกมเปิดทีละตู้ (เส้นแสงกลางจอแยกออกบน-ล่าง)
         //   ไม่มี IntersectionObserver / ตั้งค่าลดการเคลื่อนไหว → ไม่ทำอะไรเลย (จอเปิดอยู่แล้วตั้งแต่แรก)
         //   เล่นจบแล้วถอดคลาสออก กลับเป็นภาพนิ่งปกติ (สำรองด้วยตัวจับเวลา เผื่อเหตุการณ์จบแอนิเมชันไม่มา)
+
+        // ★ (19 พ.ย.) ลูกเล่นเบาๆ ทั้งเว็บ (ไม่รก ไม่กระตุก):
+
+        //   1) คลิก/แตะที่ไหนก็ได้ → ฝุ่นชอล์ก 6 ดาวเล็กกระจายตรงนิ้ว 0.55 วิ แล้วลบทิ้ง (transform/opacity, ไม่ทำในช่องพิมพ์ · ปิดในโหมด 💤/ลดการเคลื่อนไหว)
+
+        //   2) สลับไปแท็บอื่น → ชื่อแท็บเป็น "👋 กลับมาเรียนต่อนะ!" กลับมาแล้วคืนชื่อเดิม
+
+        (function () {
+
+            function still() { return document.documentElement.classList.contains('lite') || (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches); }
+
+            var C = ['#fde047', '#f9a8d4', '#a5f3fc', '#bbf7d0', '#fff', '#fdba74'], last = 0;
+
+            document.addEventListener('pointerdown', function (e) {
+
+                if (still() || e.button > 0) return;
+
+                var t = e.target; if (t && t.closest && t.closest('input, textarea, select, [contenteditable="true"]')) return;
+
+                var now = Date.now(); if (now - last < 120) return; last = now;
+
+                var w = document.createElement('span'); w.className = 'ck-burst'; w.setAttribute('aria-hidden', 'true');
+
+                w.style.left = e.clientX + 'px'; w.style.top = e.clientY + 'px';
+
+                var h = '';
+
+                for (var i = 0; i < 6; i++) { var a = (Math.PI * 2 * i / 6) + Math.random() * .5, r = 18 + Math.random() * 12;
+
+                    h += '<i style="--tx:' + Math.round(Math.cos(a) * r) + 'px;--ty:' + Math.round(Math.sin(a) * r) + 'px;color:' + C[i] + '">✦</i>'; }
+
+                w.innerHTML = h; document.body.appendChild(w);
+
+                setTimeout(function () { if (w.parentNode) w.parentNode.removeChild(w); }, 650);
+
+            }, { passive: true });
+
+            var T0 = document.title;
+
+            document.addEventListener('visibilitychange', function () { if (document.hidden) { T0 = document.title; document.title = '👋 กลับมาเรียนต่อนะ!'; } else { document.title = T0; } });
+
+        })();
+
 
         // ★ (18 พ.ย.) QUIZ "ช่วงเวลาว้าว" — เล่นครั้งเดียวตอนมีจังหวะ ไม่วนตลอด (โหมด 💤 / ลดการเคลื่อนไหว = ข้ามทั้งหมด)
         //   1) เลื่อนมาถึง QUIZ ZONE ครั้งแรก: ไฟประดับติดทีละดวง + ตัวอักษร A–N หล่นลงมาแขวนทีละตัว
