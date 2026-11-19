@@ -8488,6 +8488,77 @@
         @media (max-width: 767px) { html body .tk-wrap .tk-cap.cap-r b { font-size: 12px; } }
         /* ★ (19 พ.ย.) ตรวจบัคทั้งเว็บ: .sx-burst / .hx-burst เรียกแอนิเมชัน rdSpin ที่ไม่มีอยู่จริง (ไม่เคยหมุน) แต่ยังจอง will-change เปลืองหน่วยความจำการ์ดจอ → ประกาศให้นิ่งชัดเจน */
         .sx-burst, .hx-burst { animation: none; will-change: auto; }
+        /* ★ (19 พ.ย.) iPad รุ่นเก่า (iPadOS 14 ลงไป / Safari < 15) ไม่รู้จัก aspect-ratio → กรอบรูปในการ์ดควิซสูง 0 รูปหายทั้งใบ (ครูแจ้ง "การ์ดสอบขึ้นไม่ครบ")
+             สำรอง: ใช้ padding-top 62.5% (= 16:10) จองความสูงแทน · รูปใช้ top/left/right/bottom แทน inset (Safari < 14.1 ไม่รู้จัก inset) */
+        .swal2-container .swal2-popup.qh-pop .qh-img img { top: 0; left: 0; right: 0; bottom: 0; }
+        @supports not (aspect-ratio: 1 / 1) {
+            .swal2-container .swal2-popup.qh-pop .qh-img { height: 0; padding-top: 62.5%; }
+            .qh-cover { height: 0; padding-top: 62.5%; } .qh-cover img { position: absolute; top: 0; left: 0; }
+            .swal2-container .swal2-popup.qh-pop .qh-cover { height: auto; padding-top: 9px !important; }
+        }
+        /* ★ (19 พ.ย.) HERO ลูกเล่นเพิ่ม (ลื่น · ชิ้นเล็ก · transform/opacity ล้วน)
+             1) ฟองคำพูดชอล์กข้างรูปครู สลับ 3 ข้อความวนไป (Hello, class! / Let's learn! / You can do it!)
+             2) แตะ/คลิกรูปครู → ดาว/หัวใจชอล์ก 10 ชิ้นกระจายรอบรูป + ฟองคำพูดเด้งค้าง
+             3) แสงทองกวาดผ่านแผ่นไม้ชื่อครูทุก 5 วิ · 4) ฝุ่นชอล์กลอยขึ้นจากรางชอล์ก
+             5) ชี้เมาส์: โพสต์อิทสถิติยกตัว+ตั้งตรง · แท็กเส้นประเปลี่ยนเป็นเส้นทึบสีทอง */
+        html body .hero-card.ai-hero .hc-bub { position: absolute; z-index: 6; left: 62%; top: -6px; width: 0; height: 0; pointer-events: none; }
+        html body .hero-card.ai-hero .hc-bub b { position: absolute; left: 0; bottom: 0; white-space: nowrap; padding: 6px 12px; font-size: .82rem; font-weight: 900; color: #1f2937; background: #fff; border: 2.5px solid #000; border-radius: 14px 14px 14px 4px;
+            box-shadow: 3px 4px 0 rgba(0,0,0,.4); transform-origin: 0 100%; opacity: 0; transform: scale(.3); animation: hcBub 9s cubic-bezier(.3,1.5,.5,1) infinite; }
+        html body .hero-card.ai-hero .hc-bub b::after { content: ''; position: absolute; left: 10px; bottom: -8px; width: 10px; height: 10px; background: #fff; border: 2.5px solid #000; border-top: 0; border-left: 0; transform: rotate(45deg) skew(10deg,10deg); }
+        html body .hero-card.ai-hero .hc-bub .m2 { animation-delay: 3s; } html body .hero-card.ai-hero .hc-bub .m3 { animation-delay: 6s; }
+        @keyframes hcBub { 0% { opacity: 0; transform: scale(.3) rotate(-8deg); } 5%, 28% { opacity: 1; transform: scale(1) rotate(-3deg); } 33%, 100% { opacity: 0; transform: scale(.6) rotate(0); } }
+        html body .hero-card.ai-hero.hc-say .hc-bub b { animation: none; opacity: 0; } html body .hero-card.ai-hero.hc-say .hc-bub .m1 { opacity: 1; transform: scale(1.08) rotate(-3deg); transition: transform .3s cubic-bezier(.3,1.6,.5,1); }
+        html body .hero-card.ai-hero .hc-tap { position: absolute; z-index: 4; left: 12.5%; top: 12.5%; width: 75%; height: 75%; border-radius: 50%; border: 0; padding: 0; background: transparent; cursor: pointer; -webkit-tap-highlight-color: transparent; }
+        html body .hero-card.ai-hero .hc-tap:focus-visible { outline: 3px dashed #fde047; outline-offset: 6px; }
+        html body .hero-card.ai-hero .hc-burst { position: absolute; z-index: 6; left: 50%; top: 50%; width: 0; height: 0; pointer-events: none; }
+        html body .hero-card.ai-hero .hc-burst i { position: absolute; left: -9px; top: -11px; font-style: normal; font-size: 20px; line-height: 1; text-shadow: 0 0 6px currentColor, 1px 1px 0 #000; opacity: 0; }
+        html body .hero-card.ai-hero .hc-burst.go i { animation: hcBurst .9s cubic-bezier(.2,.8,.3,1) forwards; }
+        @keyframes hcBurst { 0% { opacity: 1; transform: translate(0,0) scale(.3); } 60% { opacity: 1; } 100% { opacity: 0; transform: translate(var(--tx), var(--ty)) scale(1.1) rotate(160deg); } }
+        html body .hero-card.ai-hero .ai-name { overflow: hidden; }
+        html body .hero-card.ai-hero .hc-nshine { position: absolute; z-index: 3; top: 0; bottom: 0; left: 0; width: 60px; pointer-events: none; font-style: normal;
+            background: linear-gradient(100deg, rgba(255,255,255,0), rgba(255,246,200,.55), rgba(255,255,255,0)); transform: translateX(-80px) skewX(-18deg); animation: hcShine 5s ease-in-out 2s infinite; }
+        @keyframes hcShine { 0% { transform: translateX(-80px) skewX(-18deg); } 30%, 100% { transform: translateX(560px) skewX(-18deg); } }
+        html body .hero-card.ai-hero .hc-dust { bottom: 18px; width: 5px; height: 5px; border-radius: 50%; background: #fff; opacity: 0; animation: hcDust 4.5s ease-out infinite; }
+        html body .hero-card.ai-hero .hc-dust.u1 { left: 9%; } html body .hero-card.ai-hero .hc-dust.u2 { left: 13%; animation-delay: -1.1s; background: #f9a8d4; } html body .hero-card.ai-hero .hc-dust.u3 { left: 17%; animation-delay: -2.2s; background: #fde047; } html body .hero-card.ai-hero .hc-dust.u4 { right: 12%; animation-delay: -3.3s; }
+        @keyframes hcDust { 0% { opacity: 0; transform: translate(0,0) scale(.6); } 15% { opacity: .8; } 100% { opacity: 0; transform: translate(10px,-90px) scale(1.2); } }
+        @media (hover: hover) { html body .hero-card.ai-hero .ai-st { transition: translate .2s ease, rotate .2s ease; } html body .hero-card.ai-hero .ai-st:hover { translate: 0 -5px; rotate: 1.5deg; }
+            html body .hero-card.ai-hero .ai-tag { transition: border-color .2s; } html body .hero-card.ai-hero .ai-tag:hover { border-style: solid !important; border-color: #fde68a !important; } }
+        @media (max-width: 767px) { html body .hero-card.ai-hero .hc-bub { left: 30%; top: -14px; } html body .hero-card.ai-hero .hc-bub b { font-size: .62rem; padding: 4px 8px; } html body .hero-card.ai-hero .hc-burst i { font-size: 14px; } html body .hero-card.ai-hero .hc-dust { display: none; } }
+        @media (prefers-reduced-motion: reduce) { html body .hero-card.ai-hero .hc-bub b, html body .hero-card.ai-hero .hc-nshine, html body .hero-card.ai-hero .hc-dust, html body .hero-card.ai-hero .hc-burst.go i { animation: none !important; } html body .hero-card.ai-hero .hc-bub .m1 { opacity: 1; transform: none; } html body .hero-card.ai-hero .hc-nshine, html body .hero-card.ai-hero .hc-dust { display: none; } }
+        html.lite body .hero-card.ai-hero .hc-bub b, html.lite body .hero-card.ai-hero .hc-nshine, html.lite body .hero-card.ai-hero .hc-dust { animation: none !important; }
+        html.lite body .hero-card.ai-hero .hc-bub .m1 { opacity: 1; transform: none; } html.lite body .hero-card.ai-hero .hc-nshine, html.lite body .hero-card.ai-hero .hc-dust { display: none; }
+        html.lite body .hero-card.ai-hero .hc-bub .m2, html.lite body .hero-card.ai-hero .hc-bub .m3 { display: none; } @media (prefers-reduced-motion: reduce) { html body .hero-card.ai-hero .hc-bub .m2, html body .hero-card.ai-hero .hc-bub .m3 { display: none; } }
+        /* ★ (19 พ.ย.) SCORE STUDENTS (อวกาศ) อลังการเพิ่ม — ทุกชิ้นเล็ก + transform/opacity ล้วน · ดาวที่ซ่อนอยู่ (โลกอื่น) ไม่วิ่ง
+             1) ดาวใหญ่กลางวง: คลื่นพลังงาน 2 วงแผ่ออกเป็นจังหวะ (สีตามโลก)  2) ห้องทุกดวง: ดาวบริวารจิ๋ววิ่งรอบ (ความเร็วต่างกัน)
+             3) ฝนดาวตก 3 เส้นพาดเฉียง  4) ประกายดาวลอยขึ้นช้าๆ  5) แสงกวาดผ่านป้าย SCORE STUDENTS ทุก 6 วิ
+             6) แท็บโลกที่เลือก: แสงวิ่งใต้แท็บ  7) แตะห้อง: ดาวยุบลงแล้วเด้ง (มีอยู่แล้ว) */
+        #scoreStudentsSection .sx2-pulse { position: absolute; z-index: 0; inset: 0; border-radius: 50%; border: 2.5px solid rgba(var(--wg, 251,146,60), .75); pointer-events: none; opacity: 0; animation: sx2Pulse 3.6s ease-out infinite; }
+        #scoreStudentsSection .sx2-pulse.p2 { animation-delay: 1.8s; }
+        @keyframes sx2Pulse { 0% { transform: scale(.95); opacity: .8; } 100% { transform: scale(1.9); opacity: 0; } }
+       
+        #scoreStudentsSection .sx2-orb { position: absolute; inset: -9px; border-radius: 50%; pointer-events: none; animation: cbTick 5s linear infinite; }
+        #scoreStudentsSection .sx2-orb::before { content: ''; position: absolute; left: 50%; top: -3px; width: 9px; height: 9px; margin-left: -4.5px; border-radius: 50%; background: radial-gradient(circle at 35% 30%, #fff, #fde047 55%, #f59e0b); box-shadow: 0 0 8px #fde047; }
+        #scoreStudentsSection .st-node:nth-of-type(2) .sx2-orb { animation-duration: 6.5s; animation-direction: reverse; } #scoreStudentsSection .st-node:nth-of-type(3) .sx2-orb { animation-duration: 7.5s; } #scoreStudentsSection .st-node:nth-of-type(4) .sx2-orb { animation-duration: 5.8s; animation-direction: reverse; }
+        #scoreStudentsSection .st-node:nth-of-type(odd) .sx2-orb::before { background: radial-gradient(circle at 35% 30%, #fff, #a5f3fc 55%, #22d3ee); box-shadow: 0 0 8px #67e8f9; }
+        #scoreStudentsSection .sx2-met { position: absolute; z-index: 1; width: 120px; height: 2px; border-radius: 2px; pointer-events: none; opacity: 0;
+            background: linear-gradient(90deg, rgba(255,255,255,0), rgba(255,255,255,.9) 85%, #fff); transform: rotate(32deg); animation: sx2Met 7s linear infinite; }
+        #scoreStudentsSection .sx2-met::after { content: ''; position: absolute; right: -2px; top: -2px; width: 6px; height: 6px; border-radius: 50%; background: #fff; box-shadow: 0 0 8px 2px #fde68a; }
+        #scoreStudentsSection .sx2-met.m1 { left: 8%; top: 4%; } #scoreStudentsSection .sx2-met.m2 { left: 46%; top: 2%; animation-delay: 2.4s; } #scoreStudentsSection .sx2-met.m3 { left: 70%; top: 30%; animation-delay: 4.8s; width: 90px; }
+        @keyframes sx2Met { 0% { opacity: 0; transform: rotate(32deg) translateX(-60px); } 4% { opacity: 1; } 14% { opacity: 0; transform: rotate(32deg) translateX(260px); } 100% { opacity: 0; transform: rotate(32deg) translateX(260px); } }
+        #scoreStudentsSection .sx2-dust { position: absolute; z-index: 1; bottom: 8%; font-style: normal; font-size: 13px; color: #fde68a; opacity: 0; pointer-events: none; animation: sx2Dust 8s linear infinite; }
+        #scoreStudentsSection .sx2-dust.d1 { left: 12%; } #scoreStudentsSection .sx2-dust.d2 { left: 38%; animation-delay: -2s; color: #a5f3fc; } #scoreStudentsSection .sx2-dust.d3 { left: 64%; animation-delay: -4s; color: #f9a8d4; } #scoreStudentsSection .sx2-dust.d4 { left: 86%; animation-delay: -6s; }
+        @keyframes sx2Dust { 0% { opacity: 0; transform: translateY(0) rotate(0); } 15% { opacity: .9; } 85% { opacity: .6; } 100% { opacity: 0; transform: translateY(-260px) rotate(180deg); } }
+        #scoreStudentsSection .st-head { position: relative; }
+        #scoreStudentsSection .sx2-glint { position: absolute; z-index: 3; inset: 0; overflow: hidden; pointer-events: none; border-radius: 20px; }
+        #scoreStudentsSection .sx2-glint i { position: absolute; top: 0; bottom: 0; left: 0; width: 90px; background: linear-gradient(100deg, rgba(255,255,255,0), rgba(255,246,200,.28), rgba(255,255,255,0)); transform: translateX(-120px) skewX(-18deg); animation: sx2Glint 6s ease-in-out 1.5s infinite; }
+        @keyframes sx2Glint { 0% { transform: translateX(-120px) skewX(-18deg); } 28%, 100% { transform: translateX(1400px) skewX(-18deg); } }
+        #scoreStudentsSection .st-tab { position: relative; }
+        #scoreStudentsSection .sx2-tl { display: none; position: absolute; left: 6px; right: 6px; bottom: 2px; height: 3px; overflow: hidden; border-radius: 2px; pointer-events: none; }
+        #scoreStudentsSection .st-tab[aria-selected="true"] .sx2-tl { display: block; }
+        #scoreStudentsSection .sx2-tl::before { content: ''; position: absolute; inset: 0; background: linear-gradient(90deg, rgba(253,224,71,0), #fde047, rgba(253,224,71,0)) 0 0 / 50% 100% no-repeat; animation: sx2Tab 2.2s linear infinite; }
+        @keyframes sx2Tab { from { transform: translateX(-100%); } to { transform: translateX(200%); } }
+        @media (prefers-reduced-motion: reduce) { #scoreStudentsSection .sx2-pulse, #scoreStudentsSection .sx2-orb, #scoreStudentsSection .sx2-met, #scoreStudentsSection .sx2-dust, #scoreStudentsSection .sx2-glint i, #scoreStudentsSection .sx2-tl::before { animation: none !important; } #scoreStudentsSection .sx2-met, #scoreStudentsSection .sx2-dust, #scoreStudentsSection .sx2-glint { display: none; } }
+        html.lite #scoreStudentsSection .sx2-pulse, html.lite #scoreStudentsSection .sx2-met, html.lite #scoreStudentsSection .sx2-dust, html.lite #scoreStudentsSection .sx2-glint { display: none; } html.lite #scoreStudentsSection .sx2-orb, html.lite #scoreStudentsSection .sx2-tl::before { animation: none !important; }
 </style>
     <!-- ★ Tailwind CSS สำเร็จรูป (3.4.19) แทนตัวคอมไพล์สดแบบ CDN: ไม่ต้องคอมไพล์ในเบราว์เซอร์ทุกครั้งที่เปิดเว็บ/เปิดป๊อปอัป
          และไม่พึ่งเซิร์ฟเวอร์ภายนอก (เดิมถ้า cdn.tailwindcss.com ล่ม ทั้งหน้าจะไม่มีสไตล์)
@@ -8548,7 +8619,7 @@
             <span class="ai-word" aria-hidden="true">ENGLISH</span>
             <i class="ai-beam" aria-hidden="true"></i>
             <i class="ai-spk s1" aria-hidden="true"></i><i class="ai-spk s2" aria-hidden="true"></i><i class="ai-spk s3" aria-hidden="true"></i><i class="ai-spk s4" aria-hidden="true"></i><i class="ai-spk s5" aria-hidden="true"></i>
-            <i class="ai-corners" aria-hidden="true"></i><span class="hc-fx" aria-hidden="true"><i class="hc-bunt"></i><i class="hc-light l1"></i><i class="hc-light l2"></i><i class="hc-clock"><b></b></i><i class="hc-plane">✈️</i><i class="hc-tw t1">✦</i><i class="hc-tw t2">✦</i><i class="hc-tw t3">✦</i><i class="hc-tw t4">✦</i><i class="hc-chalk c1">A+</i><i class="hc-chalk c2">ABC</i><i class="hc-chalk c3">☺</i><i class="hc-tray"><b class="k1"></b><b class="k2"></b><b class="k3"></b><b class="er"></b></i><i class="hc-desk d1">🍎</i><i class="hc-desk d2">📚</i><i class="hc-desk d3">🌏</i><i class="hc-desk d4">✏️</i></span>
+            <i class="ai-corners" aria-hidden="true"></i><span class="hc-fx" aria-hidden="true"><i class="hc-bunt"></i><i class="hc-light l1"></i><i class="hc-light l2"></i><i class="hc-clock"><b></b></i><i class="hc-plane">✈️</i><i class="hc-tw t1">✦</i><i class="hc-tw t2">✦</i><i class="hc-tw t3">✦</i><i class="hc-tw t4">✦</i><i class="hc-chalk c1">A+</i><i class="hc-chalk c2">ABC</i><i class="hc-chalk c3">☺</i><i class="hc-tray"><b class="k1"></b><b class="k2"></b><b class="k3"></b><b class="er"></b></i><i class="hc-dust u1"></i><i class="hc-dust u2"></i><i class="hc-dust u3"></i><i class="hc-dust u4"></i><i class="hc-desk d1">🍎</i><i class="hc-desk d2">📚</i><i class="hc-desk d3">🌏</i><i class="hc-desk d4">✏️</i></span>
             <div class="ai-grid">
                 <div class="ai-photo">
                     <i class="ai-burst" aria-hidden="true"></i>
@@ -8570,6 +8641,7 @@
                     </div>
                     <span class="ai-badge hx-in" aria-hidden="true"><b>ม.4–6</b></span>
                     <span class="ai-oat hx-in">I AM OAT! 🇬🇧 🇹🇭</span>
+                    <span class="hc-bub" aria-hidden="true"><b class="m1">Hello, class! 👋</b><b class="m2">Let's learn! 📚</b><b class="m3">You can do it! ⭐</b></span><button type="button" class="hc-tap" aria-label="ทักทายครูโอ๊ต"></button><span class="hc-burst" aria-hidden="true"></span>
                 </div>
                 <div class="ai-text">
                     <div class="ai-top">
@@ -8578,7 +8650,7 @@
                         <span class="ai-chip live hx-in"><i class="live-dot"></i>ONLINE NOW</span>
                     </div>
                     <h1 class="ai-title" aria-label="HELLO HUMAN!"><span class="t1 hx-in" data-text="HELLO" aria-hidden="true"><b data-l="H">H</b><b data-l="E">E</b><b data-l="L">L</b><b data-l="L">L</b><b data-l="O">O</b></span> <span class="t2 hx-in" data-text="HUMAN!" aria-hidden="true"><b data-l="H">H</b><b data-l="U">U</b><b data-l="M">M</b><b data-l="A">A</b><b data-l="N">N</b><b data-l="!">!</b></span><span class="wave-hand" aria-hidden="true">👋</span></h1>
-                    <div class="ai-name hx-in"><span class="ai-name-in">T.JAKRAPONG SUTTIPRAPA <span class="hx-flag" aria-hidden="true">🇬🇧</span></span></div>
+                    <div class="ai-name hx-in"><i class="hc-nshine" aria-hidden="true"></i><span class="ai-name-in">T.JAKRAPONG SUTTIPRAPA <span class="hx-flag" aria-hidden="true">🇬🇧</span></span></div>
                     <div class="ai-tags">
                         <span class="ai-tag g1 hx-in"><i aria-hidden="true">📡</i>ภาษาต่างประเทศ</span>
                         <span class="ai-tag g2 hx-in"><i aria-hidden="true">🏫</i>ร.ร. ธนาคารออมสิน</span>
@@ -8704,20 +8776,20 @@
             <i class="sw-fw f2" aria-hidden="true"></i>
             <i class="sw-burst" aria-hidden="true"></i>
             <i class="gx-horizon" aria-hidden="true"></i>
-            <span class="sx-fx" aria-hidden="true"><i class="sx-const c1"></i><i class="sx-const c2"></i><i class="sx-rocket">🚀</i><i class="sx-astro">🧑‍🚀</i><i class="sx-ufo">🛸</i><i class="sx-comet"></i><i class="sx-sat">🛰️</i></span>
+            <span class="sx-fx" aria-hidden="true"><i class="sx-const c1"></i><i class="sx-const c2"></i><i class="sx-rocket">🚀</i><i class="sx-astro">🧑‍🚀</i><i class="sx-ufo">🛸</i><i class="sx-comet"></i><i class="sx-sat">🛰️</i><i class="sx2-met m1"></i><i class="sx2-met m2"></i><i class="sx2-met m3"></i><i class="sx2-dust d1">✦</i><i class="sx2-dust d2">✧</i><i class="sx2-dust d3">✦</i><i class="sx2-dust d4">✧</i></span>
             <span class="st-twinkle" style="left:6%;top:9%;animation-delay:.2s;" aria-hidden="true">✦</span>
             <span class="st-twinkle sm" style="left:27%;top:6%;animation-delay:1s;" aria-hidden="true">✦</span>
             <span class="st-twinkle sm" style="left:70%;top:14%;animation-delay:1.7s;" aria-hidden="true">✦</span>
             <span class="st-twinkle" style="left:3%;top:48%;animation-delay:.6s;" aria-hidden="true">✦</span>
-            <div class="st-head">
+            <div class="st-head"><span class="sx2-glint" aria-hidden="true"><i></i></span>
                 <p class="st-kicker"><span>★ CHOOSE YOUR CLASS ★</span></p>
                 <h2 class="st-title font-black" data-text="SCORE STUDENTS">SCORE STUDENTS</h2>
                 <p class="st-sub">🚀 เลือกดาว (ชั้น) แล้วแตะห้องของตัวเอง</p>
             </div>
             <div class="st-tabs" role="tablist" aria-label="เลือกชั้น">
-                <button type="button" class="st-tab g4" role="tab" data-w="4" aria-selected="true" onclick="stPickWorld('4')"><b>WORLD 1</b><small>ม.4 🔥</small></button>
-                <button type="button" class="st-tab g5" role="tab" data-w="5" aria-selected="false" onclick="stPickWorld('5')"><b>WORLD 2</b><small>ม.5 🍀</small></button>
-                <button type="button" class="st-tab g6" role="tab" data-w="6" aria-selected="false" onclick="stPickWorld('6')"><b>WORLD 3</b><small>ม.6 💎</small></button>
+                <button type="button" class="st-tab g4" role="tab" data-w="4" aria-selected="true" onclick="stPickWorld('4')"><i class="sx2-tl" aria-hidden="true"></i><b>WORLD 1</b><small>ม.4 🔥</small></button>
+                <button type="button" class="st-tab g5" role="tab" data-w="5" aria-selected="false" onclick="stPickWorld('5')"><i class="sx2-tl" aria-hidden="true"></i><b>WORLD 2</b><small>ม.5 🍀</small></button>
+                <button type="button" class="st-tab g6" role="tab" data-w="6" aria-selected="false" onclick="stPickWorld('6')"><i class="sx2-tl" aria-hidden="true"></i><b>WORLD 3</b><small>ม.6 💎</small></button>
             </div>
             <div class="st-worlds">
                 <section class="st-world g4 on" data-w="4" role="tabpanel" aria-label="ม.4">
@@ -8725,11 +8797,11 @@
                         <div class="gx-plate"><b>WORLD 1</b><span>ม.4<em> · FIRE PLANET</em></span></div>
                         <div class="gx-field">
                             <i class="gx-orbit" aria-hidden="true"></i>
-                            <span class="gx-planet" aria-hidden="true"><i class="gx-ring b"></i><i class="gx-globe"></i><i class="gx-ring f"></i><i class="gx-moon"></i></span>
-                            <button type="button" onclick="checkMissionPassword('4/1')" class="st-node" data-room="4/1" style="--i:0;" aria-label="ดูคะแนนห้อง ม.4/1"><span class="st-ball">4/1</span><small>ROOM 1</small></button>
-                            <button type="button" onclick="checkMissionPassword('4/2')" class="st-node" data-room="4/2" style="--i:1;" aria-label="ดูคะแนนห้อง ม.4/2"><span class="st-ball">4/2</span><small>ROOM 2</small></button>
-                            <button type="button" onclick="checkMissionPassword('4/3')" class="st-node" data-room="4/3" style="--i:2;" aria-label="ดูคะแนนห้อง ม.4/3"><span class="st-ball">4/3</span><small>ROOM 3</small></button>
-                            <button type="button" onclick="checkMissionPassword('4/4')" class="st-node" data-room="4/4" style="--i:3;" aria-label="ดูคะแนนห้อง ม.4/4"><span class="st-ball">4/4</span><small>ROOM 4</small></button>
+                            <span class="gx-planet" aria-hidden="true"><i class="gx-ring b"></i><i class="gx-globe"></i><i class="gx-ring f"></i><i class="gx-moon"></i><i class="sx2-pulse p1"></i><i class="sx2-pulse p2"></i></span>
+                            <button type="button" onclick="checkMissionPassword('4/1')" class="st-node" data-room="4/1" style="--i:0;" aria-label="ดูคะแนนห้อง ม.4/1"><span class="st-ball">4/1<i class="sx2-orb" aria-hidden="true"></i></span><small>ROOM 1</small></button>
+                            <button type="button" onclick="checkMissionPassword('4/2')" class="st-node" data-room="4/2" style="--i:1;" aria-label="ดูคะแนนห้อง ม.4/2"><span class="st-ball">4/2<i class="sx2-orb" aria-hidden="true"></i></span><small>ROOM 2</small></button>
+                            <button type="button" onclick="checkMissionPassword('4/3')" class="st-node" data-room="4/3" style="--i:2;" aria-label="ดูคะแนนห้อง ม.4/3"><span class="st-ball">4/3<i class="sx2-orb" aria-hidden="true"></i></span><small>ROOM 3</small></button>
+                            <button type="button" onclick="checkMissionPassword('4/4')" class="st-node" data-room="4/4" style="--i:3;" aria-label="ดูคะแนนห้อง ม.4/4"><span class="st-ball">4/4<i class="sx2-orb" aria-hidden="true"></i></span><small>ROOM 4</small></button>
                         </div>
                     </div>
                 </section>
@@ -8738,11 +8810,11 @@
                         <div class="gx-plate"><b>WORLD 2</b><span>ม.5<em> · JUNGLE PLANET</em></span></div>
                         <div class="gx-field">
                             <i class="gx-orbit" aria-hidden="true"></i>
-                            <span class="gx-planet" aria-hidden="true"><i class="gx-ring b"></i><i class="gx-globe"></i><i class="gx-ring f"></i><i class="gx-moon"></i></span>
-                            <button type="button" onclick="checkMissionPassword('5/1')" class="st-node" data-room="5/1" style="--i:0;" aria-label="ดูคะแนนห้อง ม.5/1"><span class="st-ball">5/1</span><small>ROOM 1</small></button>
-                            <button type="button" onclick="checkMissionPassword('5/2')" class="st-node" data-room="5/2" style="--i:1;" aria-label="ดูคะแนนห้อง ม.5/2"><span class="st-ball">5/2</span><small>ROOM 2</small></button>
-                            <button type="button" onclick="checkMissionPassword('5/3')" class="st-node" data-room="5/3" style="--i:2;" aria-label="ดูคะแนนห้อง ม.5/3"><span class="st-ball">5/3</span><small>ROOM 3</small></button>
-                            <button type="button" onclick="checkMissionPassword('5/4')" class="st-node" data-room="5/4" style="--i:3;" aria-label="ดูคะแนนห้อง ม.5/4"><span class="st-ball">5/4</span><small>ROOM 4</small></button>
+                            <span class="gx-planet" aria-hidden="true"><i class="gx-ring b"></i><i class="gx-globe"></i><i class="gx-ring f"></i><i class="gx-moon"></i><i class="sx2-pulse p1"></i><i class="sx2-pulse p2"></i></span>
+                            <button type="button" onclick="checkMissionPassword('5/1')" class="st-node" data-room="5/1" style="--i:0;" aria-label="ดูคะแนนห้อง ม.5/1"><span class="st-ball">5/1<i class="sx2-orb" aria-hidden="true"></i></span><small>ROOM 1</small></button>
+                            <button type="button" onclick="checkMissionPassword('5/2')" class="st-node" data-room="5/2" style="--i:1;" aria-label="ดูคะแนนห้อง ม.5/2"><span class="st-ball">5/2<i class="sx2-orb" aria-hidden="true"></i></span><small>ROOM 2</small></button>
+                            <button type="button" onclick="checkMissionPassword('5/3')" class="st-node" data-room="5/3" style="--i:2;" aria-label="ดูคะแนนห้อง ม.5/3"><span class="st-ball">5/3<i class="sx2-orb" aria-hidden="true"></i></span><small>ROOM 3</small></button>
+                            <button type="button" onclick="checkMissionPassword('5/4')" class="st-node" data-room="5/4" style="--i:3;" aria-label="ดูคะแนนห้อง ม.5/4"><span class="st-ball">5/4<i class="sx2-orb" aria-hidden="true"></i></span><small>ROOM 4</small></button>
                         </div>
                     </div>
                 </section>
@@ -8751,11 +8823,11 @@
                         <div class="gx-plate"><b>WORLD 3</b><span>ม.6<em> · CRYSTAL PLANET</em></span></div>
                         <div class="gx-field">
                             <i class="gx-orbit" aria-hidden="true"></i>
-                            <span class="gx-planet" aria-hidden="true"><i class="gx-ring b"></i><i class="gx-globe"></i><i class="gx-ring f"></i><i class="gx-moon"></i></span>
-                            <button type="button" onclick="checkMissionPassword('6/1')" class="st-node" data-room="6/1" style="--i:0;" aria-label="ดูคะแนนห้อง ม.6/1"><span class="st-ball">6/1</span><small>ROOM 1</small></button>
-                            <button type="button" onclick="checkMissionPassword('6/2')" class="st-node" data-room="6/2" style="--i:1;" aria-label="ดูคะแนนห้อง ม.6/2"><span class="st-ball">6/2</span><small>ROOM 2</small></button>
-                            <button type="button" onclick="checkMissionPassword('6/3')" class="st-node" data-room="6/3" style="--i:2;" aria-label="ดูคะแนนห้อง ม.6/3"><span class="st-ball">6/3</span><small>ROOM 3</small></button>
-                            <button type="button" onclick="checkMissionPassword('6/4')" class="st-node" data-room="6/4" style="--i:3;" aria-label="ดูคะแนนห้อง ม.6/4"><span class="st-ball">6/4</span><small>ROOM 4</small></button>
+                            <span class="gx-planet" aria-hidden="true"><i class="gx-ring b"></i><i class="gx-globe"></i><i class="gx-ring f"></i><i class="gx-moon"></i><i class="sx2-pulse p1"></i><i class="sx2-pulse p2"></i></span>
+                            <button type="button" onclick="checkMissionPassword('6/1')" class="st-node" data-room="6/1" style="--i:0;" aria-label="ดูคะแนนห้อง ม.6/1"><span class="st-ball">6/1<i class="sx2-orb" aria-hidden="true"></i></span><small>ROOM 1</small></button>
+                            <button type="button" onclick="checkMissionPassword('6/2')" class="st-node" data-room="6/2" style="--i:1;" aria-label="ดูคะแนนห้อง ม.6/2"><span class="st-ball">6/2<i class="sx2-orb" aria-hidden="true"></i></span><small>ROOM 2</small></button>
+                            <button type="button" onclick="checkMissionPassword('6/3')" class="st-node" data-room="6/3" style="--i:2;" aria-label="ดูคะแนนห้อง ม.6/3"><span class="st-ball">6/3<i class="sx2-orb" aria-hidden="true"></i></span><small>ROOM 3</small></button>
+                            <button type="button" onclick="checkMissionPassword('6/4')" class="st-node" data-room="6/4" style="--i:3;" aria-label="ดูคะแนนห้อง ม.6/4"><span class="st-ball">6/4<i class="sx2-orb" aria-hidden="true"></i></span><small>ROOM 4</small></button>
                         </div>
                     </div>
                 </section>
@@ -12640,6 +12712,35 @@
         // ★ (5 พ.ย.) โซน QUIZ "เปิดเครื่อง" ครั้งเดียวตอนเลื่อนมาถึง: ป้ายนีออนกะพริบติด → จอตู้เกมเปิดทีละตู้ (เส้นแสงกลางจอแยกออกบน-ล่าง)
         //   ไม่มี IntersectionObserver / ตั้งค่าลดการเคลื่อนไหว → ไม่ทำอะไรเลย (จอเปิดอยู่แล้วตั้งแต่แรก)
         //   เล่นจบแล้วถอดคลาสออก กลับเป็นภาพนิ่งปกติ (สำรองด้วยตัวจับเวลา เผื่อเหตุการณ์จบแอนิเมชันไม่มา)
+
+        // ★ (19 พ.ย.) HERO: แตะรูปครู → ดาว/หัวใจชอล์กกระจายรอบรูป + ฟองคำพูดเด้งทันที (เล่นครั้งเดียวต่อการแตะ)
+
+        (function () {
+
+            var hero = document.querySelector('.hero-card.ai-hero'); if (!hero) return;
+
+            var tap = hero.querySelector('.hc-tap'), burst = hero.querySelector('.hc-burst'); if (!tap || !burst) return;
+
+            var C = ['#fde047', '#f9a8d4', '#a5f3fc', '#bbf7d0', '#fdba74', '#fff'], S = ['★', '♥', '✦', '★', '♥', '✦', '★', '♥', '✦', '★'];
+
+            tap.addEventListener('click', function () {
+
+                if (document.documentElement.classList.contains('lite')) { hero.classList.add('hc-say'); setTimeout(function () { hero.classList.remove('hc-say'); }, 1800); return; }
+
+                var h = '';
+
+                for (var i = 0; i < 10; i++) { var a = Math.PI * 2 * i / 10, r = 90 + (i % 2) * 26;
+
+                    h += '<i style="--tx:' + Math.round(Math.cos(a) * r) + 'px;--ty:' + Math.round(Math.sin(a) * r) + 'px;color:' + C[i % 6] + '">' + S[i] + '</i>'; }
+
+                burst.innerHTML = h; burst.classList.remove('go'); void burst.offsetWidth; burst.classList.add('go');
+
+                hero.classList.add('hc-say'); clearTimeout(tap._t); tap._t = setTimeout(function () { hero.classList.remove('hc-say'); burst.classList.remove('go'); burst.innerHTML = ''; }, 1800);
+
+            });
+
+        })();
+
 
         // ★ (19 พ.ย.) ลูกเล่นเบาๆ ทั้งเว็บ (ไม่รก ไม่กระตุก):
 
