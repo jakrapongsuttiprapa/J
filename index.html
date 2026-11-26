@@ -8725,6 +8725,8 @@
         @media (prefers-reduced-motion: reduce) { html body .swal2-container .swal2-popup.mn-pop.mn-tch .mc-fx i, html body .swal2-container .swal2-popup.mn-pop.mn-stu .mc-fx i, html body .swal2-container .swal2-popup.mn-pop.mn-tch .mc-clock b, html body .swal2-container .swal2-popup.mn-pop.mn-stu .mc-clock b, html body .swal2-container .swal2-popup.mn-pop.mn-tch .tb-plate::after, html body .swal2-container .swal2-popup.mn-pop.mn-stu .tb-plate::after, html body .swal2-container .swal2-popup.mn-pop.mn-tch .gc-scr::after, html body .swal2-container .swal2-popup.mn-pop.mn-stu .gc-scr::after, html body .swal2-container .swal2-popup.mn-pop.mn-tch .mn-tile, html body .swal2-container .swal2-popup.mn-pop.mn-stu .mn-tile { animation: none !important; } html body .swal2-container .swal2-popup.mn-pop.mn-tch .mc-plane, html body .swal2-container .swal2-popup.mn-pop.mn-stu .mc-plane { display: none; } }
         html.lite body .swal2-container .swal2-popup.mn-pop.mn-tch .mc-plane, html.lite body .swal2-container .swal2-popup.mn-pop.mn-stu .mc-plane { display: none; }
         html.lite body .swal2-container .swal2-popup.mn-pop.mn-tch .mc-fx i, html.lite body .swal2-container .swal2-popup.mn-pop.mn-stu .mc-fx i, html.lite body .swal2-container .swal2-popup.mn-pop.mn-tch .tb-plate::after, html.lite body .swal2-container .swal2-popup.mn-pop.mn-stu .gc-scr::after { animation: none !important; }
+        /* ★ (26 พ.ย.) การ์ดงานที่ผ่านแบบเล็ก: ปกติซ่อนป้ายสถานะ แต่ถ้าครูพิมพ์ข้อความเองในชีต (ป้ายเหลือง) ต้องโชว์ให้เห็น */
+        html body .dt-grid .dt-stat.bg-amber-100 { display: inline-block !important; grid-column: 1 / -1; justify-self: start; max-width: 100%; margin: 2px 0 4px !important; white-space: normal; font-size: .68rem; line-height: 1.25; transform: none !important; }
 </style>
     <!-- ★ Tailwind CSS สำเร็จรูป (3.4.19) แทนตัวคอมไพล์สดแบบ CDN: ไม่ต้องคอมไพล์ในเบราว์เซอร์ทุกครั้งที่เปิดเว็บ/เปิดป๊อปอัป
          และไม่พึ่งเซิร์ฟเวอร์ภายนอก (เดิมถ้า cdn.tailwindcss.com ล่ม ทั้งหน้าจะไม่มีสไตล์)
@@ -10566,21 +10568,25 @@
         }
 
         // คืนค่า { state: 'pass' | 'r' | 'none', label: ข้อความที่จะแสดง }
+        // ★ (26 พ.ย.) ครูขอ: "สถานะใส่แบบไหน ให้ขึ้นคำแบบนั้น" → ถ้าช่องสถานะในชีตมีข้อความ ป้ายสถานะโชว์ข้อความนั้นตรงตัวเสมอ
+        //   (เช่น "ยังไม่สอบ post test") — การนับผ่าน/ร ยังตัดสินแบบเดิม · ข้อความที่ไม่ใช่ผ่าน/ไม่ผ่าน = custom (ป้ายสีเหลือง)
         function taskResult_(s) {
             if (!s) return { state: 'none', label: '-' };
             const rawStatus = String(s.status === undefined || s.status === null ? '' : s.status).trim();
+            const hasTxt = rawStatus !== '' && !/^[-–—]+$/.test(rawStatus);
             const st = rawStatus.toLowerCase();
+            const lab = function (d) { return hasTxt ? rawStatus : d; };
             const scoreTxt = String(s.score === undefined || s.score === null ? '' : s.score).trim();
-            if (isRMark_(scoreTxt)) return { state: 'r', label: 'ไม่ผ่าน' };
+            if (isRMark_(scoreTxt)) return { state: 'r', label: lab('ไม่ผ่าน') };
             // คำปฏิเสธต้องเช็คก่อนเสมอ เพราะ "ไม่ผ่าน" / "ไม่ดี" มีคำว่า "ผ่าน" / "ดี" ซ่อนอยู่ข้างใน
-            if (isRMark_(st) || /ไม่ผ่าน|ไม่ดี|ตก|fail|✗|✘|❌/.test(st)) return { state: 'r', label: 'ไม่ผ่าน' };
+            if (isRMark_(st) || /ไม่ผ่าน|ไม่ดี|ตก|fail|✗|✘|❌/.test(st)) return { state: 'r', label: lab('ไม่ผ่าน') };
             if (/ผ่าน|ดี|pass|✓|✔|✅/.test(st)) return { state: 'pass', label: rawStatus };
             const sc = parseFloat(scoreTxt), ps = parseFloat(s.passScore);
             if (!isNaN(sc) && sc > 0) {
-                if (!isNaN(ps) && ps > 0) { return sc >= ps ? { state: 'pass', label: 'ผ่าน' } : { state: 'r', label: 'ไม่ผ่าน' }; }
-                return { state: 'pass', label: 'ผ่าน' };
+                if (!isNaN(ps) && ps > 0) { return sc >= ps ? { state: 'pass', label: lab('ผ่าน'), custom: hasTxt } : { state: 'r', label: lab('ไม่ผ่าน'), custom: hasTxt }; }
+                return { state: 'pass', label: lab('ผ่าน'), custom: hasTxt };
             }
-            return { state: 'none', label: (rawStatus && rawStatus !== '-') ? rawStatus : '-' };
+            return { state: 'none', label: hasTxt ? rawStatus : '-', custom: hasTxt };
         }
 
         // คืนค่า: true = ผ่าน, false = ติด ร, null = ยังไม่ตัดสิน (ใช้ร่วมกันทุกหน้าจอ)
@@ -10798,7 +10804,7 @@
                     // ตัวตัดสินกลาง: ผ่าน / ร / ยังไม่ตัดสิน — ใช้ชุดเดียวกับหน้าภาพรวม จึงบอกตรงกันเสมอ
                     const res = taskResult_(s);
                     let statusDisplay = res.label;
-                    let statusColor = rStatusClass_(res.state);
+                    let statusColor = res.custom ? 'text-amber-900 bg-amber-100 rounded-md px-2 py-0.5 border border-amber-500' : rStatusClass_(res.state);
                     if (!isNaN(parseFloat(s.score))) rawTaskGot += parseFloat(s.score);
                     if (!isNaN(parseFloat(s.maxScore))) rawTaskMax += parseFloat(s.maxScore);
                     (taskRows[res.state] || taskRows.none).push(dtRow_(s.task, s.maxScore, s.passScore, scoreDisplay, res.state, statusDisplay, statusColor));
@@ -10987,8 +10993,8 @@
             // ② คะแนนสอบ (กลางภาค · ปลายภาค)
             const examBad = (midHas && midRes.state === 'r' ? 1 : 0) + (finHas && finRes.state === 'r' ? 1 : 0);
             // (14 พ.ย.) ช่องสอบที่ยังไม่มีผล = การ์ดล็อกเล็ก "รอประกาศผล" (เดิมเป็นการ์ดใหญ่โชว์ 0 ทั้งที่ยังไม่ได้สอบ)
-            const midRow = midHas ? dtRow_('กลางภาค', midMax, midPassData, (isRMark_(midGotData) ? 'ร' : midGot), midRes.state, midRes.label, rStatusClass_(midRes.state), 'exam', 'MIDTERM') : '';
-            const finRow = finHas ? dtRow_('ปลายภาค', finMax, finPassData, (isRMark_(finGotData) ? 'ร' : finGot), finRes.state, finRes.label, rStatusClass_(finRes.state), 'exam', 'FINAL') : '';
+            const midRow = midHas ? dtRow_('กลางภาค', midMax, midPassData, (isRMark_(midGotData) ? 'ร' : midGot), midRes.state, midRes.label, (midRes.custom ? 'text-amber-900 bg-amber-100 rounded-md px-2 py-0.5 border border-amber-500' : rStatusClass_(midRes.state)), 'exam', 'MIDTERM') : '';
+            const finRow = finHas ? dtRow_('ปลายภาค', finMax, finPassData, (isRMark_(finGotData) ? 'ร' : finGot), finRes.state, finRes.label, (finRes.custom ? 'text-amber-900 bg-amber-100 rounded-md px-2 py-0.5 border border-amber-500' : rStatusClass_(finRes.state)), 'exam', 'FINAL') : '';
             const locks = (midHas ? '' : dtLock_('MIDTERM', 'กลางภาค', midMax)) + (finHas ? '' : dtLock_('FINAL', 'ปลายภาค', finMax));
             const examN = examBad ? '<span class="dt-sec-n bad">ไม่ผ่าน ' + examBad + ' ช่อง</span>' : (midHas && finHas ? '<span class="dt-sec-n">2 สนามสอบ</span>' : '<span class="dt-sec-n wait">⏳ รอประกาศผล</span>');
             html += '<section class="dt-sec exam' + (midHas || finHas ? '' : ' wait') + '">' + secH('⚔️', 'BOSS BATTLE', 'คะแนนสอบ', examN);
