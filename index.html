@@ -8844,6 +8844,70 @@
         html body .ai-hero > .nv-dock { background: repeating-linear-gradient(176deg, rgba(120,70,20,.16) 0 1.5px, rgba(0,0,0,0) 1.5px 6px, rgba(255,240,210,.14) 6px 7.5px, rgba(0,0,0,0) 7.5px 13px), linear-gradient(180deg, #e2b679 0%, #cf9858 50%, #b97f42 100%) !important; }
         html body nav.top-nav .nav-pill .nv-ctl { background: repeating-linear-gradient(176deg, rgba(120,70,20,.16) 0 1.5px, rgba(0,0,0,0) 1.5px 6px, rgba(255,240,210,.14) 6px 7.5px, rgba(0,0,0,0) 7.5px 13px), linear-gradient(180deg, #e2b679 0%, #cf9858 50%, #b97f42 100%) !important; }
         html body .swal2-container .swal2-popup.mn-pop.mn-stu .cl-txt b { text-transform: uppercase; } html body .swal2-container .swal2-popup.mn-pop.mn-stu .cl-mark { right: 56px; }
+        /* ★ (27 พ.ย.) แถบบนสุด รอบ 2 "อลังการ" (ครู: ยังไม่สวย) — ทุกชิ้นนิ่ง (แถบติดจอตลอดตอนเลื่อน)
+             กรอบ: ไม้วอลนัทเข้มหนา + คิ้วทองคู่ + มุมทองฉลุ 4 มุม · ไฟโคมทอง 2 ดวงส่องลงกระดาน
+             โลโก้: ป้ายไม้คาดทอง ตัว "I AM OAT" ทองนูน · ปุ่มลัด: กระดาษโน้ตสีเต็มสีประจำโซน ไอคอนในวงขาว ตัวหนังสือเข้ม เทปใสคาด
+             โซนที่อยู่: ป้ายใหญ่ขึ้น ขอบทอง + ดาวทองมุม */
+        html body nav.top-nav .nav-pill { border-width: 12px !important;
+            background: radial-gradient(ellipse 22% 120% at 18% 0%, rgba(255,236,170,.2), rgba(255,236,170,0) 70%) padding-box, radial-gradient(ellipse 22% 120% at 82% 0%, rgba(255,236,170,.2), rgba(255,236,170,0) 70%) padding-box,
+                radial-gradient(ellipse 50% 60% at 50% 0%, rgba(255,236,170,.12), rgba(255,236,170,0) 75%) padding-box, url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='520' height='420' viewBox='0 0 520 420'%3E%3Cg fill='none' stroke='%23fff' stroke-opacity='.16' stroke-width='3' stroke-linecap='round' stroke-linejoin='round' font-family='Comic Sans MS,cursive' font-weight='700'%3E%3Ctext x='30' y='70' font-size='40' fill='%23fff' fill-opacity='.13' stroke='none'%3EABC%3C/text%3E%3Cpath d='M400 40l9 20 22 2-17 14 5 22-19-12-19 12 5-22-17-14 22-2z'/%3E%3Ccircle cx='90' cy='300' r='28'/%3E%3Cpath d='M78 292v4M102 292v4M76 310q14 14 28 0'/%3E%3Cpath d='M300 330q20-30 40 0q20-30 40 0'/%3E%3Ctext x='250' y='190' font-size='30' fill='%23fff' fill-opacity='.12' stroke='none'%3EHello!%3C/text%3E%3Cpath d='M440 300c-10-18 14-30 22-12c8-18 32-6 22 12l-22 22z'/%3E%3Cpath d='M150 150l40 10l-8-14M190 160l-10 12'/%3E%3Ctext x='380' y='230' font-size='28' fill='%23fff' fill-opacity='.12' stroke='none'%3EA+%3C/text%3E%3C/g%3E%3C/svg%3E") 0 0 / 520px 420px padding-box, linear-gradient(165deg, #2f5e44 0%, #214a33 50%, #183826 100%) padding-box,
+                linear-gradient(180deg, rgba(255,255,255,.28), rgba(255,255,255,0) 14%, rgba(0,0,0,0) 85%, rgba(0,0,0,.3)) border-box,
+                repeating-linear-gradient(174deg, rgba(0,0,0,.16) 0 1.5px, rgba(0,0,0,0) 1.5px 6px, rgba(255,220,170,.10) 6px 7.5px, rgba(0,0,0,0) 7.5px 13px) border-box,
+                linear-gradient(135deg, #8b4f22 0%, #6b3410 40%, #5a2a0c 70%, #8b4f22 100%) border-box !important;
+            box-shadow: inset 0 0 0 2px #3b1a06, inset 0 0 0 4px #fde047, inset 0 0 0 5px #92400e, inset 0 0 0 6.5px #fbbf24, inset 0 0 0 8px #3b1a06, inset 0 8px 16px rgba(0,0,0,.35),
+                0 0 0 2px #fbbf24, 0 0 0 4px #000, 7px 8px 0 4px #000, 0 0 40px rgba(251,191,36,.25) !important; }
+        html body nav.top-nav .nav-pill .nv-fx .cb-gc { width: 30px; height: 30px; }
+        html body nav.top-nav .nav-pill .nv-fx .cb-gc.g1 { top: 2px; left: 2px; } html body nav.top-nav .nav-pill .nv-fx .cb-gc.g2 { top: 2px; right: 2px; } html body nav.top-nav .nav-pill .nv-fx .cb-gc.g3 { bottom: 2px; left: 2px; } html body nav.top-nav .nav-pill .nv-fx .cb-gc.g4 { bottom: 2px; right: 2px; }
+        html body nav.top-nav .nav-pill .nv-lamp { top: 0; width: 220px; height: 120px; background: linear-gradient(180deg, rgba(255,240,200,.28), rgba(255,240,200,0) 90%); clip-path: polygon(44% 0, 56% 0, 100% 100%, 0 100%); }
+        html body nav.top-nav .nav-pill .nv-lamp.l1 { left: 26%; } html body nav.top-nav .nav-pill .nv-lamp.l2 { right: 26%; }
+        html body nav.top-nav .nav-pill .nv-ck { display: none; }
+        html body nav.top-nav .nav-pill .nav-brand { padding: 6px 16px 6px 8px; background: repeating-linear-gradient(176deg, rgba(0,0,0,.14) 0 2px, rgba(0,0,0,0) 2px 9px, rgba(255,255,255,.07) 9px 11px, rgba(0,0,0,0) 11px 19px), linear-gradient(180deg, #b0642f 0%, #8b4513 55%, #5e2d0d 100%); border: 2.5px solid #000; border-radius: 999px 14px 14px 999px; box-shadow: inset 0 0 0 2px #fbbf24, inset 0 0 0 3.5px #5e2d0d, 3px 4px 0 #000; }
+        html body nav.top-nav .nav-pill .nav-word { color: transparent !important; background: linear-gradient(180deg, #fffbe6 0%, #fde68a 30%, #facc15 52%, #f59e0b 78%, #fde047 100%); -webkit-background-clip: text; background-clip: text; text-shadow: none !important; filter: drop-shadow(0 2px 0 #3b1a06) drop-shadow(0 0 6px rgba(253,224,71,.35)); letter-spacing: .08em; }
+        html body nav.top-nav .nav-pill .nav-accent { color: transparent !important; background: linear-gradient(180deg, #fff, #fde68a 40%, #f59e0b); -webkit-background-clip: text; background-clip: text; text-shadow: none !important; }
+        html body nav.top-nav .nav-pill .nav-link { background: linear-gradient(180deg, rgba(255,255,255,.55), rgba(255,255,255,.1) 45%, rgba(0,0,0,.04)), var(--nc) !important; color: #1f2937 !important; padding-top: 9px !important; padding-bottom: 9px !important; }
+        html body nav.top-nav .nav-pill .nav-link::before { background: rgba(255,255,255,.65) !important; border: 1px solid rgba(0,0,0,.2) !important; width: 38px !important; margin-left: -19px !important; }
+        html body nav.top-nav .nav-pill .nav-link span { background: #fff !important; width: 26px !important; height: 26px !important; font-size: .9rem !important; box-shadow: 0 2px 0 #000; }
+        html body nav.top-nav .nav-pill .nav-link b { font-weight: 900; letter-spacing: .06em; }
+        html body nav.top-nav .nav-pill .nav-link.on { box-shadow: 0 0 0 3px #fde047, 0 0 0 5px #000, 3px 5px 0 5px rgba(0,0,0,.6), 0 0 18px rgba(253,224,71,.55) !important; }
+        html body nav.top-nav .nav-pill .nv-ctl { box-shadow: inset 0 0 0 2px #fbbf24, inset 0 0 0 3.5px #5e2d0d, 0 0 0 2px #000, 3px 4px 0 2px #000 !important; }
+        html body nav.top-nav .nav-pill .nav-word { color: #fde68a !important; background: none !important; -webkit-background-clip: border-box !important; background-clip: border-box !important; filter: none !important; }
+        html body nav.top-nav .nav-pill .nw-t { color: transparent; background: linear-gradient(180deg, #fffbe6 0%, #fde68a 30%, #facc15 52%, #f59e0b 78%, #fde047 100%); -webkit-background-clip: text; background-clip: text; filter: drop-shadow(0 2px 0 #3b1a06) drop-shadow(0 0 6px rgba(253,224,71,.35)); }
+        @media (max-width: 1199px) { html body nav.top-nav .nav-pill .nv-flag { display: none; } html body nav.top-nav .nav-pill .nav-brand { padding-right: 12px; } html body nav.top-nav .nav-pill .nav-word { font-size: 1.1rem !important; } }
+        @media (max-width: 1099px) { html body nav.top-nav .nav-pill .nav-word { display: none; } html body nav.top-nav .nav-pill .nav-brand { padding: 4px; border-radius: 999px; } }
+        /* ★ (27 พ.ย.) ปุ่ม เมนู / FX / ครู ให้เป็นชุดเดียวกัน (ครู: FX ดูไม่เท่ากัน เป็นส่วนเกิน) — ทั้ง 3 ปุ่ม = กระดานดำจิ๋วกรอบไม้ ขนาด/ขอบ/เงาเท่ากันเป๊ะ
+             ต่างกันแค่ไอคอน + แถบสีบนหัวปุ่ม (เมนู = เขียวมิ้นต์ · FX = เหลือง · ครู = ส้มทอง) · FX ปิด (💤) = แถบเทา */
+        html body nav.top-nav .nav-pill .nv-ctl .nav-pill-btn, html body nav.top-nav .nav-pill .nv-ctl .nav-pill-btn.nb-stu, html body nav.top-nav .nav-pill .nv-ctl .nav-pill-btn.nb-tch, html body nav.top-nav .nav-pill .nv-ctl .nav-pill-btn.fx-tog, html body .ai-hero .nv-dock .nav-glass-btn.nb-stu, html body .ai-hero .nv-dock .nav-glass-btn.nb-tch { width: 52px !important; height: 48px !important; gap: 3px !important; padding: 6px 0 0 !important; border: 2.5px solid #000 !important; border-radius: 9px !important; color: #fff !important; opacity: 1 !important;
+            background: linear-gradient(var(--bc, #34d399), var(--bc, #34d399)) 0 3.5px / 100% 5px no-repeat, linear-gradient(165deg, #3a7050, #1f4530) !important;
+            box-shadow: inset 0 0 0 2px #c98f55, inset 0 0 0 3.5px #5e2d0d, 0 3px 0 #000 !important; filter: none !important; }
+        html body nav.top-nav .nav-pill .nv-ctl .nav-pill-btn.nb-stu, html body .ai-hero .nv-dock .nav-glass-btn.nb-stu { --bc: #34d399; } html body nav.top-nav .nav-pill .nv-ctl .nav-pill-btn.fx-tog { --bc: #fde047; } html body nav.top-nav .nav-pill .nv-ctl .nav-pill-btn.nb-tch, html body .ai-hero .nv-dock .nav-glass-btn.nb-tch { --bc: #fb923c; }
+        html.lite body nav.top-nav .nav-pill .nv-ctl .nav-pill-btn.fx-tog { --bc: #94a3b8; }
+        html body nav.top-nav .nav-pill .nv-ctl .nav-pill-btn .nv-lab, html body .ai-hero .nv-dock .nav-glass-btn .nv-lab { color: #fff !important; text-shadow: 0 0 1px #fff, 0 1px 0 rgba(0,0,0,.5) !important; font-size: .56rem !important; }
+        html body nav.top-nav .nav-pill .nv-ctl .nav-pill-btn .nb-emo, html body nav.top-nav .nav-pill .nv-ctl .fx-tog .fx-on, html body nav.top-nav .nav-pill .nv-ctl .fx-tog .fx-off, html body .ai-hero .nv-dock .nb-emo { font-size: 1rem !important; line-height: 1 !important; filter: drop-shadow(0 1px 0 rgba(0,0,0,.5)) !important; }
+        html body nav.top-nav .nav-pill .nv-ctl .nv-led { top: 7px !important; right: 5px !important; }
+        @media (hover: hover) { html body nav.top-nav .nav-pill .nv-ctl .nav-pill-btn, html body nav.top-nav .nav-pill .nv-ctl .nav-pill-btn.nb-stu, html body nav.top-nav .nav-pill .nv-ctl .nav-pill-btn.nb-tch, html body nav.top-nav .nav-pill .nv-ctl .nav-pill-btn.fx-tog:hover { transform: translateY(-2px) !important; box-shadow: inset 0 0 0 2px #c98f55, inset 0 0 0 3.5px #5e2d0d, 0 5px 0 #000, 0 0 12px rgba(253,224,71,.45) !important; } }
+        /* ★ (27 พ.ย.) มือถือ: ปุ่มเมนู/ครูเล็กลง · กรอบรูปครูเรียบหรูขึ้น (ครู: รอบกรอบรูปยังไม่สวย)
+             เอาไอคอนวงกลม 3 ดวงที่ลอยรอบรูป + ตัวอักษรวงแหวนที่เล็กจนอ่านไม่ออกออก → กรอบ = วงไม้ + คิ้วทองคู่ + วงชอล์กเส้นประหมุนช้า
+             ป้าย I AM OAT! ย้ายมากึ่งกลางใต้รูป · ฟองคำพูดยกขึ้นไม่ทับกรอบ */
+        @media (max-width: 767px) {
+            html body .ai-hero .nv-dock .nav-glass-btn.nb-stu, html body .ai-hero .nv-dock .nav-glass-btn.nb-tch { width: 40px !important; height: 38px !important; padding-top: 5px !important; gap: 1px !important; border-width: 2px !important; border-radius: 8px !important;
+                box-shadow: inset 0 0 0 1.5px #c98f55, inset 0 0 0 2.5px #5e2d0d, 0 2px 0 #000 !important; background-position: 0 2.5px, 0 0 !important; background-size: 100% 4px, auto !important; }
+            html body .ai-hero .nv-dock .nb-emo { font-size: .82rem !important; } html body .ai-hero .nv-dock .nav-glass-btn .nv-lab { font-size: .48rem !important; } html body .ai-hero .nv-dock .nb-bars { transform: scale(.85); }
+            html body .ai-hero > .nv-dock { padding: 3px !important; gap: 3px !important; border-radius: 11px !important; }
+            html body .hero-card.ai-hero .ai-orbit, html body .hero-card.ai-hero .ai-ring text { display: none !important; }
+            html body .hero-card.ai-hero .ai-photo::before { opacity: .3 !important; }
+            html body .hero-card.ai-hero .ai-disc { background: radial-gradient(circle at 50% 35%, #3a6b4c 0%, #24503a 60%, #173524 100%) !important; border-width: 3px !important;
+                box-shadow: 0 0 0 3px #c98f55, 0 0 0 4.5px #5e2d0d, 0 0 0 6.5px #fde047, 0 0 0 8px #000, 0 6px 14px rgba(0,0,0,.35) !important; }
+            html body .hero-card.ai-hero .ai-ring .hx-ring-dash { stroke: #fff !important; stroke-opacity: .7 !important; stroke-width: 2.4 !important; stroke-dasharray: 3 7 !important; }
+            html body .hero-card.ai-hero .ai-frame { box-shadow: 0 0 0 2.5px #fff, 0 0 0 4.5px #000, 0 0 0 6.5px #fbbf24, 0 0 0 8px #000 !important; }
+            html body .hero-card.ai-hero .ai-oat { left: 50% !important; right: auto !important; bottom: -14px !important; transform: translateX(-50%) !important; font-size: .54rem !important; padding: 3px 9px !important; white-space: nowrap; }
+            html body .hero-card.ai-hero .hc-bub { left: 4% !important; top: -30px !important; }
+        }
+        /* ★ (27 พ.ย.) มือถือ: ฟองคำพูดเกาะขอบบนกรอบรูปพอดี (เดิมลอยห่าง) — จัดกึ่งกลางเหนือรูป หางชี้ลงกลางรูป */
+        @media (max-width: 767px) {
+            html body .hero-card.ai-hero .hc-bub { left: 50% !important; top: -4px !important; }
+            html body .hero-card.ai-hero .hc-bub b { left: 0; translate: -50% 0; transform-origin: 50% 100%; }
+            html body .hero-card.ai-hero .hc-bub b::after { left: 50% !important; margin-left: -5px; }
+        }
 </style>
     <!-- ★ Tailwind CSS สำเร็จรูป (3.4.19) แทนตัวคอมไพล์สดแบบ CDN: ไม่ต้องคอมไพล์ในเบราว์เซอร์ทุกครั้งที่เปิดเว็บ/เปิดป๊อปอัป
          และไม่พึ่งเซิร์ฟเวอร์ภายนอก (เดิมถ้า cdn.tailwindcss.com ล่ม ทั้งหน้าจะไม่มีสไตล์)
@@ -8867,7 +8931,7 @@
         <div class="nav-pill hidden md:flex items-center justify-between w-full max-w-7xl px-5 py-2.5">
             <div class="flex items-center gap-3 nav-brand">
                 <span class="nav-logo">👩‍🎓</span>
-                <h1 class="nav-word">I AM <span class="nav-accent">OAT</span> 🇬🇧</h1>
+                <h1 class="nav-word"><span class="nw-t">I AM <span class="nav-accent">OAT</span></span> <span class="nv-flag" aria-hidden="true">🇬🇧</span></h1>
             </div>
             <div class="nav-links" role="group" aria-label="ไปยังโซนต่างๆ">
                 <a href="#sec-deadline" class="nav-link" data-sec="sec-deadline" style="--nc:#fde047;" title="Deadline" onclick="return goSec_('sec-deadline')"><span aria-hidden="true">⏰</span><b>DEADLINE</b></a>
@@ -8881,7 +8945,7 @@
                 <button type="button" onclick="toggleFx_()" aria-pressed="true" aria-label="เอฟเฟกต์เคลื่อนไหว (กดเพื่อปิด/เปิด ถ้าเครื่องกระตุก)" title="เอฟเฟกต์ เปิด/ปิด (ถ้าเครื่องกระตุกให้ปิด)" class="nav-pill-btn fx-tog"><i class="nv-led" aria-hidden="true"></i><span class="fx-on" aria-hidden="true">✨</span><span class="fx-off" aria-hidden="true">💤</span><span class="nv-lab" aria-hidden="true">FX</span></button>
                 <button type="button" onclick="openAdminMenu()" aria-label="เมนูครู" title="เมนูครู" class="nav-pill-btn nb-adm nb-tch"><span class="nb-emo" aria-hidden="true">👨‍🏫</span><span class="nv-lab" aria-hidden="true">ครู</span></button>
             </div>
-            <span class="nv-fx" aria-hidden="true"><i class="nv-bunt"></i><i class="nv-ck c1">ABC</i><i class="nv-ck c2">A+</i><i class="nv-ck c3">★</i><i class="nv-tw t1">✦</i><i class="nv-tw t2">✦</i><i class="nv-tray"><b class="k1"></b><b class="k2"></b><b class="k3"></b><b class="er"></b></i></span><i class="nav-prog" aria-hidden="true"><b></b></i>
+            <span class="nv-fx" aria-hidden="true"><i class="cb-gc g1"></i><i class="cb-gc g2"></i><i class="cb-gc g3"></i><i class="cb-gc g4"></i><i class="nv-lamp l1"></i><i class="nv-lamp l2"></i><i class="nv-bunt"></i><i class="nv-ck c1">ABC</i><i class="nv-ck c2">A+</i><i class="nv-ck c3">★</i><i class="nv-tw t1">✦</i><i class="nv-tw t2">✦</i><i class="nv-tray"><b class="k1"></b><b class="k2"></b><b class="k3"></b><b class="er"></b></i></span><i class="nav-prog" aria-hidden="true"><b></b></i>
         </div>
     </nav>
 
